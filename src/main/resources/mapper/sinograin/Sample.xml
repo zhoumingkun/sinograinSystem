@@ -2,128 +2,165 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.toughguy.sinograin.model.barn.Sample">
 
-	<insert id="save" parameterType="User" keyProperty="id" useGeneratedKeys="true">
-		insert into auth_user (guid, createTime,updateTime,userName, userPass,phone,email) 
-		values (#{guid}, #{createTime},#{updateTime},#{userName}, #{userPass},#{phone},#{email})
+	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,state,autograph,source,gainTime,pId) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{state},#{autograph},#{source},#{gainTime},#{pId})
 	</insert>
 	
-	<!-- 存储某个用户和角色的对应关系 -->
-	<insert id="saveUserAndRoleRelation" parameterType="Map" keyProperty="id" useGeneratedKeys="true">
-		insert into auth_user_role (userId, roleId) values (#{userId}, #{roleId})
-	</insert>
 	
-	<!-- 删除某个用户 -->
+	<!-- 删除某个样品 -->
 	<delete id="delete" parameterType="int" >
-		delete from auth_user where id = #{id}
+		delete from barn_sample where id = #{id}
 	</delete>
 	
-	<!-- 删除用户和角色的对应关系 -->
-	<delete id="deleteUserAndRoleRelation" parameterType="Map">
-		delete from auth_user_role where userId = #{userId} and roleId = #{roleId}
-	</delete>
-	
-	<!-- 根据用户id删除用户和角色的对应关系 -->
-	<delete id="deleteUserAndRolesRelationByUserId" parameterType="int">
-		delete from auth_user_role where userId = #{userId}
-	</delete>
-	
-	<!-- 删除用户集 -->
+	<!-- 删除样品集 -->
 	<delete id="deleteByIDs" parameterType="List">
-		delete from auth_user where id in
+		delete from barn_sample where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
 	
-	<!-- 查询某个用户 -->
-	<select id="find" parameterType="int" resultType="User">
-		select * from auth_user where id = #{id}
+	<!-- 查询某条样品 -->
+	<select id="find" parameterType="int" resultType="Sample">
+		select * from barn_sample where id = #{id}
 	</select>
 	
-	<!-- 查询全部用户 -->
-	<select id="findAll" resultType="User" parameterType="Map">
-		select * from auth_user
+	<!-- 查询全部样品 -->
+	<select id="findAll" resultType="Sample" parameterType="Map">
+		select * from barn_sample
 		<include refid="paramsSQL"/>
 	</select>
 	
 	<!-- 分页查询用户 -->
-	<select id="findPaginated" resultType="User" parameterType="Map">
-		select * from auth_user
+	<select id="findPaginated" resultType="Sample" parameterType="Map">
+		select * from barn_sample
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from auth_user
+		select count(*) from barn_sample
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 根据用户id查询用户和角色的对应关系 -->
-	<select id="findUserRolesRelationByUserId" parameterType="int" resultType="Integer">
-		select roleId from auth_user_role where userId = #{userId}
-	</select>
-	
-
-	<!-- 根据用户名字查找用户 -->
-	<select id="findUserByUserName" parameterType="String" resultType="User">
-		select * from auth_user where userName = #{userName}
-	</select> 
-	
-	<!-- 修个某个用户 -->
-	<update id="update" parameterType="User">
-		update auth_user
+	<!-- 修个某条扦样 -->
+	<update id="update" parameterType="Sample">
+		update barn_sample
 		<set>
-			<if test="userName != null and userName != ''">userName = #{userName},</if>
-			<if test="userPass != null and userPass != ''">userPass = #{userPass},</if>
-			<if test="phone != null and phone != ''">phone = #{phone},</if>
-			<if test="email != null and email != ''">email = #{email},</if>
+			<if test="sampleNo != null and sampleNo != ''">sampleNo = #{sampleNo},</if>
+			<if test="depot != null and depot != ''">depot = #{depot},</if>
+			<if test="position != null and position != ''">position = #{position},</if>
+			<if test="sort != null and sort != ''">sort = #{sort},</if>
+			<if test="originPlace != null and originPlace != ''">originPlace = #{originPlace},</if>
+			<if test="quality != null and quality != ''">quality = #{quality},</if>
+			<if test="amount != null and amount != ''">amount = #{amount},</if>
+			<if test="remark != null and remark != ''">remark = #{remark},</if>
+			<if test="state != null and state != ''">state = #{state},</if>
+			<if test="autograph != null and autograph != ''">autograph = #{autograph},</if>
+			<if test="source != null and source != ''">source = #{source},</if>
+			<if test="gainTime != null and gainTime != ''">gainTime = #{gainTime},</if>
+			<if test="pId != null and pId != ''">pId = #{pId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
 	</update>
 	
-	<!-- 根据id查找角色 -->
-	<select id="findRoleByUserId" parameterType="Integer" resultType ="Role">
-		SELECT
-			r.*
-		FROM
-			lemon_liquid_auth_role r
-		LEFT JOIN auth_user_role u_r ON r.id = u_r.roleId
-		LEFT JOIN auth_user u ON u.id = u_r.userId
-		WHERE
-			u.id = #{id}
-	</select>
-	
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test=" userName != null and userName != '' ">
-				and userName = #{userName}
+			<if test=" sampleNo != null and sampleNo != '' ">
+				and sampleNo = #{sampleNo}
 			</if>
-			<if test=" userNameLike != null and userNameLike != '' ">
-				and userName like concat(concat('%', #{userNameLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" userPass != null and userPass != '' ">
-				and userPass = #{userPass}
-			</if>
-			<if test=" userPassLike != null and userPassLike != '' ">
-				and userPass like concat(concat('%', #{userPassLike, jdbcType=VARCHAR}),'%')
+			<if test=" sampleNoLike != null and sampleNoLike != '' ">
+				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" phone != null and phone != '' ">
-				and phone = #{phone}
+			<if test=" depot != null and depot != '' ">
+				and depot = #{depot}
 			</if>
-			<if test=" phoneLike != null and phoneLike != '' ">
-				and phone like concat(concat('%', #{phoneLike, jdbcType=VARCHAR}),'%')
+			<if test=" depotLike != null and depotLike != '' ">
+				and depot like concat(concat('%', #{depotLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" email != null and email != '' ">
-				and email = #{email}
+			<if test=" position != null and position != '' ">
+				and position = #{position}
 			</if>
-			<if test=" emailLike != null and emailLike != '' ">
-				and email like concat(concat('%', #{emailLike, jdbcType=VARCHAR}),'%')
+			<if test=" positionLike != null and positionLike != '' ">
+				and position like concat(concat('%', #{positionLike, jdbcType=VARCHAR}),'%')
 			</if>
+			
+			<if test=" sort != null and sort != '' ">
+				and sort = #{sort}
+			</if>
+			<if test=" sortLike != null and sortLike != '' ">
+				and sort like concat(concat('%', #{sortLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" originPlace != null and originPlace != '' ">
+				and originPlace = #{originPlace}
+			</if>
+			<if test=" originPlaceLike != null and originPlaceLike != '' ">
+				and originPlace like concat(concat('%', #{originPlaceLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" quality != null and quality != '' ">
+				and quality = #{quality}
+			</if>
+			<if test=" qualityLike != null and qualityLike != '' ">
+				and quality like concat(concat('%', #{qualityLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" amount != null and amount != '' ">
+				and amount = #{amount}
+			</if>
+			<if test=" amountLike != null and amountLike != '' ">
+				and amount like concat(concat('%', #{amountLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" remark != null and remark != '' ">
+				and remark = #{remark}
+			</if>
+			<if test=" remarkLike != null and remarkLike != '' ">
+				and remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" state != null and state != '' ">
+				and state = #{state}
+			</if>
+			<if test=" stateLike != null and stateLike != '' ">
+				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" autograph != null and autograph != '' ">
+				and autograph = #{autograph}
+			</if>
+			<if test=" autographLike != null and autographLike != '' ">
+				and autograph like concat(concat('%', #{autographLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" source != null and source != '' ">
+				and source = #{source}
+			</if>
+			<if test=" sourceLike != null and sourceLike != '' ">
+				and source like concat(concat('%', #{sourceLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" pId != null and pId != '' ">
+				and pId = #{pId}
+			</if>
+			<if test=" gainTime != null and gainTime != '' ">
+				and gainTime = #{gainTime}
+			</if>
+			<if test=" gainTimeLike != null and gainTimeLike != '' ">
+				and gainTime like concat(concat('%', #{gainTimeLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" gainTime != null and gainTime != '' ">
+				and gainTime = #{gainTime}
+			</if>
+			<if test=" gainTimeLike != null and gainTimeLike != '' ">
+				and gainTime like concat(concat('%', #{gainTimeLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			
 		</where>
 	</sql>
 	
