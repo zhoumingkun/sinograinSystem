@@ -18,7 +18,7 @@ public class Sample extends AbstractModel{
 	private String quality;    //性质
 	private String amount;   //数量
 	private String remark;   //备注
-	private String state;    //状态
+	private int state;    //状态
 	private String autograph; //签名
 	private String source;    //来源（被查库点）
 	private String  gainTime;  //收获年度
@@ -78,10 +78,10 @@ public class Sample extends AbstractModel{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getState() {
+	public int getState() {
 		return state;
 	}
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 	public String getAutograph() {
