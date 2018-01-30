@@ -12,6 +12,7 @@ public class Register extends AbstractModel {
 	
 	private String formName; //表格名称
 	private int state; //状态
+	
 	public String getFormName() {
 		return formName;
 	}
@@ -24,7 +25,5 @@ public class Register extends AbstractModel {
 	public void setState(int state) {
 		this.state = state;
 	}
-	
-	
 	
 }
