@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
 import com.toughguy.sinograin.model.AbstractModel;
+import com.toughguy.sinograin.util.JsonUtil;
 
 /**
  * 扦样登记表
@@ -25,5 +26,8 @@ public class Register extends AbstractModel {
 	public void setState(int state) {
 		this.state = state;
 	}
-	
+	@Override
+	public String toString(){
+		return JsonUtil.objectToJson(this);
+	}
 }

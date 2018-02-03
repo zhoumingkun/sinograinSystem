@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.">
+
+	<insert id="save" parameterType="" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,capacity,verageDensity,unQuality,leader,rummager,custodian,remark) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{capacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark})
+	</insert>
+	
+	
+	<!-- 删除某个样品 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_manuscript where id = #{id}
+	</delete>
+	
+	<!-- 删除样品集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_manuscript where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某条样品 -->
+	<select id="find" parameterType="int" resultType="">
+		select * from barn_manuscript where id = #{id}
+	</select>
+	
+	<!-- 查询全部样品 -->
+	<select id="findAll" resultType="" parameterType="Map">
+		select * from barn_manuscript
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询用户 -->
+	<select id="findPaginated" resultType="" parameterType="Map">
+		select * from barn_manuscript
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修个某条扦样 -->
+	<update id="update" parameterType="">
+		update barn_manuscript
+		<set>
+			<if test="length != null and length != ''">length = #{length},</if>
+			<if test="wide != null and wide != ''">wide = #{wide},</if>
+			<if test="high != null and high != ''">high = #{high},</if>
+			<if test="deductVolume != null and deductVolume != ''">deductVolume = #{deductVolume},</if>
+			<if test="grainQuality != null and grainQuality != ''">grainQuality = #{grainQuality},</if>
+			<if test="capacity != null and capacity != ''">capacity = #{capacity},</if>
+			<if test="verageDensity != null and verageDensity != ''">verageDensity = #{verageDensity},</if>
+			<if test="unQuality != null and unQuality != ''">unQuality = #{unQuality},</if>
+			<if test="leader != null and leader != ''">leader = #{leader},</if>
+			<if test="rummager != null and rummager != ''">rummager = #{rummager},</if>
+			<if test="custodian != null and custodian != ''">custodian = #{custodian},</if>
+			<if test="remark != null and remark != ''">remark = #{remark},</if>
+			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" length != null and length != '' ">
+				and length = #{length}
+			</if>
+			<if test=" lengthLike != null and lengthLike != '' ">
+				and length like concat(concat('%', #{lengthLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" wide != null and wide != '' ">
+				and wide = #{wide}
+			</if>
+			<if test=" wideLike != null and wideLike != '' ">
+				and wide like concat(concat('%', #{wideLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" high != null and high != '' ">
+				and high = #{high}
+			</if>
+			
+			<if test=" leader != null and leader != '' ">
+				and leader = #{leader}
+			</if>
+			<if test=" leaderLike != null and leaderLike != '' ">
+				and leader like concat(concat('%', #{leaderLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" rummager != null and rummager != '' ">
+				and rummager = #{rummager}
+			</if>
+			<if test=" rummagerLike != null and rummagerLike != '' ">
+				and rummager like concat(concat('%', #{rummagerLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" custodian != null and custodian != '' ">
+				and quality = #{quality}
+			</if>
+			<if test=" custodianLike != null and custodianLike != '' ">
+				and custodian like concat(concat('%', #{custodianLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" remark != null and remark != '' ">
+				and remark = #{remark}
+			</if>
+			<if test=" remarkLike != null and remarkLike != '' ">
+				and remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			
+		</where>
+	</sql>
+	
+</mapper>

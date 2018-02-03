@@ -48,19 +48,8 @@
 	<update id="update" parameterType="Register">
 		update barn_register
 		<set>
-			<if test="sampleNo != null and sampleNo != ''">sampleNo = #{sampleNo},</if>
-			<if test="depot != null and depot != ''">depot = #{depot},</if>
-			<if test="position != null and position != ''">position = #{position},</if>
-			<if test="sort != null and sort != ''">sort = #{sort},</if>
-			<if test="originPlace != null and originPlace != ''">originPlace = #{originPlace},</if>
-			<if test="quality != null and quality != ''">quality = #{quality},</if>
-			<if test="amount != null and amount != ''">amount = #{amount},</if>
-			<if test="remark != null and remark != ''">remark = #{remark},</if>
+			<if test="formName != null and formName != ''">formName = #{formName},</if>
 			<if test="state != null and state != ''">state = #{state},</if>
-			<if test="autograph != null and autograph != ''">autograph = #{autograph},</if>
-			<if test="source != null and source != ''">source = #{source},</if>
-			<if test="gainTime != null and gainTime != ''">gainTime = #{gainTime},</if>
-			<if test="pId != null and pId != ''">pId = #{pId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -69,93 +58,18 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test=" sampleNo != null and sampleNo != '' ">
-				and sampleNo = #{sampleNo}
+			<if test=" formName != null and formName != '' ">
+				and formName = #{formName}
 			</if>
-			<if test=" sampleNoLike != null and sampleNoLike != '' ">
-				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" depot != null and depot != '' ">
-				and depot = #{depot}
-			</if>
-			<if test=" depotLike != null and depotLike != '' ">
-				and depot like concat(concat('%', #{depotLike, jdbcType=VARCHAR}),'%')
+			<if test=" formNameLike != null and formNameLike != '' ">
+				and formName like concat(concat('%', #{formNameLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" position != null and position != '' ">
-				and position = #{position}
-			</if>
-			<if test=" positionLike != null and positionLike != '' ">
-				and position like concat(concat('%', #{positionLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" sort != null and sort != '' ">
-				and sort = #{sort}
-			</if>
-			<if test=" sortLike != null and sortLike != '' ">
-				and sort like concat(concat('%', #{sortLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" originPlace != null and originPlace != '' ">
-				and originPlace = #{originPlace}
-			</if>
-			<if test=" originPlaceLike != null and originPlaceLike != '' ">
-				and originPlace like concat(concat('%', #{originPlaceLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" quality != null and quality != '' ">
-				and quality = #{quality}
-			</if>
-			<if test=" qualityLike != null and qualityLike != '' ">
-				and quality like concat(concat('%', #{qualityLike, jdbcType=VARCHAR}),'%')
-			</if>
-			<if test=" amount != null and amount != '' ">
-				and amount = #{amount}
-			</if>
-			<if test=" amountLike != null and amountLike != '' ">
-				and amount like concat(concat('%', #{amountLike, jdbcType=VARCHAR}),'%')
-			</if>
-			<if test=" remark != null and remark != '' ">
-				and remark = #{remark}
-			</if>
-			<if test=" remarkLike != null and remarkLike != '' ">
-				and remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
-			</if>
 			<if test=" state != null and state != '' ">
 				and state = #{state}
 			</if>
 			<if test=" stateLike != null and stateLike != '' ">
 				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" autograph != null and autograph != '' ">
-				and autograph = #{autograph}
-			</if>
-			<if test=" autographLike != null and autographLike != '' ">
-				and autograph like concat(concat('%', #{autographLike, jdbcType=VARCHAR}),'%')
-			</if>
-			<if test=" source != null and source != '' ">
-				and source = #{source}
-			</if>
-			<if test=" sourceLike != null and sourceLike != '' ">
-				and source like concat(concat('%', #{sourceLike, jdbcType=VARCHAR}),'%')
-			</if>
-			<if test=" pId != null and pId != '' ">
-				and pId = #{pId}
-			</if>
-			<if test=" gainTime != null and gainTime != '' ">
-				and gainTime = #{gainTime}
-			</if>
-			<if test=" gainTimeLike != null and gainTimeLike != '' ">
-				and gainTime like concat(concat('%', #{gainTimeLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" gainTime != null and gainTime != '' ">
-				and gainTime = #{gainTime}
-			</if>
-			<if test=" gainTimeLike != null and gainTimeLike != '' ">
-				and gainTime like concat(concat('%', #{gainTimeLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}

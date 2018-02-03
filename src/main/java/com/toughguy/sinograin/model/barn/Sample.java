@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
 import com.toughguy.sinograin.model.AbstractModel;
+import com.toughguy.sinograin.util.JsonUtil;
 
 /**
  * 扦样实体类
@@ -102,5 +103,8 @@ public class Sample extends AbstractModel{
 	public void setGainTime(String gainTime) {
 		this.gainTime = gainTime;
 	}
-
+	@Override
+	public String toString(){
+		return JsonUtil.objectToJson(this);
+	}
 }
