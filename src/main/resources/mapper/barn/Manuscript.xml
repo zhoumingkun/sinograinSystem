@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.toughguy.sinograin.model.barn.">
+<mapper namespace="com.toughguy.sinograin.model.barn.Manuscript">
 
-	<insert id="save" parameterType="" keyProperty="id" useGeneratedKeys="true">
+	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,capacity,verageDensity,unQuality,leader,rummager,custodian,remark) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{capacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark})
 	</insert>
@@ -22,18 +22,18 @@
 	</delete>
 	
 	<!-- 查询某条样品 -->
-	<select id="find" parameterType="int" resultType="">
+	<select id="find" parameterType="int" resultType="Manuscript">
 		select * from barn_manuscript where id = #{id}
 	</select>
 	
 	<!-- 查询全部样品 -->
-	<select id="findAll" resultType="" parameterType="Map">
+	<select id="findAll" resultType="Manuscript" parameterType="Map">
 		select * from barn_manuscript
 		<include refid="paramsSQL"/>
 	</select>
 	
 	<!-- 分页查询用户 -->
-	<select id="findPaginated" resultType="" parameterType="Map">
+	<select id="findPaginated" resultType="Manuscript" parameterType="Map">
 		select * from barn_manuscript
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
@@ -45,7 +45,7 @@
 	</select>
 	
 	<!-- 修个某条扦样 -->
-	<update id="update" parameterType="">
+	<update id="update" parameterType="Manuscript">
 		update barn_manuscript
 		<set>
 			<if test="length != null and length != ''">length = #{length},</if>
