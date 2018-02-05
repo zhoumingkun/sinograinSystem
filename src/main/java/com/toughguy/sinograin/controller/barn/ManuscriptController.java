@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,42 +12,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.model.barn.Manuscript;
 import com.toughguy.sinograin.model.barn.Register;
-import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
-import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
+import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
 
 @Controller
-@RequestMapping("/register")
-public class RegisterController {
-	
+@RequestMapping("/manuscript")
+public class ManuscriptController {
+
 	@Autowired
-	private IRegisterService registerService;
+	private IManuscriptService manuscriptService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	public List<Register> getAll(){
-		return registerService.findAll();
+	public List<Manuscript> getAll(){
+		return manuscriptService.findAll();
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	public String edit(Register register) {
+	public String edit(Manuscript manuscript) {
 		try {
-			registerService.update(register);
+			manuscriptService.update(manuscript);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	public String saveSample(Register register) {
+	public String saveSample(Manuscript manuscript) {
 		try {
-			registerService.save(register);
+			manuscriptService.save(manuscript);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -67,7 +62,7 @@ public class RegisterController {
 				// 参数处理
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
-			PagerModel<Register> pg = registerService.findPaginated(map);
+			PagerModel<Manuscript> pg = manuscriptService.findPaginated(map);
 			
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
@@ -79,4 +74,5 @@ public class RegisterController {
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
 	}
+	
 }
