@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.SafetyReport">
+
+	<insert id="save" parameterType="SafetyReport" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_safety_report (guid, createTime,updateTime,problem,image,sampleId) 
+		values (#{guid}, #{createTime},#{updateTime},#{problem},#{image},#{sampleId})
+	</insert>
+	
+	
+	<!-- 删除某个样品 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_safety_report where id = #{id}
+	</delete>
+	
+	<!-- 删除样品集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_safety_report where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某条样品 -->
+	<select id="find" parameterType="int" resultType="SafetyReport">
+		select * from barn_safety_report where id = #{id}
+	</select>
+	
+	<!-- 查询全部样品 -->
+	<select id="findAll" resultType="SafetyReport" parameterType="Map">
+		select * from barn_safety_report
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询用户 -->
+	<select id="findPaginated" resultType="SafetyReport" parameterType="Map">
+		select * from barn_safety_report
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_safety_report
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修个某条扦样 -->
+	<update id="update" parameterType="SafetyReport">
+		update barn_safety_report
+		<set>
+			<if test="problem != null and problem != ''">problem = #{problem},</if>
+			<if test="image != null and image != ''">image = #{image},</if>
+			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" problem != null and problem != '' ">
+				and problem = #{problem}
+			</if>
+			<if test=" problemLike != null and problemLike != '' ">
+				and problem like concat(concat('%', #{problemLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" image != null and image != '' ">
+				and image = #{image}
+			</if>
+			<if test=" imageLike != null and imageLike != '' ">
+				and image like concat(concat('%', #{imageLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" sampleId != null and sampleId != '' ">
+				and sampleId = #{sampleId}
+			</if>
+			<if test=" sampleIdLike != null and sampleIdLike != '' ">
+				and sampleId like concat(concat('%', #{sampleIdLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>
