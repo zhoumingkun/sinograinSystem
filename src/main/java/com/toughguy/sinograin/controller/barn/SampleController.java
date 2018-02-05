@@ -3,10 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
-import com.toughguy.sinograin.util.PinyinUtil;
 
 @Controller
 @RequestMapping(value = "/sample")
@@ -26,7 +22,8 @@ public class SampleController {
 
 	@Autowired
 	private ISampleService sampleService;
-	
+	@Autowired
+	private IBarnService barnService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -55,6 +52,18 @@ public class SampleController {
 	public String saveSample(Sample sample) {
 		try {
 			sampleService.save(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "/saveAll")
+	public String saveSampleAndRegister(String formName,Sample sample) {
+		try {
+			barnService.saveSampleAndRegister(formName, sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			// TODO: handle exception
