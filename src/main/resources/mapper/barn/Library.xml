@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.Library">
+
+	<insert id="save" parameterType="Library" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_library (guid, createTime,updateTime,libraryName,state) 
+		values (#{guid}, #{createTime},#{updateTime},#{libraryName},#{state})
+	</insert>
+	
+	
+	<!-- 删除某个库 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_library where id = #{id}
+	</delete>
+	
+	<!-- 删除库集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_library where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某条库 -->
+	<select id="find" parameterType="int" resultType="Library">
+		select * from barn_library where id = #{id}
+	</select>
+	
+	<!-- 查询全部库 -->
+	<select id="findAll" resultType="Library" parameterType="Map">
+		select * from barn_library
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询库 -->
+	<select id="findPaginated" resultType="Library" parameterType="Map">
+		select * from barn_library
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_library
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条库 -->
+	<update id="update" parameterType="Library">
+		update barn_library
+		<set>
+			<if test="libraryName != null and libraryName != ''">libraryName = #{libraryName},</if>
+			<if test="state != null and state != ''">state = #{state},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" libraryName != null and libraryName != '' ">
+				and libraryName = #{libraryName}
+			</if>
+			<if test=" libraryNameLike != null and libraryNameLike != '' ">
+				and libraryName like concat(concat('%', #{libraryNameLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" state != null and state != '' ">
+				and state = #{state}
+			</if>
+			<if test=" stateLike != null and stateLike != '' ">
+				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			
+		</where>
+	</sql>
+	
+</mapper>
