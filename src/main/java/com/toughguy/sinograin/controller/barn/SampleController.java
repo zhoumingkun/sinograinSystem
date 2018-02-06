@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.dto.SamplingDTO;
+import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.util.JsonUtil;
 
 @Controller
 @RequestMapping(value = "/sample")
@@ -61,9 +64,15 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
-	public String saveSampleAndRegister(String formName,Sample sample) {
+	public String saveSampleAndRegister(String formName,String sample) {
 		try {
-			barnService.saveSampleAndRegister(formName, sample);
+			SamplingDTO samplingDTO = new SamplingDTO();
+			Register register = new Register();
+			register.setFormName(formName);
+			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
+			samplingDTO.setRegister(register);
+			samplingDTO.setList(list);
+			barnService.saveSampleAndRegister(samplingDTO);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			// TODO: handle exception
