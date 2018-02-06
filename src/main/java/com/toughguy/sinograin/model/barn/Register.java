@@ -13,6 +13,7 @@ public class Register extends AbstractModel {
 	
 	private String formName; //表格名称
 	private int state; //状态
+	private int libraryId;//库id
 	
 	public String getFormName() {
 		return formName;
@@ -25,6 +26,13 @@ public class Register extends AbstractModel {
 	}
 	public void setState(int state) {
 		this.state = state;
+	}
+	
+	public int getLibraryId() {
+		return libraryId;
+	}
+	public void setLibraryId(int libraryId) {
+		this.libraryId = libraryId;
 	}
 	@Override
 	public String toString(){

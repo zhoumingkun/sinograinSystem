@@ -3,17 +3,17 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Register">
 
 	<insert id="save" parameterType="Register" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_register (guid, createTime,updateTime,formName,state) 
-		values (#{guid}, #{createTime},#{updateTime},#{formName},#{state})
+		insert into barn_register (guid, createTime,updateTime,formName,state,libraryId) 
+		values (#{guid}, #{createTime},#{updateTime},#{formName},#{state},#{libraryId})
 	</insert>
 	
 	
-	<!-- 删除某个样品 -->
+	<!-- 删除某个扦样表 -->
 	<delete id="delete" parameterType="int" >
 		delete from barn_register where id = #{id}
 	</delete>
 	
-	<!-- 删除样品集 -->
+	<!-- 删除扦样表集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_register where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
@@ -21,18 +21,18 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某条样品 -->
+	<!-- 查询某条扦样表 -->
 	<select id="find" parameterType="int" resultType="Register">
 		select * from barn_register where id = #{id}
 	</select>
 	
-	<!-- 查询全部样品 -->
+	<!-- 查询全部扦样表 -->
 	<select id="findAll" resultType="Register" parameterType="Map">
 		select * from barn_register
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 分页查询用户 -->
+	<!-- 分页查询扦样表 -->
 	<select id="findPaginated" resultType="Register" parameterType="Map">
 		select * from barn_register
 		<include refid="paramsSQL"/>
@@ -44,12 +44,13 @@
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 修个某条扦样 -->
+	<!-- 修个某条扦样表 -->
 	<update id="update" parameterType="Register">
 		update barn_register
 		<set>
 			<if test="formName != null and formName != ''">formName = #{formName},</if>
 			<if test="state != null and state != ''">state = #{state},</if>
+			<if test="libraryId !=null and libraryId != ''">libraryId = #{libraryId}</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -70,6 +71,9 @@
 			</if>
 			<if test=" stateLike != null and stateLike != '' ">
 				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" libraryId != null and libraryId != '' ">
+				and libraryId = #{libraryId}
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}

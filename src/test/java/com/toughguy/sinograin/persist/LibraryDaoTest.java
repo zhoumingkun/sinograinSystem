@@ -1,7 +1,5 @@
 package com.toughguy.sinograin.persist;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +19,12 @@ public class LibraryDaoTest {
 	
 	@Test
 	public void testAdd() {
-		Library l = new Library();
-		l.setLibraryName("山西库");
-		l.setState(0);
-		libraryDao.save(l);
+		for(int i=0;i<10;i++) {
+			Library l = new Library();
+			l.setLibraryName("山西库" + i);
+			l.setState(0);
+			libraryDao.save(l);
+		}
 	}
 
 }
