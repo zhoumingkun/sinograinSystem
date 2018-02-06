@@ -21,6 +21,11 @@
 		</foreach>
 	</delete>
 	
+	<!-- 根据用户id查询用户和角色的对应关系 -->
+	<select id="findByLibraryId" parameterType="int" resultType="Integer">
+		select * from barn_register where libraryId = #{libraryId}
+	</select>
+	
 	<!-- 查询某条扦样表 -->
 	<select id="find" parameterType="int" resultType="Register">
 		select * from barn_register where id = #{id}

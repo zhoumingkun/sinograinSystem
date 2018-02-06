@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -59,7 +60,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	public String data(String params) {
+	public String data(String params,@RequestParam("libraryId") Integer libraryId) {
 		try {
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -71,8 +72,10 @@ public class RegisterController {
 			
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
+			List<Register> rs = registerService.findByLibraryId(libraryId);
 			result.put("total", pg.getTotal());
-			result.put("rows", pg.getData());
+			result.put("rows", rs);
+			System.out.println(om.writeValueAsString(result));
 			return om.writeValueAsString(result);
 		} catch (Exception e) {
 			e.printStackTrace();
