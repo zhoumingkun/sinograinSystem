@@ -11,7 +11,7 @@ public class Library extends AbstractModel{
 	private static final long serialVersionUID = -7116934549541376125L;
 	
 	private String libraryName; //库名
-	private int state; //状态
+	private int state; //状态    （-1未启用 、1 启用）
 	public String getLibraryName() {
 		return libraryName;
 	}

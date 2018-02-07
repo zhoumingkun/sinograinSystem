@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Sample">
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,state,autograph,source,gainTime,pId) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{state},#{autograph},#{source},#{gainTime},#{pId})
+		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,state,autograph,source,gainTime,pId,sampleTime) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{state},#{autograph},#{source},#{gainTime},#{pId},#{sampleTime})
 	</insert>
 	
 	
@@ -62,6 +62,7 @@
 			<if test="gainTime != null and gainTime != ''">gainTime = #{gainTime},</if>
 			<if test="pId != null and pId != ''">pId = #{pId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			<if test="sampleTime != null">sampleTime = #{sampleTime},</if>
 		</set>
 		where id = #{id}
 	</update>

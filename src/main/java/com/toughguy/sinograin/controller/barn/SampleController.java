@@ -69,6 +69,7 @@ public class SampleController {
 			SamplingDTO samplingDTO = new SamplingDTO();
 			Register register = new Register();
 			register.setFormName(formName);
+			register.setState(-1);
 			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
 			samplingDTO.setRegister(register);
 			samplingDTO.setList(list);

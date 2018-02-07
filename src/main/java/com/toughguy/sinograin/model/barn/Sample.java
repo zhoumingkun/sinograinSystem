@@ -1,5 +1,8 @@
 package com.toughguy.sinograin.model.barn;
 
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toughguy.sinograin.model.AbstractModel;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -19,10 +22,11 @@ public class Sample extends AbstractModel{
 	private String quality;    //性质
 	private String amount;   //数量
 	private String remark;   //备注
-	private int state;    //状态
+	private int state;    //状态    （-1 未扦样， 1 已扦样 ）
 	private String autograph; //签名
 	private String source;    //来源（被查库点）
 	private String  gainTime;  //收获年度
+	private Date sampleTime;   //扦样时间
 	private int pId;          //扦样登记表id
 	
 	public int getpId() {
@@ -63,6 +67,13 @@ public class Sample extends AbstractModel{
 	}
 	public String getQuality() {
 		return quality;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getSampleTime() {
+		return sampleTime;
+	}
+	public void setSampleTime(Date sampleTime) {
+		this.sampleTime = sampleTime;
 	}
 	public void setQuality(String quality) {
 		this.quality = quality;

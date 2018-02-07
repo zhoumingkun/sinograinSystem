@@ -25,6 +25,7 @@ public class BarnServiceImpl implements IBarnService {
 		int rId = sampleDTO.getRegister().getId();
 		for(Sample s : sampleDTO.getList()){
 			s.setpId(rId);
+			s.setState(-1);
 			sampleService.save(s);
 		}
 	}
