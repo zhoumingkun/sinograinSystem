@@ -60,7 +60,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	public String data(String params,@RequestParam("libraryId") Integer libraryId) {
+	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -72,10 +72,8 @@ public class RegisterController {
 			
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
-			List<Register> rs = registerService.findByLibraryId(libraryId);
 			result.put("total", pg.getTotal());
-			result.put("rows", rs);
-			System.out.println(om.writeValueAsString(result));
+			result.put("rows", pg.getData());
 			return om.writeValueAsString(result);
 		} catch (Exception e) {
 			e.printStackTrace();
