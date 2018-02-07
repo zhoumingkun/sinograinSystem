@@ -74,6 +74,9 @@
 			<if test=" state != null and state != '' ">
 				and state = #{state}
 			</if>
+			<if test=" states != null and states != '' ">
+				and state in (-1,1,2)
+			</if>
 			<if test=" stateLike != null and stateLike != '' ">
 				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
 			</if>
