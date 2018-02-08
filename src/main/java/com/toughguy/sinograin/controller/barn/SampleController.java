@@ -64,12 +64,9 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
-	public String saveSampleAndRegister(String formName,String sample) {
+	public String saveSampleAndRegister(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
-			Register register = new Register();
-			register.setFormName(formName);
-			register.setState(3);
 			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
 			samplingDTO.setRegister(register);
 			samplingDTO.setList(list);

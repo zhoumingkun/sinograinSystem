@@ -25,7 +25,17 @@ public class Manuscript extends AbstractModel {
 	private String remark;			//备注
 	private int sampleId;			//样品id
 	
+	private double measuredVolume = length*wide*high;  //测量体积（页面）
 	
+	private double realVolume = measuredVolume - deductVolume;      //真实体积（页面）
+	
+	public double getRealVolume() {
+		return realVolume;
+	}
+	
+	public double getMeasuredVolume() {
+		return measuredVolume;
+	}
 	public double getLength() {
 		return length;
 	}
