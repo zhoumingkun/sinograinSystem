@@ -13,7 +13,7 @@ public class SafetyReport extends AbstractModel{
 	
 	private String problem;   //问题
 	private String image;     //图片
-	private int sampleId;     //样品表
+	private int sampleId;     //样品id
 	public String getProblem() {
 		return problem;
 	}
