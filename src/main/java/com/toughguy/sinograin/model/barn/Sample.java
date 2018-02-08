@@ -24,7 +24,6 @@ public class Sample extends AbstractModel{
 	private String remark;   //备注
 	private int state;    //状态    （-1 未扦样， 1 已扦样 ）
 	private String autograph; //签名
-	private String source;    //来源（被查库点）
 	private String  gainTime;  //收获年度
 	private Date sampleTime;   //扦样时间
 	private int pId;          //扦样登记表id
@@ -101,12 +100,6 @@ public class Sample extends AbstractModel{
 	}
 	public void setAutograph(String autograph) {
 		this.autograph = autograph;
-	}
-	public String getSource() {
-		return source;
-	}
-	public void setSource(String source) {
-		this.source = source;
 	}
 	public String getGainTime() {
 		return gainTime;
