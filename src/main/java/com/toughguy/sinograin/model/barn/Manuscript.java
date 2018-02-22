@@ -7,6 +7,7 @@ import com.toughguy.sinograin.util.JsonUtil;
 /**
  * 底稿实体类
  */
+@SuppressWarnings("unused")
 public class Manuscript extends AbstractModel {
 	
 	private static final long serialVersionUID = -197840779923600921L;
@@ -24,17 +25,21 @@ public class Manuscript extends AbstractModel {
 	private String custodian;		//保管责任人
 	private String remark;			//备注
 	private int sampleId;			//样品id
-	
-	private double measuredVolume = length*wide*high;  //测量体积（页面）
-	
-	private double realVolume = measuredVolume - deductVolume;      //真实体积（页面）
+	private double correctioFactor; //修正系数
+	private double storageImpurity; //入库杂质（%）
+	private double storageWater;	//入库水分含量（%）
+	private double realImpurity;    //实际杂质（%）
+	private double realWater;       //实际水分含量（%）
+
+	private double measuredVolume ;   //测量体积（页面）
+	private double realVolume ;      //真实体积（页面）
+	private double aveDensity;			//平均密度（页面）
 	
 	public double getRealVolume() {
-		return realVolume;
+		return length*wide*high - deductVolume;
 	}
-	
 	public double getMeasuredVolume() {
-		return measuredVolume;
+		return  length*wide*high;
 	}
 	public double getLength() {
 		return length;
@@ -113,6 +118,30 @@ public class Manuscript extends AbstractModel {
 	}
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
+	}
+	public double getStorageImpurity() {
+		return storageImpurity;
+	}
+	public void setStorageImpurity(double storageImpurity) {
+		this.storageImpurity = storageImpurity;
+	}
+	public double getStorageWater() {
+		return storageWater;
+	}
+	public void setStorageWater(double storageWater) {
+		this.storageWater = storageWater;
+	}
+	public double getRealImpurity() {
+		return realImpurity;
+	}
+	public void setRealImpurity(double realImpurity) {
+		this.realImpurity = realImpurity;
+	}
+	public double getRealWater() {
+		return realWater;
+	}
+	public void setRealWater(double realWater) {
+		this.realWater = realWater;
 	}
 	
 	@Override

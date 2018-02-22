@@ -18,8 +18,7 @@ public class ManuscriptDaoTest {
 	private IManuscriptDao mDao;
 	@Test
 	public void test() {
-		Manuscript list = mDao.find(1);
-		
+		Manuscript list = mDao.find(1);		
 		System.out.println(list);
 	}
 

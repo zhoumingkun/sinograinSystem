@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Manuscript">
 
 	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,capacity,verageDensity,unQuality,leader,rummager,custodian,remark) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{capacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark})
+		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,capacity,verageDensity,unQuality,leader,rummager,custodian,remark,correctioFactor,storageImpurity,storageWater,realImpurity,realWater) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{capacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater})
 	</insert>
 	
 	
@@ -60,6 +60,10 @@
 			<if test="rummager != null and rummager != ''">rummager = #{rummager},</if>
 			<if test="custodian != null and custodian != ''">custodian = #{custodian},</if>
 			<if test="remark != null and remark != ''">remark = #{remark},</if>
+			<if test="storageImpurity != null and storageImpurity != ''">storageImpurity = #{storageImpurity},</if>
+			<if test="storageWater != null and storageWater != ''">storageWater = #{storageWater},</if>
+			<if test="realImpurity != null and realImpurity != ''">realImpurity = #{realImpurity},</if>
+			<if test="realWater != null and realWater != ''">realWater = #{realWater},</if>
 			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
