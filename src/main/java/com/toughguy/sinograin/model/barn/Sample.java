@@ -14,19 +14,19 @@ public class Sample extends AbstractModel{
 
 	private static final long serialVersionUID = -3867394433717405144L;
 	
-	private String sampleNo;  //样品编号
-	private String depot;     //仓库号（申请）
+	private String sampleNo;  	//样品编号
+	private String depot;     	//仓库号（申请）
 	private String position ;   // 货位号（入库）
-	private String sort;     // 分类(品种)
-	private String originPlace;   //产地
-	private String quality;    //性质
-	private String amount;   //数量
-	private String remark;   //备注
-	private int state;    //状态    （-1 未扦样， 1 已扦样 ）
-	private String autograph; //签名
-	private String  gainTime;  //收获年度
-	private Date sampleTime;   //扦样时间
-	private int pId;          //扦样登记表id
+	private String sort;    	// 分类(品种)
+	private String originPlace; //产地
+	private String quality;    	//性质
+	private String amount;   	//数量
+	private String remark;  	//备注
+	private int state;    		//状态    （-1 未扦样， 1 已扦样 , 2 入库）
+	private String autograph; 	//签名
+	private String  gainTime;  	//收获年度
+	private Date sampleTime;   	//扦样时间
+	private int pId;          	//扦样登记表id
 	
 	public int getpId() {
 		return pId;

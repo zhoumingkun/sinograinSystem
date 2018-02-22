@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
 import com.toughguy.sinograin.model.AbstractModel;
+import com.toughguy.sinograin.util.JsonUtil;
 
 
 /**
@@ -32,7 +33,9 @@ public class SafetyReport extends AbstractModel{
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
 	}
-	
-	
+	@Override
+	public String toString(){
+		return JsonUtil.objectToJson(this);
+	}
 
 }

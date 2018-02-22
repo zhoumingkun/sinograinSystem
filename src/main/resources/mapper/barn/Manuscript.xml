@@ -36,7 +36,7 @@
 	<select id="findPaginated" resultType="Manuscript" parameterType="Map">
 		select * from barn_manuscript
 		<include refid="paramsSQL"/>
-		ORDER BY createTime desc  limit #{offset}, #{limit}
+		ORDER BY createTime desc limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
