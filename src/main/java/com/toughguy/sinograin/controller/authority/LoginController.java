@@ -10,8 +10,10 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.code.kaptcha.Constants;
 import com.toughguy.sinograin.model.authority.User;
 
 /**
@@ -67,16 +69,19 @@ public class LoginController {
 	 */
 	//@SystemControllerLog(description="登录系统")
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ModelAndView login(User user, String verityCode, HttpSession session,HttpServletRequest request) throws Exception{		
+	@ResponseBody
+	public String login(User user, String verityCode, HttpSession session,HttpServletRequest request) throws Exception{		
 		//-- 产生的验证码获取的方法，若需要认证则自己写验证的逻辑, verityCode为用户输入的验证码，嘿嘿，简单吧
-		//String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		
-		ModelAndView mv = new ModelAndView();
+		String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		if(!rightCode.equals(verityCode.trim())){
+			return "{ \"success\" : false ,\"code\":\"验证码错误\" }";
+		}
+		//ModelAndView mv = new ModelAndView();
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
 		currentUser.login(token);
-		mv.setViewName("redirect:/index.html");
-		return mv;
+		//mv.setViewName("redirect:/index.html");
+		return "{ \"success\" : true }";
 	}
 }
 
