@@ -15,25 +15,26 @@ public class Manuscript extends AbstractModel {
 	private double length;        	//长度
 	private double wide;			//宽度
 	private double high;			//高度	
-	private double deductVolume;	//扣除体积
-	private double grainQuality;	//实际粮食质量
-	private double capacity;		//容量
+	private double deductVolume;	//扣除体积（计算粮堆体积）
+	private double grainQuality;	//实际粮食质量（同 保管账数量）
 	private double verageDensity;	//平均密度
-	private double unQuality;		//测量计算数
+	private double unQuality;		//测量计算数（计算粮食数量）
 	private String leader;			//被检查企业负责人
 	private String rummager;		//监察人
 	private String custodian;		//保管责任人
 	private String remark;			//备注
 	private int sampleId;			//样品id
 	private double correctioFactor; //修正系数
+	private double storageCapacity;	//入库容重（g/l）
 	private double storageImpurity; //入库杂质（%）
 	private double storageWater;	//入库水分含量（%）
+	private double realCapacity;	//实际容重（g/l）
 	private double realImpurity;    //实际杂质（%）
 	private double realWater;       //实际水分含量（%）
 
-	private double measuredVolume ;   //测量体积（页面）
-	private double realVolume ;      //真实体积（页面）
-	private double aveDensity;			//平均密度（页面）
+	private double measuredVolume ; //测量体积（页面， 粮堆测量体积）
+	private double realVolume ;     //真实体积（页面，粮堆测量体积）
+	private double aveDensity;		//平均密度（页面）
 	
 	public double getRealVolume() {
 		return length*wide*high - deductVolume;
@@ -70,12 +71,6 @@ public class Manuscript extends AbstractModel {
 	}
 	public void setGrainQuality(double grainQuality) {
 		this.grainQuality = grainQuality;
-	}
-	public double getCapacity() {
-		return capacity;
-	}
-	public void setCapacity(double capacity) {
-		this.capacity = capacity;
 	}
 	public double getVerageDensity() {
 		return verageDensity;
@@ -118,6 +113,18 @@ public class Manuscript extends AbstractModel {
 	}
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
+	}
+	public double getStorageCapacity() {
+		return storageCapacity;
+	}
+	public void setStorageCapacity(double storageCapacity) {
+		this.storageCapacity = storageCapacity;
+	}
+	public double getRealCapacity() {
+		return realCapacity;
+	}
+	public void setRealCapacity(double realCapacity) {
+		this.realCapacity = realCapacity;
 	}
 	public double getStorageImpurity() {
 		return storageImpurity;

@@ -69,7 +69,7 @@ public class LoginController {
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ModelAndView login(User user, String verityCode, HttpSession session,HttpServletRequest request) throws Exception{		
 		//-- 产生的验证码获取的方法，若需要认证则自己写验证的逻辑, verityCode为用户输入的验证码，嘿嘿，简单吧
-		//-- String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		//String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		
 		ModelAndView mv = new ModelAndView();
 		Subject currentUser = SecurityUtils.getSubject();

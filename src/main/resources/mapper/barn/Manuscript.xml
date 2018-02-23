@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Manuscript">
 
 	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,capacity,verageDensity,unQuality,leader,rummager,custodian,remark,correctioFactor,storageImpurity,storageWater,realImpurity,realWater) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{capacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater})
+		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,storageCapacity,realCapacity,verageDensity,unQuality,leader,rummager,custodian,remark,correctioFactor,storageImpurity,storageWater,realImpurity,realWater) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{storageCapacity},#{realCapacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater})
 	</insert>
 	
 	
@@ -53,7 +53,8 @@
 			<if test="high != null and high != ''">high = #{high},</if>
 			<if test="deductVolume != null and deductVolume != ''">deductVolume = #{deductVolume},</if>
 			<if test="grainQuality != null and grainQuality != ''">grainQuality = #{grainQuality},</if>
-			<if test="capacity != null and capacity != ''">capacity = #{capacity},</if>
+			<if test="storageCapacity != null and storageCapacity != ''">storageCapacity = #{storageCapacity},</if>
+			<if test="realCapacity != null and realCapacity != ''">realCapacity = #{realCapacity},</if>
 			<if test="verageDensity != null and verageDensity != ''">verageDensity = #{verageDensity},</if>
 			<if test="unQuality != null and unQuality != ''">unQuality = #{unQuality},</if>
 			<if test="leader != null and leader != ''">leader = #{leader},</if>

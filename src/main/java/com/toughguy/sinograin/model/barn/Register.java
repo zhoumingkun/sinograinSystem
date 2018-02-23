@@ -11,9 +11,9 @@ public class Register extends AbstractModel {
 
 	private static final long serialVersionUID = -2244920019537054274L;
 	
-	private String formName; //表格名称
-	private int state; //状态  （-1 待审核、1 未同意、2 已同意 、3 草稿）
-	private int libraryId;//库id
+	private String formName; 	//表格名称
+	private int state; 			//状态  （-1 待审核、1 未同意、2 已同意 、3 草稿）
+	private int libraryId;		//库id
 	
 	public String getFormName() {
 		return formName;
