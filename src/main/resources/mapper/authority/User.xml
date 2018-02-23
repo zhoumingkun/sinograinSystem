@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.authority.User">
 
 	<insert id="save" parameterType="User" keyProperty="id" useGeneratedKeys="true">
-		insert into auth_user (guid, createTime,updateTime,userName, userPass,phone,email) 
-		values (#{guid}, #{createTime},#{updateTime},#{userName}, #{userPass},#{phone},#{email})
+		insert into auth_user (guid, createTime,updateTime,userName, userPass,phone,email,libraryId) 
+		values (#{guid}, #{createTime},#{updateTime},#{userName}, #{userPass},#{phone},#{email},#{libraryId})
 	</insert>
 	
 	<!-- 存储某个用户和角色的对应关系 -->
@@ -78,6 +78,7 @@
 			<if test="phone != null and phone != ''">phone = #{phone},</if>
 			<if test="email != null and email != ''">email = #{email},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			<if test="libraryId != null">libraryId = #{libraryId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -123,6 +124,10 @@
 			</if>
 			<if test=" emailLike != null and emailLike != '' ">
 				and email like concat(concat('%', #{emailLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" libraryId != null and libraryId != '' ">
+				and libraryId = #{libraryId}
 			</if>
 		</where>
 	</sql>

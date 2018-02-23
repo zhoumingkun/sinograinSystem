@@ -38,6 +38,7 @@ public class User extends AbstractModel {
 	private String phone;  //电话
 	private String email;  //邮箱
 	private List<Role> roleList = new ArrayList<Role>();  //页面显示字段（解决前台缓存列表页直接获取用户角色信息）
+	private int libraryId; //库id
 	
 	
 
@@ -88,6 +89,16 @@ public class User extends AbstractModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	
+	public int getLibraryId() {
+		return libraryId;
+	}
+
+	public void setLibraryId(int libraryId) {
+		this.libraryId = libraryId;
+	}
+
 	@Override
 	public String toString() {
 		return JsonUtil.objectToJson(this);
