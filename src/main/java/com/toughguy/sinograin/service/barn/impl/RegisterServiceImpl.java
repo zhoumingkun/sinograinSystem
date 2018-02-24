@@ -17,7 +17,6 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	
 	@Override
 	public List<Register> findByLibraryId(int libraryId) {
-		// TODO Auto-generated method stub
 		List<Register> registers = registerDao.findByLibraryId(libraryId);
 		return registers;
 	}

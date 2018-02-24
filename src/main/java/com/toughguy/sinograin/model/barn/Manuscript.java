@@ -28,13 +28,13 @@ public class Manuscript extends AbstractModel {
 	private double storageCapacity;	//入库容重（g/l）
 	private double storageImpurity; //入库杂质（%）
 	private double storageWater;	//入库水分含量（%）
-	private double realCapacity;	//实际容重（g/l）
+	private double realCapacity;	//实际容重（g/l，实测粮食质量与标准容重器法中粮食容重  相同）
 	private double realImpurity;    //实际杂质（%）
 	private double realWater;       //实际水分含量（%）
 
 	private double measuredVolume ; //测量体积（页面， 粮堆测量体积）
-	private double realVolume ;     //真实体积（页面，粮堆测量体积）
-	private double aveDensity;		//平均密度（页面）
+	private double realVolume ;     //真实体积（页面，粮堆实际体积）
+	private double aveDensity;		//平均密度（页面，标准容器法   kg/m³）
 	
 	public double getRealVolume() {
 		return length*wide*high - deductVolume;
@@ -44,6 +44,9 @@ public class Manuscript extends AbstractModel {
 	}
 	public double getLength() {
 		return length;
+	}
+	public double getAveDensity() {
+		return realCapacity*correctioFactor;
 	}
 	public void setLength(double length) {
 		this.length = length;
@@ -79,7 +82,7 @@ public class Manuscript extends AbstractModel {
 		this.verageDensity = verageDensity;
 	}
 	public double getUnQuality() {
-		return unQuality;
+		return realCapacity*correctioFactor*(length*wide*high - deductVolume);
 	}
 	public void setUnQuality(double unQuality) {
 		this.unQuality = unQuality;

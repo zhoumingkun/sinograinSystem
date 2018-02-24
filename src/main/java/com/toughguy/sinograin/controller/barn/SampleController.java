@@ -57,7 +57,6 @@ public class SampleController {
 			sampleService.save(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
@@ -68,12 +67,12 @@ public class SampleController {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
 			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
+			register.setRegState(-1);
 			samplingDTO.setRegister(register);
 			samplingDTO.setList(list);
 			barnService.saveSampleAndRegister(samplingDTO);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
