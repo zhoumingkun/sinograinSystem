@@ -129,6 +129,13 @@
 		    <artifactId>shiro-ehcache</artifactId>  
 		    <version>${shiro.version}</version>  
 		</dependency>
+		
+		<!-- Thymeleaf模板引擎，替换JSP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
 		<!-- 验证码框架 -->
 		<dependency>
 			<groupId>com.github.penggle</groupId>
