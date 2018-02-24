@@ -70,6 +70,12 @@ public interface IUserDao extends IGenericDao<User, Integer> {
 	 * @param userId 用户id
 	 * 
 	 */
-	public List <Role> findRoleByUserId(int userId);  
+	public List <Role> findRoleByUserId(int userId); 
+	/**
+	 * 根据用户名查找用户及库点信息
+	 * @param userName 用户名
+	 * 
+	 */
+	public User findUserInfoByUserName(String userName);
 
 }

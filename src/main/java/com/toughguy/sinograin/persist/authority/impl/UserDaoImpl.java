@@ -64,13 +64,18 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements IUserD
 	}
 	
 	@Override
-	public User findUserByUserName(String UserName){
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findUserByUserName", UserName);
+	public User findUserByUserName(String userName){
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findUserByUserName", userName);
 	}
 	
 	@Override
 	public List<Role> findRoleByUserId(int userId){
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findRoleByUserId", userId);
+	}
+
+	@Override
+	public User findUserInfoByUserName(String userName) {
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findUserInfoByUserName", userName);
 	}
 
 }

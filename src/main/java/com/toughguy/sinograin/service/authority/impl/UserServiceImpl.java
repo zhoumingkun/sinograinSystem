@@ -105,6 +105,11 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 		
 		return ((IUserDao) dao).findRoleByUserId(userId);
 	}
+
+	@Override
+	public User findUserInfoByUserName(String userName) {
+		return ((IUserDao) dao).findUserInfoByUserName(userName);
+	}
 	
 	/*@Override
 	@Cacheable(value="liquiduser")

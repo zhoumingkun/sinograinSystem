@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.kaptcha.Constants;
+import com.toughguy.sinograin.dto.UserDTO;
 import com.toughguy.sinograin.model.authority.User;
+import com.toughguy.sinograin.persist.authority.prototype.IUserDao;
+import com.toughguy.sinograin.util.JsonUtil;
+
+import net.minidev.json.JSONUtil;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,6 +50,9 @@ import com.toughguy.sinograin.model.authority.User;
 @Controller
 public class LoginController {
 	
+	@Autowired
+	private IUserDao userDao;
+	
 	/**
 	 *  登录页面
 	 * @return  登录页面
@@ -57,7 +67,7 @@ public class LoginController {
 	
 	@RequestMapping(value="/index", method=RequestMethod.GET)
 	public String indexPage(){
-		return "/default/index";
+		return "/index";
 	}
 	/**
 	 * 登录
@@ -81,8 +91,12 @@ public class LoginController {
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
 		currentUser.login(token);
+		User u = userDao.findUserInfoByUserName(user.getUserName());
+		UserDTO ut = new UserDTO();
+		BeanUtils.copyProperties(u, ut); //省去set的烦恼，利用beanUtils进行属性copy
+		String userDTO = JsonUtil.objectToJson(ut);
 		//mv.setViewName("redirect:/index.html");
-		return "{ \"success\" : true }";
+		return "{ \"success\" : true ,\"user\":"+userDTO+"}";
 	}
 }
 
