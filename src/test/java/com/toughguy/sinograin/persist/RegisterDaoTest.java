@@ -26,7 +26,7 @@ public class RegisterDaoTest {
 	public void testAdd() {
 		Register r = new Register();
 		r.setFormName("2017秋季检测");
-		r.setState(0);
+		r.setRegState(0);
 		registerDao.save(r);
 	}
 	@Test

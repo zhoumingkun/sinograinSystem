@@ -22,7 +22,7 @@ public class LibraryDaoTest {
 		for(int i=0;i<10;i++) {
 			Library l = new Library();
 			l.setLibraryName("山西库" + i);
-			l.setState(0);
+			l.setLibraryState(0);
 			libraryDao.save(l);
 		}
 	}
