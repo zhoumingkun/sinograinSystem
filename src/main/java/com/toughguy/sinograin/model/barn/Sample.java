@@ -28,6 +28,21 @@ public class Sample extends AbstractModel{
 	private Date sampleTime;   	//扦样时间
 	private int pId;          	//扦样登记表id
 	
+	private String formName;	//扦样登记表名（页面展示）
+	private String libraryName;	//被查库名（页面展示）
+	
+	public String getFormName() {
+		return formName;
+	}
+	public void setFormName(String formName) {
+		this.formName = formName;
+	}
+	public String getLibraryName() {
+		return libraryName;
+	}
+	public void setLibraryName(String libraryName) {
+		this.libraryName = libraryName;
+	}
 	public int getpId() {
 		return pId;
 	}

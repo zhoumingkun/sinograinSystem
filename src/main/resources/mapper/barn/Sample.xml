@@ -34,7 +34,7 @@
 	
 	<!-- 分页查询用户 -->
 	<select id="findPaginated" resultType="Sample" parameterType="Map">
-		select * from barn_sample
+		select s.*,r.formName,l.libraryName from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>
