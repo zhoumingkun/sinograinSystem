@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Sample">
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,state,autograph,gainTime,pId,sampleTime) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{state},#{autograph},#{gainTime},#{pId},#{sampleTime})
+		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,sampleState,autograph,gainTime,pId,sampleTime) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},#{autograph},#{gainTime},#{pId},#{sampleTime})
 	</insert>
 	
 	
@@ -56,7 +56,7 @@
 			<if test="quality != null and quality != ''">quality = #{quality},</if>
 			<if test="amount != null and amount != ''">amount = #{amount},</if>
 			<if test="remark != null and remark != ''">remark = #{remark},</if>
-			<if test="state != null and state != ''">state = #{state},</if>
+			<if test="sampleState != null and sampleState != ''">sampleState = #{sampleState},</if>
 			<if test="autograph != null and autograph != ''">autograph = #{autograph},</if>
 			<if test="gainTime != null and gainTime != ''">gainTime = #{gainTime},</if>
 			<if test="pId != null and pId != ''">pId = #{pId},</if>
@@ -122,11 +122,11 @@
 			<if test=" remarkLike != null and remarkLike != '' ">
 				and remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
 			</if>
-			<if test=" state != null and state != '' ">
-				and state = #{state}
+			<if test=" sampleState != null and sampleState != '' ">
+				and sampleState = #{sampleState}
 			</if>
-			<if test=" stateLike != null and stateLike != '' ">
-				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
+			<if test=" sampleStateLike != null and sampleStateLike != '' ">
+				and sampleState like concat(concat('%', #{sampleStateLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
 			<if test=" autograph != null and autograph != '' ">

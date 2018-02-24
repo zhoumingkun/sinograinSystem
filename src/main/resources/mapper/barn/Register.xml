@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Register">
 
 	<insert id="save" parameterType="Register" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_register (guid, createTime,updateTime,formName,state,libraryId) 
-		values (#{guid}, #{createTime},#{updateTime},#{formName},#{state},#{libraryId})
+		insert into barn_register (guid, createTime,updateTime,formName,regState,libraryId) 
+		values (#{guid}, #{createTime},#{updateTime},#{formName},#{regState},#{libraryId})
 	</insert>
 	
 	
@@ -54,7 +54,7 @@
 		update barn_register
 		<set>
 			<if test="formName != null and formName != ''">formName = #{formName},</if>
-			<if test="state != null and state != ''">state = #{state},</if>
+			<if test="regState != null and regState != ''">regState = #{regState},</if>
 			<if test="libraryId !=null and libraryId != ''">libraryId = #{libraryId}</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
@@ -71,14 +71,14 @@
 				and formName like concat(concat('%', #{formNameLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" state != null and state != '' ">
-				and state = #{state}
+			<if test=" regState != null and regState != '' ">
+				and regState = #{regState}
 			</if>
-			<if test=" states != null and states != '' ">
-				and state in (-1,1,2)
+			<if test=" regStates != null and regStates != '' ">
+				and regState in (-1,1,2)
 			</if>
-			<if test=" stateLike != null and stateLike != '' ">
-				and state like concat(concat('%', #{stateLike, jdbcType=VARCHAR}),'%')
+			<if test=" regStateLike != null and regStateLike != '' ">
+				and regState like concat(concat('%', #{regStateLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" libraryId != null and libraryId != '' ">
 				and libraryId = #{libraryId}
