@@ -10,6 +10,7 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.WriteBitMatricToFile;
 
 public class EncodeTest {
@@ -63,7 +64,9 @@ public class EncodeTest {
     }
 	@Test
 	public void testEncode(){
-		
+		String a = SamplingUtil.SampleNumber("11", "玉米");
+		String a1 = SamplingUtil.SampleNumber("11111", "玉米");
+		System.out.println(a1);
 	}
 
 }

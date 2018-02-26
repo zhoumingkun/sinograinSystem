@@ -19,6 +19,8 @@ import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.util.SamplingUtil;
 
 @Controller
 @RequestMapping("/register")
@@ -26,6 +28,8 @@ public class RegisterController {
 	
 	@Autowired
 	private IRegisterService registerService;
+	@Autowired
+	private ISampleService sampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -37,6 +41,16 @@ public class RegisterController {
 	@RequestMapping(value = "/edit")
 	public String edit(Register register) {
 		try {
+			if(register.getRegState() == 1) {
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("pId", register.getId());
+				List<Sample> s = sampleService.findAll(params);
+				for(Sample sample:s) {
+					String newSampleNo = SamplingUtil.SampleNumber(register.getFormName(), sample.getSort());
+					sample.setSampleNo(newSampleNo);
+					sampleService.update(sample);
+				}
+			}
 			registerService.update(register);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
