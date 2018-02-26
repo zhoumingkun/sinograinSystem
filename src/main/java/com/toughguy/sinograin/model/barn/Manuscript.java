@@ -31,6 +31,9 @@ public class Manuscript extends AbstractModel {
 	private double realCapacity;	//实际容重（g/l，实测粮食质量与标准容重器法中粮食容重  相同）
 	private double realImpurity;    //实际杂质（%）
 	private double realWater;       //实际水分含量（%）
+	private int storge;				//储存形式（1 正常  2 非正常）
+	private int qualityGrade;		//质量等级（1 上等  2中等  3 下等）
+	private int putWay;				//入仓方式（1 机械入仓  2人工入仓）
 
 	private double measuredVolume ; //测量体积（页面， 粮堆测量体积）
 	private double realVolume ;     //真实体积（页面，粮堆实际体积）
@@ -154,6 +157,24 @@ public class Manuscript extends AbstractModel {
 		this.realWater = realWater;
 	}
 	
+	public int getStorge() {
+		return storge;
+	}
+	public void setStorge(int storge) {
+		this.storge = storge;
+	}
+	public int getQualityGrade() {
+		return qualityGrade;
+	}
+	public void setQualityGrade(int qualityGrade) {
+		this.qualityGrade = qualityGrade;
+	}
+	public int getPutWay() {
+		return putWay;
+	}
+	public void setPutWay(int putWay) {
+		this.putWay = putWay;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
