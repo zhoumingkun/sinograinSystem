@@ -15,8 +15,8 @@ public class Sample extends AbstractModel{
 	private static final long serialVersionUID = -3867394433717405144L;
 	
 	private String sampleNo;  	//样品编号
-	private String depot;     	//仓库号（申请）
-	private String position ;   // 货位号（入库）
+	private String depot;     	//仓位号（入库后）
+	private String position ;   //货位号（申请扦样）
 	private String sort;    	// 分类(品种)
 	private String originPlace; //产地
 	private String quality;    	//性质

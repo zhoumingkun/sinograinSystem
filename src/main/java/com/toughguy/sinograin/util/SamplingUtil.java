@@ -1,5 +1,9 @@
 package com.toughguy.sinograin.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * 扦样编号工具类
  * @author BOBO
@@ -7,16 +11,25 @@ package com.toughguy.sinograin.util;
  */
 public class SamplingUtil {
 	
-	private static String lastSampleNo;
+	
 	public static String SampleNumber(String libraryName,String sort) {
-		String ranStr;
-		if( "".equals(lastSampleNo) ||lastSampleNo == null) {
-			ranStr = String.format("%04d", 1);
-		} else {
-			String[] nums = lastSampleNo.split("-");
-			int num = Integer.parseInt(nums[2]);
-			ranStr = String.format("%04d", num+1);
-		}
+	 String lastSampleNo;
+	 String ranStr = null;
+		try {
+			InputStream inStream = SamplingUtil.class.getClassLoader().getResourceAsStream("config/grain.properties"); 
+			Properties prop = new Properties(); 
+			prop.load(inStream);
+			lastSampleNo = prop.getProperty("grain.sampleNo");
+			if("9999".equals(lastSampleNo)){
+				ranStr = "1";
+			}else{
+				ranStr = (Integer.parseInt(lastSampleNo) + 1) + "";
+			}
+			ranStr = String.format("%04d", ranStr);
+			prop.setProperty("grain.sampleNo", ranStr);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 		lastSampleNo = libraryName + "-" + sort + "-" + ranStr;
 		return lastSampleNo;
 	}
