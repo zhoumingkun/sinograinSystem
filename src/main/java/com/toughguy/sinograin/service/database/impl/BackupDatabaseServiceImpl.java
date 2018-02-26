@@ -108,9 +108,9 @@ public class BackupDatabaseServiceImpl extends GenericServiceImpl<BackupDatabase
 	 * @throws IOException 
 	 */
 	private void removeTable()throws IOException{
-		ResourceBundle resource = ResourceBundle.getBundle("config/liquid");
-		dbName = resource.getString("liquid.backup.dbName");
-		String table = resource.getString("liquid.backup.excludeTable");
+		ResourceBundle resource = ResourceBundle.getBundle("config/grain");
+		dbName = resource.getString("backup.dbName");
+		String table = resource.getString("backup.excludeTable");
 		tables = Arrays.asList(table.split(",")); 
 	}
 }
