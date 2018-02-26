@@ -28,7 +28,7 @@
 	
 	<!-- 查询某条扦样表 -->
 	<select id="find" parameterType="int" resultType="Register">
-		select * from barn_register where id = #{id}
+		select * from barn_register r left join barn_library l on r.libraryId = l.id where r.id = #{id}
 	</select>
 	
 	<!-- 查询全部扦样表 -->

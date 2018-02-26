@@ -15,6 +15,15 @@ public class Register extends AbstractModel {
 	private int regState; 		//状态  （-1 待审核、1 未同意、2 已同意 、3 草稿）
 	private int libraryId;		//库id
 	
+	private String libraryName;	//库名
+	
+	
+	public String getLibraryName() {
+		return libraryName;
+	}
+	public void setLibraryName(String libraryName) {
+		this.libraryName = libraryName;
+	}
 	public String getFormName() {
 		return formName;
 	}

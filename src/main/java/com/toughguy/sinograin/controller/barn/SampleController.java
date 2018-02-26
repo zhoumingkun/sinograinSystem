@@ -44,7 +44,6 @@ public class SampleController {
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
