@@ -89,8 +89,9 @@ public class RegisterController {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("pId", register.getId());
 				List<Sample> s = sampleService.findAll(params);
+				SamplingUtil su = new SamplingUtil();
 				for(Sample sample:s) {
-					String newSampleNo = SamplingUtil.SampleNumber(register.getFormName(), sample.getSort());
+					String newSampleNo = su.SampleNumber(register.getFormName(), sample.getSort());
 					sample.setSampleNo(newSampleNo);
 					sampleService.update(sample);
 				}
