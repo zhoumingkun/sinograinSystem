@@ -36,6 +36,11 @@ public class SampleController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/get")
+	public Sample get(int id) {	
+		return sampleService.find(id);
+	}
+	@ResponseBody
 	@RequestMapping(value = "/edit")
 	public String edit(Sample sample) {
 		try {
