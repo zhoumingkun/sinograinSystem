@@ -87,10 +87,14 @@
 			<if test=" position != null and position != '' ">
 				and position = #{position}
 			</if>
+			
 			<if test=" positionLike != null and positionLike != '' ">
 				and position like concat(concat('%', #{positionLike, jdbcType=VARCHAR}),'%')
 			</if>
-			
+			<!-- 查询库中信息 -->
+			<if test="libId != null and libId != '' ">
+				and l.id = #{libId}
+			</if>
 			<if test=" sort != null and sort != '' ">
 				and sort = #{sort}
 			</if>

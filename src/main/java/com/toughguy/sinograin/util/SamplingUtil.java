@@ -23,7 +23,7 @@ public class SamplingUtil {
 			if("9999".equals(lastSampleNo)){
 				ranStr = "1";
 			}else{
-				ranStr = (Integer.parseInt(lastSampleNo) + 1) + "";
+				ranStr = (Integer.parseInt(lastSampleNo.trim()) + 1) + "";
 			}
 			ranStr = String.format("%04d", ranStr);
 			prop.setProperty("grain.sampleNo", ranStr);
