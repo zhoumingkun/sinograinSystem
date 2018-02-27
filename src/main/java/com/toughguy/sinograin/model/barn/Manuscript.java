@@ -17,10 +17,10 @@ public class Manuscript extends AbstractModel {
 	private double high;			//高度	
 	private double deductVolume;	//扣除体积（计算粮堆体积）
 	private double grainQuality;	//实际粮食质量（同 保管账数量）
-	private double verageDensity;	//平均密度
+	//private double verageDensity;	//平均密度
 	private double unQuality;		//测量计算数（计算粮食数量）
 	private String leader;			//被检查企业负责人
-	private String rummager;		//监察人
+	private String rummager;		//检查人
 	private String custodian;		//保管责任人
 	private String remark;			//备注
 	private int sampleId;			//样品id
@@ -34,22 +34,21 @@ public class Manuscript extends AbstractModel {
 	private int storge;				//储存形式（1 正常  2 非正常）
 	private int qualityGrade;		//质量等级（1 上等  2中等  3 下等）
 	private int putWay;				//入仓方式（1 机械入仓  2人工入仓）
-
-	private double measuredVolume ; //测量体积（页面， 粮堆测量体积）
-	private double realVolume ;     //真实体积（页面，粮堆实际体积）
-	private double aveDensity;		//平均密度（页面，标准容器法   kg/m³）
 	
-	public double getRealVolume() {
-		return length*wide*high - deductVolume;
-	}
-	public double getMeasuredVolume() {
-		return  length*wide*high;
-	}
+	private double lossWater; 		//水分减量
+	private double lossNature;		//自然损耗
+	private double checkNum;		//检查计算数
+	private double difference;		//差数
+	private double slip;			//差率
+	private String result;			//不符原因
+	private double measuredVolume ; //测量体积（ 粮堆测量体积）
+	private double realVolume ;     //真实体积（粮堆实际体积）
+	private double aveDensity;		//平均密度（标准容器法   kg/m³）
+	
+	private double loss;          	//合计损耗（页面）
+	
 	public double getLength() {
 		return length;
-	}
-	public double getAveDensity() {
-		return realCapacity*correctioFactor;
 	}
 	public void setLength(double length) {
 		this.length = length;
@@ -78,15 +77,7 @@ public class Manuscript extends AbstractModel {
 	public void setGrainQuality(double grainQuality) {
 		this.grainQuality = grainQuality;
 	}
-	public double getVerageDensity() {
-		return verageDensity;
-	}
-	public void setVerageDensity(double verageDensity) {
-		this.verageDensity = verageDensity;
-	}
-	public double getUnQuality() {
-		return realCapacity*correctioFactor*(length*wide*high - deductVolume);
-	}
+	
 	public void setUnQuality(double unQuality) {
 		this.unQuality = unQuality;
 	}
@@ -174,6 +165,78 @@ public class Manuscript extends AbstractModel {
 	}
 	public void setPutWay(int putWay) {
 		this.putWay = putWay;
+	}
+	
+	public double getCorrectioFactor() {
+		return correctioFactor;
+	}
+	public void setCorrectioFactor(double correctioFactor) {
+		this.correctioFactor = correctioFactor;
+	}
+	public double getLossWater() {
+		return lossWater;
+	}
+	public void setLossWater(double lossWater) {
+		this.lossWater = lossWater;
+	}
+	public double getLossNature() {
+		return lossNature;
+	}
+	public void setLossNature(double lossNature) {
+		this.lossNature = lossNature;
+	}
+	public double getCheckNum() {
+		return checkNum;
+	}
+	public void setCheckNum(double checkNum) {
+		this.checkNum = checkNum;
+	}
+	public double getDifference() {
+		return difference;
+	}
+	public void setDifference(double difference) {
+		this.difference = difference;
+	}
+	public double getSlip() {
+		return slip;
+	}
+	public void setSlip(double slip) {
+		this.slip = slip;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public double getMeasuredVolume() {
+		return measuredVolume;
+	}
+	public void setMeasuredVolume(double measuredVolume) {
+		this.measuredVolume = measuredVolume;
+	}
+	public double getAveDensity() {
+		return aveDensity;
+	}
+	public void setAveDensity(double aveDensity) {
+		this.aveDensity = aveDensity;
+	}
+	public double getUnQuality() {
+		return unQuality;
+	}
+	
+	
+	public double getRealVolume() {
+		return realVolume;
+	}
+	public void setRealVolume(double realVolume) {
+		this.realVolume = realVolume;
+	}
+	public double getLoss() {
+		return lossWater+lossNature;
+	}
+	public void setLoss() {
+		this.loss = lossWater+lossNature;
 	}
 	@Override
 	public String toString(){

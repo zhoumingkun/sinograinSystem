@@ -3,8 +3,10 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Manuscript">
 
 	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,storageCapacity,realCapacity,verageDensity,unQuality,leader,rummager,custodian,remark,correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{storageCapacity},#{realCapacity},#{verageDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay})
+		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,storageCapacity,realCapacity,aveDensity,unQuality,leader,rummager,custodian,remark,
+		correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay,lossWater,lossNature,checkNum,difference,slip,result,measuredVolume,realVolume) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{storageCapacity},#{realCapacity},#{aveDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},
+		#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay},#{lossWater},#{lossNature},#{checkNum},#{difference},#{slip},#{result},#{measuredVolume},#{realVolume})
 	</insert>
 	
 	
