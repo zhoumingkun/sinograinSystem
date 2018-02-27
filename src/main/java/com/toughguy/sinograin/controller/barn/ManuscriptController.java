@@ -43,7 +43,7 @@ public class ManuscriptController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	public String saveSample(Manuscript manuscript) {
+	public String saveManuscript(Manuscript manuscript) {
 		try {
 			manuscriptService.save(manuscript);
 			return "{ \"success\" : true }";
@@ -55,7 +55,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveMan")
-	public String saveSample(String params) {
+	public String saveMan(String params) {
 		Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
 		try {
 			manuscriptService.save(manuscript);
