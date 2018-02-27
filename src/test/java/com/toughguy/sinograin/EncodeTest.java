@@ -1,18 +1,37 @@
 package com.toughguy.sinograin;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Properties;
 
+import javax.imageio.ImageIO;
+
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
+import org.krysalis.barcode4j.tools.UnitConv;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.WriteBitMatricToFile;
 
+@RunWith(SpringJUnit4ClassRunner.class)
 public class EncodeTest {
 //	BarcodeFormat.CODE_128; // 表示高密度数据， 字符串可变长，符号内含校验码  
 //	BarcodeFormat.CODE_39;  
@@ -31,19 +50,19 @@ public class EncodeTest {
 //	BarcodeFormat.UPC_EAN_EXTENSION;  
 
 	@Test
-	public void test() {
+	public void testEncode1() {
 		int width = 400;  
         int height = 200;  
         // int width = 105;  
         // int height = 50;  
         // 条形码的输入是13位的数字  
-         String text = "695013443-48";  
+         String text = "6923450657712232342353";  
         // 二维码的输入是字符串  
         //String text = "testtesttest生成条形码图片";  
         String format = "png";  
         HashMap<EncodeHintType, String> hints = new HashMap<>();  
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-        hints.put(EncodeHintType.MARGIN,"2");
+        //hints.put(EncodeHintType.MARGIN,"2");
         // 条形码的格式是 BarcodeFormat.EAN_13  
         // 二维码的格式是BarcodeFormat.QR_CODE  
         BitMatrix bm;
@@ -58,15 +77,65 @@ public class EncodeTest {
 			  File out = new File("new.png"); 
 			  WriteBitMatricToFile.writeBitMatricToFile(bm, format, out);  
 		} catch (WriterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
     }
 	@Test
 	public void testEncode(){
-		String a = SamplingUtil.SampleNumber("11", "玉米");
-		String a1 = SamplingUtil.SampleNumber("11111", "玉米");
-		System.out.println(a1);
+		SamplingUtil s = new SamplingUtil();
+		try {
+			String a = s.SampleNumber("11", "玉米");
+			String a1 = s.SampleNumber("11111", "玉米");
+			System.out.println(a1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+		
 	}
-
+	/*@Test
+	 * jBarcode 条形码生成
+	 * Maven中央仓库中无对应jar包
+	 * 需自己下载装到私服中 
+	public void test() throws WriterException{
+		JBarcodeBean jBarcodeBean = new JBarcodeBean();
+		        // 条形码类型
+		        //jBarcodeBean.setCodeType(new Ean13());
+		        jBarcodeBean.setCodeType(new Code128());
+		
+		        //jBarcodeBean.setCodeType(new Code39());
+		        jBarcodeBean.setBarcodeHeight(70);
+		        // 在条形码下面显示文字
+		
+		        jBarcodeBean.setLabelPosition(JBarcodeBean.LABEL_BOTTOM);
+		        OutputStream out;
+		        try {
+		
+		            out = new FileOutputStream("a.png");
+		
+		            jBarcodeBean.setCode("692250700503-3111111");
+		
+		            BufferedImage image = new BufferedImage(200, 100,
+		
+		                    BufferedImage.TYPE_INT_RGB);
+	
+		            image = jBarcodeBean.draw(image);
+		
+		            ImageIO.write(image, "png", out);
+		
+		        } catch (FileNotFoundException e) {
+		
+		            e.printStackTrace();
+		
+		        }
+		        // 设置条形码的值
+		
+		        catch (IOException e) {
+		
+		            e.printStackTrace();	
+		    }
+	}*/
+	@Test
+	public void testJBar4j() throws IOException{
+		BarCodeUtil.generateFile("12233434-2232443", "code1.png");
+	}
 }

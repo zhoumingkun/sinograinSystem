@@ -16,6 +16,7 @@ import com.toughguy.sinograin.model.barn.Manuscript;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
+import com.toughguy.sinograin.util.JsonUtil;
 
 @Controller
 @RequestMapping("/manuscript")
@@ -52,6 +53,18 @@ public class ManuscriptController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/saveMan")
+	public String saveSample(String params) {
+		Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
+		try {
+			manuscriptService.save(manuscript);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 	@ResponseBody
 	@RequestMapping(value = "/data")
 	public String data(String params) {
