@@ -25,7 +25,7 @@ public class SamplingUtil {
 			}else{
 				ranStr = (Integer.parseInt(lastSampleNo.trim()) + 1) + "";
 			}
-			ranStr = String.format("%04d", ranStr);
+			ranStr = String.format("%04d", Integer.parseInt(ranStr));
 			prop.setProperty("grain.sampleNo", ranStr);
 		} catch (IOException e) {
 			e.printStackTrace();
