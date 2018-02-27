@@ -59,6 +59,14 @@
 		    <artifactId>spring-boot-starter-data-redis</artifactId>
 		    <version>${spring.boot.version}</version>
 		</dependency>
+		
+         <!--barcode4j 条形码-->
+        <dependency>
+            <groupId>net.sf.barcode4j</groupId>
+            <artifactId>barcode4j-light</artifactId>
+            <version>2.0</version>
+        </dependency>
+         <!--zxing 条形码-->
 		<dependency>
 			  <groupId>com.google.zxing</groupId>
 			  <artifactId>core</artifactId>
@@ -69,6 +77,7 @@
 			  <artifactId>javase</artifactId>
 			  <version>3.0.0</version>  
 		 </dependency>
+		 
 		<!--2. Spring Boot MyBatis -->
 		<dependency>
 		    <groupId>org.mybatis.spring.boot</groupId>
