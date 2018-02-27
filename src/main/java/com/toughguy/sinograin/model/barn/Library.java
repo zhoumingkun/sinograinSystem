@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.toughguy.sinograin.model.AbstractModel;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -37,9 +39,16 @@ public class Library extends AbstractModel{
 		this.noSampleIds = noSampleIds;
 	}
 	public int getCount() {
-		return noSampleIds.split(",").length;
+		if(StringUtils.isEmpty(noSampleIds)){
+			return 0;
+		}else {
+			return noSampleIds.split(",").length;
+		}
 	}
 	public void setCount(int count) {
+		if(StringUtils.isEmpty(noSampleIds)){
+			this.count = 0 ;
+		}
 		this.count = noSampleIds.split(",").length;
 	}
 	@Override

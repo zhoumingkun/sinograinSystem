@@ -34,7 +34,7 @@
 	
 	<!-- 分页查询库 -->
 	<select id="findPaginated" resultType="Library" parameterType="Map">
-		select bl.*,GROUP_CONCAT(br.id ) as noSampleIds from barn_library bl LEFT JOIN barn_register br on br.libraryId = bl.id and br.regState = -1
+		select bl.*,GROUP_CONCAT(br.id) as noSampleIds from barn_library bl LEFT JOIN barn_register br on br.libraryId = bl.id and br.regState = -1
 		<include refid="paramsSQL"/>
 		GROUP BY bl.id ORDER BY bl.createTime desc  limit #{offset}, #{limit}
 	</select>
