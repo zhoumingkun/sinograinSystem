@@ -93,6 +93,6 @@ public class UploadUtil {
 				}
 				File targetFile = new File(absolutePath + "/" + newName);
 				pictureFile.transferTo(targetFile);
-				return relativePath + "/" + newName;
+				return newName;
 	}
 }

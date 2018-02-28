@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.SafetyReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.ISafetyReportService;
+import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.UploadUtil;
 
 @Controller
@@ -32,9 +33,12 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	public String edit(SafetyReport report) {
+	public String edit(String params) {
+		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
 		try {
-			safeService.update(report);
+			for(SafetyReport report: reportList){
+				safeService.update(report);
+			}	
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,13 +62,13 @@ public class SafetyReportController {
 		if(UploadUtil.isPicture(pictureFile.getOriginalFilename())){
 			try {
 			 String path = UploadUtil.uploadPicture(pictureFile);
-			 return "{ \"success\" : true \"msg\" :" +path +"}";
+			 return "{ \"success\" : true ,\"msg\" :" +path +"}";
 			} catch (Exception e) {
 				e.printStackTrace();
-				return "{ \"success\" : false \"msg\" : \"上传失败\"}";
+				return "{ \"success\" : false ,\"msg\" : \"上传失败\"}";
 			}
 		}else{
-			return "{ \"success\" : false \"msg\" : \"请上传正确图片格式的图片\"}";
+			return "{ \"success\" : false , \"msg\" : \"请上传正确图片格式的图片\"}";
 		}
 		
 	}
