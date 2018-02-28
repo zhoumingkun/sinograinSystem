@@ -1,9 +1,12 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +42,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
-	public String exportExcel(int pId){
+	public String exportExcel(int pId,HttpServletResponse response){
 		try {
 		Register reg = registerService.find(pId);
 		List<String> headerName = new ArrayList<String>();
@@ -73,7 +76,7 @@ public class RegisterController {
 		dto.setDtoList(sampleList);
 		dto.setTitle(reg.getLibraryName());
 		ExcelUtil<Sample> excel = new ExcelUtil<Sample>();
-		excel.exportExcel(dto);
+		excel.exportExcel(dto,response);
 		return "{ \"success\" : true }";
 			}catch(Exception e){
 				e.printStackTrace();

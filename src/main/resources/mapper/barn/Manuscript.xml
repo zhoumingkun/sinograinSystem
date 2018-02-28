@@ -45,7 +45,7 @@
 		select count(*) from barn_
 		<include refid="paramsSQL"/>
 	</select>
-	
+		
 	<!-- 修个某条扦样 -->
 	<update id="update" parameterType="Manuscript">
 		update barn_manuscript
@@ -57,7 +57,7 @@
 			<if test="grainQuality != null and grainQuality != ''">grainQuality = #{grainQuality},</if>
 			<if test="storageCapacity != null and storageCapacity != ''">storageCapacity = #{storageCapacity},</if>
 			<if test="realCapacity != null and realCapacity != ''">realCapacity = #{realCapacity},</if>
-			<if test="verageDensity != null and verageDensity != ''">verageDensity = #{verageDensity},</if>
+			<if test="aveDensity != null and aveDensity != ''">aveDensity = #{aveDensity},</if>
 			<if test="unQuality != null and unQuality != ''">unQuality = #{unQuality},</if>
 			<if test="leader != null and leader != ''">leader = #{leader},</if>
 			<if test="rummager != null and rummager != ''">rummager = #{rummager},</if>
@@ -72,10 +72,17 @@
 			<if test="storge != null and storge != ''">storge = #{storge},</if>
 			<if test="qualityGrade != null and qualityGrade != ''">qualityGrade = #{qualityGrade},</if>
 			<if test="putWay != null and putWay != ''">putWay = #{putWay},</if>
+			<if test="lossWater != null and lossWater != ''">lossWater = #{lossWater},</if>
+			<if test="lossNature != null and lossNature != ''">lossNature = #{lossNature},</if>
+			<if test="checkNum != null and checkNum != ''">checkNum = #{checkNum},</if>
+			<if test="difference != null and difference != ''">difference = #{difference},</if>
+			<if test="result != null and result != ''">result = #{result},</if>
+			<if test="measuredVolume != null and measuredVolume != ''">measuredVolume = #{measuredVolume},</if>
+			<if test="realVolume != null and realVolume != ''">realVolume = #{realVolume},</if>
+			<if test="correctioFactor != null and correctioFactor != ''">correctioFactor = #{correctioFactor},</if>
 		</set>
 		where id = #{id}
 	</update>
-	
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
@@ -102,6 +109,13 @@
 			</if>
 			<if test=" leaderLike != null and leaderLike != '' ">
 				and leader like concat(concat('%', #{leaderLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" sampleId != null and sampleId != '' ">
+				and sampleId = #{sampleId}
+			</if>
+			<if test=" sampleIdLike != null and sampleIdLike != '' ">
+				and sampleId like concat(concat('%', #{sampleIdLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
 			<if test=" rummager != null and rummager != '' ">

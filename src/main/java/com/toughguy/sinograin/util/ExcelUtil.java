@@ -4,6 +4,7 @@ package com.toughguy.sinograin.util;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,6 +12,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -30,7 +33,7 @@ public class ExcelUtil<T>{
      * 这是一个通用的方法，利用了JAVA的反射机制，可以将放置在JAVA集合中并且符号一定条件的数据以EXCEL 的形式输出
      * ExcelDTO dto excel文件基本信息
      */
-    public void exportExcel(ExcelDTO<T> dto) {
+    public void exportExcel(ExcelDTO<T> dto,HttpServletResponse response) {
     	
         /*（一）表头--标题栏*/
         Map<Integer, String> headersNameMap = new HashMap<>();
@@ -155,9 +158,15 @@ public class ExcelUtil<T>{
             }
         }
         try {
-            FileOutputStream exportXls = new FileOutputStream(dto.getFileName());
-            wb.write(exportXls);
-            exportXls.close();
+        	OutputStream output = response.getOutputStream();
+    		response.reset();
+    		response.setHeader("Content-disposition", "attachment; filename=" + dto.getFileName()+".xls");
+    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    		wb.write(output);
+    		output.close();
+           // FileOutputStream exportXls = new FileOutputStream(dto.getFileName());
+           // wb.write(exportXls);
+           // exportXls.close();
             System.out.println("导出成功!");
         } catch (FileNotFoundException e) {
             System.out.println("导出失败!");
