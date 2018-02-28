@@ -43,19 +43,30 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	public String saveSample(SafetyReport report,MultipartFile pictureFile) {
+	public String saveSample(SafetyReport report) {	
+		try {
+			safeService.save(report);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}		
+	}
+	@ResponseBody
+	@RequestMapping(value = "/uploadPic")
+	public String uploadPicture(MultipartFile pictureFile){
 		if(UploadUtil.isPicture(pictureFile.getOriginalFilename())){
 			try {
-				String path = UploadUtil.uploadPicture(pictureFile);
-				report.setImage(path);
-				//safeService.save(report);
-				return "{ \"success\" : true }";
+			 String path = UploadUtil.uploadPicture(pictureFile);
+			 return path;
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "{ \"success\" : false \"msg\" : \"上传失败\"}";
 			}
+		}else{
+			return "{ \"success\" : false \"msg\" : \"请上传正确图片格式的图片\"}";
 		}
-		return "{ \"success\" : false, \"msg\" : \"请上传图片格式的图片\" }";
+		
 	}
 	
 	@ResponseBody
