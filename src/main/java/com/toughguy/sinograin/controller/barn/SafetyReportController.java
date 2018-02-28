@@ -58,7 +58,7 @@ public class SafetyReportController {
 		if(UploadUtil.isPicture(pictureFile.getOriginalFilename())){
 			try {
 			 String path = UploadUtil.uploadPicture(pictureFile);
-			 return path;
+			 return "{ \"success\" : true \"msg\" :" +path +"}";
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "{ \"success\" : false \"msg\" : \"上传失败\"}";
