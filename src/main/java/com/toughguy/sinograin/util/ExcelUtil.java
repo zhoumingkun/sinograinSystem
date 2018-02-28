@@ -70,20 +70,20 @@ public class ExcelUtil<T>{
         int zdRow =0;//行序号
         if(!"".equals(dto.getTableName())&&!StringUtils.isEmpty(dto.getTableName())){
     	 /*设置表名*/
-        CellRangeAddress cra=new CellRangeAddress(0, 1, 0, dto.getHeadersId().size()-1); //合并单元格（第一列与第二列） (开始行数，结束行数，开始列，结束列)
-        //在sheet里增加合并单元格  
-        sheet.addMergedRegion(cra); 
-    	 cell = row.createCell(0);
-    	 cell.setCellValue(dto.getTableName());    //设置表名
-    	//style.setFillForegroundColor((short) 13);// 设置背景色
-    	 font.setFontHeightInPoints((short) 16);//设置字体大小
-    	 font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD); //粗体显示
-    	 HSSFCellStyle style1 = wb.createCellStyle();
-    	 style1.setFont(font);
-    	 style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-    	 style1.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中  
-    	 cell.setCellStyle(style1);
-    	 zdRow = 2; //表头后移至第三行
+	        CellRangeAddress cra=new CellRangeAddress(0, 1, 0, dto.getHeadersId().size()-1); //合并单元格（第一列与第二列） (开始行数，结束行数，开始列，结束列)
+	        //在sheet里增加合并单元格  
+	        sheet.addMergedRegion(cra); 
+	    	 cell = row.createCell(0);
+	    	 cell.setCellValue(dto.getTableName());    //设置表名
+	    	//style.setFillForegroundColor((short) 13);// 设置背景色
+	    	 font.setFontHeightInPoints((short) 16);//设置字体大小
+	    	 font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD); //粗体显示
+	    	 HSSFCellStyle style1 = wb.createCellStyle();
+	    	 style1.setFont(font);
+	    	 style1.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+	    	 style1.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中  
+	    	 cell.setCellStyle(style1);
+	    	 zdRow = 2; //表头后移至第三行
         }
         if(zdRow != 0){
          row = sheet.createRow(zdRow); 
