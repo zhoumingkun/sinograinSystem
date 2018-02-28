@@ -17,7 +17,7 @@ public class Sample extends AbstractModel{
 	private String sampleNo;  	//样品编号
 	private String depot;     	//仓位号（入库后）
 	private String position ;   //货位号（申请扦样）
-	private String sort;    	// 分类(品种)
+	private String sort;    	//分类(品种)
 	private String originPlace; //产地
 	private String quality;    	//性质
 	private String amount;   	//数量
@@ -31,6 +31,8 @@ public class Sample extends AbstractModel{
 	
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
+	private int mId;			//工作底稿id
+	private int srId;			//安全报告id
 	
 	public String getFormName() {
 		return formName;
