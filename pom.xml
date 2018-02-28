@@ -122,7 +122,12 @@
 		    <artifactId>commons-text</artifactId>
 		    <version>1.1</version>
 		</dependency>
-		
+				
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
 		<!--6. Shiro安全框架  -->
 		<dependency>  
 		    <groupId>org.apache.shiro</groupId>  
@@ -165,6 +170,12 @@
 			</exclusions>
 		</dependency>  
 	</dependencies>
+	<repositories>
+	    <repository>
+	        <id>spring-releases</id>
+	        <url>https://repo.spring.io/libs-release</url>
+	    </repository>
+	</repositories>
 
 	<build>
 		<pluginManagement>
@@ -188,6 +199,4 @@
     		</plugins>
     	</pluginManagement>
 	</build>
-
-
 </project>
