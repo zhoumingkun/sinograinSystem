@@ -47,9 +47,12 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	public String saveSample(SafetyReport report) {	
+	public String saveSample(String params) {	
+		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
 		try {
+			for(SafetyReport report: reportList){
 			safeService.save(report);
+			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,7 +65,7 @@ public class SafetyReportController {
 		if(UploadUtil.isPicture(pictureFile.getOriginalFilename())){
 			try {
 			 String path = UploadUtil.uploadPicture(pictureFile);
-			 return "{ \"success\" : true ,\"msg\" :" +path +"}";
+			 return "{ \"success\" : true ,\"msg\" :\""+ path +"\"}";
 			} catch (Exception e) {
 				e.printStackTrace();
 				return "{ \"success\" : false ,\"msg\" : \"上传失败\"}";
