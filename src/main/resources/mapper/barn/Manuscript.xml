@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_
+		select count(*) from barn_manuscript
 		<include refid="paramsSQL"/>
 	</select>
 		
