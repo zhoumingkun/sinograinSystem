@@ -227,6 +227,12 @@ public class Manuscript extends AbstractModel {
 	}
 	
 	
+	public String getBarnType() {
+		return barnType;
+	}
+	public void setBarnType(String barnType) {
+		this.barnType = barnType;
+	}
 	public double getRealVolume() {
 		return realVolume;
 	}
