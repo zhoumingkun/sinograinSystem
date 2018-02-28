@@ -13,7 +13,7 @@ public class SafetyReport extends AbstractModel{
 	private static final long serialVersionUID = -9121652120717759870L;
 	
 	private String problem;   //问题
-	private String image;     //图片
+	private String images;     //图片
 	private int sampleId;     //样品id
 	public String getProblem() {
 		return problem;
@@ -21,11 +21,11 @@ public class SafetyReport extends AbstractModel{
 	public void setProblem(String problem) {
 		this.problem = problem;
 	}
-	public String getImage() {
-		return image;
+	public String getImages() {
+		return images;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setImages(String images) {
+		this.images = images;
 	}
 	public int getSampleId() {
 		return sampleId;

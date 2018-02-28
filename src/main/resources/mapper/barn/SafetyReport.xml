@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SafetyReport">
 
 	<insert id="save" parameterType="SafetyReport" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_safety_report (guid, createTime,updateTime,problem,image,sampleId) 
-		values (#{guid}, #{createTime},#{updateTime},#{problem},#{image},#{sampleId})
+		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId) 
+		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId})
 	</insert>
 	
 	
@@ -49,7 +49,7 @@
 		update barn_safety_report
 		<set>
 			<if test="problem != null and problem != ''">problem = #{problem},</if>
-			<if test="image != null and image != ''">image = #{image},</if>
+			<if test="images != null and images != ''">images = #{images},</if>
 			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
@@ -66,11 +66,11 @@
 				and problem like concat(concat('%', #{problemLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" image != null and image != '' ">
-				and image = #{image}
+			<if test=" images != null and images != '' ">
+				and images = #{images}
 			</if>
-			<if test=" imageLike != null and imageLike != '' ">
-				and image like concat(concat('%', #{imageLike, jdbcType=VARCHAR}),'%')
+			<if test=" imagesLike != null and imagesLike != '' ">
+				and images like concat(concat('%', #{imagesLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
 			<if test=" sampleId != null and sampleId != '' ">
