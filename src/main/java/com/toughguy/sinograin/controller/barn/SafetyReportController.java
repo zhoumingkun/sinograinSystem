@@ -48,7 +48,7 @@ public class SafetyReportController {
 			try {
 				String path = UploadUtil.uploadPicture(pictureFile);
 				report.setImage(path);
-				safeService.save(report);
+				//safeService.save(report);
 				return "{ \"success\" : true }";
 			} catch (Exception e) {
 				e.printStackTrace();

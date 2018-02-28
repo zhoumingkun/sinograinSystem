@@ -87,6 +87,10 @@ public class UploadUtil {
 				String absolutePath = UploadUtil.getAbsolutePath("picture");
 				String relativePath = UploadUtil.getRelativePath("picture");
 				// 先上传文件（绝对路径）
+				File f = new File(absolutePath);  //无路径则创建 
+				if(!f.exists()){
+					f.mkdirs();
+				}
 				File targetFile = new File(absolutePath + "/" + newName);
 				pictureFile.transferTo(targetFile);
 				return relativePath + "/" + newName;
