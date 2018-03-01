@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,12 +37,14 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
+	@RequiresPermissions("register:all")
 	public List<Register> getAll(){
 		return registerService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
+	@RequiresPermissions("register:export")
 	public String exportExcel(int pId,HttpServletResponse response){
 		try {
 		Register reg = registerService.find(pId);
@@ -86,6 +89,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
+	@RequiresPermissions("register:edit")
 	public String edit(Register register) {
 		try {
 			if(register.getRegState() == 1) {
@@ -109,6 +113,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
+	@RequiresPermissions("register:add")
 	public String saveSample(Register register) {
 		try {
 			registerService.save(register);
@@ -121,6 +126,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
+	@RequiresPermissions("register:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,18 +31,20 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
-	public List<Sample> getAll() {
-		
+	@RequiresPermissions("sample:all")
+	public List<Sample> getAll() {		
 		return sampleService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/get")
+	@RequiresPermissions("sample:get")
 	public Sample get(int id) {	
 		return sampleService.find(id);
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
+	@RequiresPermissions("sample:edit")
 	public String edit(Sample sample) {
 		try {
 			Sample sample1 = sampleService.find(sample.getId());
@@ -56,6 +59,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
+	@RequiresPermissions("sample:add")
 	public String saveSample(Sample sample) {
 		try {
 			sampleService.save(sample);
@@ -67,6 +71,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
+	@RequiresPermissions("sample:add")
 	public String saveSampleAndRegister(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -84,6 +89,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
+	@RequiresPermissions("sample:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -92,8 +98,7 @@ public class SampleController {
 				// 参数处理
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
-			PagerModel<Sample> pg = sampleService.findPaginated(map);
-			
+			PagerModel<Sample> pg = sampleService.findPaginated(map);		
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());
