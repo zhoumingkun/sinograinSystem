@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,6 +104,10 @@ public class RegisterController {
 					String newSampleNo = su.SampleNumber(register.getFormName(), sample.getSort());
 					sample.setSampleNo(newSampleNo);
 					String path = UploadUtil.getAbsolutePath("barcode");
+					File f = new File(path);  //无路径则创建 
+					if(!f.exists()){
+						f.mkdirs();
+					}
 					String barFileName = BarCodeUtil.rename("png");
 					BarCodeUtil.generateFile(newSampleNo, path + "/"+ barFileName);
 					sample.setSamplePic(barFileName);
