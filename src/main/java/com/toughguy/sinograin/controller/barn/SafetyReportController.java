@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +29,13 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
+	@RequiresPermissions("safety:all")
 	public List<SafetyReport> getAll(){
 		return safeService.findAll();
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
+	@RequiresPermissions("safety:edit")
 	public String edit(String params) {
 		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
 		try {
@@ -47,10 +50,12 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
+	@RequiresPermissions("safety:add")
 	public String saveSample(String params) {	
 		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
 		try {
 			for(SafetyReport report: reportList){
+				report.setIsDeal(-1);
 			safeService.save(report);
 			}
 			return "{ \"success\" : true }";
@@ -61,6 +66,7 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/uploadPic")
+	@RequiresPermissions("safety:upload")
 	public String uploadPicture(MultipartFile pictureFile){
 		if(UploadUtil.isPicture(pictureFile.getOriginalFilename())){
 			try {
@@ -78,6 +84,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
+	@RequiresPermissions("safety:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
