@@ -36,12 +36,9 @@ public class SafetyReportController {
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("safety:edit")
-	public String edit(String params) {
-		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
-		try {
-			for(SafetyReport report: reportList){
+	public String edit(SafetyReport report) {
+		try {		
 				safeService.update(report);
-			}	
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
