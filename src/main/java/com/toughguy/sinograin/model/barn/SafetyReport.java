@@ -15,6 +15,7 @@ public class SafetyReport extends AbstractModel{
 	private String problem;   //问题
 	private String images;     //图片
 	private int sampleId;     //样品id
+	private int isDeal;			//是否处理（-1 未解决， 1 已解决）
 	public String getProblem() {
 		return problem;
 	}
@@ -32,6 +33,13 @@ public class SafetyReport extends AbstractModel{
 	}
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
+	}
+	
+	public int getIsDeal() {
+		return isDeal;
+	}
+	public void setIsDeal(int isDeal) {
+		this.isDeal = isDeal;
 	}
 	@Override
 	public String toString(){

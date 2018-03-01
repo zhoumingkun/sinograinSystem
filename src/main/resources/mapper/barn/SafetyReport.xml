@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SafetyReport">
 
 	<insert id="save" parameterType="SafetyReport" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId) 
-		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId})
+		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId,isDeal) 
+		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId},#{isDeal})
 	</insert>
 	
 	
@@ -51,6 +51,7 @@
 			<if test="problem != null and problem != ''">problem = #{problem},</if>
 			<if test="images != null and images != ''">images = #{images},</if>
 			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
+			<if test="isDeal != null and isDeal != ''">isDeal = #{isDeal},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -81,6 +82,10 @@
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
+			</if>
+			
+			<if test=" isDeal != null and isDeal != '' ">
+				and isDeal = #{isDeal}
 			</if>
 		</where>
 	</sql>
