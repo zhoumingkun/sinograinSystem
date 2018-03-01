@@ -29,13 +29,13 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	@RequiresPermissions("safety:all")
+	//@RequiresPermissions("safety:all")
 	public List<SafetyReport> getAll(){
 		return safeService.findAll();
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	@RequiresPermissions("safety:edit")
+	//@RequiresPermissions("safety:edit")
 	public String edit(String params) {
 		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
 		try {
@@ -50,7 +50,7 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	@RequiresPermissions("safety:add")
+	//@RequiresPermissions("safety:add")
 	public String saveSample(String params) {	
 		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
 		try {
@@ -66,7 +66,7 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/uploadPic")
-	@RequiresPermissions("safety:upload")
+	//@RequiresPermissions("safety:upload")
 	public String uploadPicture(MultipartFile pictureFile){
 		if(UploadUtil.isPicture(pictureFile.getOriginalFilename())){
 			try {
@@ -84,7 +84,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	@RequiresPermissions("safety:list")
+	//@RequiresPermissions("safety:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

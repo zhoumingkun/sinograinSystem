@@ -28,13 +28,13 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	@RequiresPermissions("manuscript:all")
+	//@RequiresPermissions("manuscript:all")
 	public List<Manuscript> getAll(){
 		return manuscriptService.findAll();
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	@RequiresPermissions("manuscript:edit")
+	//@RequiresPermissions("manuscript:edit")
 	public String edit(Manuscript manuscript) {
 		try {
 			manuscriptService.update(manuscript);
@@ -46,7 +46,7 @@ public class ManuscriptController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	@RequiresPermissions("manuscript:add")
+	//@RequiresPermissions("manuscript:add")
 	public String saveManuscript(Manuscript manuscript) {
 		try {
 			manuscriptService.save(manuscript);
@@ -59,7 +59,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveMan")
-	@RequiresPermissions("manuscript:add")
+	//@RequiresPermissions("manuscript:add")
 	public String saveMan(String params) {
 		Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
 		try {
@@ -72,7 +72,7 @@ public class ManuscriptController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	@RequiresPermissions("manuscript:list")
+	//@RequiresPermissions("manuscript:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

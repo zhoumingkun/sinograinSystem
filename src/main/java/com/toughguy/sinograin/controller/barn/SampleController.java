@@ -31,20 +31,20 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
-	@RequiresPermissions("sample:all")
+	//@RequiresPermissions("sample:all")
 	public List<Sample> getAll() {		
 		return sampleService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/get")
-	@RequiresPermissions("sample:get")
+	//@RequiresPermissions("sample:get")
 	public Sample get(int id) {	
 		return sampleService.find(id);
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:edit")
 	public String edit(Sample sample) {
 		try {
 			Sample sample1 = sampleService.find(sample.getId());
@@ -59,7 +59,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	@RequiresPermissions("sample:add")
+	//@RequiresPermissions("sample:add")
 	public String saveSample(Sample sample) {
 		try {
 			sampleService.save(sample);
@@ -71,7 +71,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
-	@RequiresPermissions("sample:add")
+	//@RequiresPermissions("sample:add")
 	public String saveSampleAndRegister(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -89,7 +89,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	@RequiresPermissions("sample:list")
+	//@RequiresPermissions("sample:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
