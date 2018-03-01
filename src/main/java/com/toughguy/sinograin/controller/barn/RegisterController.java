@@ -23,8 +23,10 @@ import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.ExcelUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
+import com.toughguy.sinograin.util.UploadUtil;
 
 @Controller
 @RequestMapping("/register")
@@ -100,6 +102,10 @@ public class RegisterController {
 				for(Sample sample:s) {
 					String newSampleNo = su.SampleNumber(register.getFormName(), sample.getSort());
 					sample.setSampleNo(newSampleNo);
+					String path = UploadUtil.getAbsolutePath("barcode");
+					String barFileName = BarCodeUtil.rename("png");
+					BarCodeUtil.generateFile(newSampleNo, path + "/"+ barFileName);
+					sample.setSamplePic(barFileName);
 					sampleService.update(sample);
 				}
 			}

@@ -7,9 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.RandomStringGenerator;
 import org.krysalis.barcode4j.impl.code128.Code128Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
@@ -140,4 +144,16 @@ public class BarCodeUtil {
             throw new RuntimeException(e);
         }
     }
+    /**
+	 * 自定义方式重命名文件
+	 * @param fileName 原文件名
+	 * @return 新文件名（当前时间+4位随机数+扩展名：201703091011581104.png）
+	 */
+	public static String rename(String file) {
+		// 获取4位随机数字符串
+		String ranStr = new RandomStringGenerator.Builder().withinRange('0', '9').build().generate(4);
+		// 当前时间字符串
+		String timeStr = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()); 
+		return timeStr + ranStr + "."+ file;
+	}
 }
