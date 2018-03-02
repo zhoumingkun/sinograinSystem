@@ -35,12 +35,12 @@ public class BarnServiceImpl implements IBarnService {
 		registerService.update(sampleDTO.getRegister());
 		int rId = sampleDTO.getRegister().getId();
 		for(Sample s:sampleDTO.getList()){
-			if(s.getId()==0){
+			if(s.getId() > 0){
+				sampleService.update(s);
+			}else{
 				s.setpId(rId);
 				s.setSampleState(-1);
-				sampleService.save(s);
-			}else{
-				sampleService.update(s);
+				sampleService.save(s);			
 			}
 		}
 	}
