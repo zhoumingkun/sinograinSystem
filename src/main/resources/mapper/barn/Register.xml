@@ -55,7 +55,7 @@
 		<set>
 			<if test="formName != null and formName != ''">formName = #{formName},</if>
 			<if test="regState != null and regState != ''">regState = #{regState},</if>
-			<if test="libraryId !=null and libraryId != ''">libraryId = #{libraryId}</if>
+			<if test="libraryId != null and libraryId != ''">libraryId = #{libraryId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
