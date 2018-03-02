@@ -24,7 +24,7 @@
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
 		select s.*,r.formName,l.libraryName from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
-		where id = #{id}
+		where s.id = #{id}
 	</select>
 	
 	<!-- 查询全部样品 -->
