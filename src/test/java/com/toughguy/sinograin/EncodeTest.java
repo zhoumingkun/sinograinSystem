@@ -80,18 +80,6 @@ public class EncodeTest {
 			e.printStackTrace();
 		}  
     }
-	@Test
-	public void testEncode(){
-		SamplingUtil s = new SamplingUtil();
-		try {
-			String a = s.SampleNumber(11, "33");
-			String a1 = s.SampleNumber(1111, "玉米");
-			System.out.println(a1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}	
-		
-	}
 	/*@Test
 	 * jBarcode 条形码生成
 	 * Maven中央仓库中无对应jar包
