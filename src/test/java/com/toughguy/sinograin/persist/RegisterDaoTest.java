@@ -34,5 +34,12 @@ public class RegisterDaoTest {
 		List<Register> rs = registerService.findByLibraryId(0);
 		System.out.println(rs);
 	}
+	@Test
+	public void testUpdate() {
+		Register r = new Register();
+		r.setFormName("2017秋季检测");
+		r.setId(19);
+		registerDao.update(r);
+	}
 
 }

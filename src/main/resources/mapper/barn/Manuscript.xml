@@ -141,6 +141,9 @@
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
 			</if>
+			<if test=" startTime != null">
+				and createTime between #{startTime} and #{endTime}
+			</if>
 			
 		</where>
 	</sql>
