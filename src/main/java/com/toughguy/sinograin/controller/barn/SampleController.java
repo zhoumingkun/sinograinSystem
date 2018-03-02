@@ -76,7 +76,6 @@ public class SampleController {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
 			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
-			register.setRegState(-1);
 			samplingDTO.setRegister(register);
 			samplingDTO.setList(list);
 			barnService.saveSampleAndRegister(samplingDTO);
