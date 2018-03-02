@@ -90,8 +90,7 @@ public class SafetyReportController {
 				// 参数处理
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
-			PagerModel<SafetyReport> pg = safeService.findPaginated(map);
-			
+			PagerModel<SafetyReport> pg = safeService.findPaginated(map);	
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());
@@ -101,6 +100,5 @@ public class SafetyReportController {
 			e.printStackTrace();
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
-	}
-	
+	}	
 }
