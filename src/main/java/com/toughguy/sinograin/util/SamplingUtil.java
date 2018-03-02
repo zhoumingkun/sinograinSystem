@@ -14,41 +14,48 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public class SamplingUtil {
-	
-	
-	
-	public String SampleNumber(int libraryId,String sort) throws IOException {
-	 String lastSampleNo;
-	 String ranStr = null;
-	 String rootPath =getClass().getResource("/").getFile().toString();
-	 String [] path = rootPath.split("/");
-	 String p = null;
-	 String libraryName = String.format("%03d", libraryId);
-	for(String s:path){
-		if(StringUtils.isEmpty(p)){
-			p = s+"/";
-		}
-		p = p+s+"/";
-		if("target".equals(s)){
-			break;
-		}
+		
+	public String SampleNumber(int libraryId,String sort,String ranStr) throws IOException {
+	 String lastSampleNo;	
+	 String libraryName = String.format("%03d", libraryId);		
+			lastSampleNo = libraryName + "-" + sort + "-" + ranStr;		
+			return lastSampleNo;
 	}
+	
+	public String SampleWork(String libraryName,String sort,String ranStr){
+		return libraryName + "-" + sort + "-" + ranStr;
+	}
+	
+	public String writeProperties() throws IOException{
+		 String rootPath =getClass().getResource("/").getFile().toString();
+		 String [] path = rootPath.split("/");
+		 String p = null;
+		 String ranStr = null;
+		 String lastNo = null;
+		 for(String s:path){
+				if(StringUtils.isEmpty(p)){
+					p = s+"/";
+				}
+				p = p+s+"/";
+				if("target".equals(s)){
+					break;
+				}
+			}
 		InputStream	inStream = SamplingUtil.class.getClassLoader().getResourceAsStream("config/grain.properties"); 
 			Properties prop = new Properties(); 
 			prop.load(inStream);
-			lastSampleNo = prop.getProperty("grain.sampleNo");
-			if("9999".equals(lastSampleNo)){
+			lastNo = prop.getProperty("grain.sampleNo");
+			if("9999".equals(lastNo)){
 				ranStr = "1";
 			}else{
-				ranStr = (Integer.parseInt(lastSampleNo.trim()) + 1) + "";
+				ranStr = (Integer.parseInt(lastNo.trim()) + 1) + "";
 			}
 			OutputStream out = new FileOutputStream(p+"classes/config/grain.properties");  
 			prop.setProperty("grain.sampleNo", ranStr);
 			prop.store(out,  null); 
-			ranStr = String.format("%04d", Integer.parseInt(ranStr));			
-			lastSampleNo = libraryName + "-" + sort + "-" + ranStr;
+			ranStr = String.format("%04d", Integer.parseInt(ranStr));	
 			inStream.close();  
 	        out.close();
-			return lastSampleNo;
+		return ranStr;
 	}
 }

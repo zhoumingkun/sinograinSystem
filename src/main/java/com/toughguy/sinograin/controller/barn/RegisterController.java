@@ -101,6 +101,7 @@ public class RegisterController {
 				List<Sample> s = sampleService.findAll(params);
 				SamplingUtil su = new SamplingUtil();
 				for(Sample sample:s) {
+					String str = su.writeProperties();
 					String sort = "00";
 					if("玉米".equals(sample.getSort())){
 						sort = "01";
@@ -111,8 +112,10 @@ public class RegisterController {
 					}else {
 						sort = "04";
 					}
-					String newSampleNo = su.SampleNumber(register.getId(), sort);
+					String newSampleNo = su.SampleNumber(register.getId(), sort,str);
+					String sampleWork = su.SampleWork(register.getFormName(), sample.getSort(), str);
 					sample.setSampleNo(newSampleNo);
+					sample.setSampleWork(sampleWork);
 					String path = UploadUtil.getAbsolutePath("barcode");
 					File f = new File(path);  //无路径则创建 
 					if(!f.exists()){

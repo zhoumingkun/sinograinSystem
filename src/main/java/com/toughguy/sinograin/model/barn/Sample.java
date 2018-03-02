@@ -15,6 +15,7 @@ public class Sample extends AbstractModel{
 	private static final long serialVersionUID = -3867394433717405144L;
 	
 	private String sampleNo;  	//扦样编号
+	private String sampleWork;	//扦样编号（文字）
 	private String sampleNum;	//样品编号
 	private String samplePic;	//扦样编号条形码
 	private String depot;     	//仓位号（入库后）
@@ -59,6 +60,12 @@ public class Sample extends AbstractModel{
 	}
 	public void setSampleNo(String sampleNo) {
 		this.sampleNo = sampleNo;
+	}
+	public String getSampleWork() {
+		return sampleWork;
+	}
+	public void setSampleWork(String sampleWork) {
+		this.sampleWork = sampleWork;
 	}
 	public String getDepot() {
 		return depot;
