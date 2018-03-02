@@ -95,13 +95,23 @@ public class RegisterController {
 	//@RequiresPermissions("register:edit")
 	public String edit(Register register) {
 		try {
-			if(register.getRegState() == 1) {
+			if(register.getRegState() == 2) {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("pId", register.getId());
 				List<Sample> s = sampleService.findAll(params);
 				SamplingUtil su = new SamplingUtil();
 				for(Sample sample:s) {
-					String newSampleNo = su.SampleNumber(register.getFormName(), sample.getSort());
+					String sort = "00";
+					if("玉米".equals(sample.getSort())){
+						sort = "01";
+					}else if("小麦".equals(sample.getSort())){
+						sort = "02";
+					}else if("食用油".equals(sample.getSort())){
+						sort = "03";
+					}else {
+						sort = "04";
+					}
+					String newSampleNo = su.SampleNumber(register.getId(), sort);
 					sample.setSampleNo(newSampleNo);
 					String path = UploadUtil.getAbsolutePath("barcode");
 					File f = new File(path);  //无路径则创建 

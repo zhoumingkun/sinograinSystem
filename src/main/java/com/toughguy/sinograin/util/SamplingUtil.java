@@ -17,12 +17,13 @@ public class SamplingUtil {
 	
 	
 	
-	public String SampleNumber(String libraryName,String sort) throws IOException {
+	public String SampleNumber(int libraryId,String sort) throws IOException {
 	 String lastSampleNo;
 	 String ranStr = null;
 	 String rootPath =getClass().getResource("/").getFile().toString();
 	 String [] path = rootPath.split("/");
 	 String p = null;
+	 String libraryName = String.format("%03d", libraryId);
 	for(String s:path){
 		if(StringUtils.isEmpty(p)){
 			p = s+"/";

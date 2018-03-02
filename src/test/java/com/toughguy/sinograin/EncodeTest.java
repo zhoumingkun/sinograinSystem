@@ -84,8 +84,8 @@ public class EncodeTest {
 	public void testEncode(){
 		SamplingUtil s = new SamplingUtil();
 		try {
-			String a = s.SampleNumber("11", "玉米");
-			String a1 = s.SampleNumber("11111", "玉米");
+			String a = s.SampleNumber(11, "33");
+			String a1 = s.SampleNumber(1111, "玉米");
 			System.out.println(a1);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -136,6 +136,11 @@ public class EncodeTest {
 	}*/
 	@Test
 	public void testJBar4j() throws IOException{
-		BarCodeUtil.generateFile("12233434-2232443", "code1.png");
+		BarCodeUtil.generateFile("112334-2324", "code1.png");
+	}
+	@Test
+	public void testPath(){
+		String path = System.getProperty("user.dir");
+		System.out.println(path);
 	}
 }
