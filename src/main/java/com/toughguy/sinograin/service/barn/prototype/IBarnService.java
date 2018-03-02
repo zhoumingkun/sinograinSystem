@@ -9,4 +9,9 @@ public interface IBarnService {
 	 * 
 	 * */
 	public void saveSampleAndRegister(SamplingDTO sampleDTO);
+	/**
+	 * 修改或保存扦样表及表数据
+	 * 
+	 * */
+	public void saveOrEditAll(SamplingDTO sampleDTO);
 }

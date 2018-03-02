@@ -42,6 +42,7 @@ public class SampleController {
 	public Sample get(int id) {	
 		return sampleService.find(id);
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("sample:edit")
@@ -50,6 +51,23 @@ public class SampleController {
 			Sample sample1 = sampleService.find(sample.getId());
 			sample.setPosition(sample1.getPosition());
 			sampleService.update(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveOrEditAll")
+	//@RequiresPermissions("sample:edit")
+	public String saveOrEditAll(Register register,String sample) {
+		try {
+			SamplingDTO samplingDTO = new SamplingDTO();
+			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
+			samplingDTO.setRegister(register);
+			samplingDTO.setList(list);
+			barnService.saveOrEditAll(samplingDTO);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -29,4 +29,19 @@ public class BarnServiceImpl implements IBarnService {
 			sampleService.save(s);
 		}
 	}
+
+	@Override
+	public void saveOrEditAll(SamplingDTO sampleDTO) {
+		registerService.update(sampleDTO.getRegister());
+		int rId = sampleDTO.getRegister().getId();
+		for(Sample s:sampleDTO.getList()){
+			if(s.getId()==0){
+				s.setpId(rId);
+				s.setSampleState(-1);
+				sampleService.save(s);
+			}else{
+				sampleService.update(s);
+			}
+		}
+	}
 }
