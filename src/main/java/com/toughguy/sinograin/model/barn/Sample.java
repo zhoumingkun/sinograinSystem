@@ -30,7 +30,7 @@ public class Sample extends AbstractModel{
 	private String  gainTime;  	//收获年度
 	private Date sampleTime;   	//扦样时间
 	private int pId;          	//扦样登记表id
-	private String enterprise;	//被检查企业
+	
 	
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
@@ -134,13 +134,6 @@ public class Sample extends AbstractModel{
 	}
 	public void setGainTime(String gainTime) {
 		this.gainTime = gainTime;
-	}
-	
-	public String getEnterprise() {
-		return enterprise;
-	}
-	public void setEnterprise(String enterprise) {
-		this.enterprise = enterprise;
 	}
 	
 	public int getmId() {
