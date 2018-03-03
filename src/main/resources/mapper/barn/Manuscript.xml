@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,storageCapacity,realCapacity,aveDensity,unQuality,leader,rummager,custodian,remark,
-		correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay,lossWater,lossNature,checkNum,difference,slip,result,measuredVolume,realVolume,barnType,enterprise) 
+		correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay,lossWater,lossNature,checkNum,difference,slip,result,measuredVolume,realVolume,barnType,enterprise,checkedTime,realCheckedTime) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{storageCapacity},#{realCapacity},#{aveDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},
-		#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay},#{lossWater},#{lossNature},#{checkNum},#{difference},#{slip},#{result},#{measuredVolume},#{realVolume},#{barnType},#{enterprise})
+		#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay},#{lossWater},#{lossNature},#{checkNum},#{difference},#{slip},#{result},#{measuredVolume},#{realVolume},#{barnType},#{enterprise},#{checkedTime},#{realCheckedTime})
 	</insert>
 	
 	
@@ -82,6 +82,8 @@
 			<if test="correctioFactor != null and correctioFactor != ''">correctioFactor = #{correctioFactor},</if>
 			<if test="barnType != null and barnType != ''">barnType = #{barnType},</if>
 			<if test="enterprise != null and enterprise != ''">enterprise = #{enterprise},</if>
+			<if test="checkedTime != null">checkedTime = #{checkedTime},</if>
+			<if test="realCheckedTime != null">realCheckedTime = #{realCheckedTime},</if>
 			
 		</set>
 		where id = #{id}
