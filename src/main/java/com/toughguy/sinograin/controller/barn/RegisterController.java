@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -123,6 +125,14 @@ public class RegisterController {
 					}
 					String barFileName = BarCodeUtil.rename("png");
 					BarCodeUtil.generateFile(newSampleNo, path + "/"+ barFileName);
+					String vpath = UploadUtil.getAbsolutePath("vbarcode");
+					File vf = new File(vpath);  //无路径则创建 
+					if(!vf.exists()){
+						vf.mkdirs();
+					}
+					BufferedImage src = ImageIO.read(new File(path + "/"+ barFileName)); 
+					BufferedImage des = BarCodeUtil.Rotate(src, 90);
+					ImageIO.write(des, "jpg", new File(vpath + "/"+ barFileName));
 					sample.setSamplePic(barFileName);
 					sampleService.update(sample);
 				}
