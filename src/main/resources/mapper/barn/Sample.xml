@@ -52,7 +52,7 @@
 		SELECT s.*,r.fromName fromName,l.libraryName libraryName FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
-		<include refid="paramsSQL"/>
+		<include refid="paramsSQLMobile"/>
 		 ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>
 	<!-- 分页查询扦样z总数（移动端） -->
@@ -60,7 +60,7 @@
 		SELECT s.*,r.regState regState,l.id lid FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
-		<include refid="paramsSQL"/>
+		<include refid="paramsSQLMobile"/>
 	</select>
 	<!-- 修个某条扦样 -->
 	<update id="update" parameterType="Sample">
@@ -182,7 +182,7 @@
 		</where>
 	</sql>
 	<!-- 通用的设置条件的查询SQL语句(移动端) -->
-	<sql id="paramsSQL">
+	<sql id="paramsSQLMobile">
 		<where>
 			<if test=" sampleNo != null and sampleNo != '' ">
 				and sampleNo = #{sampleNo}
