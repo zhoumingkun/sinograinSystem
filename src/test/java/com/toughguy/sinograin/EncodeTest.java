@@ -1,25 +1,14 @@
 package com.toughguy.sinograin;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Properties;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.krysalis.barcode4j.impl.code128.Code128Bean;
-import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
-import org.krysalis.barcode4j.tools.UnitConv;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.google.zxing.BarcodeFormat;
@@ -28,11 +17,11 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.toughguy.sinograin.util.BarCodeUtil;
-import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.WriteBitMatricToFile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EncodeTest {
+	
 //	BarcodeFormat.CODE_128; // 表示高密度数据， 字符串可变长，符号内含校验码  
 //	BarcodeFormat.CODE_39;  
 //	//BarcodeFormat.CODE_93;  
@@ -125,6 +114,10 @@ public class EncodeTest {
 	@Test
 	public void testJBar4j() throws IOException{
 		BarCodeUtil.generateFile("112334-2324", "code1.png");
+		BufferedImage src = ImageIO.read(new File("code1.png")); 
+		BufferedImage des = BarCodeUtil.Rotate(src, 90);
+		ImageIO.write(des, "jpg", new File("d:/dog3.jpg"));
+		
 	}
 	@Test
 	public void testPath(){
