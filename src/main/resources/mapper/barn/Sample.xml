@@ -49,7 +49,7 @@
 	
 	<!-- 分页查询扦样（移动端） -->
 	<select id="findPaginatedMobile" resultType="Sample" parameterType="Map">
-		SELECT s.*,r.fromName fromName,l.libraryName libraryName FROM barn_sample s
+		SELECT s.*,r.formName formName,l.libraryName libraryName FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
 		<include refid="paramsSQLMobile"/>
@@ -57,7 +57,7 @@
 	</select>
 	<!-- 分页查询扦样z总数（移动端） -->
 	<select id="getTotalOfItemsMobile" parameterType="Map" resultType="int">
-		SELECT s.*,r.regState regState,l.id lid FROM barn_sample s
+		SELECT count(*) FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
 		<include refid="paramsSQLMobile"/>
