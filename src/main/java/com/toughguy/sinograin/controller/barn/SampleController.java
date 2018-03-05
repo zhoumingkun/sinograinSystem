@@ -126,4 +126,26 @@ public class SampleController {
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/dataMobile")
+	//@RequiresPermissions("sample:list")
+	public String dataMobile(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			PagerModel<Sample> pg = sampleService.findPaginatedMobile(map);		
+			// 序列化查询结果为JSON
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("total", pg.getTotal());
+			result.put("rows", pg.getData());
+			return om.writeValueAsString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
+	}
 }
