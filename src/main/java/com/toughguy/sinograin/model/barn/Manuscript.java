@@ -47,8 +47,6 @@ public class Manuscript extends AbstractModel {
 	private double measuredVolume ; //测量体积（ 粮堆测量体积）
 	private double realVolume ;     //真实体积（粮堆实际体积）
 	private double aveDensity;		//平均密度（标准容器法   kg/m³）
-	private String enterprise;		//被检查企业
-	private Date checkedTime;		//被查库日
 	private Date realCheckedTime;	//检查时间
 	
 	private double loss;          	//合计损耗（页面）
@@ -249,19 +247,6 @@ public class Manuscript extends AbstractModel {
 	}
 	public void setLoss() {
 		this.loss = lossWater+lossNature;
-	}
-	public String getEnterprise() {
-		return enterprise;
-	}
-	public void setEnterprise(String enterprise) {
-		this.enterprise = enterprise;
-	}
-	
-	public Date getCheckedTime() {
-		return checkedTime;
-	}
-	public void setCheckedTime(Date checkedTime) {
-		this.checkedTime = checkedTime;
 	}
 	public Date getRealCheckedTime() {
 		return realCheckedTime;
