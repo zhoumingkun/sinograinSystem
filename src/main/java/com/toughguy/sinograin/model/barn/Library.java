@@ -15,8 +15,10 @@ public class Library extends AbstractModel{
 	
 	private String libraryName; //库名
 	private int libraryState; //状态    （-1未启用 、1 启用）
+	private int pId;			//上级库点id
 	
 	private String noSampleIds;  //未扦样的表id集合（页面）
+	private String pLibraryName;	//父库点名（页面）
 	private int count; 			//未扦样表数量
 	
 	public String getLibraryName() {
@@ -50,6 +52,18 @@ public class Library extends AbstractModel{
 			this.count = 0 ;
 		}
 		this.count = noSampleIds.split(",").length;
+	}
+	public int getpId() {
+		return pId;
+	}
+	public void setpId(int pId) {
+		this.pId = pId;
+	}
+	public String getpLibraryName() {
+		return pLibraryName;
+	}
+	public void setpLibraryName(String pLibraryName) {
+		this.pLibraryName = pLibraryName;
 	}
 	@Override
 	public String toString(){

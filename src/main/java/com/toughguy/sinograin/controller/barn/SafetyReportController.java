@@ -17,6 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.SafetyReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.ISafetyReportService;
+import com.toughguy.sinograin.util.BackupUtil;
+import com.toughguy.sinograin.util.Base64Transformation;
 import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.UploadUtil;
 
@@ -75,9 +77,23 @@ public class SafetyReportController {
 			}
 		}else{
 			return "{ \"success\" : false , \"msg\" : \"请上传正确图片格式的图片\"}";
-		}
-		
+		}	
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/uploadBase64")
+	public String uploadPicture(String pictureFile){
+		// 重命名文件
+		String path = BackupUtil.rename("jpg");
+			try {
+			 String absolutePath = UploadUtil.getAbsolutePath("picture");
+			 Base64Transformation.base64StrToImage(pictureFile, absolutePath + "/" + path);
+			 return "{ \"success\" : true ,\"msg\" :\""+ path +"\"}";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "{ \"success\" : false ,\"msg\" : \"上传失败\"}";
+		}
+	}		
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
