@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.persist;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,19 @@ public class SampleDaoTest {
 		Sample s= new Sample();
 		s.setDepot("12234");
 		sampleDao.save(s);
+	}
+	@Test
+	public void testUpdate() {
+		Sample s= new Sample();
+		s.setUpdateTime(new Date());
+		s.setId(1);
+		sampleDao.update(s);
+	}
+	@Test
+	public void testFind() {
+		Sample s= sampleDao.find(2);
+		System.out.println(s);
+		
 	}
 
 }

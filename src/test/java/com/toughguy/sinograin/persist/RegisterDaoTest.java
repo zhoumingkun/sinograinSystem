@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.persist;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -38,6 +39,8 @@ public class RegisterDaoTest {
 	public void testUpdate() {
 		Register r = new Register();
 		r.setFormName("2017秋季检测");
+		//r.setUpdateTime(new Date());
+		r.setLibraryId(1);
 		r.setId(19);
 		registerDao.update(r);
 	}
