@@ -15,7 +15,7 @@ public class Library extends AbstractModel{
 	
 	private String libraryName; //库名
 	private int libraryState; //状态    （-1未启用 、1 启用）
-	private int pId;			//上级库点id
+	private int pLibraryId;			//上级库点id
 	
 	private String noSampleIds;  //未扦样的表id集合（页面）
 	private String pLibraryName;	//父库点名（页面）
@@ -53,11 +53,12 @@ public class Library extends AbstractModel{
 		}
 		this.count = noSampleIds.split(",").length;
 	}
-	public int getpId() {
-		return pId;
+	
+	public int getpLibraryId() {
+		return pLibraryId;
 	}
-	public void setpId(int pId) {
-		this.pId = pId;
+	public void setpLibraryId(int pLibraryId) {
+		this.pLibraryId = pLibraryId;
 	}
 	public String getpLibraryName() {
 		return pLibraryName;

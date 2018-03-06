@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Library">
 
 	<insert id="save" parameterType="Library" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_library (guid, createTime,updateTime,libraryName,libraryState,pId) 
-		values (#{guid}, #{createTime},#{updateTime},#{libraryName},#{libraryState},#{pId})
+		insert into barn_library (guid, createTime,updateTime,libraryName,libraryState,pLibraryId) 
+		values (#{guid}, #{createTime},#{updateTime},#{libraryName},#{libraryState},#{pLibraryId})
 	</insert>
 	
 	
@@ -51,7 +51,7 @@
 			<if test="libraryName != null and libraryName != ''">libraryName = #{libraryName},</if>
 			<if test="libraryState != null and libraryState != ''">libraryState = #{libraryState},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
-			<if test="pId != null and pId != ''">pId = #{pId},</if>
+			<if test="pLibraryId != null and pLibraryId != ''">pLibraryId = #{pLibraryId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -76,8 +76,8 @@
 				and updateTime = #{updateTime}
 			</if>
 			
-			<if test=" updateTime != null and libraryStateLike != '' ">
-				and pId = #{pId}
+			<if test=" pLibraryId != null and pLibraryId != '' ">
+				and pLibraryId = #{pLibraryId}
 			</if>
 			
 		</where>
