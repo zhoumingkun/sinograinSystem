@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,11 @@ public class SafetyReportController {
 		String path = BackupUtil.rename("jpg");
 			try {
 			 String absolutePath = UploadUtil.getAbsolutePath("picture");
+			// 先上传文件（绝对路径）
+				File f = new File(absolutePath);  //无路径则创建 
+				if(!f.exists()){
+					f.mkdirs();
+				}
 			 Base64Transformation.base64StrToImage(pictureFile, absolutePath + "/" + path);
 			 return "{ \"success\" : true ,\"msg\" :\""+ path +"\"}";
 			} catch (Exception e) {
