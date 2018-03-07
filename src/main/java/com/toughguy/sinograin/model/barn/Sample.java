@@ -30,6 +30,8 @@ public class Sample extends AbstractModel{
 	private String  gainTime;  	//收获年度
 	private Date sampleTime;   	//扦样时间
 	private int pId;          	//扦样登记表id
+	private Date storageTime;	//入库时间（样品室）
+	private Date barnTime;		//入仓时间（粮仓）
 	
 	
 	private String formName;	//扦样登记表名（页面展示）
@@ -176,6 +178,20 @@ public class Sample extends AbstractModel{
 	}
 	public void setpLibraryId(int pLibraryId) {
 		this.pLibraryId = pLibraryId;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getStorageTime() {
+		return storageTime;
+	}
+	public void setStorageTime(Date storageTime) {
+		this.storageTime = storageTime;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getBarnTime() {
+		return barnTime;
+	}
+	public void setBarnTime(Date barnTime) {
+		this.barnTime = barnTime;
 	}
 	@Override
 	public String toString(){

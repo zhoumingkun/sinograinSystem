@@ -3,8 +3,10 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Sample">
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,sampleState,autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord})
+		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,sampleState,
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime})
 	</insert>
 	
 	
@@ -80,6 +82,8 @@
 			<if test="pId != null and pId != ''">pId = #{pId},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="sampleTime != null">sampleTime = #{sampleTime},</if>
+			<if test="barnTime != null">barnTime = #{barnTime},</if>
+			<if test="storageTime != null">storageTime = #{storageTime},</if>
 			<if test="sampleNum != null and sampleNum != ''">sampleNum = #{sampleNum},</if>
 			<if test="sampleWord != null and sampleWord != ''">sampleWord = #{sampleWord},</if>
 			<if test="samplePic != null and samplePic != ''">samplePic = #{samplePic},</if>
@@ -178,6 +182,12 @@
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
+			</if>
+			<if test=" storageTime != null">
+				and storageTime = #{storageTime}
+			</if>
+			<if test=" updateTime != null">
+				and barnTime = #{barnTime}
 			</if>
 		</where>
 	</sql>
