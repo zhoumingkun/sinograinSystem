@@ -37,6 +37,7 @@ public class Manuscript extends AbstractModel {
 	private int qualityGrade;		//质量等级（1 上等  2中等  3 下等）
 	private int putWay;				//入仓方式（1 机械入仓  2人工入仓）
 	private String barnType;		//仓房类型
+	private String isMatch;			//账实是否相符
 	
 	private double lossWater; 		//水分减量
 	private double lossNature;		//自然损耗
