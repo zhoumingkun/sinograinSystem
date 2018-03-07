@@ -34,13 +34,13 @@
 	
 	<!-- 分页查询用户 -->
 	<select id="findPaginated" resultType="SafetyReport" parameterType="Map">
-		select * from barn_safety_report
+		SELECT sr.*,l.libraryName,s.position FROM barn_safety_report sr LEFT JOIN barn_sample s ON sr.sampleId = s.id LEFT JOIN barn_register r on s.pId = r.id LEFT JOIN barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_safety_report
+		SELECT count(*) FROM barn_safety_report sr LEFT JOIN barn_sample s ON sr.sampleId = s.id LEFT JOIN barn_register r on s.pId = r.id LEFT JOIN barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -81,9 +81,11 @@
 				and sampleId like concat(concat('%', #{sampleIdLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" updateTime != null">
-				and updateTime = #{updateTime}
+				and sr.updateTime = #{updateTime}
 			</if>
-			
+			<if test=" libraryId != null and libraryId != '' ">
+				and libraryId = #{libraryId}
+			</if>
 			<if test=" isDeal != null and isDeal != '' ">
 				and isDeal = #{isDeal}
 			</if>

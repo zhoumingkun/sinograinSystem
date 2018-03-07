@@ -16,6 +16,9 @@ public class SafetyReport extends AbstractModel{
 	private String images;     //图片
 	private int sampleId;     //样品id
 	private int isDeal;			//是否处理（-1 未解决， 1 已解决）
+	
+	private String libraryName;	//被查库名（页面展示）
+	private String position; //货位号（页面展示）
 	public String getProblem() {
 		return problem;
 	}
@@ -40,6 +43,20 @@ public class SafetyReport extends AbstractModel{
 	}
 	public void setIsDeal(int isDeal) {
 		this.isDeal = isDeal;
+	}
+	
+	
+	public String getLibraryName() {
+		return libraryName;
+	}
+	public void setLibraryName(String libraryName) {
+		this.libraryName = libraryName;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
 	}
 	@Override
 	public String toString(){
