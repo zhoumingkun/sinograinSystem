@@ -37,6 +37,7 @@ public class Sample extends AbstractModel{
 	private int mId;			//工作底稿id（页面）
 	private int srId;			//安全报告id （页面）
 	private int libraryId;		//被查库id（前台）
+	private int pLibraryId;		//被查库id（前台）
 	
 	public String getFormName() {
 		return formName;
@@ -168,6 +169,13 @@ public class Sample extends AbstractModel{
 	}
 	public void setLibraryId(int libraryId) {
 		this.libraryId = libraryId;
+	}
+	
+	public int getpLibraryId() {
+		return pLibraryId;
+	}
+	public void setpLibraryId(int pLibraryId) {
+		this.pLibraryId = pLibraryId;
 	}
 	@Override
 	public String toString(){
