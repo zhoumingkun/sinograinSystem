@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,9 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Manuscript;
-import com.toughguy.sinograin.model.barn.Register;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.util.JsonUtil;
 
 @Controller
@@ -25,6 +27,8 @@ public class ManuscriptController {
 
 	@Autowired
 	private IManuscriptService manuscriptService;
+	@Autowired
+	private ISampleService sampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -61,9 +65,44 @@ public class ManuscriptController {
 	@RequestMapping(value = "/saveMan")
 	//@RequiresPermissions("manuscript:add")
 	public String saveMan(String params) {
-		Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
 		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				String qualityGrade = (String) map.get("qualityGrade");
+				String putWay = (String) map.get("putWay");
+				if("一等".equals(qualityGrade)){
+					map.put("qualityGrade", 1);
+				}else if("二等".equals(qualityGrade)){
+					map.put("qualityGrade", 2);
+				}else if("二等".equals(qualityGrade)){
+					map.put("qualityGrade", 3);
+				}
+				if("机械入仓".equals(putWay)){
+					map.put("putWay", 1);
+				}else if("人工入仓".equals(putWay)){
+					map.put("putWay", 2);
+				}
+			}
+			String param = JsonUtil.objectToJson(map);
+		Manuscript manuscript = JsonUtil.jsonToPojo(param, Manuscript.class);
 			manuscriptService.save(manuscript);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "/exportExcel")
+	//@RequiresPermissions("manuscript:add")
+	public String exprotExcel(HttpServletResponse response,int id) {
+		try {
+			Manuscript manuscript = manuscriptService.find(id);
+			Sample sample = sampleService.find(manuscript.getSampleId());
+			manuscriptService.expertExcel(response,sample,manuscript);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
