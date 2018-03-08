@@ -97,6 +97,7 @@ public class RegisterController {
 	//@RequiresPermissions("register:edit")
 	public String edit(Register register) {
 		try {
+			Register reg = registerService.find(register.getId());
 			if(register.getRegState() == 2) {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("pId", register.getId());
@@ -137,6 +138,7 @@ public class RegisterController {
 					sampleService.update(sample);
 				}
 			}
+			register.setFormName(reg.getFormName());
 			registerService.update(register);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
