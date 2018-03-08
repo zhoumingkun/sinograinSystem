@@ -18,7 +18,7 @@ public class Manuscript extends AbstractModel {
 	private double wide;			//宽度
 	private double high;			//高度	
 	private double deductVolume;	//扣除体积（计算粮堆体积）
-	private double grainQuality;	//实际粮食质量（同 保管账数量）
+	//private double grainQuality;	//实际粮食质量（同 保管账数量）
 	//private double verageDensity;	//平均密度
 	private double unQuality;		//测量计算数（计算粮食数量）
 	private String leader;			//被检查企业负责人
@@ -33,8 +33,8 @@ public class Manuscript extends AbstractModel {
 	private double realCapacity;	//实际容重（g/l，实测粮食质量与标准容重器法中粮食容重  相同）
 	private double realImpurity;    //实际杂质（%）
 	private double realWater;       //实际水分含量（%）
-	private int storge;				//储存形式（1 正常  2 非正常）
-	private int qualityGrade;		//质量等级（1 上等  2中等  3 下等）
+	private int storge;				//储存形式（1 常规  2 非常规）
+	private int qualityGrade;		//质量等级（1 一等  2 二等  3 三等）
 	private int putWay;				//入仓方式（1 机械入仓  2人工入仓）
 	private String barnType;		//仓房类型
 	private String isMatch;			//账实是否相符
@@ -75,12 +75,6 @@ public class Manuscript extends AbstractModel {
 	}
 	public void setDeductVolume(double deductVolume) {
 		this.deductVolume = deductVolume;
-	}
-	public double getGrainQuality() {
-		return grainQuality;
-	}
-	public void setGrainQuality(double grainQuality) {
-		this.grainQuality = grainQuality;
 	}
 	
 	public void setUnQuality(double unQuality) {

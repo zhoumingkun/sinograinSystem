@@ -3,9 +3,9 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Manuscript">
 
 	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,storageCapacity,realCapacity,aveDensity,unQuality,leader,rummager,custodian,remark,
+		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,storageCapacity,realCapacity,aveDensity,unQuality,leader,rummager,custodian,remark,
 		correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay,lossWater,lossNature,checkNum,difference,slip,result,measuredVolume,realVolume,barnType,realCheckedTime,isMatch) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{storageCapacity},#{realCapacity},#{aveDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},
+		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{storageCapacity},#{realCapacity},#{aveDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},
 		#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay},#{lossWater},#{lossNature},#{checkNum},#{difference},#{slip},#{result},#{measuredVolume},#{realVolume},#{barnType},#{realCheckedTime},#{isMatch})
 	</insert>
 	
@@ -54,7 +54,6 @@
 			<if test="wide != null and wide != ''">wide = #{wide},</if>
 			<if test="high != null and high != ''">high = #{high},</if>
 			<if test="deductVolume != null and deductVolume != ''">deductVolume = #{deductVolume},</if>
-			<if test="grainQuality != null and grainQuality != ''">grainQuality = #{grainQuality},</if>
 			<if test="storageCapacity != null and storageCapacity != ''">storageCapacity = #{storageCapacity},</if>
 			<if test="realCapacity != null and realCapacity != ''">realCapacity = #{realCapacity},</if>
 			<if test="aveDensity != null and aveDensity != ''">aveDensity = #{aveDensity},</if>
