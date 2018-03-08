@@ -36,6 +36,13 @@ public class SafetyReportController {
 	public List<SafetyReport> getAll(){
 		return safeService.findAll();
 	}
+	
+	@ResponseBody
+	@RequestMapping("/get")
+	//@RequiresPermissions("safety:all")
+	public SafetyReport get(int id){
+		return safeService.find(id);
+	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("safety:edit")

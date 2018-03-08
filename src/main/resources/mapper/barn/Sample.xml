@@ -25,7 +25,7 @@
 	
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
-		select s.*,r.formName,l.libraryName from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
+		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
 		where s.id = #{id}
 	</select>
 	
