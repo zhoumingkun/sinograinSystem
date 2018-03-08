@@ -255,6 +255,13 @@ public class Manuscript extends AbstractModel {
 	public void setRealCheckedTime(Date realCheckedTime) {
 		this.realCheckedTime = realCheckedTime;
 	}
+	
+	public String getIsMatch() {
+		return isMatch;
+	}
+	public void setIsMatch(String isMatch) {
+		this.isMatch = isMatch;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

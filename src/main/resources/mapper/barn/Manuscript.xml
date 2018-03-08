@@ -10,12 +10,12 @@
 	</insert>
 	
 	
-	<!-- 删除某个样品 -->
+	<!-- 删除某个工作底稿-->
 	<delete id="delete" parameterType="int" >
 		delete from barn_manuscript where id = #{id}
 	</delete>
 	
-	<!-- 删除样品集 -->
+	<!-- 删除工作底稿集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_manuscript where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
@@ -23,18 +23,18 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某条样品 -->
+	<!-- 查询某条高作底稿 -->
 	<select id="find" parameterType="int" resultType="Manuscript">
 		select * from barn_manuscript where id = #{id}
 	</select>
 	
-	<!-- 查询全部样品 -->
+	<!-- 查询全部工作底稿 -->
 	<select id="findAll" resultType="Manuscript" parameterType="Map">
 		select * from barn_manuscript
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 分页查询用户 -->
+	<!-- 分页查询工作底稿 -->
 	<select id="findPaginated" resultType="Manuscript" parameterType="Map">
 		select * from barn_manuscript
 		<include refid="paramsSQL"/>
@@ -46,7 +46,7 @@
 		<include refid="paramsSQL"/>
 	</select>
 		
-	<!-- 修个某条扦样 -->
+	<!-- 修个某条工作底稿 -->
 	<update id="update" parameterType="Manuscript">
 		update barn_manuscript
 		<set>
