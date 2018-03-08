@@ -105,9 +105,9 @@ public class RegisterController {
 				for(Sample sample:s) {
 					String str = su.writeProperties();
 					String sort = "00";
-					if("玉米".equals(sample.getSort())){
+					if("小麦".equals(sample.getSort())){
 						sort = "01";
-					}else if("小麦".equals(sample.getSort())){
+					}else if("玉米".equals(sample.getSort())){
 						sort = "02";
 					}else if("食用油".equals(sample.getSort())){
 						sort = "03";
@@ -115,7 +115,7 @@ public class RegisterController {
 						sort = "04";
 					}
 					String newSampleNo = su.SampleNumber(register.getId(), sort,str);
-					String sampleWork = su.SampleWork(register.getFormName(), sample.getSort(), str);
+					String sampleWork = su.SampleWork(register.getLibraryName(), sample.getSort(), str);
 					sample.setSampleNo(newSampleNo);
 					sample.setSampleWord(sampleWork);
 					String path = UploadUtil.getAbsolutePath("barcode");

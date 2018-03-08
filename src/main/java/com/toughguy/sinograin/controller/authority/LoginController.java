@@ -21,7 +21,6 @@ import com.toughguy.sinograin.model.authority.User;
 import com.toughguy.sinograin.persist.authority.prototype.IUserDao;
 import com.toughguy.sinograin.util.JsonUtil;
 
-import net.minidev.json.JSONUtil;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one

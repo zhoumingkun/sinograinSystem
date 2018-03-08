@@ -45,7 +45,7 @@ public class SamplingUtil {
 			Properties prop = new Properties(); 
 			prop.load(inStream);
 			lastNo = prop.getProperty("grain.sampleNo");
-			if("9999".equals(lastNo)){
+			if("999".equals(lastNo)){
 				ranStr = "1";
 			}else{
 				ranStr = (Integer.parseInt(lastNo.trim()) + 1) + "";
@@ -53,7 +53,7 @@ public class SamplingUtil {
 			OutputStream out = new FileOutputStream(p+"classes/config/grain.properties");  
 			prop.setProperty("grain.sampleNo", ranStr);
 			prop.store(out,  null); 
-			ranStr = String.format("%04d", Integer.parseInt(ranStr));	
+			ranStr = String.format("%03d", Integer.parseInt(ranStr));	
 			inStream.close();  
 	        out.close();
 		return ranStr;
