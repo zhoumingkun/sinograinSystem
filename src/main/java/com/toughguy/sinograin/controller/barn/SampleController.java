@@ -44,6 +44,20 @@ public class SampleController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/remove")
+	//@RequiresPermissions("sample:get")
+	public String remove(int id) {
+		try {
+			sampleService.delete(id);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("sample:edit")
 	public String edit(Sample sample) {
