@@ -49,7 +49,7 @@ public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> i
 	        	storge = "非常规";
 	        }
 	        sh.getRow(5).getCell(3).setCellValue(storge); 					//存储形式
-	        sh.getRow(5).getCell(7).setCellValue(Integer.parseInt(sample.getAmount())*1000); 	//保管账数量        
+	        sh.getRow(5).getCell(7).setCellValue(Double.parseDouble(sample.getAmount())*1000); 	//保管账数量        
 	        if(manuscript.getQualityGrade() ==1){
 	        	qualityGrade = "一等";
 	        }else if(manuscript.getQualityGrade() ==2){
@@ -88,7 +88,7 @@ public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> i
 	        sh.getRow(26).getCell(2).setCellValue(manuscript.getCheckNum());		//检查计算数
 	        sh.getRow(22).getCell(7).setCellValue(manuscript.getDifference());		//差数
 	        sh.getRow(23).getCell(7).setCellValue(manuscript.getSlip());			//差率
-	        sh.getRow(25).getCell(7).setCellValue(Integer.parseInt(sample.getAmount())*1000);	//粮食实际数量（kg）
+	        sh.getRow(25).getCell(7).setCellValue(Double.parseDouble(sample.getAmount())*1000);	//粮食实际数量（kg）
 	        //将修改后的文件写出到D:\\excel目录下  
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
