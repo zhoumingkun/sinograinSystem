@@ -67,7 +67,8 @@ public class ManuscriptController {
 		try{
 			Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
 			manuscriptService.save(manuscript);
-			return "{ \"success\" : true }";
+			int id = manuscript.getId();
+			return "{ \"success\" : true ,\"id\":"+ id +" }";
 		}catch(Exception e){
 			e.printStackTrace();
 			return "{ \"success\" : false }";
