@@ -60,11 +60,23 @@ public class ManuscriptController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
 	@ResponseBody
 	@RequestMapping(value = "/saveMan")
+	public String saveMan(String params){
+		try{
+			Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
+			manuscriptService.save(manuscript);
+			return "{ \"success\" : true }";
+		}catch(Exception e){
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/saveManMobile")
 	//@RequiresPermissions("manuscript:add")
-	public String saveMan(String params) {
+	public String saveManMobile(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
