@@ -54,7 +54,8 @@ public class ManuscriptController {
 	public String saveManuscript(Manuscript manuscript) {
 		try {
 			manuscriptService.save(manuscript);
-			return "{ \"success\" : true }";
+			int id = manuscript.getId();
+			return "{ \"success\" : true,\"id\":"+ id +" }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
