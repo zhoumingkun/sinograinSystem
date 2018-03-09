@@ -51,7 +51,7 @@
 	
 	<!-- 分页查询扦样（移动端） -->
 	<select id="findPaginatedMobile" resultType="Sample" parameterType="Map">
-		SELECT s.*,r.formName formName,l.libraryName libraryName FROM barn_sample s
+		SELECT s.*,r.formName formName,l.libraryName libraryName,l.pLibraryId pLibraryId FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
 		<include refid="paramsSQLMobile"/>
