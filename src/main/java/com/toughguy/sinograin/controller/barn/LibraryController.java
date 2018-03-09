@@ -31,6 +31,12 @@ public class LibraryController {
 		return libraryService.findAll();
 	}
 	@ResponseBody
+	@RequestMapping("/get")
+	//@RequiresPermissions("library:all")
+	public Library get(int id){
+		return libraryService.find(id);
+	}
+	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("library:edit")
 	public String edit(Library library) {
