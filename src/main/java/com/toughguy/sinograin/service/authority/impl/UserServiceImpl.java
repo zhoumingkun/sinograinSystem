@@ -53,7 +53,7 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	
 	//-- 增加redis缓存的逻辑
 	@Override
-	@Cacheable(value="liquiduser")
+//	@Cacheable(value="liquiduser")
 	public User findByUserName(String userName) { 
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("userName", userName);
