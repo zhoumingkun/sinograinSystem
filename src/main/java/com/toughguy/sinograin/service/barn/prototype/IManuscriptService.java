@@ -11,5 +11,5 @@ public interface IManuscriptService extends IGenericService<Manuscript, Integer>
 	/**
 	 * 导出工作底稿
 	 * */
-	public void expertExcel(HttpServletResponse response,Sample sample, Manuscript manuscript);
+	public void expertExcel(HttpServletResponse response,Sample sample, Manuscript manuscript) throws Exception;
 }

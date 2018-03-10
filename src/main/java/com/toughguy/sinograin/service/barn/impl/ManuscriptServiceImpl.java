@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -22,13 +23,13 @@ import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
 public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> implements IManuscriptService{
 
 	@Override
-	public void expertExcel(HttpServletResponse response,Sample sample, Manuscript manuscript) {
+	public void expertExcel(HttpServletResponse response,Sample sample, Manuscript manuscript) throws Exception {
 		 String storge = null ; 		//储存形式
 		 String qualityGrade = null;  	//质量等级
 		 String isMatch = null;			//账实是否相符
-		try {  
+		
 	        //传入的文件  
-	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿（模板).xls");  
+	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿(模板).xls");  
 	        //poi包下的类读取excel文件  
 	        POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
 	        // 创建一个webbook，对应一个Excel文件            
@@ -102,9 +103,6 @@ public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> i
 	        //关闭流  
 	        fileInput.close();  
 	        output.close();  
-	    } catch (IOException e) {  
-	        e.printStackTrace();  
-	    }  
 	}
 
 }

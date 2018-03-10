@@ -18,5 +18,5 @@ public interface IRegisterService extends IGenericService<Register, Integer> {
 	/**
 	 * 导出扦样表
 	 */
-	public void expertExcel(HttpServletResponse response,SamplingDTO sample);
+	public void expertExcel(HttpServletResponse response,SamplingDTO sample)throws Exception;
 }

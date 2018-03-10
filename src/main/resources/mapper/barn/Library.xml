@@ -80,6 +80,10 @@
 				and pLibraryId = #{pLibraryId}
 			</if>
 			
+			<if test=" regState != null and regState != '' ">
+				and regState = #{ regState }
+			</if>
+			
 		</where>
 	</sql>
 	

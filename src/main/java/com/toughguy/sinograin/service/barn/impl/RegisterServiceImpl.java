@@ -1,7 +1,6 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,10 +41,10 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	}
 
 	@Override
-	public void expertExcel(HttpServletResponse response,SamplingDTO dto) {
-		try {  
+	public void expertExcel(HttpServletResponse response,SamplingDTO dto) throws Exception {
+		
 	        //传入的文件  
-	        FileInputStream fileInput = new FileInputStream("扦样登记表.xls");  
+	        FileInputStream fileInput = new FileInputStream("upload/base/扦样登记表.xls");  
 	        //poi包下的类读取excel文件  
 	        POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
 	        // 创建一个webbook，对应一个Excel文件            
@@ -64,12 +63,13 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	   	 	style.setBorderLeft(HSSFCellStyle.BORDER_THIN);	
 	   	 	style.setBorderTop(HSSFCellStyle.BORDER_THIN);
 	   	 	
-	        SimpleDateFormat dateGain = new SimpleDateFormat("yyyy");
 	        SimpleDateFormat dateBarn = new SimpleDateFormat("yyyy.MM");
 	        SimpleDateFormat dateSample = new SimpleDateFormat("yyyy.MM.dd");
 	        int pId = libraryDao.find(dto.getRegister().getLibraryId()).getpLibraryId();
-	        Library pLibrary = libraryDao.find(pId);
-	        sh.getRow(1).getCell(0).setCellValue("单位名称(盖章)：中央储备粮"+pLibrary.getLibraryName()+"直属库");
+	        if(pId!=-1){
+	        	Library pLibrary = libraryDao.find(pId);
+		        sh.getRow(1).getCell(0).setCellValue("单位名称(盖章)：中央储备粮"+pLibrary.getLibraryName()+"直属库");
+	        }
 	        int size = dto.getList().size();
 	        if(size>10){
 	        	sh.shiftRows(12, 15, size-10, true, false);				//插入单元格
@@ -82,7 +82,7 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 		        		cell.setCellStyle(style);
 	        		}
 	        	}
-	        	sh.getRow(i+3).getCell(0).setCellValue(i);				//序号
+	        	sh.getRow(i+3).getCell(0).setCellValue(i + 1);				//序号
 	        	sh.getRow(i+3).getCell(1).setCellValue(list.get(i).getSampleWord());				//扦样编号
 	        	sh.getRow(i+3).getCell(2).setCellValue(dto.getRegister().getLibraryName());			//被查库点
 	        	sh.getRow(i+3).getCell(3).setCellValue(list.get(i).getPosition());					//货位号
@@ -90,11 +90,14 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        	sh.getRow(i+3).getCell(5).setCellValue(list.get(i).getQuality());					//性质
 	        	sh.getRow(i+3).getCell(6).setCellValue(list.get(i).getAmount());					//代表数量
 	        	sh.getRow(i+3).getCell(7).setCellValue(list.get(i).getOriginPlace());				//产地
-	        	sh.getRow(i+3).getCell(8).setCellValue(dateGain.format(list.get(i).getGainTime()));	//收货年度
+	        	sh.getRow(i+3).getCell(8).setCellValue(list.get(i).getGainTime());					//收货年度
+	        	if(list.get(i).getBarnTime()!=null&&!("".equals(list.get(i).getBarnTime()))){
 	        	sh.getRow(i+3).getCell(9).setCellValue(dateBarn.format(list.get(i).getBarnTime()));	//入库时间
+	        	}
+	        	if(list.get(i).getSampleTime()!=null&&!("".equals(list.get(i).getSampleTime()))){
 	        	sh.getRow(i+3).getCell(12).setCellValue(dateSample.format(list.get(i).getSampleTime())); //扦样日期
-	        	sh.getRow(i+3).getCell(13).setCellValue(list.get(i).getRemark());					//备注
-	        	
+	        	}
+	        	sh.getRow(i+3).getCell(13).setCellValue(list.get(i).getRemark());					//备注       	
 	        }
 	        OutputStream output = response.getOutputStream();
     		response.reset();
@@ -105,9 +108,5 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        //关闭流  
 	        fileInput.close();  
 	        output.close();  
-		}catch(IOException e){
-			 e.printStackTrace();  
-		}
-		
 	}
 }
