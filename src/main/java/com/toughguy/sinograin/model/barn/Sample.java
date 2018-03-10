@@ -187,9 +187,9 @@ public class Sample extends AbstractModel{
 	public void setStorageTime(Date storageTime) {
 		this.storageTime = storageTime;
 	}
-	public String getBarnTime() {
-		SimpleDateFormat dateBarn = new SimpleDateFormat("yyyy-MM");
-		return dateBarn.format(barnTime);
+	@JsonFormat(pattern="yyyy-MM",timezone="GMT+8")
+	public Date getBarnTime() {	
+		return barnTime;
 	}
 	public void setBarnTime(Date barnTime) {
 		this.barnTime = barnTime;
