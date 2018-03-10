@@ -18,7 +18,7 @@ public class SamplingUtil {
 	public String SampleNumber(int libraryId,String sort,String ranStr) throws IOException {
 	 String lastSampleNo;	
 	 String libraryName = String.format("%03d", libraryId);		
-			lastSampleNo = libraryName + "-" + sort + "-" + ranStr;		
+			lastSampleNo = "60"+libraryName + sort + ranStr;		
 			return lastSampleNo;
 	}
 	
