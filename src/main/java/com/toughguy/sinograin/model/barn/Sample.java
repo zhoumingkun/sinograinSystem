@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toughguy.sinograin.model.AbstractModel;
@@ -186,9 +187,9 @@ public class Sample extends AbstractModel{
 	public void setStorageTime(Date storageTime) {
 		this.storageTime = storageTime;
 	}
-	@JsonFormat(pattern="yyyy-MM",timezone="GMT+8")
-	public Date getBarnTime() {
-		return barnTime;
+	public String getBarnTime() {
+		SimpleDateFormat dateBarn = new SimpleDateFormat("yyyy-MM");
+		return dateBarn.format(barnTime);
 	}
 	public void setBarnTime(Date barnTime) {
 		this.barnTime = barnTime;

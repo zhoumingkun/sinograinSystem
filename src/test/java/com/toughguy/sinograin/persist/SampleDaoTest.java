@@ -35,8 +35,7 @@ public class SampleDaoTest {
 	@Test
 	public void testFind() {
 		Sample s= sampleDao.find(2);
-		System.out.println(s);
-		
+		System.out.println(s);	
 	}
 
 }
