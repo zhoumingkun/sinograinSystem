@@ -86,6 +86,9 @@
 			<if test=" libraryId != null and libraryId != '' ">
 				and libraryId = #{libraryId}
 			</if>
+			<if test=" pLibraryId != null and pLibraryId != '' ">
+				and pLibraryId = #{pLibraryId}
+			</if>
 			<if test=" isDeal != null and isDeal != '' ">
 				and isDeal = #{isDeal}
 			</if>
