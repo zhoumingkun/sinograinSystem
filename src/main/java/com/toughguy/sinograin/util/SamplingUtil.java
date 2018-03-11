@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.util;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,34 +28,24 @@ public class SamplingUtil {
 	}
 	
 	public String writeProperties() throws IOException{
-		 String rootPath =getClass().getResource("/").getFile().toString();
-		 String [] path = rootPath.split("/");
 		 String p = null;
 		 String ranStr = null;
 		 String lastNo = null;
-		 for(String s:path){
-				if(StringUtils.isEmpty(p)){
-					p = s+"/";
-				}
-				p = p+s+"/";
-				if("target".equals(s)){
-					break;
-				}
-			}
-		InputStream	inStream = SamplingUtil.class.getClassLoader().getResourceAsStream("config/grain.properties"); 
+		 	FileInputStream fileInput = new FileInputStream("C:/java/sinograin/grain.properties"); 
+		 	//InputStream	inStream = SamplingUtil.class.getClassLoader().getResourceAsStream("config/grain.properties"); 
 			Properties prop = new Properties(); 
-			prop.load(inStream);
+			prop.load(fileInput);
 			lastNo = prop.getProperty("grain.sampleNo");
 			if("999".equals(lastNo)){
 				ranStr = "1";
 			}else{
 				ranStr = (Integer.parseInt(lastNo.trim()) + 1) + "";
 			}
-			OutputStream out = new FileOutputStream(p+"classes/config/grain.properties");  
+			OutputStream out = new FileOutputStream("C:/java/sinograin/grain.properties");  
 			prop.setProperty("grain.sampleNo", ranStr);
 			prop.store(out,  null); 
 			ranStr = String.format("%03d", Integer.parseInt(ranStr));	
-			inStream.close();  
+			fileInput.close();  
 	        out.close();
 		return ranStr;
 	}

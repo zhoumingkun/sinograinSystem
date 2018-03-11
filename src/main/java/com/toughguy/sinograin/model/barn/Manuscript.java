@@ -33,7 +33,7 @@ public class Manuscript extends AbstractModel {
 	private double realCapacity;	//实际容重（g/l，实测粮食质量与标准容重器法中粮食容重  相同）
 	private double realImpurity;    //实际杂质（%）
 	private double realWater;       //实际水分含量（%）
-	private int storge;				//储存形式（1 常规  2 非常规）
+	private int storge;				//储存形式（1 散存  2  包装  3 围包散存）
 	private int qualityGrade;		//质量等级（1 一等  2 二等  3 三等）
 	private int putWay;				//入仓方式（1 机械入仓  2人工入仓）
 	private String barnType;		//仓房类型

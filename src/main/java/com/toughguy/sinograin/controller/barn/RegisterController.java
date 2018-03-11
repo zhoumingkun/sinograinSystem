@@ -1,13 +1,10 @@
 package com.toughguy.sinograin.controller.barn;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -18,15 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toughguy.sinograin.dto.ExcelDTO;
 import com.toughguy.sinograin.dto.SamplingDTO;
+import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.util.BarCodeUtil;
-import com.toughguy.sinograin.util.ExcelUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
 
@@ -38,6 +35,8 @@ public class RegisterController {
 	private IRegisterService registerService;
 	@Autowired
 	private ISampleService sampleService;
+	@Autowired
+	private ILibraryService libraryService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -115,6 +114,7 @@ public class RegisterController {
 	public String edit(Register register) {
 		try {
 			Register reg = registerService.find(register.getId());
+			Library lib = libraryService.find(register.getLibraryId());
 			if(register.getRegState() == 2) {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("pId", register.getId());
@@ -133,7 +133,7 @@ public class RegisterController {
 						sort = "04";
 					}
 					String newSampleNo = su.SampleNumber(register.getId(), sort,str);
-					String sampleWork = su.SampleWork(register.getLibraryName(), sample.getSort(), str);
+					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(), str);
 					sample.setSampleNo(newSampleNo);
 					sample.setSampleWord(sampleWork);
 					String path = UploadUtil.getAbsolutePath("barcode");
@@ -143,14 +143,14 @@ public class RegisterController {
 					}
 					String barFileName = BarCodeUtil.rename("png");
 					BarCodeUtil.generateFile(newSampleNo, path + "/"+ barFileName);
-					String vpath = UploadUtil.getAbsolutePath("vbarcode");
+					/*String vpath = UploadUtil.getAbsolutePath("vbarcode");
 					File vf = new File(vpath);  //无路径则创建 
 					if(!vf.exists()){
 						vf.mkdirs();
 					}
 					BufferedImage src = ImageIO.read(new File(path + "/"+ barFileName)); 
 					BufferedImage des = BarCodeUtil.Rotate(src, 90);
-					ImageIO.write(des, "jpg", new File(vpath + "/"+ barFileName));
+					ImageIO.write(des, "jpg", new File(vpath + "/"+ barFileName));*/
 					sample.setSamplePic(barFileName);
 					sampleService.update(sample);
 				}
