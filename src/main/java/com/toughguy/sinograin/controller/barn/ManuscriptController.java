@@ -91,7 +91,7 @@ public class ManuscriptController {
 					map.put("qualityGrade", 1);
 				}else if("二等".equals(qualityGrade)){
 					map.put("qualityGrade", 2);
-				}else if("二等".equals(qualityGrade)){
+				}else if("三等".equals(qualityGrade)){
 					map.put("qualityGrade", 3);
 				}
 				if("机械入仓".equals(putWay)){
