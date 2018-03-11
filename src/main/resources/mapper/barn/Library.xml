@@ -28,19 +28,21 @@
 	
 	<!-- 查询全部库 -->
 	<select id="findAll" resultType="Library" parameterType="Map">
-		select * from barn_library
+		select * from barn_library bl
 		<include refid="paramsSQL"/>
 	</select>
 	
 	<!-- 分页查询库 -->
 	<select id="findPaginated" resultType="Library" parameterType="Map">
-		select bl.*,GROUP_CONCAT(br.id) as noSampleIds,max(br.createTime) regCreateTime from barn_library bl LEFT JOIN barn_register br on br.libraryId = bl.id and br.regState = -1
+		select bl.*,GROUP_CONCAT(br.id) as noSampleIds,max(br.createTime) regCreateTime, pbl.libraryName pLibraryName from barn_library bl 
+		LEFT JOIN barn_register br on br.libraryId = bl.id and br.regState = -1 left join barn_library pbl on pbl.id = bl.pLibraryId 
 		<include refid="paramsSQL"/>
 		GROUP BY bl.id ORDER BY bl.createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
 		select count(*) from barn_library bl LEFT JOIN barn_register br on br.libraryId = bl.id and br.regState = -1
+		left join barn_library pbl on pbl.id = bl.pLibraryId 
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -60,30 +62,44 @@
 	<sql id="paramsSQL">
 		<where>
 			<if test=" libraryName != null and libraryName != '' ">
-				and libraryName = #{libraryName}
+				and bl.libraryName = #{libraryName}
 			</if>
 			<if test=" libraryNameLike != null and libraryNameLike != '' ">
-				and libraryName like concat(concat('%', #{libraryNameLike, jdbcType=VARCHAR}),'%')
+				and bl.libraryName like concat(concat('%', #{libraryNameLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
 			<if test=" libraryState != null and libraryState != '' ">
-				and libraryState = #{libraryState}
+				and bl.libraryState = #{libraryState}
 			</if>
 			<if test=" libraryStateLike != null and libraryStateLike != '' ">
-				and libraryState like concat(concat('%', #{libraryStateLike, jdbcType=VARCHAR}),'%')
+				and bl.libraryState like concat(concat('%', #{libraryStateLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" updateTime != null">
-				and updateTime = #{updateTime}
+				and bl.updateTime = #{updateTime}
 			</if>
 			
 			<if test=" pLibraryId != null and pLibraryId != '' ">
-				and pLibraryId = #{pLibraryId}
+				and bl.pLibraryId = #{pLibraryId}
 			</if>
 			
 			<if test=" regState != null and regState != '' ">
 				and regState = #{ regState }
 			</if>
 			
+			<if test=" pLibraryName != null and pLibraryName != '' ">
+				and pbl.libraryName = #{pLibraryName}
+			</if>
+			
+			<if test=" pLibraryState != null and pLibraryState != '' ">
+				and pbl.libraryState = #{pLibraryState}
+			</if>
+			<if test=" pUpdateTime != null">
+				and pbl.updateTime = #{pUpdateTime}
+			</if>
+			
+			<if test=" pbLibraryId != null and pbLibraryId != '' ">
+				and pbl.pLibraryId = #{pbLibraryId}
+			</if>
 		</where>
 	</sql>
 	
