@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Manuscript;
 import com.toughguy.sinograin.model.barn.Sample;
-import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
+import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 
 @Service
-public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> implements IManuscriptService{
+public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Integer> implements IManuscriptService{
 
 	@Autowired
 	private ILibraryService libraryService;

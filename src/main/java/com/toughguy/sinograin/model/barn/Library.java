@@ -15,12 +15,12 @@ public class Library extends AbstractModel{
 
 	private static final long serialVersionUID = -7116934549541376125L;
 	
-	private String libraryName; //库名
-	private int libraryState; //状态    （-1未启用 、1 启用）
+	private String libraryName; 	//库名
+	private int libraryState; 		//状态    （-1未启用 、1 启用）
 	private int pLibraryId;			//上级库点id
 	
 	
-	private String noSampleIds;  //未扦样的表id集合（页面）
+	private String noSampleIds;  	//未扦样的表id集合（页面）
 	private String pLibraryName;	//父库点名（页面）
 	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
 	private int count; 			//未扦样表数量

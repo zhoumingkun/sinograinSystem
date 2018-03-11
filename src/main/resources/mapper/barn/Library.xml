@@ -23,8 +23,16 @@
 	
 	<!-- 查询某条库 -->
 	<select id="find" parameterType="int" resultType="Library">
-		select * from barn_library where id = #{id}
+		select bl.*,pbl.libraryName pLibraryName from barn_library bl left join barn_library pbl on bl.pLibraryId = pbl.id where bl.id = #{id}
 	</select>
+	
+	<!-- 查询直属库内最近更新时间 -->
+	<select id="findFirst" parameterType="int" resultType="Library">
+		SELECT w_bl.*,(
+			SELECT max(br.createTime) as time FROM barn_library bl RIGHT JOIN barn_register br ON br.libraryId = bl.id WHERE bl.pLibraryId = w_bl.id) regCreateTime
+		FROM barn_library w_bl WHERE w_bl.pLibraryId = - 1
+	</select>
+	
 	
 	<!-- 查询全部库 -->
 	<select id="findAll" resultType="Library" parameterType="Map">

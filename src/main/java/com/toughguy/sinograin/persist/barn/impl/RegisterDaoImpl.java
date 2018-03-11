@@ -13,7 +13,6 @@ public class RegisterDaoImpl extends GenericDaoImpl<Register, Integer> implement
 
 	@Override
 	public List<Register> findByLibraryId(int libraryId) {
-		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findByLibraryId", libraryId);
 	}
 

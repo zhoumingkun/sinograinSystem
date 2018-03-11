@@ -30,6 +30,14 @@ public class LibraryController {
 	public List<Library> getAll(){
 		return libraryService.findAll();
 	}
+	
+	@ResponseBody
+	@RequestMapping("/getFirst")
+	//@RequiresPermissions("library:all")
+	public List<Library> get(){
+		return libraryService.findFirst();
+	}
+	
 	@ResponseBody
 	@RequestMapping("/get")
 	//@RequiresPermissions("library:all")
