@@ -36,6 +36,7 @@ public class ManuscriptController {
 	public List<Manuscript> getAll(){
 		return manuscriptService.findAll();
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("manuscript:edit")
@@ -48,6 +49,7 @@ public class ManuscriptController {
 			return "{ \"success\" : false }";
 		}
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/save")
 	//@RequiresPermissions("manuscript:add")
@@ -76,9 +78,9 @@ public class ManuscriptController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/saveManMobile")
+	@RequestMapping(value = "/saveOrEditMobile")
 	//@RequiresPermissions("manuscript:add")
-	public String saveManMobile(String params) {
+	public String saveManMobile(String params,int type) {
 		try {
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -91,7 +93,7 @@ public class ManuscriptController {
 					map.put("qualityGrade", 1);
 				}else if("二等".equals(qualityGrade)){
 					map.put("qualityGrade", 2);
-				}else if("三等".equals(qualityGrade)){
+				}else{
 					map.put("qualityGrade", 3);
 				}
 				if("机械入仓".equals(putWay)){
@@ -101,14 +103,20 @@ public class ManuscriptController {
 				}
 			}
 			String param = JsonUtil.objectToJson(map);
-		Manuscript manuscript = JsonUtil.jsonToPojo(param, Manuscript.class);
-			manuscriptService.save(manuscript);
+			Manuscript manuscript = JsonUtil.jsonToPojo(param, Manuscript.class);
+			if(type == 1){
+				manuscriptService.save(manuscript);
+			}else {
+				manuscriptService.update(manuscript);
+			}
+			
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
 	//@RequiresPermissions("manuscript:add")
