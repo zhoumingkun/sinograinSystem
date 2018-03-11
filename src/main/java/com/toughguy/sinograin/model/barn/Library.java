@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.toughguy.sinograin.model.AbstractModel;
@@ -17,8 +19,10 @@ public class Library extends AbstractModel{
 	private int libraryState; //状态    （-1未启用 、1 启用）
 	private int pLibraryId;			//上级库点id
 	
+	
 	private String noSampleIds;  //未扦样的表id集合（页面）
 	private String pLibraryName;	//父库点名（页面）
+	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
 	private int count; 			//未扦样表数量
 	
 	public String getLibraryName() {
@@ -65,6 +69,13 @@ public class Library extends AbstractModel{
 	}
 	public void setpLibraryName(String pLibraryName) {
 		this.pLibraryName = pLibraryName;
+	}
+	
+	public Date getRegCreateTime() {
+		return regCreateTime;
+	}
+	public void setRegCreateTime(Date regCreateTime) {
+		this.regCreateTime = regCreateTime;
 	}
 	@Override
 	public String toString(){
