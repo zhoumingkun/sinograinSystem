@@ -68,7 +68,7 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        int pId = libraryDao.find(dto.getRegister().getLibraryId()).getpLibraryId();
 	        if(pId!=-1){
 	        	Library pLibrary = libraryDao.find(pId);
-		        sh.getRow(1).getCell(0).setCellValue("单位名称(盖章)：中央储备粮"+pLibrary.getLibraryName()+"直属库");
+		        sh.getRow(1).getCell(0).setCellValue("单位名称(盖章)：中央储备粮"+pLibrary.getLibraryName());
 	        }
 	        int size = dto.getList().size();
 	        if(size>10){

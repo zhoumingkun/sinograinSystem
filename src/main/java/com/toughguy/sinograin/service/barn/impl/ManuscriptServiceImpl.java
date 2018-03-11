@@ -1,8 +1,6 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,16 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Manuscript;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
+import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
 
 @Service
 public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> implements IManuscriptService{
 
+	@Autowired
+	private ILibraryService libraryService;
 	@Override
 	public void expertExcel(HttpServletResponse response,Sample sample, Manuscript manuscript) throws Exception {
 		 String storge = null ; 		//储存形式
@@ -37,6 +40,8 @@ public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> i
 	        //对应Excel文件中的sheet，0代表第一个             
 	        HSSFSheet sh = workbook.getSheetAt(0);  
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
+	        Library lib = libraryService.find(sample.getLibraryId());
+	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：" + lib.getpLibraryName());
 	        sh.getRow(2).getCell(5).setCellValue("实际查库日 ： "+dateFm.format(manuscript.getRealCheckedTime())); //实际查库日
 	        sh.getRow(3).getCell(1).setCellValue(sample.getPosition()); 	//货位号
 	        sh.getRow(3).getCell(3).setCellValue(sample.getSort()); 		//品种
@@ -45,9 +50,11 @@ public class ManuscriptServiceImpl extends GenericDaoImpl<Manuscript, Integer> i
 	        sh.getRow(4).getCell(7).setCellValue(manuscript.getBarnType());	//仓房类型
 	        sh.getRow(5).getCell(1).setCellValue(sample.getGainTime()); 	//收货年度       
 	        if(manuscript.getStorge() ==1){
-	        	storge = "常规";
-	        }else {
-	        	storge = "非常规";
+	        	storge = "散存";
+	        }else if(manuscript.getStorge() ==2){
+	        	storge = "包装";
+	        }else{
+	        	storge = "围包散存";
 	        }
 	        sh.getRow(5).getCell(3).setCellValue(storge); 					//存储形式
 	        sh.getRow(5).getCell(7).setCellValue(Double.parseDouble(sample.getAmount())*1000); 	//保管账数量        
