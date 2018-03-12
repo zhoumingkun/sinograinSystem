@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.RandomStringGenerator;
-import org.krysalis.barcode4j.impl.code128.Code128Bean;
+import org.krysalis.barcode4j.impl.code39.Code39Bean;
 import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 import org.krysalis.barcode4j.tools.UnitConv;
 
@@ -121,7 +121,8 @@ public class BarCodeUtil {
         if (StringUtils.isEmpty(msg) || ous == null) {
             return;
         } 
-        Code128Bean bean = new Code128Bean();
+        //Code128Bean bean = new Code128Bean();
+        Code39Bean bean = new Code39Bean();
         // 精细度
         final int dpi = 150;
         // module宽度
