@@ -19,9 +19,11 @@ import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
@@ -37,6 +39,8 @@ public class RegisterController {
 	private ISampleService sampleService;
 	@Autowired
 	private ILibraryService libraryService;
+	@Autowired
+	private ISampleNoService noService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -114,14 +118,13 @@ public class RegisterController {
 	public String edit(Register register) {
 		try {
 			Register reg = registerService.find(register.getId());
-			Library lib = libraryService.find(register.getLibraryId());
+			Library lib = libraryService.find(reg.getLibraryId());
 			if(register.getRegState() == 2) {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("pId", register.getId());
 				List<Sample> s = sampleService.findAll(params);
 				SamplingUtil su = new SamplingUtil();
 				for(Sample sample:s) {
-					String str = su.writeProperties();
 					String sort = "00";
 					if("小麦".equals(sample.getSort())){
 						sort = "01";
@@ -132,10 +135,15 @@ public class RegisterController {
 					}else {
 						sort = "04";
 					}
-					String newSampleNo = su.SampleNumber(register.getId(), sort,str);
-					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(), str);
+					String name = String.format("%03d", reg.getLibraryId());	
+					Map<String,Object > map = new  HashMap<String,Object>();
+					map.put("prefix", 60+name+sort);
+					SampleNo no = noService.findAll(map).get(0);
+					String newSampleNo = su.SampleNumber(reg.getLibraryId(), sort,no.getNum()+1);
+					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(), no.getNum()+1);
 					sample.setSampleNo(newSampleNo);
 					sample.setSampleWord(sampleWork);
+					//生成二维码
 					String path = UploadUtil.getAbsolutePath("barcode");
 					File f = new File(path);  //无路径则创建 
 					if(!f.exists()){

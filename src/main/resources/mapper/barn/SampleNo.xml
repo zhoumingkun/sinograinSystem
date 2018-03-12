@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.SampleNo">
+
+	<insert id="save" parameterType="SampleNo" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_sampleNo (prefix,num) 
+		values (#{prefix},#{num})
+	</insert>
+	
+	<!-- 删除某个库 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_sampleNo where id = #{id}
+	</delete>
+	
+	<!-- 删除库集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_sampleNo where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某条库 -->
+	<select id="find" parameterType="int" resultType="SampleNo">
+		select * from barn_sampleNo where id = #{id}
+	</select>
+	
+	<!-- 查询全部库 -->
+	<select id="findAll" resultType="SampleNo" parameterType="Map">
+		select * from barn_sampleNo 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条库 -->
+	<update id="update" parameterType="SampleNo">
+		update barn_sampleNo
+		<set>
+			<if test="prefix != null and prefix != ''">prefix = #{prefix},</if>
+			<if test="num != null and num != ''">num = #{num},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" num != null and num != '' ">
+				and num = #{num}
+			</if>
+			<if test=" numLike != null and numLike != '' ">
+				and num like concat(concat('%', #{numLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" prefix != null and prefix != '' ">
+				and prefix = #{prefix}
+			</if>
+			
+			<if test=" prefixLike != null and prefixLike != '' ">
+				and prefix like concat(concat('%', #{prefixLike, jdbcType=VARCHAR}),'%')
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

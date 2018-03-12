@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toughguy.sinograin.model.AbstractModel;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -70,7 +71,7 @@ public class Library extends AbstractModel{
 	public void setpLibraryName(String pLibraryName) {
 		this.pLibraryName = pLibraryName;
 	}
-	
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getRegCreateTime() {
 		return regCreateTime;
 	}

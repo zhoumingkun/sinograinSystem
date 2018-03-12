@@ -16,19 +16,18 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SamplingUtil {
 		
-	public String SampleNumber(int libraryId,String sort,String ranStr) throws IOException {
-	 String lastSampleNo;	
+	public String SampleNumber(int libraryId,String sort,int ranStr) throws IOException {
+	 String lastSampleNo;
 	 String libraryName = String.format("%03d", libraryId);		
 			lastSampleNo = "60"+libraryName + sort + ranStr;		
 			return lastSampleNo;
 	}
 	
-	public String SampleWork(String libraryName,String sort,String ranStr){
+	public String SampleWork(String libraryName,String sort,int ranStr){
 		return libraryName + "-" + sort + "-" + ranStr;
 	}
 	
-	public String writeProperties() throws IOException{
-		 String p = null;
+/*	public String writeProperties() throws IOException{
 		 String ranStr = null;
 		 String lastNo = null;
 		 	FileInputStream fileInput = new FileInputStream("C:/java/sinograin/grain.properties"); 
@@ -48,5 +47,5 @@ public class SamplingUtil {
 			fileInput.close();  
 	        out.close();
 		return ranStr;
-	}
+	}*/
 }
