@@ -104,6 +104,7 @@ public class ManuscriptController {
 			}
 			String param = JsonUtil.objectToJson(map);
 			Manuscript manuscript = JsonUtil.jsonToPojo(param, Manuscript.class);
+			manuscript.setStorge(1);
 			if(type == 1){
 				manuscriptService.save(manuscript);
 			}else {
