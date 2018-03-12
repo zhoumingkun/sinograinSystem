@@ -135,12 +135,15 @@ public class RegisterController {
 					}else {
 						sort = "04";
 					}
-					String name = String.format("%03d", reg.getLibraryId());	
+					String name = String.format("%03d", lib.getpLibraryId());	
 					Map<String,Object > map = new  HashMap<String,Object>();
 					map.put("prefix", 60+name+sort);
 					SampleNo no = noService.findAll(map).get(0);
-					String newSampleNo = su.SampleNumber(reg.getLibraryId(), sort,no.getNum()+1);
-					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(), no.getNum()+1);
+					int num = no.getNum() + 1;
+					String newSampleNo = su.SampleNumber(lib.getpLibraryId(), sort,num);
+					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(),num);
+					no.setNum(num);
+					noService.update(no);
 					sample.setSampleNo(newSampleNo);
 					sample.setSampleWord(sampleWork);
 					//生成二维码

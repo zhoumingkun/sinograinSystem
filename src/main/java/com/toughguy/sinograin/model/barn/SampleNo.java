@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
+import com.toughguy.sinograin.util.JsonUtil;
+
 public class SampleNo {
 	
 	private int id;
@@ -24,7 +26,10 @@ public class SampleNo {
 		this.num = num;
 	}
 	
-	
+	@Override
+	public String toString(){
+		return JsonUtil.objectToJson(this);
+	}
 	
 	
 }
