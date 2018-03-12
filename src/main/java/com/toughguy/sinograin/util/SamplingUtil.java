@@ -1,14 +1,5 @@
 package com.toughguy.sinograin.util;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Properties;
-
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * 扦样编号工具类
  * @author BOBO
@@ -16,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SamplingUtil {
 		
-	public String SampleNumber(int libraryId,String sort,int ranStr) throws IOException {
+	public String SampleNumber(int libraryId,String sort,int ranStr)  {
 	 String lastSampleNo;
 	 String libraryName = String.format("%03d", libraryId);
 	 String lib = String.format("%03d", ranStr);
@@ -25,7 +16,8 @@ public class SamplingUtil {
 	}
 	
 	public String SampleWork(String libraryName,String sort,int ranStr){
-		return libraryName + "-" + sort + "-" + ranStr;
+		String lib = String.format("%03d", ranStr);
+		return libraryName + "-" + sort + "-" + lib;
 	}
 	
 /*	public String writeProperties() throws IOException{

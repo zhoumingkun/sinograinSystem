@@ -197,7 +197,7 @@ public class Sample extends AbstractModel{
 	}
 		
 	public String getBarnTimes() {
-		SimpleDateFormat dateFm = new SimpleDateFormat("yyyy");
+		SimpleDateFormat dateFm = new SimpleDateFormat("yyyy-MM");
 		return dateFm.format(barnTime);
 	}
 	public void setBarnTimes(Date barnTimes) {
