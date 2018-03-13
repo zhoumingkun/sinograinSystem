@@ -25,7 +25,7 @@
 	
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
-		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
+		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
 		where s.id = #{id}
 	</select>
 	
@@ -33,7 +33,7 @@
 	<select id="findAll" resultType="Sample" parameterType="Map">
 		select s.*,r.formName,l.libraryName from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
-		ORDER BY createTime desc
+		ORDER BY sampleNo, createTime desc 
 	</select>
 	
 	<!-- 分页查询扦样 -->
@@ -41,7 +41,7 @@
 		select s.*,r.formName,l.id libraryId,l.libraryName,l.pLibraryId pLibraryId, m.id mId,sr.id srId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id 
 		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id
 		<include refid="paramsSQL"/>
-		group by s.id ORDER BY createTime desc  limit #{offset}, #{limit}
+		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
@@ -55,7 +55,7 @@
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
 		<include refid="paramsSQLMobile"/>
-		 ORDER BY createTime desc  limit #{offset}, #{limit}
+		 ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
 	<!-- 分页查询扦样z总数（移动端） -->
 	<select id="getTotalOfItemsMobile" parameterType="Map" resultType="int">

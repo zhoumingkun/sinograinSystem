@@ -44,6 +44,17 @@ public class SafetyReportController {
 		return safeService.find(id);
 	}
 	@ResponseBody
+	@RequestMapping("/delete")
+	public String remove(int id){
+		try {		
+			safeService.delete(id);
+		return "{ \"success\" : true }";
+		} catch (Exception e) {
+		e.printStackTrace();
+		return "{ \"success\" : false }";
+		}
+	}
+	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("safety:edit")
 	public String edit(SafetyReport report) {
@@ -59,7 +70,8 @@ public class SafetyReportController {
 	@RequestMapping(value = "/save")
 	//@RequiresPermissions("safety:add")
 	public String saveSample(String params) {	
-		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class);  
+		
+		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class); 
 		try {
 			for(SafetyReport report: reportList){
 				report.setIsDeal(-1);

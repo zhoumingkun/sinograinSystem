@@ -29,6 +29,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	public void expertExcel(HttpServletResponse response,Sample sample, Manuscript manuscript) throws Exception {
 		 String storge = null ; 		//储存形式
 		 String qualityGrade = null;  	//质量等级
+		 String putWay = null;			//入仓方式
 		 String isMatch = null;			//账实是否相符
 		
 	        //传入的文件  
@@ -41,7 +42,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        HSSFSheet sh = workbook.getSheetAt(0);  
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
-	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：" + lib.getpLibraryName());
+	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：" + lib.getpLibraryName()+"直属库有限公司");
 	        sh.getRow(2).getCell(5).setCellValue("实际查库日 ： "+dateFm.format(manuscript.getRealCheckedTime())); //实际查库日
 	        sh.getRow(3).getCell(1).setCellValue(sample.getPosition()); 	//货位号
 	        sh.getRow(3).getCell(3).setCellValue(sample.getSort()); 		//品种
@@ -49,12 +50,14 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(4).getCell(1).setCellValue(sample.getLibraryName()); 	//所在库区
 	        sh.getRow(4).getCell(7).setCellValue(manuscript.getBarnType());	//仓房类型
 	        sh.getRow(5).getCell(1).setCellValue(sample.getGainTime()); 	//收货年度       
-	        if(manuscript.getStorge() ==1){
+	        if(manuscript.getStorge() == 1){
 	        	storge = "散存";
-	        }else if(manuscript.getStorge() ==2){
+	        }else if(manuscript.getStorge() == 2){
 	        	storge = "包装";
-	        }else{
+	        }else if(manuscript.getStorge() == 3){
 	        	storge = "围包散存";
+	        }else{
+	        	storge = "未知";
 	        }
 	        sh.getRow(5).getCell(3).setCellValue(storge); 					//存储形式
 	        sh.getRow(5).getCell(7).setCellValue(Double.parseDouble(sample.getAmount())*1000); 	//保管账数量        
@@ -66,6 +69,12 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        	qualityGrade = "三等";
 	        }
 	        sh.getRow(6).getCell(1).setCellValue(qualityGrade);  			//质量等级
+	        if(manuscript.getPutWay() == 1){
+	        	putWay = "人工入仓□      机械入仓√";
+	        }else {
+	        	putWay = "人工入仓√      机械入仓□";
+	        }
+	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
 	        sh.getRow(7).getCell(2).setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        sh.getRow(8).getCell(2).setCellValue(manuscript.getStorageWater());		//水分（入库）

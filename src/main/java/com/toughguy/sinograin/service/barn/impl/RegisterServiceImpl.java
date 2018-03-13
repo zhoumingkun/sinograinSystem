@@ -58,30 +58,34 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中  
 	        HSSFFont font = workbook.createFont();  //设置字体
 	   	 	font.setFontName("宋体");   
-	   	 	font.setFontHeightInPoints((short) 12);//设置字体大小
+	   	 	font.setFontHeightInPoints((short) 11);//设置字体大小
 	   	 	style.setFont(font);
 	   	 	style.setBorderLeft(HSSFCellStyle.BORDER_THIN);	
-	   	 	style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+	   	 	style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	   	 	style.setWrapText(true);				//自动换行
 	   	 	
 	        SimpleDateFormat dateBarn = new SimpleDateFormat("yyyy.MM");
 	        SimpleDateFormat dateSample = new SimpleDateFormat("yyyy.MM.dd");
 	        int pId = libraryDao.find(dto.getRegister().getLibraryId()).getpLibraryId();
 	        if(pId!=-1){
 	        	Library pLibrary = libraryDao.find(pId);
-		        sh.getRow(1).getCell(0).setCellValue("单位名称(盖章)：中央储备粮"+pLibrary.getLibraryName());
+		        sh.getRow(1).getCell(0).setCellValue("单位名称(盖章)：中央储备粮"+pLibrary.getLibraryName()+"直属库有限公司");
 	        }
 	        int size = dto.getList().size();
-	        if(size>10){
-	        	sh.shiftRows(12, 15, size-10, true, false);				//插入单元格
+	       if(size>10){
+	        	sh.shiftRows(12, 15,size-10, true, false);				//插入单元格
 	        }
 	        List <Sample> list = dto.getList();
 	        for(int i = 0; i<size ;i++ ){
-	        	if(i>8){
-	        		for(int j= 0 ;j<14;i++){
-	        			Cell cell = sh.getRow(i+3).createCell(j);
-		        		cell.setCellStyle(style);
+	        		for(int j= 0 ;j<14;j++){
+	        			if(i>8){
+	        				sh.getRow(i+3).setHeight((short)(2.815*256));
+	        				Cell cell = sh.getRow(i+3).createCell(j);
+			        		cell.setCellStyle(style);
+	        			}else{
+	        				sh.getRow(i+3).getCell(j).setCellStyle(style);
+	        			}
 	        		}
-	        	}
 	        	sh.getRow(i+3).getCell(0).setCellValue(i + 1);				//序号
 	        	sh.getRow(i+3).getCell(1).setCellValue(list.get(i).getSampleWord());				//扦样编号
 	        	sh.getRow(i+3).getCell(2).setCellValue(dto.getRegister().getLibraryName());			//被查库点
