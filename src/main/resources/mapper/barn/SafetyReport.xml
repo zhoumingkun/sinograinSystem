@@ -3,17 +3,17 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SafetyReport">
 
 	<insert id="save" parameterType="SafetyReport" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId,isDeal) 
-		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId},#{isDeal})
+		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId,isDeal,rummager) 
+		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId},#{isDeal},#{rummager})
 	</insert>
 	
 	
-	<!-- 删除某个样品 -->
+	<!-- 删除某个安全报告-->
 	<delete id="delete" parameterType="int" >
 		delete from barn_safety_report where id = #{id}
 	</delete>
 	
-	<!-- 删除样品集 -->
+	<!-- 删除安全报告集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_safety_report where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
@@ -21,18 +21,18 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某条样品 -->
+	<!-- 查询某条安全报告 -->
 	<select id="find" parameterType="int" resultType="SafetyReport">
 		select * from barn_safety_report where id = #{id}
 	</select>
 	
-	<!-- 查询全部样品 -->
+	<!-- 查询全部安全报告 -->
 	<select id="findAll" resultType="SafetyReport" parameterType="Map">
 		select * from barn_safety_report
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 分页查询用户 -->
+	<!-- 分页查询安全报告 -->
 	<select id="findPaginated" resultType="SafetyReport" parameterType="Map">
 		SELECT sr.*,l.libraryName,s.position FROM barn_safety_report sr LEFT JOIN barn_sample s ON sr.sampleId = s.id LEFT JOIN barn_register r on s.pId = r.id LEFT JOIN barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
@@ -44,7 +44,7 @@
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 修个某条扦样 -->
+	<!-- 修个某条安全报告 -->
 	<update id="update" parameterType="SafetyReport">
 		update barn_safety_report
 		<set>
@@ -53,6 +53,7 @@
 			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
 			<if test="isDeal != null and isDeal != ''">isDeal = #{isDeal},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			<if test="rummager != null and rummager != ''">rummager = #{rummager},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -91,6 +92,9 @@
 			</if>
 			<if test=" isDeal != null and isDeal != '' ">
 				and isDeal = #{isDeal}
+			</if>
+			<if test="rummager != null and rummager != ''">
+				and rummager = #{rummager},
 			</if>
 		</where>
 	</sql>

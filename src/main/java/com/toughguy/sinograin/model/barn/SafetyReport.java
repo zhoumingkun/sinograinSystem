@@ -16,6 +16,7 @@ public class SafetyReport extends AbstractModel{
 	private String images;     //图片
 	private int sampleId;     //样品id
 	private int isDeal;			//是否处理（-1 未解决， 1 已解决）
+	private String rummager;	//检查人
 	
 	private String libraryName;	//被查库名（页面展示）
 	private String position; //货位号（页面展示）
@@ -57,6 +58,13 @@ public class SafetyReport extends AbstractModel{
 	}
 	public void setPosition(String position) {
 		this.position = position;
+	}
+	
+	public String getRummager() {
+		return rummager;
+	}
+	public void setRummager(String rummager) {
+		this.rummager = rummager;
 	}
 	@Override
 	public String toString(){
