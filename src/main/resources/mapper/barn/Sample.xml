@@ -93,7 +93,7 @@
 	
 	<!--根据扦样编号查询扦样信息 -->
 	<select id="findBySampleNo" parameterType="String" resultType="Sample">
-		select from barn_sample where sampleNo = #{sampleNo}
+		select * from barn_sample where sampleNo = #{sampleNo}
 	</select>
 	
 	<!-- 通用的设置条件的查询SQL语句 -->
