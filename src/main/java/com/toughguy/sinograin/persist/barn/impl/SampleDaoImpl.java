@@ -38,8 +38,8 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		return count;
 	}
 	@Override
-	public void updateBySampleNo(Sample sample) {
-		sqlSessionTemplate.update(typeNameSpace + ".updateBySampleNo", sample);
+	public void findBySampleNo(int sampleNo) {
+		sqlSessionTemplate.update(typeNameSpace + ".findBySampleNo", sampleNo);
 		
 	}
 }

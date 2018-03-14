@@ -17,5 +17,5 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	/**
 	 * 根据扦样编号修改样品信息
 	 * */
-	public void updateBySampleNo(Sample sample);
+	public void findBySampleNo(int sampleNo);
 }
