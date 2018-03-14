@@ -37,4 +37,9 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		int count = (Integer) sqlSessionTemplate.selectOne(typeNameSpace + ".getTotalOfItemsMobile", params);
 		return count;
 	}
+	@Override
+	public void updateBySampleNo(Sample sample) {
+		sqlSessionTemplate.update(typeNameSpace + ".updateBySampleNo", sample);
+		
+	}
 }

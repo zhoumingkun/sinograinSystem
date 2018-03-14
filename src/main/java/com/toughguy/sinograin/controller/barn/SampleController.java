@@ -73,6 +73,19 @@ public class SampleController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/editBySampleNo")
+	//@RequiresPermissions("sample:edit")
+	public String editBySampleNo(Sample sample) {
+		try {
+			sampleService.updateBySampleNo(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/saveOrEditAll")
 	//@RequiresPermissions("sample:edit")
 	public String saveOrEditAll(Register register,String sample) {

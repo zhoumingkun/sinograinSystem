@@ -7,7 +7,7 @@ package com.toughguy.sinograin.util;
  */
 public class SamplingUtil {
 		
-	public String SampleNumber(int libraryId,String sort,int ranStr)  {
+	public String SampleNo(int libraryId,String sort,int ranStr)  {
 	 String lastSampleNo;
 	 String libraryName = String.format("%03d", libraryId);
 	 String lib = String.format("%03d", ranStr);

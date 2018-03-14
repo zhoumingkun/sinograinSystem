@@ -140,7 +140,7 @@ public class RegisterController {
 					map.put("prefix", 60+name+sort);
 					SampleNo no = noService.findAll(map).get(0);
 					int num = no.getNum() + 1;
-					String newSampleNo = su.SampleNumber(lib.getpLibraryId(), sort,num);
+					String newSampleNo = su.SampleNo(lib.getpLibraryId(), sort,num);
 					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(),num);
 					no.setNum(num);
 					noService.update(no);

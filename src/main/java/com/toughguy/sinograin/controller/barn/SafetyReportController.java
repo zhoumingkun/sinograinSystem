@@ -44,7 +44,7 @@ public class SafetyReportController {
 		return safeService.find(id);
 	}
 	@ResponseBody
-	@RequestMapping("/delete")
+	@RequestMapping("/remove")
 	public String remove(int id){
 		try {		
 			safeService.delete(id);

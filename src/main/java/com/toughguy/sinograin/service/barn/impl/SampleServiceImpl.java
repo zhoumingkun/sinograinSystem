@@ -2,7 +2,6 @@ package com.toughguy.sinograin.service.barn.impl;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.Sample;
@@ -17,6 +16,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	@Override
 	public PagerModel<Sample> findPaginatedMobile(Map<String, Object> params) {	
 		return  ((ISampleDao)dao).findPaginatedMobile(params);
+	}
+
+	@Override
+	public void updateBySampleNo(Sample sample) {
+		((ISampleDao)dao).updateBySampleNo(sample);	
 	}
 
 }
