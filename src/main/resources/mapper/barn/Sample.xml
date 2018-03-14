@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,counter) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{counter})
 	</insert>
 	
 	
@@ -87,6 +87,7 @@
 			<if test="sampleNum != null and sampleNum != ''">sampleNum = #{sampleNum},</if>
 			<if test="sampleWord != null and sampleWord != ''">sampleWord = #{sampleWord},</if>
 			<if test="samplePic != null and samplePic != ''">samplePic = #{samplePic},</if>
+			<if test="counter != null and counter != ''">counter = #{counter},</if>
 		</set>
 		where id = #{id}
 	</update>

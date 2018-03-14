@@ -20,6 +20,7 @@ public class Sample extends AbstractModel{
 	private String sampleNum;	//检测编号
 	private String samplePic;	//扦样编号条形码
 	private String depot;     	//仓位号（入库后）
+	private String counter;		//柜号
 	private String position ;   //货位号（申请扦样）
 	private String sort;    	//分类(品种)
 	private String originPlace; //产地
@@ -205,6 +206,13 @@ public class Sample extends AbstractModel{
 	}
 	public void setBarnTimes(Date barnTimes) {
 		this.barnTimes = barnTime;
+	}
+	
+	public String getCounter() {
+		return counter;
+	}
+	public void setCounter(String counter) {
+		this.counter = counter;
 	}
 	@Override
 	public String toString(){
