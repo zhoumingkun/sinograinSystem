@@ -19,8 +19,8 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	}
 
 	@Override
-	public void findBySampleNo(String sampleNo) {
-		((ISampleDao)dao).findBySampleNo(sampleNo);	
+	public Sample findBySampleNo(String sampleNo) {
+		return ((ISampleDao)dao).findBySampleNo(sampleNo);	
 	}
 
 }
