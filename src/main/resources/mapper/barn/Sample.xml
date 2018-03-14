@@ -92,7 +92,7 @@
 	</update>
 	
 	<!--根据扦样编号查询扦样信息 -->
-	<select id="findBySampleNo" parameterType="int" resultType="Sample">
+	<select id="findBySampleNo" parameterType="String" resultType="Sample">
 		select from barn_sample where sampleNo = #{sampleNo}
 	</select>
 	

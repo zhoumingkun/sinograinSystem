@@ -16,5 +16,5 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	/**
 	 * 根据扦样编号修改样品信息
 	 * */
-	public void findBySampleNo(int sampleNo);
+	public void findBySampleNo(String sampleNo);
 }

@@ -75,7 +75,7 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNo")
 	//@RequiresPermissions("sample:edit")
-	public String editBySampleNo(int sampleNo) {
+	public String editBySampleNo(String sampleNo) {
 		try {
 			sampleService.findBySampleNo(sampleNo);
 			return "{ \"success\" : true }";
