@@ -123,7 +123,6 @@ public class RegisterController {
 				Map<String, Object> params = new HashMap<String, Object>();
 				params.put("pId", register.getId());
 				List<Sample> s = sampleService.findAll(params);
-				SamplingUtil su = new SamplingUtil();
 				for(Sample sample:s) {
 					String sort = "00";
 					if("小麦".equals(sample.getSort())){
@@ -139,9 +138,14 @@ public class RegisterController {
 					Map<String,Object > map = new  HashMap<String,Object>();
 					map.put("prefix", 60+name+sort);
 					SampleNo no = noService.findAll(map).get(0);
-					int num = no.getNum() + 1;
-					String newSampleNo = su.SampleNo(lib.getpLibraryId(), sort,num);
-					String sampleWork = su.SampleWork(lib.getpLibraryName(), sample.getSort(),num);
+					int num = 0;
+					if(no.getNum()%1000 == 999){
+						num = no.getNum()+2;
+					}else{
+						num = no.getNum()+1;
+					}
+					String newSampleNo = SamplingUtil.sampleNo(lib.getpLibraryId(), sort,num%1000);
+					String sampleWork = SamplingUtil.sampleWork(lib.getpLibraryName(), sample.getSort(),num%1000);
 					no.setNum(num);
 					noService.update(no);
 					sample.setSampleNo(newSampleNo);

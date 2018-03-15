@@ -1,4 +1,5 @@
 package com.toughguy.sinograin.controller.barn;
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,10 @@ import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.JsonUtil;
+import com.toughguy.sinograin.util.SamplingUtil;
+import com.toughguy.sinograin.util.UploadUtil;
 
 @Controller
 @RequestMapping(value = "/sample")
@@ -51,7 +55,6 @@ public class SampleController {
 			sampleService.delete(id);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
@@ -64,6 +67,19 @@ public class SampleController {
 		try {
 			Sample sample1 = sampleService.find(sample.getId());
 			sample.setPosition(sample1.getPosition());
+			if(sample.getSampleState()== 2){
+				String sampleNum = SamplingUtil.sampleNum();
+				//生成二维码
+				String path = UploadUtil.getAbsolutePath("barcode");
+				File f = new File(path);  //无路径则创建 
+				if(!f.exists()){
+					f.mkdirs();
+				}
+				String barFileName = BarCodeUtil.rename("png");
+				BarCodeUtil.generateFile(sampleNum, path + "/"+ barFileName);
+				sample.setSampleNumPic(barFileName);
+				sample.setSampleNum("监"+sampleNum);
+			}
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
