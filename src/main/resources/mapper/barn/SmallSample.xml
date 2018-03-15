@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.SmallSample">
+
+	<insert id="save" parameterType="SmallSample" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId) 
+		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId})
+	</insert>
+	
+	<!-- 删除某个小样 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_small_sample where id = #{id}
+	</delete>
+	
+	<!-- 删除小样集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_small_sample where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某个小样 -->
+	<select id="find" parameterType="int" resultType="SmallSample">
+		select * from barn_small_sample where id = #{id}
+	</select>
+	
+	<!-- 查询全部小样 -->
+	<select id="findAll" resultType="SmallSample" parameterType="Map">
+		select * from barn_small_sample
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询小样 -->
+	<select id="findPaginated" resultType="SmallSample" parameterType="Map">
+		select * from barn_small_sample 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_small_sample 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条小样 -->
+	<update id="update" parameterType="SmallSample">
+		update barn_small_sample
+		<set>
+			<if test="smallSampleNum != null and smallSampleNum != ''">smallSampleNum = #{smallSampleNum},</if>
+			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			<if test="checkPoint != null and checkPoint != ''">checkPoint = #{checkPoint},</if>
+			<if test="checkId != null and checkId != ''">checkId = #{checkId},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" smallSampleNum != null and smallSampleNum != '' ">
+				and smallSampleNum = #{smallSampleNum}
+			</if>
+			<if test=" smallSampleNumLike != null and smallSampleNumLike != '' ">
+				and libraryName like concat(concat('%', #{smallSampleNumLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" sampleId != null and sampleId != '' ">
+				and sampleId = #{sampleId}
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			
+			<if test=" checkPoint != null and checkPoint != '' ">
+				and checkPoint = #{checkPoint}
+			</if>
+			
+			<if test=" checkId != null and checkId != '' ">
+				and checkId = #{ checkId }
+			</if>
+			
+		</where>
+	</sql>
+	
+</mapper>
