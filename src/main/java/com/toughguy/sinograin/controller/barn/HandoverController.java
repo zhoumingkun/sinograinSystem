@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Handover;
-import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 
 @Controller
@@ -23,6 +23,8 @@ public class HandoverController {
 	
 	@Autowired
 	private IHandoverService handoverService;
+	@Autowired
+	private IBarnService barnService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -37,12 +39,26 @@ public class HandoverController {
 	public Handover get(int id){
 		return handoverService.find(id);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remove")
+	//@RequiresPermissions("library:edit")
+	public String remove(Handover handover) {
+		try {
+			barnService.dealCheck(handover,3);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("library:edit")
 	public String edit(Handover handover) {
 		try {
-			handoverService.update(handover);
+			barnService.dealCheck(handover,2);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -54,7 +70,7 @@ public class HandoverController {
 	//@RequiresPermissions("library:add")
 	public String saveSample(Handover handover) {
 		try {
-			handoverService.save(handover);
+			barnService.dealCheck(handover,1);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

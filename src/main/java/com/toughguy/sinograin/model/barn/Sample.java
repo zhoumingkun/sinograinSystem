@@ -17,9 +17,9 @@ public class Sample extends AbstractModel{
 	
 	private String sampleNo;  	//扦样编号
 	private String sampleWord;	//扦样编号（文字）
-	private String sampleNum;	//样品编号
+	private String sampleNum;	//检测编号
 	private String samplePic;	//扦样编号条形码
-	private String sampleNumPic;//样品编号条形码
+	private String sampleNumPic;//检测编号条形码
 	private String depot;     	//仓位号（入库后）
 	private String counter;		//柜号
 	private String position ;   //货位号（申请扦样）
@@ -35,6 +35,7 @@ public class Sample extends AbstractModel{
 	private int pId;          	//扦样登记表id
 	private Date storageTime;	//入库时间（样品室）
 	private Date barnTime;		//入仓时间（粮仓）
+	private String checkeds;	//检测项
 	
 	private Date barnTimes;		//入仓时间（粮仓 页面）
 	
@@ -221,6 +222,13 @@ public class Sample extends AbstractModel{
 	}
 	public void setCounter(String counter) {
 		this.counter = counter;
+	}
+	
+	public String getCheckeds() {
+		return checkeds;
+	}
+	public void setCheckeds(String checkeds) {
+		this.checkeds = checkeds;
 	}
 	@Override
 	public String toString(){
