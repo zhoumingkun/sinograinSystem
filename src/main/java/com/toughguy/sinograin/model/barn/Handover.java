@@ -11,6 +11,8 @@ public class Handover {
 	private String sampleNums;			//样品编号集
 	private String checkeds;			//检测项集
 	private String name;				//交接单名
+	private String remark;              //备注
+	private int userId;                //管理员id
 	
 	public String getSampleIds() {
 		return sampleIds;
@@ -36,6 +38,20 @@ public class Handover {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	@Override
 	public String toString(){

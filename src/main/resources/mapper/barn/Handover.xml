@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Handover">
 
 	<insert id="save" parameterType="Handover" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds,name) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds},#{name})
+		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds,name,remark,userId) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds},#{name},#{remark},#{userId})
 	</insert>
 	
 	<!-- 删除某个交接单 -->
@@ -52,6 +52,8 @@
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="checkeds != null and checkeds != ''">checkeds = #{checkeds},</if>
 			<if test="name != null and name != ''">name = #{name},</if>
+			<if test="remark != null and remark != ''">remark = #{remark},</if>
+			<if test="userId != null and userId != ''">userId = #{userId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -85,6 +87,12 @@
 			</if>
 			<if test=" name != null and name != '' ">
 				and name = #{ name }
+			</if>
+			<if test=" remark != null and remark != '' ">
+				and remark = #{ remark }
+			</if>
+			<if test=" userId != null and userId != '' ">
+				and userId = #{ userId }
 			</if>
 		</where>
 	</sql>

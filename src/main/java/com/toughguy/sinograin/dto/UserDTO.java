@@ -8,12 +8,23 @@ import com.toughguy.sinograin.util.JsonUtil;
  * */
 public class UserDTO {
 	
+	private int id; //用户id
 	private String userName;  //用户名
 	private String phone;  //电话
 	private String email;  //邮箱
 	private int libraryId; //库id
 	
 	private String libraryName; //库名
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getUserName() {
 		return userName;
