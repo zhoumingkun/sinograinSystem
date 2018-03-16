@@ -63,7 +63,7 @@
 				and smallSampleNum = #{smallSampleNum}
 			</if>
 			<if test=" smallSampleNumLike != null and smallSampleNumLike != '' ">
-				and libraryName like concat(concat('%', #{smallSampleNumLike, jdbcType=VARCHAR}),'%')
+				and smallSampleNum like concat(concat('%', #{smallSampleNumLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
 			<if test=" sampleId != null and sampleId != '' ">

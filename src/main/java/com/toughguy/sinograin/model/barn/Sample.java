@@ -17,9 +17,9 @@ public class Sample extends AbstractModel{
 	
 	private String sampleNo;  	//扦样编号
 	private String sampleWord;	//扦样编号（文字）
-	private String sampleNum;	//检测编号
+	private String sampleNum;	//样品编号
 	private String samplePic;	//扦样编号条形码
-	private String sampleNumPic;//检测编号条形码
+	private String sampleNumPic;//样品编号条形码
 	private String depot;     	//仓位号（入库后）
 	private String counter;		//柜号
 	private String position ;   //货位号（申请扦样）

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.Handover">
+
+	<insert id="save" parameterType="Handover" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds})
+	</insert>
+	
+	<!-- 删除某个交接单 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_handover where id = #{id}
+	</delete>
+	
+	<!-- 删除交接单集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_handover where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某个交接单  -->
+	<select id="find" parameterType="int" resultType="Handover">
+		select * from barn_handover where id = #{id}
+	</select>
+	
+	<!-- 查询全部交接单  -->
+	<select id="findAll" resultType="Handover" parameterType="Map">
+		select * from barn_handover
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<select id="findPaginated" resultType="Handover" parameterType="Map">
+		select * from barn_handover 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_handover 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条交接单  -->
+	<update id="update" parameterType="Handover">
+		update barn_handover
+		<set>
+			<if test="sampleIds != null and sampleIds != ''">sampleIds = #{sampleIds},</if>
+			<if test="sampleNums != null and sampleNums != ''">sampleNums = #{sampleNums},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			<if test="checkeds != null and checkeds != ''">checkeds = #{checkeds},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" sampleIds != null and sampleIds != '' ">
+				and sampleIds = #{sampleIds}
+			</if>
+			<if test=" sampleIdsLike != null and sampleIdsLike != '' ">
+				and sampleIds like concat(concat('%', #{sampleIdsLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" sampleNums != null and sampleNums != '' ">
+				and sampleNums = #{sampleNums}
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			
+			<if test=" sampleNumsLike != null and sampleNumsLike != '' ">
+				and sampleNums like concat(concat('%', #{sampleNumsLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" checkeds != null and checkeds != '' ">
+				and checkeds = #{ checkeds }
+			</if>
+			<if test=" checkedsLike != null and checkedsLike != '' ">
+				and checkeds like concat(concat('%', #{checkedsLike, jdbcType=VARCHAR}),'%')
+			</if>
+		</where>
+	</sql>
+	
+</mapper>
