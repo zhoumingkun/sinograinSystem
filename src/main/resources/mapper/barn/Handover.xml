@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Handover">
 
 	<insert id="save" parameterType="Handover" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds})
+		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds,name) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds},#{name})
 	</insert>
 	
 	<!-- 删除某个交接单 -->
@@ -51,6 +51,7 @@
 			<if test="sampleNums != null and sampleNums != ''">sampleNums = #{sampleNums},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="checkeds != null and checkeds != ''">checkeds = #{checkeds},</if>
+			<if test="name != null and name != ''">name = #{name},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -81,6 +82,9 @@
 			</if>
 			<if test=" checkedsLike != null and checkedsLike != '' ">
 				and checkeds like concat(concat('%', #{checkedsLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" name != null and name != '' ">
+				and name = #{ name }
 			</if>
 		</where>
 	</sql>

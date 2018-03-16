@@ -8,8 +8,9 @@ import com.toughguy.sinograin.util.JsonUtil;
 public class Handover {
 	
 	private String sampleIds;			//样品id集
-	private String sampleNums;			//样品检测编号集
+	private String sampleNums;			//样品编号集
 	private String checkeds;			//检测项集
+	private String name;				//交接单名
 	
 	public String getSampleIds() {
 		return sampleIds;
@@ -30,6 +31,12 @@ public class Handover {
 		this.checkeds = checkeds;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
