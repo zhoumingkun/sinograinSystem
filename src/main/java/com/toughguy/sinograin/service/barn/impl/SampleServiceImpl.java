@@ -23,4 +23,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findBySampleNo(sampleNo);	
 	}
 
+	@Override
+	public void deleteByPId(int pId) {
+		// TODO Auto-generated method stub
+		((ISampleDao)dao).deleteByPId(pId);
+	}
+
 }

@@ -42,4 +42,10 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBySampleNo", sampleNo);
 		
 	}
+	@Override
+	public void deleteByPId(int pId) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.delete(typeNameSpace + ".deleteByPId", pId);
+	}
+	
 }

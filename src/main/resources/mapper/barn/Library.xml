@@ -31,6 +31,7 @@
 		SELECT w_bl.*,(
 			SELECT max(br.createTime) as time FROM barn_library bl RIGHT JOIN barn_register br ON br.libraryId = bl.id WHERE bl.pLibraryId = w_bl.id) regCreateTime
 		FROM barn_library w_bl WHERE w_bl.pLibraryId = - 1
+		<include refid="paramsSQL"/>
 	</select>
 	
 	

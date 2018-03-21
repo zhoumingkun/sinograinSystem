@@ -17,4 +17,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 根据扦样编号修改样品信息
 	 * */
 	public Sample findBySampleNo(String sampleNo);
+	
+	/**
+	 * 根据PId删除样品
+	 */
+	public void deleteByPId(int pId);
 }

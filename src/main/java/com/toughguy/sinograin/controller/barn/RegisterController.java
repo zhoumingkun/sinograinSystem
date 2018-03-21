@@ -48,6 +48,19 @@ public class RegisterController {
 	public List<Register> getAll(){
 		return registerService.findAll();
 	}
+	@ResponseBody
+	@RequestMapping("/remove")
+	//@RequiresPermissions("register:remove")
+	public String delete(int id){
+		try {
+			registerService.deleteRegisterAndSample(id);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 	
 /*	@ResponseBody
 	@RequestMapping(value = "/exportExcel")

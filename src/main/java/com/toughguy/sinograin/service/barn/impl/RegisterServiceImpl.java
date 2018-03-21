@@ -23,6 +23,7 @@ import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.persist.barn.prototype.ILibraryDao;
 import com.toughguy.sinograin.persist.barn.prototype.IRegisterDao;
+import com.toughguy.sinograin.persist.barn.prototype.ISampleDao;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 
@@ -33,6 +34,8 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	private IRegisterDao registerDao;
 	@Autowired
 	private ILibraryDao libraryDao;
+	@Autowired
+	private ISampleDao sampleDao;
 	
 	@Override
 	public List<Register> findByLibraryId(int libraryId) {
@@ -112,5 +115,12 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        //关闭流  
 	        fileInput.close();  
 	        output.close();  
+	}
+
+	@Override
+	public void deleteRegisterAndSample(int id) {
+		// TODO Auto-generated method stub
+		registerDao.delete(id);
+		sampleDao.deleteByPId(id);
 	}
 }

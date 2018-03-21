@@ -19,4 +19,9 @@ public interface IRegisterService extends IGenericService<Register, Integer> {
 	 * 导出扦样表
 	 */
 	public void expertExcel(HttpServletResponse response,SamplingDTO sample)throws Exception;
+	
+	/**
+	 * 删除扦样登记表
+	 */
+	public void deleteRegisterAndSample(int id);
 }

@@ -15,6 +15,11 @@
 		delete from barn_sample where id = #{id}
 	</delete>
 	
+	<!-- 删除某个样品 -->
+	<delete id="deleteByPId" parameterType="int" >
+		delete from barn_sample where pId = #{pId}
+	</delete>
+	
 	<!-- 删除样品集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_sample where id in
