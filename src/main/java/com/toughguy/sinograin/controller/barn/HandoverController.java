@@ -71,7 +71,8 @@ public class HandoverController {
 	public String saveSample(Handover handover) {
 		try {
 			barnService.dealCheck(handover,1);
-			return "{ \"success\" : true }";
+			int id = handover.getId();
+			return "{ \"success\" : true ,\"id\":"+ id +" }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";

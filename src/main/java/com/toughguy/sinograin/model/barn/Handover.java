@@ -16,6 +16,8 @@ public class Handover extends AbstractModel{
 	private String name;				//交接单名
 	private String remark;              //备注
 	private int userId;                //管理员id
+	private String sampleAdmin;        //样品管理员
+	private String receiptor;           //领取人
 	
 	public String getSampleIds() {
 		return sampleIds;
@@ -55,6 +57,19 @@ public class Handover extends AbstractModel{
 	}
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	
+	public String getSampleAdmin() {
+		return sampleAdmin;
+	}
+	public void setSampleAdmin(String sampleAdmin) {
+		this.sampleAdmin = sampleAdmin;
+	}
+	public String getReceiptor() {
+		return receiptor;
+	}
+	public void setReceiptor(String receiptor) {
+		this.receiptor = receiptor;
 	}
 	@Override
 	public String toString(){
