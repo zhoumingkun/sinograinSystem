@@ -83,7 +83,8 @@ public class BarnServiceImpl implements IBarnService {
 				List<String> oldCheckList =  new ArrayList<String>(Arrays.asList(oldCheckeds));
 				checkList.removeAll(oldCheckList); 		// 移除所有一致检测项
 				oldCheckList.addAll(checkList); 		//将剩余检测项放入集合
-				StringUtils.join(checkList,",");
+//				StringUtils.join(oldCheckList,",");
+				sample.setCheckeds(StringUtils.join(oldCheckList,","));
 				}
 			sampleService.update(sample);
 			}
