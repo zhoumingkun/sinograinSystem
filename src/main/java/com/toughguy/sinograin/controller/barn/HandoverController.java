@@ -45,7 +45,7 @@ public class HandoverController {
 	//@RequiresPermissions("library:edit")
 	public String remove(Handover handover) {
 		try {
-			barnService.dealCheck(handover,3);
+			barnService.dealCheck(handover,3,null);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,9 +56,9 @@ public class HandoverController {
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@RequiresPermissions("library:edit")
-	public String edit(Handover handover) {
+	public String edit(Handover handover,String[] deleteIds) {
 		try {
-			barnService.dealCheck(handover,2);
+			barnService.dealCheck(handover,2,deleteIds);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,7 +70,7 @@ public class HandoverController {
 	//@RequiresPermissions("library:add")
 	public String saveSample(Handover handover) {
 		try {
-			barnService.dealCheck(handover,1);
+			barnService.dealCheck(handover,1,null);
 			int id = handover.getId();
 			return "{ \"success\" : true ,\"id\":"+ id +" }";
 		} catch (Exception e) {
