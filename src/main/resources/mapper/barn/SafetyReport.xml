@@ -87,6 +87,9 @@
 			<if test=" libraryId != null and libraryId != '' ">
 				and libraryId = #{libraryId}
 			</if>
+			<if test=" libraryNameLike != null and libraryNameLike != '' ">
+				and libraryName like concat(concat('%', #{libraryNameLike, jdbcType=VARCHAR}),'%')
+			</if>
 			<if test=" pLibraryId != null and pLibraryId != '' ">
 				and pLibraryId = #{pLibraryId}
 			</if>

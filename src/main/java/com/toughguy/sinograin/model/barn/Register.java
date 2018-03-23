@@ -1,5 +1,8 @@
 package com.toughguy.sinograin.model.barn;
 
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toughguy.sinograin.model.AbstractModel;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -16,6 +19,7 @@ public class Register extends AbstractModel {
 	private int libraryId;		//库id
 	
 	private String libraryName;	//库名(页面)
+	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
 	
 	
 	public String getLibraryName() {
@@ -42,6 +46,13 @@ public class Register extends AbstractModel {
 	}
 	public void setLibraryId(int libraryId) {
 		this.libraryId = libraryId;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getRegCreateTime() {
+		return regCreateTime;
+	}
+	public void setRegCreateTime(Date regCreateTime) {
+		this.regCreateTime = regCreateTime;
 	}
 	@Override
 	public String toString(){
