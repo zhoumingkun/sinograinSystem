@@ -98,17 +98,8 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
 	//@RequiresPermissions("sample:edit")
-	public String getBySampleNum(String sampleNum) {	
-			try {
-				Sample sample = sampleService.findBySampleNum(sampleNum);
-				int id = sample.getId();
-				return "{ \"success\" : true,\"id\":"+ id +" }";
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "{ \"success\" : false }";
-			}
-			
+	public Sample getBySampleNum(String sampleNum) {	
+			return sampleService.findBySampleNum(sampleNum);
 	}
 	
 	@ResponseBody

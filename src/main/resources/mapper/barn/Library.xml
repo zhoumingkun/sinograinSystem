@@ -28,9 +28,10 @@
 	
 	<!-- 查询直属库内最近更新时间 -->
 	<select id="findFirst" parameterType="int" resultType="Library">
-		SELECT w_bl.*,(
-			SELECT max(br.createTime) as time FROM barn_library bl RIGHT JOIN barn_register br ON br.libraryId = bl.id WHERE bl.pLibraryId = w_bl.id) regCreateTime
-		FROM barn_library w_bl WHERE w_bl.pLibraryId = - 1
+		SELECT w_bl.*, ( 
+			SELECT max(bs.sampleTime) AS time FROM barn_library bl RIGHT JOIN barn_register br ON br.libraryId = bl.id 
+			RIGHT JOIN barn_sample bs ON bs.pId = br.id WHERE bl.pLibraryId = w_bl.id ) regCreateTime 
+			FROM barn_library w_bl
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -89,6 +90,14 @@
 			
 			<if test=" pLibraryId != null and pLibraryId != '' ">
 				and bl.pLibraryId = #{pLibraryId}
+			</if>
+			
+			<if test=" wpLibraryId != null and wpLibraryId != '' ">
+				and w_bl.pLibraryId = #{wpLibraryId}
+			</if>
+			
+			<if test=" wlibraryName != null and wlibraryName != '' ">
+				and w_bl.libraryName = #{wlibraryName}
 			</if>
 			
 			<if test=" regState != null and regState != '' ">
