@@ -7,7 +7,7 @@ import com.toughguy.sinograin.util.JsonUtil;
  * 交接单实体类
  * */
 public class Handover extends AbstractModel{
-	
+	 
 	private static final long serialVersionUID = -7766006711847226668L;
 	
 	private String sampleIds;			//样品id集
