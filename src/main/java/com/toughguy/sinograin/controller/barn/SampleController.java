@@ -142,6 +142,20 @@ public class SampleController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/split")
+	//@RequiresPermissions("SmallSample:add")
+	public String splitSample(int id) {
+		try {
+			Sample sample = sampleService.find(id);		
+			barnService.saveSmallSample(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/data")
 	//@RequiresPermissions("sample:list")
 	public String data(String params) {

@@ -1,9 +1,11 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +13,15 @@ import org.springframework.stereotype.Service;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Handover;
 import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
+import com.toughguy.sinograin.util.BarCodeUtil;
+import com.toughguy.sinograin.util.SamplingUtil;
+import com.toughguy.sinograin.util.UploadUtil;
 
 @Service
 public class BarnServiceImpl implements IBarnService {
@@ -25,6 +32,8 @@ public class BarnServiceImpl implements IBarnService {
 	private ISampleService sampleService;
 	@Autowired
 	private IHandoverService handoverService;
+	@Autowired
+	private ISmallSampleService smallSampleService;
 	
 	@Override
 	public void saveSampleAndRegister(SamplingDTO sampleDTO) {	
@@ -100,6 +109,33 @@ public class BarnServiceImpl implements IBarnService {
 			StringUtils.join(checkList,",");
 			sampleService.update(sample);
 		}
+	}
+
+	@Override
+	public void saveSmallSample(Sample sample) {
+		List<String> nums = SamplingUtil.smallSampleNums(sample);
+		if(!CollectionUtils.isEmpty(nums)){
+			for(String s: nums){
+				SmallSample smallSample = new SmallSample();
+				//获取检测项
+				int point =Integer.parseInt(s.substring(s.length()-1)) ;
+				smallSample.setCheckPoint(point);
+				//生成二维码
+				String path = UploadUtil.getAbsolutePath("smaBarcode");
+				File f = new File(path);  //无路径则创建 
+				if(!f.exists()){
+					f.mkdirs();
+				}
+				String barFileName = BarCodeUtil.rename("png");
+				BarCodeUtil.generateFile(s, path + "/"+ barFileName);
+				smallSample.setSmallSamplePic(barFileName);
+				smallSample.setSampleId(sample.getId());
+				smallSample.setSmallSampleNum("监"+s);
+				smallSampleService.save(smallSample);
+			}
+			sample.setSampleState(3);
+			sampleService.update(sample);
+		}	
 	}
 	
 }

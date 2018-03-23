@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.barn.prototype;
 
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Handover;
+import com.toughguy.sinograin.model.barn.Sample;
 
 public interface IBarnService {
 	
@@ -22,5 +23,11 @@ public interface IBarnService {
 	 * flag		标志  1 增加  2修改  3 删除
 	 * */
 	public void dealCheck(Handover handover,int flag);
+	
+	/**
+	 * 实现扫码将样品分小样
+	 * sample  样品实体
+	 * */
+	public void saveSmallSample(Sample sample);
 
 }

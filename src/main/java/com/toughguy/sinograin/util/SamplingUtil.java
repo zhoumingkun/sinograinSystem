@@ -3,10 +3,16 @@ package com.toughguy.sinograin.util;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.toughguy.sinograin.model.barn.Sample;
 
 /**
  * 扦样编号工具类
@@ -61,6 +67,19 @@ public class SamplingUtil {
 			fileInput.close();  
 	        out.close();
 		return  year + lib;
+	}
+	
+	public static List<String> smallSampleNums(Sample sample){
+		List <String> list = new ArrayList<String>();
+		if(!StringUtils.isEmpty(sample.getSampleNum())&&!StringUtils.isEmpty(sample.getCheckeds())){
+			String sampleNum = sample.getSampleNum().substring(1);
+			String [] checks = sample.getCheckeds().split(",");
+			for(String s : checks){
+				String check = String.format("%02d", Integer.parseInt(s));
+				list.add(sampleNum + "-" + check);
+			}
+		}
+		return list;
 	}
 /*	public String writeProperties() throws IOException{
 		 String ranStr = null;
