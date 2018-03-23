@@ -20,7 +20,7 @@ import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 @Controller
 @RequestMapping("/handover")
 public class HandoverController {
-
+	
 	@Autowired
 	private IHandoverService handoverService;
 	@Autowired
