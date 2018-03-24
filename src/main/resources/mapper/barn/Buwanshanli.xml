@@ -3,7 +3,7 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Buwanshanli">
 
 	<insert id="save" parameterType="Buwanshanli" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_zazhi_buwanshanli_cedingjilu (id, yangpinId,table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,
+		insert into barn_zazhi_buwanshanli_cedingjilu (id, smallSampleId,table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,
 		yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,
 		dayangzhiliang_1,dayangzhiliang_2,dayangzhiliang_jisuangongshi,dayangzazhizhiliang_1,dayangzazhizhiliang_2,dayangzazhizhiliang_jisuangongshi,
 		dayangzazhihanliang_1,dayangzazhihanliang_2,dayangzazhihanliang_jisuangongshi,dayangzazhihanliang_pingjunzhi,dayangzazhihanliang_pingjunzhi_jisuangongshi,
@@ -14,7 +14,7 @@
 	    buwanshanlihanliang_1,buwanshanlihanliang_2,buwanshanlihanliang_jisuangongshi,buwanshanlihanliang_pingjunzhi_1,buwanshanlihanliang_pingjunzhi_2,buwanshanlihanliang_pingjunzhi_jisuangongshi,
 	    shengmeilizhiliang_1,shengmeilizhiliang_2,shengmeilizhiliang_jisuangongshi,shengmeilihanliang_1,shengmeilihanliang_2,shengmeilihanliang_jisuangongshi,shengmeilihanliang_pingjunzhi,
 	    shengmeilihanliang_pingjunzhi_jisuangongshi,beizhu,fenyangjiance,buwanshanli_zazhi_jiance,jiaohe,createTime,updateTime) 
-		values ( #{id}, #{yangpinId},#{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},
+		values ( #{id}, #{smallSampleId},#{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},
 		#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},
 		#{dayangzhiliang_1},#{dayangzhiliang_2},#{dayangzhiliang_jisuangongshi},#{dayangzazhizhiliang_1},#{dayangzazhizhiliang_2},#{dayangzazhizhiliang_jisuangongshi},
 		#{dayangzazhihanliang_1},#{dayangzazhihanliang_2},#{dayangzazhihanliang_jisuangongshi},#{dayangzazhihanliang_pingjunzhi},#{dayangzazhihanliang_pingjunzhi_jisuangongshi},
@@ -67,7 +67,7 @@
 	<update id="update" parameterType="Buwanshanli">
 		update barn_zazhi_buwanshanli_cedingjilu
 		<set>
-			<if test="yangpinId != null and yangpinId != ''">yangpinId = #{yangpinId},</if>
+			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
 			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
 			<if test="riqi != null">riqi = #{riqi},</if>
 			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
@@ -142,8 +142,8 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test="yangpinId != null and yangpinId != ''">
-				and yangpinId = #{yangpinId}
+			<if test="smallSampleId != null and smallSampleId != ''">
+				and smallSampleId = #{smallSampleId}
 			</if>
 			<if test="table_version != null and table_version != ''">
 				and table_version = #{table_version}
