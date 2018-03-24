@@ -115,6 +115,7 @@ public class BarnServiceImpl implements IBarnService {
 			sampleService.update(sample);
 		}
 	}
+<<<<<<< HEAD
 	//删除交接单中删除的样品的检测项
 		private void deleteSampleIdCheckeds(String [] deleteIds){
 			Sample sample = null; 
@@ -124,6 +125,8 @@ public class BarnServiceImpl implements IBarnService {
 				sampleService.update(sample);
 			}
 		}
+=======
+>>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend.git
 
 	@Override
 	public void saveSmallSample(Sample sample) {

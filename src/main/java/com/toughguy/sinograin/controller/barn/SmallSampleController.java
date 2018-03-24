@@ -52,7 +52,7 @@ public class SmallSampleController {
 	@ResponseBody
 	@RequestMapping(value = "/save")
 	//@RequiresPermissions("SmallSample:add")
-	public String saveSample(SmallSample smallSample) {
+	public String save(SmallSample smallSample) {
 		try {
 			smallSampleService.save(smallSample);
 			return "{ \"success\" : true }";

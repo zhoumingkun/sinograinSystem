@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +17,10 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.util.BarCodeUtil;
+import com.toughguy.sinograin.util.JsonUtil;
+import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.WriteBitMatricToFile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -120,8 +124,14 @@ public class EncodeTest {
 		
 	}
 	@Test
-	public void testPath(){
-		String path = System.getProperty("user.dir");
-		System.out.println(path);
+	public void testSmallSampleNum(){
+		Sample sample =new Sample();
+		sample.setCheckeds("1,3,5,6");
+		sample.setSampleNum("监20180001");
+		List<String> list= SamplingUtil.smallSampleNums(sample);
+		System.out.println(JsonUtil.objectToJson(list));
+		for(String s:list){
+			System.out.println(s);
+		}
 	}
 }
