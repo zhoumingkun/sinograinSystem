@@ -46,7 +46,7 @@
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_register r LEFT JOIN barn_library l on r.libraryId = l.id
+		select count(*) from barn_register br LEFT JOIN barn_library bl ON br.libraryId = bl.id
 		<include refid="paramsSQL"/>
 	</select>
 	

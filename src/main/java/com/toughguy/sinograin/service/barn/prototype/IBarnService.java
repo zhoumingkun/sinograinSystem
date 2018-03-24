@@ -23,11 +23,7 @@ public interface IBarnService {
 	 * flag		标志  1 增加  2修改  3 删除
 	 * deleteIds 修改交接单时，删除的样品id
 	 * */
-<<<<<<< HEAD
 	public void dealCheck(Handover handover,int flag,String[] deleteIds);
-=======
-	public void dealCheck(Handover handover,int flag);
->>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend.git
 	
 	/**
 	 * 实现扫码将样品分小样

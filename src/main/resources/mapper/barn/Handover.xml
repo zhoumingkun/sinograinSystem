@@ -90,6 +90,9 @@
 			<if test=" name != null and name != '' ">
 				and name = #{ name }
 			</if>
+			<if test=" nameLike != null and nameLike != '' ">
+				and name like concat(concat('%', #{nameLike, jdbcType=VARCHAR}),'%')
+			</if>
 			<if test=" remark != null and remark != '' ">
 				and remark = #{ remark }
 			</if>
