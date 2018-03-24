@@ -35,7 +35,7 @@ public class LibraryController {
 	@RequestMapping("/getFirst")
 	//@RequiresPermissions("library:all")
 	public String getFirst(String params){
-		try {
+		try { 
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (!StringUtils.isEmpty(params)) {
