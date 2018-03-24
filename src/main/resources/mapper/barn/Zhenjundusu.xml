@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.Zhenjundusu">
+
+	<insert id="save" parameterType="Zhenjundusu" keyProperty="id" useGeneratedKeys="true">
+		insert into  barn_zhenjundusu_jiancejilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,outudushu_1,outudushu_2,outudushu_pingjunzhi,huangqumeidusu_1,huangqumeidusu_2,huangqumeidusu_pingjunzhi,yumichimeixitong_1,yumichimeixitong_2,yumichimeixitong_pingjunzhi,zhequmeidusu_1,zhequmeidusu_2,zhequmeidusu_pingjunzhi,beizhu,jiance,jiaohe,createTime,updateTime) 
+		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{outudushu_1},#{outudushu_2},#{outudushu_pingjunzhi},#{huangqumeidusu_1},#{huangqumeidusu_2},#{huangqumeidusu_pingjunzhi},#{yumichimeixitong_1},#{yumichimeixitong_2},#{yumichimeixitong_pingjunzhi},#{zhequmeidusu_1},#{zhequmeidusu_2},#{zhequmeidusu_pingjunzhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+	</insert>
+	
+	<!-- 删除某个交接单 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_zhenjundusu_jiancejilu where id = #{id}
+	</delete>
+	
+	<!-- 删除交接单集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_zhenjundusu_jiancejilu where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某个交接单  -->
+	<select id="find" parameterType="int" resultType="Zhenjundusu">
+		select * from barn_zhenjundusu_jiancejilu where id = #{id}
+	</select>
+	
+	<!-- 查询全部交接单  -->
+	<select id="findAll" resultType="Zhenjundusu" parameterType="Map">
+		select * from barn_zhenjundusu_jiancejilu
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<select id="findPaginated" resultType="Zhenjundusu" parameterType="Map">
+		select * from barn_zhenjundusu_jiancejilu 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_zhenjundusu_jiancejilu 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条交接单  -->
+	<update id="update" parameterType="Zhenjundusu">
+		update barn_zhenjundusu_jiancejilu
+		<set>
+			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
+			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="riqi != null">riqi = #{riqi},</if>
+			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
+			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
+			<if test="didian != null and didian != ''">didian = #{didian},</if>
+			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
+			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
+			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
+			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1},</if>
+			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2},</if>
+			<if test="outudushu_1 != null and outudushu_1 != ''">outudushu_1 = #{outudushu_1},</if>
+			<if test="outudushu_2 != null and outudushu_2 != ''">outudushu_2 = #{outudushu_2},</if>
+			<if test="outudushu_pingjunzhi != null and outudushu_pingjunzhi != ''">outudushu_pingjunzhi = #{outudushu_pingjunzhi},</if>
+			<if test="huangqumeidusu_1 != null and huangqumeidusu_1 != ''">huangqumeidusu_1 = #{huangqumeidusu_1},</if>
+			<if test="huangqumeidusu_2 != null and huangqumeidusu_2 != ''">huangqumeidusu_2 = #{huangqumeidusu_2},</if>
+			<if test="huangqumeidusu_pingjunzhi != null and huangqumeidusu_pingjunzhi != ''">huangqumeidusu_pingjunzhi = #{huangqumeidusu_pingjunzhi},</if>
+			<if test="yumichimeixitong_1 != null and yumichimeixitong_1 != ''">yumichimeixitong_1 = #{yumichimeixitong_1},</if>
+			<if test="yumichimeixitong_2 != null and yumichimeixitong_2 != ''">yumichimeixitong_2 = #{yumichimeixitong_2},</if>
+			<if test="yumichimeixitong_pingjunzhi != null and yumichimeixitong_pingjunzhi != ''">yumichimeixitong_pingjunzhi = #{yumichimeixitong_pingjunzhi},</if>
+			<if test="zhequmeidusu_1 != null and zhequmeidusu_1 != ''">zhequmeidusu_1 = #{zhequmeidusu_1},</if>
+			<if test="zhequmeidusu_2 != null and zhequmeidusu_2 != ''">zhequmeidusu_2 = #{zhequmeidusu_2},</if>
+			<if test="zhequmeidusu_pingjunzhi != null and zhequmeidusu_pingjunzhi != ''">zhequmeidusu_pingjunzhi = #{zhequmeidusu_pingjunzhi},</if>
+			<if test="beizhu != null and beizhu != ''">beizhu = #{beizhu},</if>
+			<if test="jiance != null and jiance != ''">jiance = #{jiance},</if>
+			<if test="jiaohe != null and jiaohe != ''">jiaohe = #{jiaohe},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+			
+			
+			
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" smallSampleId != null and smallSampleId != '' ">
+				and smallSampleId = #{smallSampleId}
+			</if>
+			<if test=" smallSampleIdLike != null and smallSampleIdLike != '' ">
+				and smallSampleId like concat(concat('%', #{smallSampleIdLike, jdbcType=VARCHAR}),'%')
+			</if>
+			
+			<if test=" table_version != null and table_version != '' ">
+				and table_version = #{table_version}
+			</if>
+			<if test=" riqi != null and riqi != '' ">
+				and riqi = #{riqi}
+			</if>
+
+			<if test=" shiwen != null and shiwen != '' ">
+				and shiwen = #{ shiwen }
+			</if>
+			
+			<if test=" xiangduishidu != null and xiangduishidu != '' ">
+				and xiangduishidu = #{ xiangduishidu }
+			</if>
+			<if test=" didian != null and didian != '' ">
+				and didian = #{ didian }
+			</if>
+			<if test=" jiancefangfa != null and jiancefangfa != '' ">
+				and jiancefangfa = #{ jiancefangfa }
+			</if>
+			<if test=" yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != '' ">
+				and yiqishebei_mingcheng_1 = #{ yiqishebei_mingcheng_1 }
+			</if>
+			<if test=" yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != '' ">
+				and yiqishebei_mingcheng_2 = #{ yiqishebei_mingcheng_2 }
+			</if>
+			<if test=" yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != '' ">
+				and yiqishebei_bianhao_1 = #{ yiqishebei_bianhao_1 }
+			</if>
+			<if test=" yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != '' ">
+				and yiqishebei_bianhao_2 = #{ yiqishebei_bianhao_2 }
+			</if>
+			<if test=" outudushu_1 != null and outudushu_1 != '' ">
+				and outudushu_1 = #{ outudushu_1 }
+			</if>
+			<if test=" outudushu_2 != null and outudushu_2 != '' ">
+				and outudushu_2 = #{ outudushu_2 }
+			</if>
+			<if test=" outudushu_pingjunzhi != null and outudushu_pingjunzhi != '' ">
+				and outudushu_pingjunzhi = #{ outudushu_pingjunzhi }
+			</if>
+			<if test=" huangqumeidusu_1 != null and huangqumeidusu_1 != '' ">
+				and huangqumeidusu_1 = #{ huangqumeidusu_1 }
+			</if>
+			<if test=" huangqumeidusu_2 != null and huangqumeidusu_2 != '' ">
+				and huangqumeidusu_2 = #{ huangqumeidusu_2 }
+			</if>
+			<if test=" huangqumeidusu_pingjunzhi != null and huangqumeidusu_pingjunzhi != '' ">
+				and huangqumeidusu_pingjunzhi = #{ huangqumeidusu_pingjunzhi }
+			</if>
+			<if test=" yumichimeixitong_1 != null and yumichimeixitong_1 != '' ">
+				and yumichimeixitong_1 = #{ yumichimeixitong_1 }
+			</if>
+			<if test=" yumichimeixitong_2 != null and yumichimeixitong_2 != '' ">
+				and yumichimeixitong_2 = #{ yumichimeixitong_2 }
+			</if>
+			<if test=" yumichimeixitong_pingjunzhi != null and yumichimeixitong_pingjunzhi != '' ">
+				and yumichimeixitong_pingjunzhi = #{ yumichimeixitong_pingjunzhi }
+			</if>
+			<if test=" zhequmeidusu_1 != null and zhequmeidusu_1 != '' ">
+				and zhequmeidusu_1 = #{ zhequmeidusu_1 }
+			</if>
+			<if test=" zhequmeidusu_2 != null and zhequmeidusu_2 != '' ">
+				and zhequmeidusu_2 = #{ zhequmeidusu_2 }
+			</if>
+			<if test=" zhequmeidusu_pingjunzhi != null and zhequmeidusu_pingjunzhi != '' ">
+				and zhequmeidusu_pingjunzhi = #{ zhequmeidusu_pingjunzhi }
+			</if>
+			<if test=" beizhu != null and beizhu != '' ">
+				and beizhu = #{ beizhu }
+			</if>
+			<if test=" jiance != null and jiance != '' ">
+				and jiance = #{ jiance }
+			</if>
+			<if test=" jiaohe != null and jiaohe != '' ">
+				and jiaohe = #{ jiaohe }
+			</if>
+			<if test=" createTime != null and createTime != '' ">
+				and createTime = #{ createTime }
+			</if>
+			<if test=" updateTime != null and updateTime != '' ">
+				and updateTime = #{ updateTime }
+			</if>
+		</where>
+	</sql>
+	
+</mapper>
