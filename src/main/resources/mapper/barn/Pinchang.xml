@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.Pinchang">
+
+	<insert id="save" parameterType="Pinchang" keyProperty="id" useGeneratedKeys="true">
+		insert into barn__pinchang_pingfenjilu (id, createTime,updateTime,content,riqi,pinchangpingfenzhi,table_version) 
+		values (#{id}, #{createTime},#{updateTime},#{content},#{riqi},#{pinchangpingfenzhi},#{table_version})
+	</insert>
+	
+	
+	<!-- 删除某个工作底稿-->
+	<delete id="delete" parameterType="int" >
+		delete from barn__pinchang_pingfenjilu where id = #{id}
+	</delete>
+	
+	<!-- 删除工作底稿集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn__pinchang_pingfenjilu where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某条高作底稿 -->
+	<select id="find" parameterType="int" resultType="Pinchang">
+		select * from barn__pinchang_pingfenjilu where id = #{id}
+	</select>
+	
+	<!-- 查询全部工作底稿 -->
+	<select id="findAll" resultType="Pinchang" parameterType="Map">
+		select * from barn__pinchang_pingfenjilu
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询工作底稿 -->
+	<!-- <select id="findPaginated" resultType="Mantoupinchang" parameterType="Map">
+		select * from barn_mantoupinchang_pingfenjilu
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc limit #{offset}, #{limit}
+	</select> -->
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn__pinchang_pingfenjilu
+		<include refid="paramsSQL"/>
+	</select>
+		
+	<!-- 修个某条工作底稿 -->
+	<update id="update" parameterType="Pinchang">
+		update barn__pinchang_pingfenjilu
+		<set>
+			<if test="content != null and content != ''">content = #{content},</if>
+			<if test="riqi != null ">riqi = #{riqi},</if>
+			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">pinchangpingfenzhi = #{pinchangpingfenzhi},</if>
+			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+		</set>
+		where id = #{id}
+	</update>
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test="content != null and content != ''">
+				and content = #{content}
+			</if>
+			<if test="riqi != null ">
+				and riqi = #{riqi}
+			</if>
+			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">
+				and pinchangpingfenzhi = #{pinchangpingfenzhi}
+			</if>
+			<if test="table_version != null and table_version != ''">
+				and table_version = #{table_version}
+			</if>
+			<if test=" updateTime != null">
+				and updateTime = #{updateTime}
+			</if>
+			<if test=" startTime != null">
+				and createTime between #{startTime} and #{endTime}
+			</if>
+			
+		</where>
+	</sql>
+	
+</mapper>

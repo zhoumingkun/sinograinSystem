@@ -11,7 +11,7 @@ public class Buwanshanli extends AbstractModel{
 
 	private static final long serialVersionUID = 3083587919773638128L;
 	
-	private int yangpinId;   			          				  //样品ID
+	private int smallSampleId;   			          				  //样品ID
 	private String table_version;			      				  //表格版本号
 	private Date riqi;          			       				  //日期
 	private String shiwen;   				       				  //室温
@@ -80,13 +80,13 @@ public class Buwanshanli extends AbstractModel{
 	
 	
 
-	public int getYangpinId() {
-		return yangpinId;
+	public int getsmallSampleId() {
+		return smallSampleId;
 	}
 
 
-	public void setYangpinId(int yangpinId) {
-		this.yangpinId = yangpinId;
+	public void setsmallSampleId(int smallSampleId) {
+		this.smallSampleId = smallSampleId;
 	}
 
 
