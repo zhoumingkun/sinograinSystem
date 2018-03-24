@@ -15,7 +15,9 @@ public class SmallSample extends AbstractModel {
 	private int sampleId;				//样品id
 	private int checkPoint;				//检测项（1 不完善粒、杂质、生霉粒  2 水分 3 硬度 4 脂肪酸值 5 品尝评分 6 卫生  7 加工品质）
 	private int checkId;				//检测id
+	private String smallSamplePic;		//小样条形码
 	
+	private String sampleNum;	//检测编号 (页面展示)
 	
 	public String getSmallSampleNum() {
 		return smallSampleNum;
@@ -42,6 +44,19 @@ public class SmallSample extends AbstractModel {
 		this.checkId = checkId;
 	}
 	
+	public String getSampleNum() {
+		return sampleNum;
+	}
+	public void setSampleNum(String sampleNum) {
+		this.sampleNum = sampleNum;
+	}
+	
+	public String getSmallSamplePic() {
+		return smallSamplePic;
+	}
+	public void setSmallSamplePic(String smallSamplePic) {
+		this.smallSamplePic = smallSamplePic;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

@@ -78,7 +78,7 @@ public class SampleController {
 				String barFileName = BarCodeUtil.rename("png");
 				BarCodeUtil.generateFile(sampleNum, path + "/"+ barFileName);
 				sample.setSampleNumPic(barFileName);
-				sample.setSampleNum(sampleNum);
+				sample.setSampleNum("监"+sampleNum);
 			}
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
@@ -141,6 +141,20 @@ public class SampleController {
 			samplingDTO.setRegister(register);
 			samplingDTO.setList(list);
 			barnService.saveSampleAndRegister(samplingDTO);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/split")
+	//@RequiresPermissions("SmallSample:add")
+	public String splitSample(int id) {
+		try {
+			Sample sample = sampleService.find(id);		
+			barnService.saveSmallSample(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

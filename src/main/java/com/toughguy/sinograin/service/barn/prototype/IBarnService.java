@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.barn.prototype;
 
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Handover;
+import com.toughguy.sinograin.model.barn.Sample;
 
 public interface IBarnService {
 	
@@ -23,5 +24,11 @@ public interface IBarnService {
 	 * deleteIds 修改交接单时，删除的样品id
 	 * */
 	public void dealCheck(Handover handover,int flag,String[] deleteIds);
+	
+	/**
+	 * 实现扫码将样品分小样
+	 * sample  样品实体
+	 * */
+	public void saveSmallSample(Sample sample);
 
 }

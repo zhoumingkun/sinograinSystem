@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SmallSample">
 
 	<insert id="save" parameterType="SmallSample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId) 
-		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId})
+		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic) 
+		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic})
 	</insert>
 	
 	<!-- 删除某个小样 -->
@@ -33,9 +33,9 @@
 	
 	<!-- 分页查询小样 -->
 	<select id="findPaginated" resultType="SmallSample" parameterType="Map">
-		select * from barn_small_sample 
+		select bss.*,bs.sampleNum FROM barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId 
 		<include refid="paramsSQL"/>
-		ORDER BY createTime desc  limit #{offset}, #{limit}
+		ORDER BY bss.createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
@@ -52,6 +52,7 @@
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="checkPoint != null and checkPoint != ''">checkPoint = #{checkPoint},</if>
 			<if test="checkId != null and checkId != ''">checkId = #{checkId},</if>
+			<if test="smallSamplePic != null and smallSamplePic != ''">smallSamplePic = #{smallSamplePic},</if>
 		</set>
 		where id = #{id}
 	</update>
