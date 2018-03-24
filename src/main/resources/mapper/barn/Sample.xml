@@ -28,6 +28,11 @@
 		</foreach>
 	</delete>
 	
+	<!-- 根据样品编号查询样品id  -->
+	<select id="findBySampleNum" parameterType="String" resultType="Sample">
+		select * from barn_sample where sampleNum = #{sampleNum}
+	</select>
+	
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
 		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
@@ -93,7 +98,7 @@
 			<if test="sampleWord != null and sampleWord != ''">sampleWord = #{sampleWord},</if>
 			<if test="samplePic != null and samplePic != ''">samplePic = #{samplePic},</if>
 			<if test="counter != null and counter != ''">counter = #{counter},</if>
-			<if test="checkeds != null and checkeds != ''">checkeds = #{checkeds},</if>
+			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
 		</set>
 		where id = #{id}
@@ -113,7 +118,9 @@
 			<if test=" sampleNoLike != null and sampleNoLike != '' ">
 				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>
-			
+			<if test=" sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != ''">
+				and (sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%'))
+			</if>
 			<if test=" depot != null and depot != '' ">
 				and depot = #{depot}
 			</if>
@@ -209,6 +216,9 @@
 		<where>
 			<if test=" sampleNo != null and sampleNo != '' ">
 				and sampleNo = #{sampleNo}
+			</if>
+			<if test=" sampleNum != null and sampleNum != '' ">
+				and sampleNum = #{sampleNum}
 			</if>
 			<if test=" pId != null and pId != '' ">
 				and s.pId = #{pId}

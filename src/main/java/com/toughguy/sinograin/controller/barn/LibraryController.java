@@ -34,8 +34,20 @@ public class LibraryController {
 	@ResponseBody
 	@RequestMapping("/getFirst")
 	//@RequiresPermissions("library:all")
-	public List<Library> get(){
-		return libraryService.findFirst();
+	public String getFirst(String params){
+		try { 
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			List<Library> ls =  libraryService.findFirst(map);
+			return om.writeValueAsString(ls);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
 	}
 	
 	@ResponseBody

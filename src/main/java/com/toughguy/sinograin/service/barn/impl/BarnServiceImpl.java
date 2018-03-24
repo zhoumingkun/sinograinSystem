@@ -54,20 +54,23 @@ public class BarnServiceImpl implements IBarnService {
 	}
 
 	@Override
-	public void dealCheck(Handover handover,int flag) {
+	public void dealCheck(Handover handover,int flag,String[] deleteIds) {
 		String [] sampleIds = handover.getSampleIds().split(",");
-		String [] checkeds = handover.getCheckeds().split(",");	
-				if(flag ==1 ){ 	//增加样品交接单
-					updateCheckeds(sampleIds,checkeds);
-					handoverService.save(handover);	
-				}else if(flag == 2){ //修改样品交接单
-					deleteCheckeds(sampleIds,checkeds);
-					updateCheckeds(sampleIds,checkeds);
-					handoverService.update(handover);	
-				}else{	//删除样品交接单
-					deleteCheckeds(sampleIds,checkeds);
-					handoverService.delete(handover.getId());	
-				}
+		String [] checkeds = handover.getCheckeds().split(",");
+		if(flag ==1 ){ 	//增加样品交接单
+			updateCheckeds(sampleIds,checkeds);
+			handoverService.save(handover);	
+		}else if(flag == 2){ //修改样品交接单
+			deleteCheckeds(sampleIds,checkeds);
+			updateCheckeds(sampleIds,checkeds);
+			if(!(deleteIds == null ||deleteIds.equals(""))) {
+				deleteSampleIdCheckeds(deleteIds);
+			}
+			handoverService.update(handover);	
+		}else{	//删除样品交接单
+			deleteCheckeds(sampleIds,checkeds);
+			handoverService.delete(handover.getId());	
+		}
 					
 	}
 	//添加样品中对应检测项
@@ -83,7 +86,8 @@ public class BarnServiceImpl implements IBarnService {
 				List<String> oldCheckList =  new ArrayList<String>(Arrays.asList(oldCheckeds));
 				checkList.removeAll(oldCheckList); 		// 移除所有一致检测项
 				oldCheckList.addAll(checkList); 		//将剩余检测项放入集合
-				StringUtils.join(checkList,",");
+//				StringUtils.join(oldCheckList,",");
+				sample.setCheckeds(StringUtils.join(oldCheckList,","));
 				}
 			sampleService.update(sample);
 			}
@@ -98,8 +102,18 @@ public class BarnServiceImpl implements IBarnService {
 			List<String> oldCheckList =  new ArrayList<String>(Arrays.asList(oldCheckeds));
 			oldCheckList.removeAll(checkList);
 			StringUtils.join(checkList,",");
+			sample.setCheckeds(StringUtils.join(checkList,","));
 			sampleService.update(sample);
 		}
 	}
+	//删除交接单中删除的样品的检测项
+		private void deleteSampleIdCheckeds(String [] deleteIds){
+			Sample sample = null; 
+			for(String id : deleteIds){
+				sample = sampleService.find(Integer.parseInt(id));
+				sample.setCheckeds("");
+				sampleService.update(sample);
+			}
+		}
 	
 }

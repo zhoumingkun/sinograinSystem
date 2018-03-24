@@ -39,9 +39,10 @@
 	
 	<!-- 分页查询扦样表 -->
 	<select id="findPaginated" resultType="Register" parameterType="Map">
-		select * from barn_register r LEFT JOIN barn_library l on r.libraryId = l.id
+		SELECT br.*, ( SELECT max(bs.sampleTime) AS time FROM barn_sample bs WHERE bs.pId = br.id ) regCreateTime 
+		FROM barn_register br LEFT JOIN barn_library bl ON br.libraryId = bl.id
 		<include refid="paramsSQL"/>
-		ORDER BY r.createTime desc  limit #{offset}, #{limit}
+		ORDER BY br.createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
@@ -89,7 +90,6 @@
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
 			</if>
-			
 		</where>
 	</sql>
 	

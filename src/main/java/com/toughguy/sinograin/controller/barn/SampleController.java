@@ -78,7 +78,7 @@ public class SampleController {
 				String barFileName = BarCodeUtil.rename("png");
 				BarCodeUtil.generateFile(sampleNum, path + "/"+ barFileName);
 				sample.setSampleNumPic(barFileName);
-				sample.setSampleNum("监"+sampleNum);
+				sample.setSampleNum(sampleNum);
 			}
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
@@ -93,6 +93,13 @@ public class SampleController {
 	//@RequiresPermissions("sample:edit")
 	public Sample getBySampleNo(String sampleNo) {	
 			return sampleService.findBySampleNo(sampleNo);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getBySampleNum")
+	//@RequiresPermissions("sample:edit")
+	public Sample getBySampleNum(String sampleNum) {	
+			return sampleService.findBySampleNum(sampleNum);
 	}
 	
 	@ResponseBody

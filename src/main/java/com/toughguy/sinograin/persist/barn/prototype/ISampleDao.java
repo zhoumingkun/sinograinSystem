@@ -20,6 +20,11 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	public Sample findBySampleNo(String sampleNo);
 	
 	/**
+	 * 根据检验编号查询样品id
+	 * */
+	public Sample findBySampleNum(String sampleNum);
+	
+	/**
 	 * 根据PId删除样品
 	 */
 	public void deleteByPId(int pId);

@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Handover">
 
 	<insert id="save" parameterType="Handover" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds,name,remark,userId) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds},#{name},#{remark},#{userId})
+		insert into barn_handover (guid, createTime,updateTime,sampleIds,sampleNums,checkeds,name,remark,userId,sampleAdmin,receiptor) 
+		values (#{guid}, #{createTime},#{updateTime},#{sampleIds},#{sampleNums},#{checkeds},#{name},#{remark},#{userId},#{sampleAdmin},#{receiptor})
 	</insert>
 	
 	<!-- 删除某个交接单 -->
@@ -54,6 +54,8 @@
 			<if test="name != null and name != ''">name = #{name},</if>
 			<if test="remark != null and remark != ''">remark = #{remark},</if>
 			<if test="userId != null and userId != ''">userId = #{userId},</if>
+			<if test="sampleAdmin != null and sampleAdmin != ''">sampleAdmin = #{sampleAdmin},</if>
+			<if test="receiptor != null and receiptor != ''">receiptor = #{receiptor},</if>
 		</set>
 		where id = #{id}
 	</update>

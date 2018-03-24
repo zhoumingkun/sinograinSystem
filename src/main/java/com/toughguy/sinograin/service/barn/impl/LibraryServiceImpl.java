@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,8 @@ public class LibraryServiceImpl extends GenericServiceImpl<Library, Integer> imp
 	@Autowired
 	private ILibraryDao dao;
 	@Override
-	public List<Library> findFirst() {	
-		return dao.findFirst();
+	public List<Library> findFirst(Map<String, Object> params) {	
+		return dao.findFirst(params);
 	}
 
 }

@@ -1,44 +1,78 @@
 package com.toughguy.sinograin.controller.barn;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toughguy.sinograin.model.barn.Handover;
-import com.toughguy.sinograin.pagination.PagerModel;
-import com.toughguy.sinograin.service.barn.prototype.IBarnService;
-import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
+import com.toughguy.sinograin.model.barn.Buwanshanli;
+import com.toughguy.sinograin.service.barn.prototype.IBuwanshanliService;
 
 @Controller
-@RequestMapping("/handover")
-public class HandoverController {
-	
+@RequestMapping("/buwanshanli")
+public class BuwanshanliController {
 	@Autowired
-	private IHandoverService handoverService;
-	@Autowired
-	private IBarnService barnService;
-	
+	private IBuwanshanliService buwanshanliService;
+
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")
-	public List<Handover> getAll(){
-		return handoverService.findAll();
+	public List<Buwanshanli> getAll(){
+		return buwanshanliService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/get")
 	//@RequiresPermissions("library:all")
-	public Handover get(int id){
-		return handoverService.find(id);
+	public Buwanshanli get(int id){
+		return buwanshanliService.find(id);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/save")
+	//@RequiresPermissions("library:add")
+	public String save(Buwanshanli buwanshanli) {
+		try {
+			buwanshanliService.save(buwanshanli);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remove")
+	//@RequiresPermissions("sample:get")
+	public String remove(int id) {
+		try {
+			buwanshanliService.delete(id);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/edit")
+	//@RequiresPermissions("library:edit")
+	public String remove(Buwanshanli buwanshanli) {
+		try {
+			buwanshanliService.update(buwanshanli);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	
+	
+	/*	
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
@@ -102,5 +136,5 @@ public class HandoverController {
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
 	}
-	
+*/	
 }
