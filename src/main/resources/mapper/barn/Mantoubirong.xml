@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.Mantoubirong">
+
+	<insert id="save" parameterType="Mantoubirong" keyProperty="id" useGeneratedKeys="true">
+		insert into  barn_mantoubirong_cedingjilu (table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,content,jiance,jiaohe,createTime,updateTime) 
+		values (#{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{content},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+	</insert>
+	
+	<!-- 删除某个交接单 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_mantoubirong_cedingjilu where id = #{id}
+	</delete>
+	
+	<!-- 删除交接单集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_mantoubirong_cedingjilu where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某个交接单  -->
+	<select id="find" parameterType="int" resultType="Mantoubirong">
+		select * from barn_mantoubirong_cedingjilu where id = #{id}
+	</select>
+	
+	<!-- 查询全部交接单  -->
+	<select id="findAll" resultType="Mantoubirong" parameterType="Map">
+		select * from barn_mantoubirong_cedingjilu
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<select id="findPaginated" resultType="Mantoubirong" parameterType="Map">
+		select * from barn_mantoubirong_cedingjilu 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_mantoubirong_cedingjilu 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条交接单  -->
+	<update id="update" parameterType="Mantoubirong">
+		update barn_mantoubirong_cedingjilu
+		<set>
+			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="riqi != null">riqi = #{riqi},</if>
+			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
+			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
+			<if test="didian != null and didian != ''">didian = #{didian},</if>
+			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
+			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
+			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
+			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1},</if>
+			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2},</if>
+			<if test="content != null and content != ''">content = #{content},</if>
+			<if test="jiance != null and jiance != ''">jiance = #{jiance},</if>
+			<if test="jiaohe != null and jiaohe != ''">jiaohe = #{jiaohe},</if>
+			<if test="updateTime != null">updateTime = #{updateTime},</if>
+
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+
+			<if test=" table_version != null and table_version != '' ">
+				and table_version = #{table_version}
+			</if>
+			<if test=" riqi != null and riqi != '' ">
+				and riqi = #{riqi}
+			</if>
+
+			<if test=" shiwen != null and shiwen != '' ">
+				and shiwen = #{ shiwen }
+			</if>
+			
+			<if test=" xiangduishidu != null and xiangduishidu != '' ">
+				and xiangduishidu = #{ xiangduishidu }
+			</if>
+			<if test=" didian != null and didian != '' ">
+				and didian = #{ didian }
+			</if>
+			<if test=" jiancefangfa != null and jiancefangfa != '' ">
+				and jiancefangfa = #{ jiancefangfa }
+			</if>
+			<if test=" yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != '' ">
+				and yiqishebei_mingcheng_1 = #{ yiqishebei_mingcheng_1 }
+			</if>
+			<if test=" yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != '' ">
+				and yiqishebei_mingcheng_2 = #{ yiqishebei_mingcheng_2 }
+			</if>
+			<if test=" yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != '' ">
+				and yiqishebei_bianhao_1 = #{ yiqishebei_bianhao_1 }
+			</if>
+			<if test=" yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != '' ">
+				and yiqishebei_bianhao_2 = #{ yiqishebei_bianhao_2 }
+			</if>
+			<if test=" content != null and content != '' ">
+				and content = #{ content }
+			</if>
+			<if test=" jiance != null and jiance != '' ">
+				and jiance = #{ jiance }
+			</if>
+			<if test=" jiaohe != null and jiaohe != '' ">
+				and jiaohe = #{ jiaohe }
+			</if>
+			<if test=" createTime != null and createTime != '' ">
+				and createTime = #{ createTime }
+			</if>
+			<if test=" updateTime != null and updateTime != '' ">
+				and updateTime = #{ updateTime }
+			</if>
+		</where>
+	</sql>
+	
+</mapper>
