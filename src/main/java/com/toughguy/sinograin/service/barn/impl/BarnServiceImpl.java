@@ -143,7 +143,7 @@ public class BarnServiceImpl implements IBarnService {
 				BarCodeUtil.generateFile(s, path + "/"+ barFileName);
 				smallSample.setSmallSamplePic(barFileName);
 				smallSample.setSampleId(sample.getId());
-				smallSample.setSmallSampleNum("监"+s);
+				smallSample.setSmallSampleNum(s);
 				smallSampleService.save(smallSample);
 			}
 			sample.setSampleState(3);

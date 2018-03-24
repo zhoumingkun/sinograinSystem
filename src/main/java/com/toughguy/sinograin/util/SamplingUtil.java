@@ -72,7 +72,7 @@ public class SamplingUtil {
 	public static List<String> smallSampleNums(Sample sample){
 		List <String> list = new ArrayList<String>();
 		if(!StringUtils.isEmpty(sample.getSampleNum())&&!StringUtils.isEmpty(sample.getCheckeds())){
-			String sampleNum = sample.getSampleNum().substring(1);
+			String sampleNum = sample.getSampleNum();
 			String [] checks = sample.getCheckeds().split(",");
 			for(String s : checks){
 				String check = String.format("%02d", Integer.parseInt(s));

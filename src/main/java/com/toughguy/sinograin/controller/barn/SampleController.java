@@ -16,9 +16,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
@@ -32,6 +34,8 @@ public class SampleController {
 	private ISampleService sampleService;
 	@Autowired
 	private IBarnService barnService;
+	@Autowired
+	private ISmallSampleService smallSampleService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -78,7 +82,7 @@ public class SampleController {
 				String barFileName = BarCodeUtil.rename("png");
 				BarCodeUtil.generateFile(sampleNum, path + "/"+ barFileName);
 				sample.setSampleNumPic(barFileName);
-				sample.setSampleNum("监"+sampleNum);
+				sample.setSampleNum(sampleNum);
 			}
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
@@ -98,7 +102,7 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
 	//@RequiresPermissions("sample:edit")
-	public Sample getBySampleNum(String sampleNum) {	
+	public Sample getBySampleNum(String sampleNum) {
 			return sampleService.findBySampleNum(sampleNum);
 	}
 	
@@ -151,11 +155,47 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/split")
 	//@RequiresPermissions("SmallSample:add")
-	public String splitSample(int id) {
+	public String splitSample(int id,int isPrint,String params) {
 		try {
-			Sample sample = sampleService.find(id);		
-			barnService.saveSmallSample(sample);
-			return "{ \"success\" : true }";
+			if(isPrint == 3) {
+				ObjectMapper om = new ObjectMapper();
+				Map<String, Object> map = new HashMap<String, Object>();
+				if (!StringUtils.isEmpty(params)) {
+					// 参数处理
+					map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				}
+				List<SmallSample> smallSamples =  smallSampleService.findAll(map);
+				String smallSampleNums = null;
+				for(SmallSample smallSample:smallSamples) {
+					if(smallSampleNums == null) {
+						smallSampleNums = smallSample.getSmallSampleNum() + ",";
+					} else {
+						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
+					}
+				}
+				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
+				return ss;
+			} else{
+				Sample sample = sampleService.find(id);
+				barnService.saveSmallSample(sample);
+				ObjectMapper om = new ObjectMapper();
+				Map<String, Object> map = new HashMap<String, Object>();
+				if (!StringUtils.isEmpty(params)) {
+					// 参数处理
+					map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				}
+				List<SmallSample> smallSamples =  smallSampleService.findAll(map);
+				String smallSampleNums = null;
+				for(SmallSample smallSample:smallSamples) {
+					if(smallSampleNums == null) {
+						smallSampleNums = smallSample.getSmallSampleNum() + ",";
+					} else {
+						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
+					}
+				}
+				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
+				return ss;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
