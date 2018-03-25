@@ -25,6 +25,11 @@
 		select * from barn_small_sample where id = #{id}
 	</select>
 	
+	<!-- 根据小样编号查询小样  -->
+	<select id="findBySmallSampleNum" parameterType="String" resultType="SmallSample">
+		select bss.*,bs.sort from barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId where bss.smallSampleNum = #{smallSampleNum}
+	</select>
+	
 	<!-- 查询全部小样 -->
 	<select id="findAll" resultType="SmallSample" parameterType="Map">
 		select * from barn_small_sample
@@ -33,7 +38,7 @@
 	
 	<!-- 分页查询小样 -->
 	<select id="findPaginated" resultType="SmallSample" parameterType="Map">
-		select bss.*,bs.sampleNum FROM barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId 
+		select bss.*,bs.sampleNum,bs.sort FROM barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId 
 		<include refid="paramsSQL"/>
 		ORDER BY bss.createTime desc  limit #{offset}, #{limit}
 	</select>

@@ -18,6 +18,7 @@ public class SmallSample extends AbstractModel {
 	private String smallSamplePic;		//小样条形码
 	
 	private String sampleNum;	//检测编号 (页面展示)
+	private String sort;    	//分类(品种,页面展示)
 	
 	public String getSmallSampleNum() {
 		return smallSampleNum;
@@ -44,6 +45,12 @@ public class SmallSample extends AbstractModel {
 		this.checkId = checkId;
 	}
 	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	public String getSampleNum() {
 		return sampleNum;
 	}

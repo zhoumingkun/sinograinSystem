@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
@@ -35,6 +36,13 @@ public class SmallSampleController {
 	//@RequiresPermissions("SmallSample:all")
 	public SmallSample get(int id){
 		return smallSampleService.find(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getBySmallSampleNum")
+	//@RequiresPermissions("sample:edit")
+	public SmallSample getBySmallSampleNum(String smallSampleNum) {	
+		return smallSampleService.findBySmallSampleNum(smallSampleNum);
 	}
 	
 	@ResponseBody

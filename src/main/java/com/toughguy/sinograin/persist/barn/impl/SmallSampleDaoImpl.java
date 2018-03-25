@@ -8,5 +8,10 @@ import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
 
 @Repository
 public class SmallSampleDaoImpl extends GenericDaoImpl<SmallSample, Integer> implements ISmallSampleDao {
-
+	@Override
+	public SmallSample findBySmallSampleNum(String smallSampleNum) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBySmallSampleNum", smallSampleNum);
+	}
+	
 }
