@@ -1,6 +1,8 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,18 @@ public class BuwanshanliController {
 		return buwanshanliService.find(id);
 	}
 	
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Buwanshanli getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Buwanshanli> bwsls = buwanshanliService.findAll(map);
+		for(Buwanshanli bwsl:bwsls) {
+			return bwsl;
+		}
+		return null;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 
 @Controller
@@ -23,6 +24,25 @@ public class SmallSampleController {
 	
 	@Autowired
 	private ISmallSampleService smallSampleService;
+	@Autowired
+	private BuwanshanliController buwanshanliController;
+	@Autowired
+	private ShuifenController shuifenController;
+	@Autowired
+	private ISampleService sampleService;
+	@Autowired
+	private MianjinxishuiliangController mianjinxishuiliangController;
+	@Autowired
+	private ZhifangsuanzhiController zhifangsuanzhiController;
+	@Autowired
+	private MantoupinchangController mantoupinchangController;
+	@Autowired
+	private YumipinchangController yumipinchangController;
+	@Autowired
+	private ZhenjundusuController zhenjundusuController;
+//	@Autowired
+//	private ISmallSampleService smallSampleService;
+	
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -41,8 +61,43 @@ public class SmallSampleController {
 	@ResponseBody
 	@RequestMapping(value = "/getBySmallSampleNum")
 	//@RequiresPermissions("sample:edit")
-	public SmallSample getBySmallSampleNum(String smallSampleNum) {	
-		return smallSampleService.findBySmallSampleNum(smallSampleNum);
+	public SmallSample getBySmallSampleNum(String smallSampleNum) {
+		SmallSample smallSample =  smallSampleService.findBySmallSampleNum(smallSampleNum);
+		if(smallSample.getCheckPoint() == 1) {
+			//不完善
+			buwanshanliController.getBySmallSampleId(smallSample.getId());
+			return smallSample;
+		}else if(smallSample.getCheckPoint() == 2 ) {
+			//水分
+			shuifenController.getBySmallSampleId(smallSample.getId());
+			return smallSample;
+		}else if(smallSample.getCheckPoint() == 4 ) {
+			Sample sample = sampleService.find(smallSample.getSampleId());
+			if(sample.getSort() == "小麦") {
+				//面筋
+				mianjinxishuiliangController.getBySmallSampleId(smallSample.getId());
+				return smallSample;
+			} else {
+				//脂肪酸 
+				zhifangsuanzhiController.getBySmallSampleId(smallSample.getId());
+				return smallSample;
+			}
+		}else if(smallSample.getCheckPoint() == 5 ) {
+			Sample sample = sampleService.find(smallSample.getSampleId());
+			if(sample.getSort() == "小麦") {
+				//馒头品尝
+				mantoupinchangController.getBySmallSampleId(smallSample.getId());
+				return smallSample;
+			} else {
+				//玉米品尝
+				yumipinchangController.getBySmallSampleId(smallSample.getId());
+				return smallSample;
+			}
+		}else{
+			//真菌毒素
+			zhenjundusuController.getBySmallSampleId(smallSample.getId());
+			return smallSample;
+		}
 	}
 	
 	@ResponseBody

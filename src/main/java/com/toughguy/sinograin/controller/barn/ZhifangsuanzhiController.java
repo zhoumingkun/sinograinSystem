@@ -4,23 +4,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Zhifangsuanzhi;
-import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IZhifangsuanzhiService;
 
 
 @Controller
-@RequestMapping("/Zhifangsuanzhi")
+@RequestMapping("/zhifangsuanzhi")
 public class ZhifangsuanzhiController {
 	@Autowired
 	private IZhifangsuanzhiService zhifangsuanzhiService;
+	@Autowired
+	private ISmallSampleService smallSampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -33,6 +34,18 @@ public class ZhifangsuanzhiController {
 	//@RequiresPermissions("library:all")
 	public Zhifangsuanzhi get(int id){
 		return zhifangsuanzhiService.find(id);
+	}
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Zhifangsuanzhi getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Zhifangsuanzhi> zfszs = zhifangsuanzhiService.findAll(map);
+		for(Zhifangsuanzhi zfsz:zfszs) {
+			return zfsz;
+		}
+		return null;
 	}
 	
 	@ResponseBody
@@ -67,6 +80,9 @@ public class ZhifangsuanzhiController {
 	public String save(Zhifangsuanzhi zhifangsuanzhi) {
 		try {
 			zhifangsuanzhiService.save(zhifangsuanzhi);
+			SmallSample ss = smallSampleService.find(zhifangsuanzhi.getSmallSampleId());
+			ss.setState(2);
+			smallSampleService.update(ss);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

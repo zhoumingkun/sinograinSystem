@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Mianjinxishuiliang;
+import com.toughguy.sinograin.model.barn.Shuifen;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IMianjinxishuiliangService;
 
 
 @Controller
-@RequestMapping("/Mianjinxishuiliang")
+@RequestMapping("/mianjinxishuiliang")
 public class MianjinxishuiliangController {
 	@Autowired
 	private IMianjinxishuiliangService mianjinxishuiliangService;
@@ -34,6 +35,19 @@ public class MianjinxishuiliangController {
 	//@RequiresPermissions("library:all")
 	public Mianjinxishuiliang get(int id){
 		return mianjinxishuiliangService.find(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Mianjinxishuiliang getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Mianjinxishuiliang> mjxsls = mianjinxishuiliangService.findAll(map);
+		for(Mianjinxishuiliang mjxsl:mjxsls) {
+			return mjxsl;
+		}
+		return null;
 	}
 	
 	@ResponseBody

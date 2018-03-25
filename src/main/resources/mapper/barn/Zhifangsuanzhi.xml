@@ -3,16 +3,16 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Zhifangsuanzhi">
 
 	<insert id="save" parameterType="Zhifangsuanzhi" keyProperty="id" useGeneratedKeys="true">
-		insert into  barn_zhifangsuanzhi_cedingjilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,shiyangzhiliang_1,shiyangzhiliang_2,shiyangshuifen,koh_rongyenongdu,didingzhongdiandushu_1,didingzhongdiandushu_2,didingqishidushu_1,didingqishidushu_2,koh_rongyeyongliang_1,koh_rongyeyongliang_2,kongbaishiyan_koh_yongliang,jisuangongshi,zhifangsuanzhi_1,zhifangsuanzhi_2,pingjunzhi,pingxingcha,xiangduicha,beizhu,jiance,jiaohe,createTime,updateTime) 
-		                                    values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{shiyangshuifen},#{koh_rongyenongdu},#{didingzhongdiandushu_1},#{didingzhongdiandushu_2},#{didingqishidushu_1},#{didingqishidushu_2},#{koh_rongyeyongliang_1},#{koh_rongyeyongliang_2},#{kongbaishiyan_koh_yongliang},#{jisuangongshi},#{zhifangsuanzhi_1},#{zhifangsuanzhi_2},#{pingjunzhi},#{pingxingcha},#{xiangduicha},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+		insert into  barn_zhifangsuanzhi_cedingjilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,shiyangzhiliang_1,shiyangzhiliang_2,shiyangshuifen,koh_rongyenongdu,didingzhongdiandushu_1,didingzhongdiandushu_2,didingqishidushu_1,didingqishidushu_2,koh_rongyeyongliang_1,koh_rongyeyongliang_2,kongbaishiyan_koh_yongliang,zhifangsuanzhi_1,zhifangsuanzhi_2,pingjunzhi,pingxingcha_xiangduicha,pingxingcha_xiangduicha_zhi,beizhu,jiance,jiaohe,createTime,updateTime) 
+		                                    values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{shiyangshuifen},#{koh_rongyenongdu},#{didingzhongdiandushu_1},#{didingzhongdiandushu_2},#{didingqishidushu_1},#{didingqishidushu_2},#{koh_rongyeyongliang_1},#{koh_rongyeyongliang_2},#{kongbaishiyan_koh_yongliang},#{zhifangsuanzhi_1},#{zhifangsuanzhi_2},#{pingjunzhi},#{pingxingcha_xiangduicha},#{pingxingcha_xiangduicha_zhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
-	<!-- 删除某个交接单 -->
+	<!-- 删除某个脂肪酸检测 -->
 	<delete id="delete" parameterType="int" >
 		delete from barn_zhifangsuanzhi_cedingjilu where id = #{id}
 	</delete>
 	
-	<!-- 删除交接单集 -->
+	<!-- 删除检测单集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_zhifangsuanzhi_cedingjilu where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
@@ -20,14 +20,14 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某个交接单  -->
+	<!-- 查询某个检测单  -->
 	<select id="find" parameterType="int" resultType="Zhifangsuanzhi">
 		select * from barn_zhifangsuanzhi_cedingjilu where id = #{id}
 	</select>
 	
-	<!-- 查询全部交接单  -->
+	<!-- 查询全部检测单  -->
 	<select id="findAll" resultType="Zhifangsuanzhi" parameterType="Map">
-		select * from barn_zhifangsuanzhi_cedingjilu
+		SELECT bzc.*,bs.sampleNum,bs.sort FROM barn_zhifangsuanzhi_cedingjilu bzc LEFT JOIN barn_small_sample bss ON bss.id = bzc.smallSampleId LEFT JOIN barn_sample bs ON bs.id = bss.sampleId
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -49,10 +49,8 @@
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
 			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
-			<if test="riqi != null">riqi = #{riqi},</if>
 			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
 			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
-			<if test="didian != null and didian != ''">didian = #{didian},</if>
 			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
 			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
 			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
@@ -66,21 +64,18 @@
 			<if test="didingzhongdiandushu_2 != null and didingzhongdiandushu_2 != ''">didingzhongdiandushu_2 = #{didingzhongdiandushu_2},</if>
 			<if test="didingqishidushu_1 != null and didingqishidushu_1 != ''">didingqishidushu_1 = #{didingqishidushu_1},</if>
 			<if test="didingqishidushu_2 != null and didingqishidushu_2 != ''">didingqishidushu_2 = #{didingqishidushu_2},</if>
-			<if test="koh_rongyeyongliang_1 != null and koh_rongyeyongliang_1 != ''">koh_rongyeyongliang_1},</if>
+			<if test="koh_rongyeyongliang_1 != null and koh_rongyeyongliang_1 != ''">koh_rongyeyongliang_1 = #{koh_rongyeyongliang_1},</if>
 			<if test="koh_rongyeyongliang_2 != null and koh_rongyeyongliang_2 != ''">koh_rongyeyongliang_2 = #{koh_rongyeyongliang_2},</if>
 			<if test="kongbaishiyan_koh_yongliang != null and kongbaishiyan_koh_yongliang != ''">kongbaishiyan_koh_yongliang = #{kongbaishiyan_koh_yongliang},</if>
-			<if test="jisuangongshi != null and jisuangongshi != ''">jisuangongshi = #{jisuangongshi},</if>
 			<if test="zhifangsuanzhi_1 != null and zhifangsuanzhi_1 != ''">zhifangsuanzhi_1 = #{zhifangsuanzhi_1},</if>
 			<if test="zhifangsuanzhi_2 != null and zhifangsuanzhi_2 != ''">zhifangsuanzhi_2 = #{zhifangsuanzhi_2},</if>
 			<if test="pingjunzhi != null and pingjunzhi != ''">pingjunzhi = #{pingjunzhi},</if>
-			<if test="pingxingcha != null and pingxingcha != ''">pingxingcha = #{pingxingcha},</if>
-			<if test="xiangduicha != null and xiangduicha != ''">xiangduicha = #{xiangduicha},</if>
+			<if test="pingxingcha_xiangduicha != null and pingxingcha_xiangduicha != ''">pingxingcha_xiangduicha = #{pingxingcha_xiangduicha},</if>
+			<if test="pingxingcha_xiangduicha_zhi != null and pingxingcha_xiangduicha_zhi != ''">pingxingcha_xiangduicha_zhi = #{pingxingcha_xiangduicha_zhi},</if>
 			<if test="beizhu != null and beizhu != ''">beizhu = #{beizhu},</if>
 			<if test="jiance != null and jiance != ''">jiance = #{jiance},</if>
 			<if test="jiaohe != null and jiaohe != ''">jiaohe = #{jiaohe},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
-			
-			
 			
 		</set>
 		where id = #{id}
@@ -109,9 +104,6 @@
 			
 			<if test=" xiangduishidu != null and xiangduishidu != '' ">
 				and xiangduishidu = #{ xiangduishidu }
-			</if>
-			<if test=" didian != null and didian != '' ">
-				and didian = #{ didian }
 			</if>
 			<if test=" jiancefangfa != null and jiancefangfa != '' ">
 				and jiancefangfa = #{ jiancefangfa }
@@ -161,9 +153,6 @@
 			<if test=" kongbaishiyan_koh_yongliang != null and kongbaishiyan_koh_yongliang != '' ">
 				and kongbaishiyan_koh_yongliang = #{ kongbaishiyan_koh_yongliang }
 			</if>
-			<if test=" jisuangongshi != null and jisuangongshi != '' ">
-				and jisuangongshi = #{ jisuangongshi }
-			</if>
 			<if test=" zhifangsuanzhi_1 != null and zhifangsuanzhi_1 != '' ">
 				and zhifangsuanzhi_1 = #{ zhifangsuanzhi_1 }
 			</if>
@@ -173,11 +162,11 @@
 			<if test=" pingjunzhi != null and pingjunzhi != '' ">
 				and pingjunzhi = #{ pingjunzhi }
 			</if>
-			<if test=" pingxingcha != null and pingxingcha != '' ">
-				and pingxingcha = #{ pingxingcha }
+			<if test=" pingxingcha_xiangduicha != null and pingxingcha_xiangduicha != '' ">
+				and pingxingcha_xiangduicha = #{ pingxingcha_xiangduicha }
 			</if>
-			<if test=" xiangduicha != null and xiangduicha != '' ">
-				and xiangduicha= #{ xiangduicha }
+			<if test=" pingxingcha_xiangduicha_zhi != null and pingxingcha_xiangduicha_zhi != '' ">
+				and pingxingcha_xiangduicha_zhi= #{ pingxingcha_xiangduicha_zhi }
 			</if>
 			<if test=" beizhu != null and beizhu != '' ">
 				and beizhu = #{ beizhu }

@@ -19,7 +19,6 @@ public class Zhifangsuanzhi extends AbstractModel{
 	private Date riqi ;                             //日期
 	private String shiwen ;                           //室温
 	private String xiangduishidu;                   //相对湿度
-	private String didian;                          //地点
 	private String jiancefangfa;                    //检测方法
 	private String yiqishebei_mingcheng_1;          //仪器设备名称1
 	private String yiqishebei_mingcheng_2;          //仪器设备名称2
@@ -36,17 +35,19 @@ public class Zhifangsuanzhi extends AbstractModel{
 	private String koh_rongyeyongliang_1;           //KOH溶液用量V（mL）1
 	private String koh_rongyeyongliang_2;           //KOH溶液用量V（mL）2
 	private String kongbaishiyan_koh_yongliang;     //空白试验KOH用量V0（mL）
-	private String jisuangongshi;                   //计算公式
 	private String zhifangsuanzhi_1;                //脂肪酸值（mgKOH/100g干基）1
 	private String zhifangsuanzhi_2;                //脂肪酸值（mgKOH/100g干基）2
 	private String pingjunzhi;                      //平均值（mgKOH/100g干基）
-	private String pingxingcha;                     //平行差
-	private String xiangduicha;                     //相对差（%）
+//	private String pingxingcha;                     //平行差
+//	private String xiangduicha;                     //相对差（%）
+	private String pingxingcha_xiangduicha;         //平行差或相对差
+	private String pingxingcha_xiangduicha_zhi;      //平行差或相对差的值
 	private String beizhu;                          //备注
 	private String jiance;                          //检测
 	private String jiaohe;                          //校核
 	
-	
+	private String sampleNum;                      //样品编号（页面展示）
+	private String sort;                            //品种（页面展示）
 	
 	public int getSmallSampleId() {
 		return smallSampleId;
@@ -78,12 +79,6 @@ public class Zhifangsuanzhi extends AbstractModel{
 	}
 	public void setXiangduishidu(String xiangduishidu) {
 		this.xiangduishidu = xiangduishidu;
-	}
-	public String getDidian() {
-		return didian;
-	}
-	public void setDidian(String didian) {
-		this.didian = didian;
 	}
 	public String getJiancefangfa() {
 		return jiancefangfa;
@@ -181,12 +176,6 @@ public class Zhifangsuanzhi extends AbstractModel{
 	public void setKongbaishiyan_koh_yongliang(String kongbaishiyan_koh_yongliang) {
 		this.kongbaishiyan_koh_yongliang = kongbaishiyan_koh_yongliang;
 	}
-	public String getJisuangongshi() {
-		return jisuangongshi;
-	}
-	public void setJisuangongshi(String jisuangongshi) {
-		this.jisuangongshi = jisuangongshi;
-	}
 	public String getZhifangsuanzhi_1() {
 		return zhifangsuanzhi_1;
 	}
@@ -205,20 +194,33 @@ public class Zhifangsuanzhi extends AbstractModel{
 	public void setPingjunzhi(String pingjunzhi) {
 		this.pingjunzhi = pingjunzhi;
 	}
-	public String getPingxingcha() {
-		return pingxingcha;
-	}
-	public void setPingxingcha(String pingxingcha) {
-		this.pingxingcha = pingxingcha;
-	}
-	public String getXiangduicha() {
-		return xiangduicha;
-	}
-	public void setXiangduicha(String xiangduicha) {
-		this.xiangduicha = xiangduicha;
-	}
+//	public String getPingxingcha() {
+//		return pingxingcha;
+//	}
+//	public void setPingxingcha(String pingxingcha) {
+//		this.pingxingcha = pingxingcha;
+//	}
+//	public String getXiangduicha() {
+//		return xiangduicha;
+//	}
+//	public void setXiangduicha(String xiangduicha) {
+//		this.xiangduicha = xiangduicha;
+//	}
+	
 	public String getBeizhu() {
 		return beizhu;
+	}
+	public String getPingxingcha_xiangduicha() {
+		return pingxingcha_xiangduicha;
+	}
+	public void setPingxingcha_xiangduicha(String pingxingcha_xiangduicha) {
+		this.pingxingcha_xiangduicha = pingxingcha_xiangduicha;
+	}
+	public String getPingxingcha_xiangduicha_zhi() {
+		return pingxingcha_xiangduicha_zhi;
+	}
+	public void setPingxingcha_xiangduicha_zhi(String pingxingcha_xiangduicha_zhi) {
+		this.pingxingcha_xiangduicha_zhi = pingxingcha_xiangduicha_zhi;
 	}
 	public void setBeizhu(String beizhu) {
 		this.beizhu = beizhu;
@@ -238,6 +240,19 @@ public class Zhifangsuanzhi extends AbstractModel{
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public String getSampleNum() {
+		return sampleNum;
+	}
+	public void setSampleNum(String sampleNum) {
+		this.sampleNum = sampleNum;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 	@Override
 	public String toString(){

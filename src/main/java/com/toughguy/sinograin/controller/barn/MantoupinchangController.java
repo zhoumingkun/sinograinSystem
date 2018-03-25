@@ -1,6 +1,8 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,7 +32,18 @@ public class MantoupinchangController {
 		return mantoupinchangService.find(id);
 	}
 	
-	
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Mantoupinchang getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Mantoupinchang> mtpcs = mantoupinchangService.findAll(map);
+		for(Mantoupinchang mtpc:mtpcs) {
+			return mtpc;
+		}
+		return null;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
 	//@RequiresPermissions("library:add")

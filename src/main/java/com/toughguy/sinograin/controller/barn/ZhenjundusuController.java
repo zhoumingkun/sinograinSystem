@@ -1,16 +1,21 @@
 package com.toughguy.sinograin.controller.barn;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.toughguy.sinograin.model.barn.Yumipinchang;
 import com.toughguy.sinograin.model.barn.Zhenjundusu;
 import com.toughguy.sinograin.service.barn.prototype.IZhenjundusuService;
 
 @Controller
-@RequestMapping("/Zhenjundusu")
+@RequestMapping("/zhenjundusu")
 public class ZhenjundusuController {
 	@Autowired
 	private IZhenjundusuService zhenjundusuService;
@@ -26,6 +31,19 @@ public class ZhenjundusuController {
 	//@RequiresPermissions("library:all")
 	public Zhenjundusu get(int id){
 		return zhenjundusuService.find(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Zhenjundusu getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Zhenjundusu> zjdss = zhenjundusuService.findAll(map);
+		for(Zhenjundusu zjds:zjdss) {
+			return zjds;
+		}
+		return null;
 	}
 	
 	@ResponseBody

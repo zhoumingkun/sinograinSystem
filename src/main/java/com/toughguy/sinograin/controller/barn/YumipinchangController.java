@@ -1,12 +1,15 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.toughguy.sinograin.model.barn.Mantoupinchang;
 import com.toughguy.sinograin.model.barn.Yumipinchang;
 import com.toughguy.sinograin.service.barn.prototype.IYumipinchangService;
 
@@ -30,6 +33,18 @@ public class YumipinchangController {
 		return yumipinchangService.find(id);
 	}
 	
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Yumipinchang getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Yumipinchang> ympcs = yumipinchangService.findAll(map);
+		for(Yumipinchang ympc:ympcs) {
+			return ympc;
+		}
+		return null;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
