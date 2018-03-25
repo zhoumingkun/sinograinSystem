@@ -144,6 +144,7 @@ public class BarnServiceImpl implements IBarnService {
 				smallSample.setSmallSamplePic(barFileName);
 				smallSample.setSampleId(sample.getId());
 				smallSample.setSmallSampleNum(s);
+				smallSample.setState(1);
 				smallSampleService.save(smallSample);
 			}
 			sample.setSampleState(3);

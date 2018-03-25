@@ -16,6 +16,7 @@ public class SmallSample extends AbstractModel {
 	private int checkPoint;				//检测项（1 不完善粒、杂质、生霉粒  2 水分 3 硬度 4 脂肪酸值 5 品尝评分 6 卫生  7 加工品质）
 	private int checkId;				//检测id
 	private String smallSamplePic;		//小样条形码
+	private int state;                  //检验单的状态 1，创建  2，编辑
 	
 	private String sampleNum;	//检测编号 (页面展示)
 	private String sort;    	//分类(品种,页面展示)
@@ -63,6 +64,13 @@ public class SmallSample extends AbstractModel {
 	}
 	public void setSmallSamplePic(String smallSamplePic) {
 		this.smallSamplePic = smallSamplePic;
+	}
+	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
 	}
 	@Override
 	public String toString(){

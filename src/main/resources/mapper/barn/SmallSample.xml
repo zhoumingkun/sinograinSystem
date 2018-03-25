@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SmallSample">
 
 	<insert id="save" parameterType="SmallSample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic) 
-		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic})
+		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state) 
+		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic},#{state})
 	</insert>
 	
 	<!-- 删除某个小样 -->
@@ -58,6 +58,7 @@
 			<if test="checkPoint != null and checkPoint != ''">checkPoint = #{checkPoint},</if>
 			<if test="checkId != null and checkId != ''">checkId = #{checkId},</if>
 			<if test="smallSamplePic != null and smallSamplePic != ''">smallSamplePic = #{smallSamplePic},</if>
+			<if test="state != null and state != ''">state = #{state},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -87,6 +88,9 @@
 				and checkId = #{ checkId }
 			</if>
 			
+			<if test=" state != null and state != '' ">
+				and state = #{ state }
+			</if>
 		</where>
 	</sql>
 	
