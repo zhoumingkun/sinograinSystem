@@ -3,8 +3,10 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Yumipinchang">
 
 	<insert id="save" parameterType="Yumipinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,content,riqi,pinpingyuan,table_version) 
-		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{content},#{riqi},#{pinpingyuan},#{table_version})
+		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,riqi,pinpingyuan,table_version,wotouqiwei,
+		wotouseze,waiguanxingzhuang,neibuxingzhuang,ziwei,pinchangpingfenzhi) 
+		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{riqi},#{pinpingyuan},#{table_version},#{wotouqiwei},
+		#{wotouseze},#{waiguanxingzhuang},#{neibuxingzhuang},ziwei},#{pinchangpingfenzhi})
 	</insert>
 	
 	
@@ -49,10 +51,15 @@
 		update barn_yumipinchang_pingfenjilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="content != null and content != ''">content = #{content},</if>
 			<if test="riqi != null ">riqi = #{riqi},</if>
 			<if test="pinpingyuan != null and pinpingyuan != ''">pinpingyuan = #{pinpingyuan},</if>
 			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="wotouqiwei != null and wotouqiwei != ''">wotouqiwei = #{wotouqiwei},</if>
+			<if test="wotouseze != null and wotouseze != ''">wotouseze = #{wotouseze},</if>
+			<if test="waiguanxingzhuang != null and waiguanxingzhuang != ''">waiguanxingzhuang = #{waiguanxingzhuang},</if>
+			<if test="neibuxingzhuang != null and neibuxingzhuang != ''">neibuxingzhuang = #{neibuxingzhuang},</if>
+			<if test="ziwei != null and ziwei != ''">ziwei = #{ziwei},</if>
+			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">pinchangpingfenzhi = #{pinchangpingfenzhi},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -60,9 +67,6 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test="content != null and content != ''">
-				and content = #{content}
-			</if>
 			<if test="smallSampleId != null and smallSampleId != ''">
 				and smallSampleId = #{smallSampleId}
 			</if>
@@ -74,6 +78,24 @@
 			</if>
 			<if test="table_version != null and table_version != ''">
 				and table_version = #{table_version}
+			</if>			
+			<if test="wotouqiwei != null and wotouqiwei != ''">
+				and wotouqiwei = #{wotouqiwei}
+			</if>
+			<if test="wotouseze != null and wotouseze != ''">
+				and wotouseze = #{wotouseze}
+			</if>
+			<if test="waiguanxingzhuang != null and waiguanxingzhuang != ''">
+				and waiguanxingzhuang = #{waiguanxingzhuang}
+			</if>
+			<if test="neibuxingzhuang != null and neibuxingzhuang != ''">
+				and neibuxingzhuang = #{neibuxingzhuang}
+			</if>
+			<if test="ziwei != null and ziwei != ''">
+				and ziwei = #{ziwei}
+			</if>
+			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">
+				and pinchangpingfenzhi = #{pinchangpingfenzhi}
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
