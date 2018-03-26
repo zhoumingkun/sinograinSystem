@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.toughguy.sinograin.model.AbstractModel;
 import com.toughguy.sinograin.util.JsonUtil;
-/*
+/* 
  * 馒头品尝评分记录表
  * 
  */
