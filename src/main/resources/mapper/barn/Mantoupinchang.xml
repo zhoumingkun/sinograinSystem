@@ -3,8 +3,10 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Mantoupinchang">
 
 	<insert id="save" parameterType="Mantoupinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_mantoupinchang_pingfenjilu (id, createTime,updateTime,content,riqi,pinpingyuan,table_version) 
-		values (#{id}, #{createTime},#{updateTime},#{content},#{riqi},#{pinpingyuan},#{table_version})
+		insert into barn_mantoupinchang_pingfenjilu (id, createTime,updateTime,birong,sezebiaomian,tanxing,qiwei,
+		shiwei,renxing,zhanxing,riqi,pinpingyuan,pinchangpingfenzhi,table_version) 
+		values (#{id}, #{createTime},#{updateTime},#{birong},#{sezebiaomian},#{tanxing},#{qiwei},
+		#{shiwei},#{renxing},#{zhanxing},#{riqi},#{pinpingyuan},#{table_version})
 	</insert>
 	
 	
@@ -48,10 +50,17 @@
 	<update id="update" parameterType="Mantoupinchang">
 		update barn_mantoupinchang_pingfenjilu
 		<set>
-			<if test="content != null and content != ''">content = #{content},</if>
 			<if test="riqi != null ">riqi = #{riqi},</if>
 			<if test="pinpingyuan != null and pinpingyuan != ''">pinpingyuan = #{pinpingyuan},</if>
 			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="birong != null and birong != ''">birong = #{birong},</if>
+			<if test="sezebiaomian != null and sezebiaomian != ''">sezebiaomian = #{sezebiaomian},</if>
+			<if test="tanxing != null and tanxing != ''">tanxing = #{tanxing},</if>
+			<if test="qiwei != null and qiwei != ''">qiwei = #{qiwei},</if>
+			<if test="shiwei != null and shiwei != ''">shiwei = #{shiwei},</if>
+			<if test="renxing != null and renxing != ''">renxing = #{renxing},</if>
+			<if test="zhanxing != null and zhanxing != ''">zhanxing = #{zhanxing},</if>
+			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">pinchangpingfenzhi = #{pinchangpingfenzhi},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -59,9 +68,7 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test="content != null and content != ''">
-				and content = #{content}
-			</if>
+			
 			<if test="riqi != null ">
 				and riqi = #{riqi}
 			</if>
@@ -70,6 +77,30 @@
 			</if>
 			<if test="table_version != null and table_version != ''">
 				and table_version = #{table_version}
+			</if>			
+			<if test="birong != null and birong != ''">
+				and birong = #{birong}
+			</if>
+			<if test="sezebiaomian != null and sezebiaomian != ''">
+				and sezebiaomian = #{sezebiaomian}
+			</if>
+			<if test="tanxing != null and tanxing != ''">
+				and tanxing = #{tanxing}
+			</if>
+			<if test="qiwei != null and qiwei != ''">
+				and qiwei = #{qiwei}
+			</if>
+			<if test="shiwei != null and shiwei != ''">
+				and shiwei = #{shiwei}
+			</if>
+			<if test="renxing != null and renxing != ''">
+				and renxing = #{renxing}
+			</if>
+			<if test="zhanxing != null and zhanxing != ''">
+				and zhanxing = #{zhanxing}
+			</if>
+			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">
+				and pinchangpingfenzhi = #{pinchangpingfenzhi}
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
