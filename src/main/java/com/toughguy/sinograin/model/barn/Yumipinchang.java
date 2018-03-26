@@ -13,10 +13,20 @@ public class Yumipinchang extends AbstractModel{
 	
 	private static final long serialVersionUID = 4139049675415615508L;
 	
+	private int smallSampleId;           //小样id
 	private String content;				//内容
 	private Date riqi;				    //日期
 	private String pinpingyuan;			//品评员
 	private String table_version;		//表格版本
+	
+	
+	
+	public int getSmallSampleId() {
+		return smallSampleId;
+	}
+	public void setSmallSampleId(int smallSampleId) {
+		this.smallSampleId = smallSampleId;
+	}
 	public String getContent() {
 		return content;
 	}

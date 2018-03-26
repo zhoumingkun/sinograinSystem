@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Yumipinchang;
 import com.toughguy.sinograin.model.barn.Zhenjundusu;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IZhenjundusuService;
 
 @Controller
@@ -19,6 +21,8 @@ import com.toughguy.sinograin.service.barn.prototype.IZhenjundusuService;
 public class ZhenjundusuController {
 	@Autowired
 	private IZhenjundusuService zhenjundusuService;
+	@Autowired
+	private ISmallSampleService smallSampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -77,6 +81,9 @@ public class ZhenjundusuController {
 	//@RequiresPermissions("library:add")
 	public String save(Zhenjundusu zhenjundusu) {
 		try {
+			SmallSample smallSample = smallSampleService.find(zhenjundusu.getSmallSampleId());
+			smallSample.setState(2);
+			smallSampleService.update(smallSample);
 			zhenjundusuService.save(zhenjundusu);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

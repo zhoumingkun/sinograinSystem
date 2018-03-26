@@ -17,7 +17,6 @@ public class Zhenjundusu extends AbstractModel{
 	private Date riqi ;                          //日期
 	private String shiwen ;                        //室温
 	private String xiangduishidu;                //相对湿度
-	private String didian;                       //地点
 	private String jiancefangfa;                 //检测方法
 	private String yiqishebei_mingcheng_1;       //仪器设备名称1
 	private String yiqishebei_mingcheng_2;       //仪器设备名称2
@@ -83,14 +82,6 @@ public class Zhenjundusu extends AbstractModel{
 
 	public void setXiangduishidu(String xiangduishidu) {
 		this.xiangduishidu = xiangduishidu;
-	}
-
-	public String getDidian() {
-		return didian;
-	}
-
-	public void setDidian(String didian) {
-		this.didian = didian;
 	}
 
 	public String getJiancefangfa() {

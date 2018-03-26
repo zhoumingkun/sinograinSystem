@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Zhenjundusu">
 
 	<insert id="save" parameterType="Zhenjundusu" keyProperty="id" useGeneratedKeys="true">
-		insert into  barn_zhenjundusu_jiancejilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,outudushu_1,outudushu_2,outudushu_pingjunzhi,huangqumeidusu_1,huangqumeidusu_2,huangqumeidusu_pingjunzhi,yumichimeixitong_1,yumichimeixitong_2,yumichimeixitong_pingjunzhi,zhequmeidusu_1,zhequmeidusu_2,zhequmeidusu_pingjunzhi,beizhu,jiance,jiaohe,createTime,updateTime) 
-		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{outudushu_1},#{outudushu_2},#{outudushu_pingjunzhi},#{huangqumeidusu_1},#{huangqumeidusu_2},#{huangqumeidusu_pingjunzhi},#{yumichimeixitong_1},#{yumichimeixitong_2},#{yumichimeixitong_pingjunzhi},#{zhequmeidusu_1},#{zhequmeidusu_2},#{zhequmeidusu_pingjunzhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+		insert into  barn_zhenjundusu_jiancejilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,outudushu_1,outudushu_2,outudushu_pingjunzhi,huangqumeidusu_1,huangqumeidusu_2,huangqumeidusu_pingjunzhi,yumichimeixitong_1,yumichimeixitong_2,yumichimeixitong_pingjunzhi,zhequmeidusu_1,zhequmeidusu_2,zhequmeidusu_pingjunzhi,beizhu,jiance,jiaohe,createTime,updateTime) 
+		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{outudushu_1},#{outudushu_2},#{outudushu_pingjunzhi},#{huangqumeidusu_1},#{huangqumeidusu_2},#{huangqumeidusu_pingjunzhi},#{yumichimeixitong_1},#{yumichimeixitong_2},#{yumichimeixitong_pingjunzhi},#{zhequmeidusu_1},#{zhequmeidusu_2},#{zhequmeidusu_pingjunzhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 删除某个交接单 -->
@@ -52,7 +52,6 @@
 			<if test="riqi != null">riqi = #{riqi},</if>
 			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
 			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
-			<if test="didian != null and didian != ''">didian = #{didian},</if>
 			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
 			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
 			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
@@ -104,9 +103,6 @@
 			
 			<if test=" xiangduishidu != null and xiangduishidu != '' ">
 				and xiangduishidu = #{ xiangduishidu }
-			</if>
-			<if test=" didian != null and didian != '' ">
-				and didian = #{ didian }
 			</if>
 			<if test=" jiancefangfa != null and jiancefangfa != '' ">
 				and jiancefangfa = #{ jiancefangfa }

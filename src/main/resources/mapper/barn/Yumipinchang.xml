@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Yumipinchang">
 
 	<insert id="save" parameterType="Yumipinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_yumipinchang_pingfenjilu (id, createTime,updateTime,content,riqi,pinpingyuan,table_version) 
-		values (#{id}, #{createTime},#{updateTime},#{content},#{riqi},#{pinpingyuan},#{table_version})
+		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,content,riqi,pinpingyuan,table_version) 
+		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{content},#{riqi},#{pinpingyuan},#{table_version})
 	</insert>
 	
 	
@@ -48,6 +48,7 @@
 	<update id="update" parameterType="Yumipinchang">
 		update barn_yumipinchang_pingfenjilu
 		<set>
+			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
 			<if test="content != null and content != ''">content = #{content},</if>
 			<if test="riqi != null ">riqi = #{riqi},</if>
 			<if test="pinpingyuan != null and pinpingyuan != ''">pinpingyuan = #{pinpingyuan},</if>
@@ -61,6 +62,9 @@
 		<where>
 			<if test="content != null and content != ''">
 				and content = #{content}
+			</if>
+			<if test="smallSampleId != null and smallSampleId != ''">
+				and smallSampleId = #{smallSampleId}
 			</if>
 			<if test="riqi != null ">
 				and riqi = #{riqi}

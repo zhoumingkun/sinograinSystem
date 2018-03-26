@@ -14,8 +14,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Mianjinxishuiliang;
 import com.toughguy.sinograin.model.barn.Shuifen;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IMianjinxishuiliangService;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 
 
 @Controller
@@ -23,6 +25,8 @@ import com.toughguy.sinograin.service.barn.prototype.IMianjinxishuiliangService;
 public class MianjinxishuiliangController {
 	@Autowired
 	private IMianjinxishuiliangService mianjinxishuiliangService;
+	@Autowired
+	private ISmallSampleService smallSampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -81,6 +85,9 @@ public class MianjinxishuiliangController {
 	//@RequiresPermissions("library:add")
 	public String save(Mianjinxishuiliang mianjinxishuiliang) {
 		try {
+			SmallSample smallSample = smallSampleService.find(mianjinxishuiliang.getSmallSampleId());
+			smallSample.setState(2);
+			smallSampleService.update(smallSample);
 			mianjinxishuiliangService.save(mianjinxishuiliang);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

@@ -79,10 +79,10 @@ public class ZhifangsuanzhiController {
 	//@RequiresPermissions("library:add")
 	public String save(Zhifangsuanzhi zhifangsuanzhi) {
 		try {
-			zhifangsuanzhiService.save(zhifangsuanzhi);
 			SmallSample ss = smallSampleService.find(zhifangsuanzhi.getSmallSampleId());
 			ss.setState(2);
 			smallSampleService.update(ss);
+			zhifangsuanzhiService.save(zhifangsuanzhi);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -17,7 +17,6 @@ public class Mianjinxishuiliang extends AbstractModel{
 	private Date riqi ;                             //日期
 	private String shiwen ;                           //室温
 	private String xiangduishidu;                   //相对湿度
-	private String didian;                          //地点
 	private String jiancefangfa;                    //检测方法
 	private String yiqishebei_mingcheng_1;          //仪器设备名称1
 	private String yiqishebei_mingcheng_2;          //仪器设备名称2
@@ -33,7 +32,6 @@ public class Mianjinxishuiliang extends AbstractModel{
 	private String ganmianjinzhiliang_2;            //干面筋质量m2（g）2
 	private String mianjinxishuiliang_1;            //面筋吸水量M（%）1
 	private String mianjinxishuiliang_2;            //面筋吸水量M（%）2
-	private String jisuangongshi;                   //计算公式
 	private String pingjunzhiganmianjinzhiliang;    //平均值干面筋质量m2（g）
 	private String beizhu;                          //备注
 	private String jiance;                          //检测
@@ -71,12 +69,6 @@ public class Mianjinxishuiliang extends AbstractModel{
 	}
 	public void setXiangduishidu(String xiangduishidu) {
 		this.xiangduishidu = xiangduishidu;
-	}
-	public String getDidian() {
-		return didian;
-	}
-	public void setDidian(String didian) {
-		this.didian = didian;
 	}
 	public String getJiancefangfa() {
 		return jiancefangfa;
@@ -167,12 +159,6 @@ public class Mianjinxishuiliang extends AbstractModel{
 	}
 	public void setMianjinxishuiliang_2(String mianjinxishuiliang_2) {
 		this.mianjinxishuiliang_2 = mianjinxishuiliang_2;
-	}
-	public String getJisuangongshi() {
-		return jisuangongshi;
-	}
-	public void setJisuangongshi(String jisuangongshi) {
-		this.jisuangongshi = jisuangongshi;
 	}
 	public String getPingjunzhiganmianjinzhiliang() {
 		return pingjunzhiganmianjinzhiliang;

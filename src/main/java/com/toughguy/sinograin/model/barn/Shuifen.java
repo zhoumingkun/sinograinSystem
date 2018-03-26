@@ -18,7 +18,6 @@ public class Shuifen extends AbstractModel {
 	private Date riqi; // 日期
 	private String shiwen; // 室温
 	private String xiangduishidu; // 相对湿度
-	private String didian; // 地点
 	private String jiancefangfa; // 检测方法
 	private String yiqishebei_mingcheng_1; // 仪器设备名称1
 	private String yiqishebei_mingcheng_2; // 仪器设备名称2
@@ -36,22 +35,23 @@ public class Shuifen extends AbstractModel {
 	private String hengzhongqiminjishiyang_hengzhonghouzhiliang_2; // 恒重器皿及试样（ ）℃（）恒重后质量W2（g）2
 	private String hengzhongqiminjishiyang_hengzhonghouzhiliang_3; // 恒重器皿及试样（）℃（）恒重后质量W2（g）3
 	private String hengzhongqiminjishiyang_hengzhonghouzhiliang_4; // 恒重器皿及试样（ ）℃（）恒重后质量W2（g）4
-	private String jisuangongshi; // 计算公式
 	private String shuifenhanliang_1; // 水分含量（%）1
 	private String shuifenhanliang_2; // 水分含量（%）2
 	private String pingjunzhi; // 平均值（%）
-	private String pingxingcha; // 平行差
-	private String xiangduicha; // 相对差（%）
+//	private String pingxingcha; // 平行差
+//	private String xiangduicha; // 相对差（%）
+	private String pingxingcha_xiangduicha;         //平行差或相对差
+	private String pingxingcha_xiangduicha_zhi;      //平行差或相对差的值
 	private String beizhu; // 备注
 	private String jiance; // 检测
 	private String jiaohe; // 校核
 
 
-	public int getsmallSampleId() {
+	public int getSmallSampleId() {
 		return smallSampleId;
 	}
 
-	public void setsmallSampleId(int smallSampleId) {
+	public void setSmallSampleId(int smallSampleId) {
 		this.smallSampleId = smallSampleId;
 	}
 
@@ -85,14 +85,6 @@ public class Shuifen extends AbstractModel {
 
 	public void setXiangduishidu(String xiangduishidu) {
 		this.xiangduishidu = xiangduishidu;
-	}
-
-	public String getDidian() {
-		return didian;
-	}
-
-	public void setDidian(String didian) {
-		this.didian = didian;
 	}
 
 	public String getJiancefangfa() {
@@ -235,13 +227,6 @@ public class Shuifen extends AbstractModel {
 		this.hengzhongqiminjishiyang_hengzhonghouzhiliang_4 = hengzhongqiminjishiyang_hengzhonghouzhiliang_4;
 	}
 
-	public String getJisuangongshi() {
-		return jisuangongshi;
-	}
-
-	public void setJisuangongshi(String jisuangongshi) {
-		this.jisuangongshi = jisuangongshi;
-	}
 
 	public String getShuifenhanliang_1() {
 		return shuifenhanliang_1;
@@ -267,24 +252,41 @@ public class Shuifen extends AbstractModel {
 		this.pingjunzhi = pingjunzhi;
 	}
 
-	public String getPingxingcha() {
-		return pingxingcha;
-	}
-
-	public void setPingxingcha(String pingxingcha) {
-		this.pingxingcha = pingxingcha;
-	}
-
-	public String getXiangduicha() {
-		return xiangduicha;
-	}
-
-	public void setXiangduicha(String xiangduicha) {
-		this.xiangduicha = xiangduicha;
-	}
+//	public String getPingxingcha() {
+//		return pingxingcha;
+//	}
+//
+//	public void setPingxingcha(String pingxingcha) {
+//		this.pingxingcha = pingxingcha;
+//	}
+//
+//	public String getXiangduicha() {
+//		return xiangduicha;
+//	}
+//
+//	public void setXiangduicha(String xiangduicha) {
+//		this.xiangduicha = xiangduicha;
+//	}
+	
 
 	public String getBeizhu() {
 		return beizhu;
+	}
+
+	public String getPingxingcha_xiangduicha() {
+		return pingxingcha_xiangduicha;
+	}
+
+	public void setPingxingcha_xiangduicha(String pingxingcha_xiangduicha) {
+		this.pingxingcha_xiangduicha = pingxingcha_xiangduicha;
+	}
+
+	public String getPingxingcha_xiangduicha_zhi() {
+		return pingxingcha_xiangduicha_zhi;
+	}
+
+	public void setPingxingcha_xiangduicha_zhi(String pingxingcha_xiangduicha_zhi) {
+		this.pingxingcha_xiangduicha_zhi = pingxingcha_xiangduicha_zhi;
 	}
 
 	public void setBeizhu(String beizhu) {

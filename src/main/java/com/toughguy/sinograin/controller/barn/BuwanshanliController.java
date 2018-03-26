@@ -10,13 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toughguy.sinograin.model.barn.Buwanshanli;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.service.barn.prototype.IBuwanshanliService;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 
 @Controller
 @RequestMapping("/buwanshanli")
 public class BuwanshanliController {
 	@Autowired
 	private IBuwanshanliService buwanshanliService;
+	@Autowired
+	private ISmallSampleService smallSampleService;
 
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -50,6 +54,9 @@ public class BuwanshanliController {
 	//@RequiresPermissions("library:add")
 	public String save(Buwanshanli buwanshanli) {
 		try {
+			SmallSample smallSample = smallSampleService.find(buwanshanli.getSmallSampleId());
+			smallSample.setState(2);
+			smallSampleService.update(smallSample);
 			buwanshanliService.save(buwanshanli);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

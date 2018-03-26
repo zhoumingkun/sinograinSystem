@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Mianjinxishuiliang">
 
 	<insert id="save" parameterType="Mianjinxishuiliang" keyProperty="id" useGeneratedKeys="true">
-		insert into  barn_mianjinxishuiliang_cedingjilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,shiyangzhiliang_1,shiyangzhiliang_2,shimianjinzhiliang_1,shimianjinzhiliang_2,ganmianjinzhiliang_1,ganmianjinzhiliang_2,mianjinxishuiliang_1,mianjinxishuiliang_2,jisuangongshi,pingjunzhiganmianjinzhiliang,beizhu,jiance,jiaohe,createTime,updateTime) 
-		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{shimianjinzhiliang_1},#{shimianjinzhiliang_2},#{ganmianjinzhiliang_1},#{ganmianjinzhiliang_2},#{mianjinxishuiliang_1},#{mianjinxishuiliang_2},#{jisuangongshi},#{pingjunzhiganmianjinzhiliang},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+		insert into  barn_mianjinxishuiliang_cedingjilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,shiyangzhiliang_1,shiyangzhiliang_2,shimianjinzhiliang_1,shimianjinzhiliang_2,ganmianjinzhiliang_1,ganmianjinzhiliang_2,mianjinxishuiliang_1,mianjinxishuiliang_2,pingjunzhiganmianjinzhiliang,beizhu,jiance,jiaohe,createTime,updateTime) 
+		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{shimianjinzhiliang_1},#{shimianjinzhiliang_2},#{ganmianjinzhiliang_1},#{ganmianjinzhiliang_2},#{mianjinxishuiliang_1},#{mianjinxishuiliang_2},#{pingjunzhiganmianjinzhiliang},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 删除某个交接单 -->
@@ -52,7 +52,6 @@
 			<if test="riqi != null">riqi = #{riqi},</if>
 			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
 			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
-			<if test="didian != null and didian != ''">didian = #{didian},</if>
 			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
 			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
 			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
@@ -68,7 +67,6 @@
 			<if test="ganmianjinzhiliang_2 != null and ganmianjinzhiliang_2 != ''">ganmianjinzhiliang_2 = #{ganmianjinzhiliang_2},</if>
 			<if test="mianjinxishuiliang_1 != null and mianjinxishuiliang_1 != ''">mianjinxishuiliang_1 = #{mianjinxishuiliang_1},</if>
 			<if test="mianjinxishuiliang_2 != null and mianjinxishuiliang_2 != ''">mianjinxishuiliang_2 = #{mianjinxishuiliang_2},</if>
-			<if test="jisuangongshi != null and jisuangongshi != ''">jisuangongshi = #{jisuangongshi},</if>
 			<if test="pingjunzhiganmianjinzhiliang != null and pingjunzhiganmianjinzhiliang != ''">pingjunzhiganmianjinzhiliang = #{pingjunzhiganmianjinzhiliang},</if>
 			<if test="beizhu != null and beizhu != ''">beizhu = #{beizhu},</if>
 			<if test="jiance != null and jiance != ''">jiance = #{jiance},</if>
@@ -102,9 +100,6 @@
 			
 			<if test=" xiangduishidu != null and xiangduishidu != '' ">
 				and xiangduishidu = #{ xiangduishidu }
-			</if>
-			<if test=" didian != null and didian != '' ">
-				and didian = #{ didian }
 			</if>
 			<if test=" jiancefangfa != null and jiancefangfa != '' ">
 				and jiancefangfa = #{ jiancefangfa }
@@ -151,9 +146,6 @@
 			</if>
 			<if test=" mianjinxishuiliang_2 != null and mianjinxishuiliang_2 != '' ">
 				and mianjinxishuiliang_2 = #{ mianjinxishuiliang_2 }
-			</if>
-			<if test=" jisuangongshi != null and jisuangongshi != '' ">
-				and jisuangongshi = #{ jisuangongshi }
 			</if>
 			<if test=" pingjunzhiganmianjinzhiliang != null and pingjunzhiganmianjinzhiliang != '' ">
 				and pingjunzhiganmianjinzhiliang = #{ pingjunzhiganmianjinzhiliang }

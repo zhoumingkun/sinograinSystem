@@ -73,7 +73,7 @@ public class SmallSampleController {
 			return smallSample;
 		}else if(smallSample.getCheckPoint() == 4 ) {
 			Sample sample = sampleService.find(smallSample.getSampleId());
-			if(sample.getSort() == "小麦") {
+			if(sample.getSort().equals("小麦")) {
 				//面筋
 				mianjinxishuiliangController.getBySmallSampleId(smallSample.getId());
 				return smallSample;
@@ -84,7 +84,7 @@ public class SmallSampleController {
 			}
 		}else if(smallSample.getCheckPoint() == 5 ) {
 			Sample sample = sampleService.find(smallSample.getSampleId());
-			if(sample.getSort() == "小麦") {
+			if(sample.getSort().equals("小麦")) {
 				//馒头品尝
 				mantoupinchangController.getBySmallSampleId(smallSample.getId());
 				return smallSample;

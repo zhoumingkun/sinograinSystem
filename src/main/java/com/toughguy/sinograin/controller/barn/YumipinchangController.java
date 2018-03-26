@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toughguy.sinograin.model.barn.Mantoupinchang;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Yumipinchang;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IYumipinchangService;
 
 @Controller
@@ -18,7 +20,9 @@ import com.toughguy.sinograin.service.barn.prototype.IYumipinchangService;
 public class YumipinchangController {
 	@Autowired
 	private IYumipinchangService yumipinchangService;
-
+	@Autowired
+	private ISmallSampleService smallSampleService;
+	
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")
@@ -51,6 +55,9 @@ public class YumipinchangController {
 	//@RequiresPermissions("library:add")
 	public String save(Yumipinchang yumipinchang) {
 		try {
+			SmallSample smallSample = smallSampleService.find(yumipinchang.getSmallSampleId());
+			smallSample.setState(2);
+			smallSampleService.update(smallSample);
 			yumipinchangService.save(yumipinchang);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

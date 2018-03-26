@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toughguy.sinograin.model.barn.Shuifen;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Zhifangsuanzhi;
 import com.toughguy.sinograin.service.barn.prototype.IShuifenService;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 
 @Controller
 @RequestMapping("/shuifen")
 public class ShuifenController {
 	@Autowired
 	private IShuifenService shuifenService;
-
+	@Autowired
+	private ISmallSampleService smallSampleService;
+	
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")
@@ -51,6 +55,9 @@ public class ShuifenController {
 	//@RequiresPermissions("library:add")
 	public String save(Shuifen shuifen) {
 		try {
+			SmallSample smallSample = smallSampleService.find(shuifen.getSmallSampleId());
+			smallSample.setState(2);
+			smallSampleService.update(smallSample);
 			shuifenService.save(shuifen);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
