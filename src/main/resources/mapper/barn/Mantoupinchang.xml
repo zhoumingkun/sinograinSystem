@@ -3,9 +3,9 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Mantoupinchang">
 
 	<insert id="save" parameterType="Mantoupinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_mantoupinchang_pingfenjilu (id, createTime,updateTime,birong,sezebiaomian,tanxing,qiwei,
+		insert into barn_mantoupinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,birong,sezebiaomian,tanxing,qiwei,
 		shiwei,renxing,zhanxing,riqi,pinpingyuan,pinchangpingfenzhi,table_version) 
-		values (#{id}, #{createTime},#{updateTime},#{birong},#{sezebiaomian},#{tanxing},#{qiwei},
+		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{birong},#{sezebiaomian},#{tanxing},#{qiwei},
 		#{shiwei},#{renxing},#{zhanxing},#{riqi},#{pinpingyuan},#{table_version})
 	</insert>
 	
@@ -50,6 +50,7 @@
 	<update id="update" parameterType="Mantoupinchang">
 		update barn_mantoupinchang_pingfenjilu
 		<set>
+			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
 			<if test="riqi != null ">riqi = #{riqi},</if>
 			<if test="pinpingyuan != null and pinpingyuan != ''">pinpingyuan = #{pinpingyuan},</if>
 			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
@@ -68,7 +69,9 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			
+			<if test="smallSampleId != null and smallSampleId != ''">
+				and smallSampleId = #{smallSampleId}
+			</if>
 			<if test="riqi != null ">
 				and riqi = #{riqi}
 			</if>
