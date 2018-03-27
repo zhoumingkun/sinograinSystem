@@ -24,7 +24,7 @@ public class SampleDaoTest {
 	@Test
 	public void testAdd() {
 		Sample s= new Sample();
-		s.setDepot("12234");
+		s.setAutograph("asdasd");;
 		sampleDao.save(s);
 	}
 	@Test

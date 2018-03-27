@@ -3,9 +3,9 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Sample">
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,sampleNo, depot,position,sort,originPlace,quality,amount,remark,sampleState,
+		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
 		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,counter,sampleNumPic,checkeds) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleNo}, #{depot},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
+		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
 		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{counter},#{sampleNumPic},#{checkeds})
 	</insert>
 	
@@ -79,7 +79,6 @@
 		update barn_sample
 		<set>
 			<if test="sampleNo != null and sampleNo != ''">sampleNo = #{sampleNo},</if>
-			<if test="depot != null and depot != ''">depot = #{depot},</if>
 			<if test="position != null and position != ''">position = #{position},</if>
 			<if test="sort != null and sort != ''">sort = #{sort},</if>
 			<if test="originPlace != null and originPlace != ''">originPlace = #{originPlace},</if>
@@ -121,13 +120,6 @@
 			<if test=" sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != ''">
 				and (sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%'))
 			</if>
-			<if test=" depot != null and depot != '' ">
-				and depot = #{depot}
-			</if>
-			<if test=" depotLike != null and depotLike != '' ">
-				and depot like concat(concat('%', #{depotLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
 			<if test=" position != null and position != '' ">
 				and position = #{position}
 			</if>
