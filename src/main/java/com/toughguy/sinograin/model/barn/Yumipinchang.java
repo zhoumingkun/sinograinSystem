@@ -9,7 +9,7 @@ import com.toughguy.sinograin.util.JsonUtil;
  * 
  */
 public class Yumipinchang extends AbstractModel{
-
+ 
 	
 	private static final long serialVersionUID = 4139049675415615508L;
 	

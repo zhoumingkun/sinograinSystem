@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.toughguy.sinograin.model.barn.Yumipinchang">
-
+ 
 	<insert id="save" parameterType="Yumipinchang" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,riqi,pinpingyuan,table_version,wotouqiwei,
 		wotouseze,waiguanxingzhuang,neibuxingzhuang,ziwei,pinchangpingfenzhi) 
