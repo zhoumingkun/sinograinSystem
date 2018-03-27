@@ -54,6 +54,7 @@ public class YumipinchangController {
 	@RequestMapping(value = "/save")
 	//@RequiresPermissions("library:add")
 	public String save(Yumipinchang yumipinchang) {
+		System.out.println(yumipinchang);
 		try {
 			SmallSample smallSample = smallSampleService.find(yumipinchang.getSmallSampleId());
 			smallSample.setState(2);

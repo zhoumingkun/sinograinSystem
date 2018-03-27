@@ -6,7 +6,7 @@
 		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,riqi,pinpingyuan,table_version,wotouqiwei,
 		wotouseze,waiguanxingzhuang,neibuxingzhuang,ziwei,pinchangpingfenzhi) 
 		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{riqi},#{pinpingyuan},#{table_version},#{wotouqiwei},
-		#{wotouseze},#{waiguanxingzhuang},#{neibuxingzhuang},ziwei},#{pinchangpingfenzhi})
+		#{wotouseze},#{waiguanxingzhuang},#{neibuxingzhuang},#{ziwei},#{pinchangpingfenzhi})
 	</insert>
 	
 	
