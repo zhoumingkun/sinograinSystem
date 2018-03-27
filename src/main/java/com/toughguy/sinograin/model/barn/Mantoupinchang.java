@@ -17,12 +17,12 @@ public class Mantoupinchang extends AbstractModel{
 	private String pinpingyuan;			//品评员
 	private String table_version;		//表格版本
 	private String birong;		        //比容
-	private String sezebiaomian;		//色泽表面
+	private String biaomianseze;		//色泽表面
 	private String tanxing;		        //弹性
 	private String qiwei;		        //气味
 	private String shiwei;		        //食味
 	private String renxing;		        //韧性
-	private String zhanxing;		    //粘性
+	private String nianxing;		    //粘性
 	private String pinchangpingfenzhi;	//品尝评分值
 	public int getSmallSampleId() {
 		return smallSampleId;
@@ -54,12 +54,6 @@ public class Mantoupinchang extends AbstractModel{
 	public void setBirong(String birong) {
 		this.birong = birong;
 	}
-	public String getSezebiaomian() {
-		return sezebiaomian;
-	}
-	public void setSezebiaomian(String sezebiaomian) {
-		this.sezebiaomian = sezebiaomian;
-	}
 	public String getTanxing() {
 		return tanxing;
 	}
@@ -84,11 +78,18 @@ public class Mantoupinchang extends AbstractModel{
 	public void setRenxing(String renxing) {
 		this.renxing = renxing;
 	}
-	public String getZhanxing() {
-		return zhanxing;
+	
+	public String getBiaomianseze() {
+		return biaomianseze;
 	}
-	public void setZhanxing(String zhanxing) {
-		this.zhanxing = zhanxing;
+	public void setBiaomianseze(String biaomianseze) {
+		this.biaomianseze = biaomianseze;
+	}
+	public String getNianxing() {
+		return nianxing;
+	}
+	public void setNianxing(String nianxing) {
+		this.nianxing = nianxing;
 	}
 	public String getPinchangpingfenzhi() {
 		return pinchangpingfenzhi;

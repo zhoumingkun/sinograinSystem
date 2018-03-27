@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Mantoupinchang">
 
 	<insert id="save" parameterType="Mantoupinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_mantoupinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,birong,sezebiaomian,tanxing,qiwei,shiwei,renxing,zhanxing,riqi,pinpingyuan,pinchangpingfenzhi,table_version) 
-		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{birong},#{sezebiaomian},#{tanxing},#{qiwei},#{shiwei},#{renxing},#{zhanxing},#{riqi},#{pinpingyuan},#{pinchangpingfenzhi},#{table_version})
+		insert into barn_mantoupinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,birong,biaomianseze,tanxing,qiwei,shiwei,renxing,nianxing,riqi,pinpingyuan,pinchangpingfenzhi,table_version) 
+		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{birong},#{biaomianseze},#{tanxing},#{qiwei},#{shiwei},#{renxing},#{nianxing},#{riqi},#{pinpingyuan},#{pinchangpingfenzhi},#{table_version})
 	</insert>
 	
 	
@@ -53,12 +53,12 @@
 			<if test="pinpingyuan != null and pinpingyuan != ''">pinpingyuan = #{pinpingyuan},</if>
 			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
 			<if test="birong != null and birong != ''">birong = #{birong},</if>
-			<if test="sezebiaomian != null and sezebiaomian != ''">sezebiaomian = #{sezebiaomian},</if>
+			<if test="biaomianseze != null and biaomianseze != ''">biaomianseze = #{biaomianseze},</if>
 			<if test="tanxing != null and tanxing != ''">tanxing = #{tanxing},</if>
 			<if test="qiwei != null and qiwei != ''">qiwei = #{qiwei},</if>
 			<if test="shiwei != null and shiwei != ''">shiwei = #{shiwei},</if>
 			<if test="renxing != null and renxing != ''">renxing = #{renxing},</if>
-			<if test="zhanxing != null and zhanxing != ''">zhanxing = #{zhanxing},</if>
+			<if test="nianxing != null and nianxing != ''">nianxing = #{nianxing},</if>
 			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">pinchangpingfenzhi = #{pinchangpingfenzhi},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
@@ -82,8 +82,8 @@
 			<if test="birong != null and birong != ''">
 				and birong = #{birong}
 			</if>
-			<if test="sezebiaomian != null and sezebiaomian != ''">
-				and sezebiaomian = #{sezebiaomian}
+			<if test="biaomianseze != null and biaomianseze != ''">
+				and biaomianseze = #{biaomianseze}
 			</if>
 			<if test="tanxing != null and tanxing != ''">
 				and tanxing = #{tanxing}
@@ -97,8 +97,8 @@
 			<if test="renxing != null and renxing != ''">
 				and renxing = #{renxing}
 			</if>
-			<if test="zhanxing != null and zhanxing != ''">
-				and zhanxing = #{zhanxing}
+			<if test="nianxing != null and nianxing != ''">
+				and nianxing = #{nianxing}
 			</if>
 			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">
 				and pinchangpingfenzhi = #{pinchangpingfenzhi}
