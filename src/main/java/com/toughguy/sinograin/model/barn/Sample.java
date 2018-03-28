@@ -35,7 +35,7 @@ public class Sample extends AbstractModel{
 	private Date storageTime;	//入库时间（样品室）
 	private Date barnTime;		//入仓时间（粮仓）
 	private String checkeds;	//检测项
-	
+	private String depot;	    //仓库号
 	private Date barnTimes;		//入仓时间（粮仓 页面）
 	
 	private String formName;	//扦样登记表名（页面展示）
@@ -222,6 +222,13 @@ public class Sample extends AbstractModel{
 	}
 	public void setCheckeds(String checkeds) {
 		this.checkeds = checkeds;
+	}
+	
+	public String getDepot() {
+		return depot;
+	}
+	public void setDepot(String depot) {
+		this.depot = depot;
 	}
 	@Override
 	public String toString(){

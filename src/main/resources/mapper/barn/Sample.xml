@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,counter,sampleNumPic,checkeds) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,counter,sampleNumPic,checkeds,depot) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{counter},#{sampleNumPic},#{checkeds})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{counter},#{sampleNumPic},#{checkeds},#{depot})
 	</insert>
 	
 	
@@ -99,6 +99,7 @@
 			<if test="counter != null and counter != ''">counter = #{counter},</if>
 			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
+			<if test="depot != null and depot != ''">depot = #{depot},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -200,6 +201,9 @@
 			</if>
 			<if test=" updateTime != null">
 				and barnTime = #{barnTime}
+			</if>
+			<if test=" depot != null and depot != '' ">
+				and depot = #{depot}
 			</if>
 		</where>
 	</sql>
