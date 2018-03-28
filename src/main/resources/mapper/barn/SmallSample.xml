@@ -3,7 +3,7 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SmallSample">
 
 	<insert id="save" parameterType="SmallSample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state，taskId) 
+		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state,taskId) 
 		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic},#{state},#{taskId})
 	</insert>
 	

@@ -174,7 +174,7 @@ public class SampleController {
 					}
 				}
 				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
-				return ss;
+				return "{ \"success\" : false ,\"smallSample\" : "+ss+"}";
 			} else{
 				Sample sample = sampleService.find(id);
 				barnService.saveSmallSample(sample);
@@ -194,7 +194,7 @@ public class SampleController {
 					}
 				}
 				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
-				return ss;
+				return "{ \"success\" : true ,\"smallSample\" : "+ss+"}";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
