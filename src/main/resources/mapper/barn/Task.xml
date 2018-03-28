@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.Task">
+
+	<insert id="save" parameterType="Task" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_task (id, taskname,createTime,updateTime) 
+		values ( #{id}, #{taskname},#{createTime},#{updateTime})
+	</insert>
+	
+	<!-- 删除某个测定记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_task where id = #{id}
+	</delete>
+	
+	<!-- 删除测定记录集 -->
+	<delete id="deleteByIDs" parameterType="List">
+		delete from barn_task where id in
+		<foreach collection="list" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 查询某个测定记录 -->
+	<select id="find" parameterType="int" resultType="Task">
+		select * from barn_task where id = #{id}
+	</select>
+	
+	<!-- 查询全部测定记录  -->
+	<select id="findAll" resultType="Task" parameterType="Map">
+		select * from barn_task
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<!-- <select id="findPaginated" resultType="Handover" parameterType="Map">
+		select * from barn_handover 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select> -->
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_task 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某个测定记录  -->
+	<update id="update" parameterType="Task">
+		update barn_task
+		<set>
+			<if test="taskname != null and taskname != ''">taskname = #{taskname},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>	
+			
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test="taskname != null and taskname != ''">
+				and taskname = #{taskname}
+			</if>
+			<if test="createTime != null ">
+				and createTime = #{createTime}
+			</if>	
+			<if test="updateTime != null ">
+				and updateTime = #{updateTime}
+			</if>	
+		</where>
+	</sql>
+	
+</mapper>
