@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SmallSample">
 
 	<insert id="save" parameterType="SmallSample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state) 
-		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic},#{state})
+		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state，taskId) 
+		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic},#{state},#{taskId})
 	</insert>
 	
 	<!-- 删除某个小样 -->
@@ -59,6 +59,7 @@
 			<if test="checkId != null and checkId != ''">checkId = #{checkId},</if>
 			<if test="smallSamplePic != null and smallSamplePic != ''">smallSamplePic = #{smallSamplePic},</if>
 			<if test="state != null and state != ''">state = #{state},</if>
+			<if test="taskId != null and taskId != ''">taskId = #{taskId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -90,6 +91,9 @@
 			
 			<if test=" state != null and state != '' ">
 				and state = #{ state }
+			</if>
+			<if test=" taskId != null and taskId != '' ">
+				and taskId = #{ taskId }
 			</if>
 		</where>
 	</sql>

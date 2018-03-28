@@ -17,6 +17,7 @@ public class SmallSample extends AbstractModel {
 	private int checkId;				//检测id
 	private String smallSamplePic;		//小样条形码
 	private int state;                  //检验单的状态 1，创建  2，编辑
+	private int taskId;                 //任务id
 	
 	private String sampleNum;	//检测编号 (页面展示)
 	private String sort;    	//分类(品种,页面展示)
@@ -71,6 +72,13 @@ public class SmallSample extends AbstractModel {
 	}
 	public void setState(int state) {
 		this.state = state;
+	}
+	
+	public int getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
 	}
 	@Override
 	public String toString(){
