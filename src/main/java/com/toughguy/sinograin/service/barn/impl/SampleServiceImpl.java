@@ -30,9 +30,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	}
 
 	@Override
-	public Sample findBySampleNum(String sampleNum) {
+	public Sample findBySampleNum(String sampleNo) {
 		// TODO Auto-generated method stub
-		return ((ISampleDao)dao).findBySampleNum(sampleNum);	
+		return ((ISampleDao)dao).findBySampleNum(sampleNo);	
 	}
 
 }

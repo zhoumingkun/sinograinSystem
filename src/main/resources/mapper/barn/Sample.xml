@@ -30,7 +30,7 @@
 	
 	<!-- 根据样品编号查询样品id  -->
 	<select id="findBySampleNum" parameterType="String" resultType="Sample">
-		select * from barn_sample where sampleNum = #{sampleNum}
+		select * from barn_sample where sampleNo = #{sampleNo}
 	</select>
 	
 	<!-- 查询某条样品 -->
