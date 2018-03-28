@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Task">
 
 	<insert id="save" parameterType="Task" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_task (id, taskname,createTime,updateTime) 
-		values ( #{id}, #{taskname},#{createTime},#{updateTime})
+		insert into barn_task (id, taskName,createTime,updateTime) 
+		values ( #{id}, #{taskName},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 删除某个测定记录 -->
@@ -47,7 +47,7 @@
 	<update id="update" parameterType="Task">
 		update barn_task
 		<set>
-			<if test="taskname != null and taskname != ''">taskname = #{taskname},</if>
+			<if test="taskName != null and taskName != ''">taskName = #{taskName},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>	
 			
 		</set>
@@ -57,8 +57,8 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test="taskname != null and taskname != ''">
-				and taskname = #{taskname}
+			<if test="taskName != null and taskName != ''">
+				and taskName = #{taskName}
 			</if>
 			<if test="createTime != null ">
 				and createTime = #{createTime}

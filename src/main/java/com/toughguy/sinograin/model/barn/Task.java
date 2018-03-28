@@ -9,16 +9,20 @@ import com.toughguy.sinograin.util.JsonUtil;
 public class Task extends AbstractModel{
 
 	private static final long serialVersionUID = -60705643575053363L;
-    
-	private String taskname; //任务名称
+   
+	private String taskName; //任务名称
 
-	public String getTaskname() {
-		return taskname;
+	
+	public String getTaskName() {
+		return taskName;
 	}
 
-	public void setTaskname(String taskname) {
-		this.taskname = taskname;
+
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
+
+
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
