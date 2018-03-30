@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_small_sample 
+		select count(*) FROM barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId 
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -73,7 +73,6 @@
 			<if test=" smallSampleNumLike != null and smallSampleNumLike != '' ">
 				and smallSampleNum like concat(concat('%', #{smallSampleNumLike, jdbcType=VARCHAR}),'%')
 			</if>
-			
 			<if test=" sampleId != null and sampleId != '' ">
 				and sampleId = #{sampleId}
 			</if>

@@ -34,7 +34,11 @@
 	
 	<!-- 分页查询安全报告 -->
 	<select id="findPaginated" resultType="SafetyReport" parameterType="Map">
-		SELECT sr.*,l.libraryName,s.position FROM barn_safety_report sr LEFT JOIN barn_sample s ON sr.sampleId = s.id LEFT JOIN barn_register r on s.pId = r.id LEFT JOIN barn_library l on r.libraryId = l.id
+		SELECT sr.*,l.libraryName,s.position,pbl.libraryName pLibraryName FROM barn_safety_report sr 
+		LEFT JOIN barn_sample s ON sr.sampleId = s.id 
+		LEFT JOIN barn_register r on s.pId = r.id 
+		LEFT JOIN barn_library l on r.libraryId = l.id
+		LEFT JOIN barn_library pbl on l.pLibraryId = pbl.id
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>
@@ -91,13 +95,16 @@
 				and libraryName like concat(concat('%', #{libraryNameLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" pLibraryId != null and pLibraryId != '' ">
-				and pLibraryId = #{pLibraryId}
+				and l.pLibraryId = #{pLibraryId}
 			</if>
 			<if test=" isDeal != null and isDeal != '' ">
 				and isDeal = #{isDeal}
 			</if>
 			<if test="rummager != null and rummager != ''">
-				and rummager = #{rummager},
+				and rummager = #{rummager}
+			</if>
+			<if test=" position != null and position != '' ">
+				and s.position = #{position}
 			</if>
 		</where>
 	</sql>

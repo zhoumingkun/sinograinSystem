@@ -1,6 +1,8 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,18 @@ public class CedingjiluController {
 	//@RequiresPermissions("library:all")
 	public Cedingjilu get(int id){
 		return cedingjiluService.find(id);
+	}
+	@ResponseBody
+	@RequestMapping("/getBySmallSampleId")
+	//@RequiresPermissions("library:all")
+	public Cedingjilu getBySmallSampleId(int id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("smallSampleId", id);
+		List<Cedingjilu> cdjls = cedingjiluService.findAll(map);
+		for(Cedingjilu cdjl:cdjls) {
+			return cdjl;
+		}
+		return null;
 	}
 	
 	

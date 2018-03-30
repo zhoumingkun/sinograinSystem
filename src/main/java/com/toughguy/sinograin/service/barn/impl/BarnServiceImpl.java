@@ -125,7 +125,7 @@ public class BarnServiceImpl implements IBarnService {
 			}
 		}
 	@Override
-	public void saveSmallSample(Sample sample) {
+	public void saveSmallSample(Sample sample,int taskId) {
 		List<String> nums = SamplingUtil.smallSampleNums(sample);
 		if(!CollectionUtils.isEmpty(nums)){
 			for(String s: nums){
@@ -145,6 +145,7 @@ public class BarnServiceImpl implements IBarnService {
 				smallSample.setSampleId(sample.getId());
 				smallSample.setSmallSampleNum(s);
 				smallSample.setState(1);
+				smallSample.setTaskId(taskId);
 				smallSampleService.save(smallSample);
 			}
 			sample.setSampleState(3);

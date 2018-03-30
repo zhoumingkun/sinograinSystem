@@ -32,11 +32,11 @@
 	</select>
 	
 	<!-- 分页查询交接单  -->
-	<!-- <select id="findPaginated" resultType="Handover" parameterType="Map">
-		select * from barn_handover 
+	<select id="findPaginated" resultType="Task" parameterType="Map">
+		select * from barn_task 
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
-	</select> -->
+	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
 		select count(*) from barn_task 

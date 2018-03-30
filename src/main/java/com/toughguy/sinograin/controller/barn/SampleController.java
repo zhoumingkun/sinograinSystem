@@ -155,7 +155,7 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/split")
 	//@RequiresPermissions("SmallSample:add")
-	public String splitSample(int id,int isPrint,String params) {
+	public String splitSample(int id,int isPrint,String params,int taskId) {
 		try {
 			if(isPrint == 3) {
 				ObjectMapper om = new ObjectMapper();
@@ -177,7 +177,7 @@ public class SampleController {
 				return ss;
 			} else{
 				Sample sample = sampleService.find(id);
-				barnService.saveSmallSample(sample);
+				barnService.saveSmallSample(sample,taskId);
 				ObjectMapper om = new ObjectMapper();
 				Map<String, Object> map = new HashMap<String, Object>();
 				if (!StringUtils.isEmpty(params)) {
@@ -194,7 +194,6 @@ public class SampleController {
 					}
 				}
 				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
-				System.out.println(ss);
 				return ss;
 			}
 		} catch (Exception e) {

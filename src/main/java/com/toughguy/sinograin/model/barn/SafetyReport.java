@@ -18,6 +18,7 @@ public class SafetyReport extends AbstractModel{
 	private int isDeal;			//是否处理（-1 未解决， 1 已解决）
 	private String rummager;	//检查人
 	
+	private String pLibraryName;	//被查库名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
 	private String position; //货位号（页面展示）
 	public String getProblem() {
@@ -65,6 +66,13 @@ public class SafetyReport extends AbstractModel{
 	}
 	public void setRummager(String rummager) {
 		this.rummager = rummager;
+	}
+	
+	public String getpLibraryName() {
+		return pLibraryName;
+	}
+	public void setpLibraryName(String pLibraryName) {
+		this.pLibraryName = pLibraryName;
 	}
 	@Override
 	public String toString(){

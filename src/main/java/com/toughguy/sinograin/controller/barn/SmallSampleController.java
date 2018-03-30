@@ -29,6 +29,8 @@ public class SmallSampleController {
 	@Autowired
 	private ShuifenController shuifenController;
 	@Autowired
+	private CedingjiluController cedingjiluController;
+	@Autowired
 	private ISampleService sampleService;
 	@Autowired
 	private MianjinxishuiliangController mianjinxishuiliangController;
@@ -63,15 +65,19 @@ public class SmallSampleController {
 	//@RequiresPermissions("sample:edit")
 	public SmallSample getBySmallSampleNum(String smallSampleNum) {
 		SmallSample smallSample =  smallSampleService.findBySmallSampleNum(smallSampleNum);
-		if(smallSample.getCheckPoint() == 1) {
+		if(smallSample.getCheckPoint() == 1 || smallSample.getCheckPoint() == 2 ||smallSample.getCheckPoint() == 3) {
 			//不完善
 			buwanshanliController.getBySmallSampleId(smallSample.getId());
 			return smallSample;
-		}else if(smallSample.getCheckPoint() == 2 ) {
+		}else if(smallSample.getCheckPoint() == 4 ) {
 			//水分
 			shuifenController.getBySmallSampleId(smallSample.getId());
 			return smallSample;
-		}else if(smallSample.getCheckPoint() == 4 ) {
+		}else if(smallSample.getCheckPoint() == 5 ) {
+			//硬度
+			cedingjiluController.getBySmallSampleId(smallSample.getId());
+			return smallSample;
+		}else if(smallSample.getCheckPoint() == 6 ) {
 			Sample sample = sampleService.find(smallSample.getSampleId());
 			if(sample.getSort().equals("小麦")) {
 				//面筋
@@ -82,7 +88,7 @@ public class SmallSampleController {
 				zhifangsuanzhiController.getBySmallSampleId(smallSample.getId());
 				return smallSample;
 			}
-		}else if(smallSample.getCheckPoint() == 5 ) {
+		}else if(smallSample.getCheckPoint() == 7 ) {
 			Sample sample = sampleService.find(smallSample.getSampleId());
 			if(sample.getSort().equals("小麦")) {
 				//馒头品尝
