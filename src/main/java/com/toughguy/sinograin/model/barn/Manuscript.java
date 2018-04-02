@@ -18,7 +18,7 @@ public class Manuscript extends AbstractModel {
 	private double wide;			//宽度
 	private double high;			//高度	
 	private double deductVolume;	//扣除体积（计算粮堆体积）
-	//private double grainQuality;	//实际粮食质量（同 保管账数量）
+	private double grainQuality;	//实际粮食质量（同 保管账数量）
 	//private double verageDensity;	//平均密度
 	private double unQuality;		//测量计算数（计算粮食数量）
 	private String leader;			//被检查企业负责人
@@ -225,6 +225,12 @@ public class Manuscript extends AbstractModel {
 	}
 	
 	
+	public double getGrainQuality() {
+		return grainQuality;
+	}
+	public void setGrainQuality(double grainQuality) {
+		this.grainQuality = grainQuality;
+	}
 	public String getBarnType() {
 		return barnType;
 	}
