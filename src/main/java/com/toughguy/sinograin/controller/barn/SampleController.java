@@ -259,6 +259,13 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/findSamplesByTask")
+	//@RequiresPermissions("sample:edit")
+	public List<Sample> findSamplesByTask(String taskName) {		
+		return sampleService.findSamplesByTask(taskName);
+	}
 
 	//导出玉米总表
 	@RequestMapping("/Export/POI")

@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -55,7 +56,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findBySampleNum(sampleNo);	
 	}
 	
-	
+	@Override
+	public List<Sample> findSamplesByTask(String taskName) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findSamplesByTask(taskName);	
+	}
 	public Boolean result(String sampleNums,String smallSamples) {
 		POIUtils utils = new POIUtils();
 		HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿

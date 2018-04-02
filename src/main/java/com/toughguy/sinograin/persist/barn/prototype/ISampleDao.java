@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.persist.barn.prototype;
 
+import java.util.List;
 import java.util.Map;
 
 import com.toughguy.sinograin.model.barn.Sample;
@@ -28,4 +29,9 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 * 根据PId删除样品
 	 */
 	public void deleteByPId(int pId);
+	
+	/**
+	 * 根据任务查询样品
+	 */
+	public List<Sample> findSamplesByTask(String taskName);
 }

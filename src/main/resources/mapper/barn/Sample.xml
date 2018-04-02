@@ -109,6 +109,11 @@
 		select * from barn_sample where sampleNo = #{sampleNo}
 	</select>
 	
+	<!-- 根据任务名字查询样品集 -->
+	<select id="findSamplesByTask" parameterType="String" resultType="Sample">
+		SELECT distinct bs.* FROM barn_sample bs LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
+		Right JOIN barn_task bt ON bt.id = bss.taskId where bt.taskName = #{taskName}
+	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>

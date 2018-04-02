@@ -52,5 +52,10 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBySampleNum", sampleNo);
 	}
+	@Override
+	public List<Sample> findSamplesByTask(String taskName) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findSamplesByTask", taskName);
+	}
 	
 }
