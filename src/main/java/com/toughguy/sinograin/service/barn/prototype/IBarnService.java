@@ -29,6 +29,6 @@ public interface IBarnService {
 	 * 实现扫码将样品分小样
 	 * sample  样品实体
 	 * */
-	public void saveSmallSample(Sample sample);
+	public void saveSmallSample(Sample sample,int taskId);
 
 }
