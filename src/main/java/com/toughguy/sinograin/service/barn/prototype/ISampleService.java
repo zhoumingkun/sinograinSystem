@@ -32,5 +32,7 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	
 	public Boolean result(String sampleNum,String smallSample);
 
-	public void ExeclPOI(String sampleNums);
+	public void ExeclPOI(String sampleNums, String smallSampleNums);
+
+	
 }

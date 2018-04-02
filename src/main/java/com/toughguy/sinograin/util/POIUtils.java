@@ -17,57 +17,13 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 
 public class POIUtils {
 
-	HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿
-
-	/**
-	 * @return HSSFSheet sheet 
-	 * 
-	 */
-	public HSSFSheet sheet(String  title) {
-
-		HSSFSheet sheet = wb.createSheet(title); // 工作簿名称
-
-		return sheet;
-	}
-	
-	/**
-	 * @return Boolean 
-	 * @ 在本地生成文件
-	 */
-	public boolean excel(){
-		
-		try {
-			FileOutputStream out = new FileOutputStream("E://student2.xls");  
-			wb.write(out);
-			return true;
-		} catch (IOException e) {
-			return false;
-		}  
-	}
-	
-	private void setRegionStyle(HSSFSheet sheet, Region region , HSSFCellStyle cs) {
-		int toprowNum = region.getRowFrom();
-		for (int i = region.getRowFrom(); i <= region.getRowTo(); i ++) {
-			HSSFRow row = HSSFCellUtil.getRow(i, sheet);
-			for (int j = region.getColumnFrom(); j <= region.getColumnTo(); j++) {
-				HSSFCell cell = HSSFCellUtil.getCell(row, (short)j);
-				cell.setCellStyle(cs);
-			}
-		}
-	}
 	/**
 	 * @return HSSFCellStyle Style
 	 * @ 表头样式     总样式
 	 */
-	public HSSFCellStyle Style() {
+	public HSSFCellStyle Style(HSSFWorkbook wb) {
 		HSSFCellStyle style = wb.createCellStyle();
-		// 设置边框
-//		style.setBorderBottom(HSSFCellStyle.);
-//		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-//		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-//		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
-		
-		
+		// 设置边框	
 		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 		style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
 		style.setBottomBorderColor(HSSFColor.BLACK.index);
@@ -77,7 +33,6 @@ public class POIUtils {
 		style.setRightBorderColor(HSSFColor.BLACK.index);
 		style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
 		style.setTopBorderColor(HSSFColor.BLACK.index);
-        
 		// 设置边框颜色
 		style.setTopBorderColor(HSSFColor.BLACK.index);
 		style.setBottomBorderColor(HSSFColor.BLACK.index);
@@ -93,15 +48,14 @@ public class POIUtils {
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 		return style;
 	}
-
 //-----------------样式一------------------------------------------	
 	
 	/**
 	 * @return HSSFCellStyle StyleOne
 	 * @ 样式一  样式一  黄色背景  字体14
 	 */
-	public HSSFCellStyle StyleOne() {
-		HSSFCellStyle style = Style();
+	public HSSFCellStyle StyleOne(HSSFWorkbook wb) {
+		HSSFCellStyle style = Style(wb);
 		 //设置背景颜色
 		style.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
 		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
@@ -118,8 +72,8 @@ public class POIUtils {
 	 * @return HSSFCellStyle StyleOne1
 	 * @ 样式一  黄色背景  字体12
 	 */
-	public HSSFCellStyle StyleOne1() {
-		HSSFCellStyle style = StyleOne();
+	public HSSFCellStyle StyleOne1(HSSFWorkbook wb) {
+		HSSFCellStyle style = StyleOne(wb);
 		HSSFFont fon = wb.createFont();
 		fon.setFontName("黑体");
 		fon.setFontHeightInPoints((short) 12);// 设置字体大小
@@ -129,89 +83,16 @@ public class POIUtils {
 		return style;
 	}
 	
-//-----------------样式二------------------------------------------	
+	//-----------------样式二------------------------------------------	
 	
-	/**
-	 * @return HSSFCellStyle StyleTwo
-	 * @ 样式二  橘色背景  字体14
-	 */
-	public HSSFCellStyle StyleTwo() {
-		HSSFCellStyle style = Style();
-		 //设置背景颜色
-		style.setFillForegroundColor(IndexedColors.GOLD.getIndex());
-		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-				
-		HSSFFont fon = wb.createFont();
-		fon.setFontName("黑体");
-		fon.setFontHeightInPoints((short) 14);// 设置字体大小
-		
-		style.setFont(fon);// 选择需要用到的字体格式
-		return style;
-	}
-	
-	
-	/**
-	 * @return HSSFCellStyle StyleTwo1
-	 * @ 样式二  橘色背景  字体12
-	 */
-	public HSSFCellStyle StyleTwo1() {
-		HSSFCellStyle style = StyleTwo();
-		HSSFFont fon = wb.createFont();
-		fon.setFontName("黑体");
-		fon.setFontHeightInPoints((short) 12);// 设置字体大小
-		style.setWrapText(true); 
-		style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
-		style.setFont(fon);// 选择需要用到的字体格式
-		return style;
-	}
-	
-//-----------------样式三------------------------------------------	
-	
-	/**
-	 * @return HSSFCellStyle StyleThree
-	 * @ 样式三  绿色背景  字体14
-	 */
-	public HSSFCellStyle StyleThree() {
-		HSSFCellStyle style = Style();
-		 //设置背景颜色
-		style.setFillForegroundColor(IndexedColors.LIME.getIndex());
-		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-				
-		HSSFFont fon = wb.createFont();
-		fon.setFontName("黑体");
-		fon.setFontHeightInPoints((short) 14);// 设置字体大小
-		
-		style.setFont(fon);// 选择需要用到的字体格式
-		return style;
-	}
-	
-	
-	/**
-	 * @return HSSFCellStyle StyleThree1
-	 * @ 样式三  绿色背景  字体12
-	 */
-	public HSSFCellStyle StyleThree1() {
-		HSSFCellStyle style = StyleThree();
-		HSSFFont fon = wb.createFont();
-		fon.setFontName("黑体");
-		fon.setFontHeightInPoints((short) 12);// 设置字体大小
-		style.setWrapText(true); 
-		style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
-		style.setFont(fon);// 选择需要用到的字体格式
-		return style;
-	}
-	
-	
-	
-//-----------------样式四------------------------------------------	
-	/**
-	 * @return HSSFCellStyle StyleFour
-	 * @ 样式四  橘色背景  字体14
-	 */
-		public HSSFCellStyle StyleFour() {
-			HSSFCellStyle style = Style();
+		/**
+		 * @return HSSFCellStyle StyleTwo
+		 * @ 样式二  橘色背景  字体14
+		 */
+		public HSSFCellStyle StyleTwo(HSSFWorkbook wb) {
+			HSSFCellStyle style = Style(wb);
 			 //设置背景颜色
-			style.setFillForegroundColor(IndexedColors.ROYAL_BLUE.getIndex());
+			style.setFillForegroundColor(IndexedColors.GOLD.getIndex());
 			style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 					
 			HSSFFont fon = wb.createFont();
@@ -223,19 +104,89 @@ public class POIUtils {
 		}
 		
 		
-		
 		/**
-		 * @return HSSFCellStyle
-		 * @ 样式四  橘色背景  字体12
+		 * @return HSSFCellStyle StyleTwo1
+		 * @ 样式二  橘色背景  字体12
 		 */
-		public HSSFCellStyle StyleFour1() {
-			HSSFCellStyle style = StyleFour();
+		public HSSFCellStyle StyleTwo1(HSSFWorkbook wb) {
+			HSSFCellStyle style = StyleTwo(wb);
 			HSSFFont fon = wb.createFont();
 			fon.setFontName("黑体");
 			fon.setFontHeightInPoints((short) 12);// 设置字体大小
-			style.setWrapText(true);   //自动换行
+			style.setWrapText(true); 
 			style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 			style.setFont(fon);// 选择需要用到的字体格式
 			return style;
 		}
+		
+	//-----------------样式三------------------------------------------	
+		
+		/**
+		 * @return HSSFCellStyle StyleThree
+		 * @ 样式三  绿色背景  字体14
+		 */
+		public HSSFCellStyle StyleThree(HSSFWorkbook wb) {
+			HSSFCellStyle style = Style(wb);
+			 //设置背景颜色
+			style.setFillForegroundColor(IndexedColors.LIME.getIndex());
+			style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+					
+			HSSFFont fon = wb.createFont();
+			fon.setFontName("黑体");
+			fon.setFontHeightInPoints((short) 14);// 设置字体大小
+			
+			style.setFont(fon);// 选择需要用到的字体格式
+			return style;
+		}
+		
+		/**
+		 * @return HSSFCellStyle StyleThree1
+		 * @ 样式三  绿色背景  字体12
+		 */
+		public HSSFCellStyle StyleThree1(HSSFWorkbook wb) {
+			HSSFCellStyle style = StyleThree(wb);
+			HSSFFont fon = wb.createFont();
+			fon.setFontName("黑体");
+			fon.setFontHeightInPoints((short) 12);// 设置字体大小
+			style.setWrapText(true); 
+			style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+			style.setFont(fon);// 选择需要用到的字体格式
+			return style;
+		}
+		
+	//-----------------样式四------------------------------------------	
+		/**
+		 * @return HSSFCellStyle StyleFour
+		 * @ 样式四  橘色背景  字体14
+		 */
+			public HSSFCellStyle StyleFour(HSSFWorkbook wb) {
+				HSSFCellStyle style = Style(wb);
+				 //设置背景颜色
+				style.setFillForegroundColor(IndexedColors.ROYAL_BLUE.getIndex());
+				style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+						
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("黑体");
+				fon.setFontHeightInPoints((short) 14);// 设置字体大小
+				
+				style.setFont(fon);// 选择需要用到的字体格式
+				return style;
+			}
+			
+			/**
+			 * @return HSSFCellStyle
+			 * @ 样式四  橘色背景  字体12
+			 */
+			public HSSFCellStyle StyleFour1(HSSFWorkbook wb) {
+				HSSFCellStyle style = StyleFour(wb);
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("黑体");
+				fon.setFontHeightInPoints((short) 12);// 设置字体大小
+				style.setWrapText(true); 
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+				style.setFont(fon);// 选择需要用到的字体格式
+		        return style;
+			}
+
+
 }

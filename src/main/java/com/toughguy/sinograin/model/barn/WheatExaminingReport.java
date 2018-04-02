@@ -101,6 +101,13 @@ public class WheatExaminingReport {
 	public void setSampleTime(Date sampleTime) {
 		this.sampleTime = sampleTime;
 	}
+	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
 	public double getLength() {
 		return length;
 	}
