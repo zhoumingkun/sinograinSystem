@@ -259,4 +259,18 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/ExeclPOI")
+	//@RequiresPermissions("sample:edit")
+	public String ExeclPOI(String sampleNums) {
+		try {			
+			sampleService.ExeclPOI(sampleNums);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 }
