@@ -28,4 +28,11 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 根据PId删除样品
 	 */
 	public void deleteByPId(int pId);
+	
+	
+	public Boolean result(String sampleNum,String smallSample);
+
+	public void ExeclPOI(String sampleNums, String smallSampleNums);
+
+	
 }

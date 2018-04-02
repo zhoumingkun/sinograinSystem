@@ -250,9 +250,9 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
 	//@RequiresPermissions("sample:edit")
-	public String ExeclPOI(String sampleNums) {
+	public String ExeclPOI(String sampleNums,String smallSampleNums) {
 		try {			
-			sampleService.ExeclPOI(sampleNums);
+			sampleService.ExeclPOI(sampleNums,smallSampleNums);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -260,4 +260,23 @@ public class SampleController {
 		}
 	}
 
+	//导出玉米总表
+	@RequestMapping("/Export/POI")
+	@ResponseBody
+	public  String Export(){
+		try {
+			//返回结果
+			Boolean var = sampleService.result(null, null);
+			if(var == true){
+				return "创建成功";
+			}else{
+				return "创建失败";
+			}
+		} catch (Exception e) {
+			return "{ \"success\" : true }";
+		}
+    }
+
+	
 }
+

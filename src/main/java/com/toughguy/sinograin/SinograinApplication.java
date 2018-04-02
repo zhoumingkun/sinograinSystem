@@ -25,7 +25,7 @@ public class SinograinApplication {
 	@Bean
 	public EmbeddedServletContainerFactory servletContainer() {
 	    TomcatEmbeddedServletContainerFactory factory = new TomcatEmbeddedServletContainerFactory();
-	    factory.setPort(80);
+	    factory.setPort(8082);
 	    factory.setContextPath("/grain");
 	    factory.setSessionTimeout(60, TimeUnit.MINUTES);
 	    return factory;
