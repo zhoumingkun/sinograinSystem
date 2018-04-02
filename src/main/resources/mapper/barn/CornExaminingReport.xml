@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.toughguy.sinograin.model.barn.CornExaminingReport">
 	<!-- 查询基本情况（根据检验编号） -->
-	<select id="findBasicSituation" parameterType="int" resultType="WheatExaminingReport">
+	<select id="findBasicSituation" parameterType="String" resultType="CornExaminingReport">
 	SELECT pbl.libraryName pLibraryName, bl.libraryName, bs.sampleNum, bs.sampleNo,
 	 bs.position, bs.sort, bs.amount, bs.gainTime, bs.storageTime, bs.sampleTime,
 	  bs.remark, bm.length, bm.wide, bm.high, bm.deductVolume, bm.realVolume, 
@@ -12,10 +12,12 @@
 	  LEFT JOIN barn_register br ON br.libraryId = bl.id 
 	  LEFT JOIN barn_sample bs ON bs.pId = br.id 
 	  LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id
-		<include refid="paramsSQL"/>
+		<if test=" _parameter != null and _parameter != '' ">
+		where bs.sampleNum=#{sampleNum}
+		</if>
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
-	<select id="findQualityAcceptance" parameterType="int" resultType="CornExaminingReport">
+	<select id="findQualityAcceptance" parameterType="String" resultType="CornExaminingReport">
 		SELECT bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, 
 		bzbc.zazhizongliang_1, bzbc.buwanshanlihanliang_pingjunzhi_1,
 		bzbc.shengmeilihanliang_pingjunzhi, bcc.sezeqiwei_pingjunzhi,
@@ -27,19 +29,20 @@
 		LEFT JOIN barn_check_cedingjilu bcc ON bcc.smallSampleId = bss.id 
 		LEFT JOIN barn_zhifangsuanzhi_cedingjilu bzc ON bzc.smallSampleId = bss.id 
 		LEFT JOIN barn_yumipinchang_pingfenjilu byp ON byp.smallSampleId = bss.id
-		<include refid="paramsSQL"/>
+		<if test=" _parameter != null and _parameter != '' ">
+		where bss.id=#{id}
+		</if>
 	</select>
 	
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
-			<if test=" sampleNum != null and sampleNum != '' ">
+			<if test=" _parameter != null and _parameter != '' ">
 				and bs.sampleNum = #{sampleNum}
 			</if>
-			<if test=" smallSampleNum != null and smallSampleNum != '' ">
-				and bss.smallSampleNum = #{smallSampleNum}
+			<if test=" _parameter != null and _parameter != '' ">
+				and bs.smallSample = #{smallSample}
 			</if>
-			
 		</where>
 	</sql>
 </mapper>
