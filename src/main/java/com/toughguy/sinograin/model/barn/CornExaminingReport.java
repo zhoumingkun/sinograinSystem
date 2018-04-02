@@ -19,6 +19,7 @@ public class CornExaminingReport {
 	private String  gainTime;  	//收获年度(生产年份)
 	private Date storageTime;	//入库时间（样品室）
 	private Date sampleTime;   	//扦样时间
+	private String remark;      //备注
 	private double length;        	//长度
 	private double wide;			//宽度
 	private double high;			//高度	
@@ -97,6 +98,13 @@ public class CornExaminingReport {
 	}
 	public void setSampleTime(Date sampleTime) {
 		this.sampleTime = sampleTime;
+	}
+	
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	public double getLength() {
 		return length;
