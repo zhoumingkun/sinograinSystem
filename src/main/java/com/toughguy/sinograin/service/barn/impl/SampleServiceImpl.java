@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -56,12 +57,17 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findBySampleNum(sampleNo);	
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public List<Sample> findSamplesByTask(String taskName) {
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).findSamplesByTask(taskName);	
 	}
 	public Boolean result(String sampleNums,String smallSamples) {
+=======
+	
+	public void Export(String sampleNums,String ids) {
+>>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend.git
 		POIUtils utils = new POIUtils();
 		HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿
 		HSSFSheet sheet = wb.createSheet("汇总表"); // 工作簿名称
@@ -306,9 +312,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		}
 		
 		   
-		   String[] smallSample = smallSamples.split(",");
-		   for (int i = 0; i < smallSample.length; i++) {
-			   CornExaminingReport cornExaminingReport = icornExaminingReportDao.findReportAllBysmall(smallSample[i]);
+		   String[] id = ids.split(",");
+		   for (int i = 0; i < id.length; i++) {
+			   CornExaminingReport cornExaminingReport = icornExaminingReportDao.findReportAllBysmall(id[i]);
 			row7.createCell(21).setCellValue(cornExaminingReport.getQualityGrade());
 			row7.createCell(22).setCellValue(cornExaminingReport.getShuifen_pingjunzhi());
 			row7.createCell(23).setCellValue(cornExaminingReport.getZazhizongliang_1());
@@ -319,15 +325,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			row7.createCell(28).setCellValue(cornExaminingReport.getPinchangpingfenzhi());
 			
 		}
-		   
 		   try {
-				FileOutputStream out = new FileOutputStream("E://student2.xls");  
-				wb.write(out);
-				return true;
-			} catch (IOException e) {
-				return false;
-			}  
-		
+			FileOutputStream out = new FileOutputStream("E://student2.xls");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		   
 
 	}
 
@@ -564,6 +568,8 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		sheet.addMergedRegion(new CellRangeAddress(6, 6, 0, 6));
 		return sheet;
 	}
+
+	
 	
 
 

@@ -270,20 +270,16 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
-	public  String Export(){
+	public  String Export(String sampleNums,String ids){
 		try {
 			//返回结果
-			Boolean var = sampleService.result(null, null);
-			if(var == true){
-				return "创建成功";
-			}else{
-				return "创建失败";
-			}
-		} catch (Exception e) {
+			sampleService.Export(sampleNums,ids);
 			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
 		}
-    }
-
+	}
 	
 }
 

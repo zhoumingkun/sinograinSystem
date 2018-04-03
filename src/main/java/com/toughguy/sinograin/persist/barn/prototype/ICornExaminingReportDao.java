@@ -10,5 +10,5 @@ public interface ICornExaminingReportDao extends IGenericDao<CornExaminingReport
 
 	
 	public CornExaminingReport findReportAll(@Param("sampleNum") String sampleNum);
-	public CornExaminingReport findReportAllBysmall(@Param("smallSample") String smallSample);
+	public CornExaminingReport findReportAllBysmall(@Param("id") String id);
 }

@@ -22,8 +22,8 @@ public class CornExaminingReportDaoImpl   extends GenericDaoImpl<CornExaminingRe
 	}
 	
 	@Override
-	public CornExaminingReport findReportAllBysmall(@Param("smallSample") String smallSample) {
-		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.CornExaminingReport.findQualityAcceptance",smallSample);
+	public CornExaminingReport findReportAllBysmall(@Param("id") String id) {
+		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.CornExaminingReport.findQualityAcceptance",id);
 	}
 
 }
