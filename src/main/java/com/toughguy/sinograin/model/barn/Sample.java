@@ -40,6 +40,7 @@ public class Sample extends AbstractModel{
 	
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
+	private String pLibraryName;	//被父查库名（页面展示）
 	private int mId;			//工作底稿id（页面）
 	private int srId;			//安全报告id （页面）
 	private int libraryId;		//被查库id（前台）
@@ -229,6 +230,13 @@ public class Sample extends AbstractModel{
 	}
 	public void setDepot(String depot) {
 		this.depot = depot;
+	}
+	
+	public String getpLibraryName() {
+		return pLibraryName;
+	}
+	public void setpLibraryName(String pLibraryName) {
+		this.pLibraryName = pLibraryName;
 	}
 	@Override
 	public String toString(){

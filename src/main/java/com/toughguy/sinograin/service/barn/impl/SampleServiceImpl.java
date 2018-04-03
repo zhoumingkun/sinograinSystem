@@ -57,17 +57,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findBySampleNum(sampleNo);	
 	}
 	
-<<<<<<< HEAD
 	@Override
 	public List<Sample> findSamplesByTask(String taskName) {
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).findSamplesByTask(taskName);	
 	}
-	public Boolean result(String sampleNums,String smallSamples) {
-=======
-	
 	public void Export(String sampleNums,String ids) {
->>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend.git
 		POIUtils utils = new POIUtils();
 		HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿
 		HSSFSheet sheet = wb.createSheet("汇总表"); // 工作簿名称
