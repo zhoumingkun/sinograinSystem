@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SamplingDTO;
+import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SmallSample;
+import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
+import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
@@ -36,6 +41,10 @@ public class SampleController {
 	private IBarnService barnService;
 	@Autowired
 	private ISmallSampleService smallSampleService;
+	@Autowired
+	private IWheatExaminingReportDao wheatExaminingReportDao;
+	@Autowired
+	private ICornExaminingReportDao cornExaminingReportDao;
 	
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -259,13 +268,6 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
-	@ResponseBody
-	@RequestMapping(value = "/findSamplesByTask")
-	//@RequiresPermissions("sample:edit")
-	public List<Sample> findSamplesByTask(String taskName) {		
-		return sampleService.findSamplesByTask(taskName);
-	}
 
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
@@ -280,6 +282,92 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+
+	@ResponseBody
+	@RequestMapping(value = "/findSamplesByTask")
+	//@RequiresPermissions("sample:edit")
+	public List<Sample> findSamplesByTask(String taskName) {		
+		return sampleService.findSamplesByTask(taskName);
+	}
 	
+
+	@ResponseBody
+	@RequestMapping(value = "/dataWheatReport")
+	//@RequiresPermissions("sample:edit")
+	public List<WheatExaminingReport> dataWheatReport(String ids) {
+		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
+		String[] id = ids.split(",");
+		for (int i = 0; i < id.length; i++) {
+			WheatExaminingReport w = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
+			List<WheatExaminingReport> wheats = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
+			for(int j=1;j< wheats.size(); j++) {
+				int newNum = Integer.parseInt(wheats.get(j).getSmallSampleNum().substring(9));
+				w.setQualityGrade(wheats.get(j).getQualityGrade());
+				w.setRealCapacity(wheats.get(j).getRealCapacity());
+				
+				if(newNum == 04) {
+					w.setShuifen_pingjunzhi(wheats.get(j).getShuifen_pingjunzhi());
+				}
+				else if(newNum == 01) {
+					w.setZazhizongliang_1(wheats.get(j).getZazhizongliang_1());
+					w.setKuangwuzhihanliang_pingjunzhi(wheats.get(j).getKuangwuzhihanliang_pingjunzhi());
+					w.setBuwanshanlihanliang_pingjunzhi_1(wheats.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+				}
+				else if(newNum == 05) {
+					w.setYingduzhishu_pingjunzhi(wheats.get(j).getYingduzhishu_pingjunzhi());
+					w.setSezeqiwei_pingjunzhi(wheats.get(j).getSezeqiwei_pingjunzhi());
+				}
+				else if(newNum == 06) {
+					w.setPingjunzhiganmianjinzhiliang(wheats.get(j).getPingjunzhiganmianjinzhiliang());
+				    w.setShimianjin_pingjunzhi(wheats.get(j).getShimianjin_pingjunzhi());
+				}
+				else if(newNum == 07) {
+					w.setPinchangpingfenzhi(wheats.get(j).getPinchangpingfenzhi());
+				}
+			}
+ 			ws.add(w);
+		}
+		return ws;
+	}
+	@ResponseBody
+	@RequestMapping(value = "/dataCornReport")
+	//@RequiresPermissions("sample:edit")
+	public List<CornExaminingReport> dataCornReport(String ids) {
+		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
+		String[] id = ids.split(",");
+		for (int i = 0; i < id.length; i++) {
+			CornExaminingReport c = cornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
+			List<CornExaminingReport> corns = cornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
+			for(int j=1;j < corns.size(); j++) {
+				int newNum = Integer.parseInt(corns.get(j).getSmallSampleNum().substring(9));
+				c.setQualityGrade(corns.get(j).getQualityGrade());
+				c.setRealCapacity(corns.get(j).getRealCapacity());
+				if(newNum == 04) {
+					c.setShuifen_pingjunzhi(corns.get(j).getShuifen_pingjunzhi());
+				}
+				else if(newNum == 02) {
+					c.setZazhizongliang_1(corns.get(j).getZazhizongliang_1());
+				}
+				else if(newNum == 01) {
+					c.setBuwanshanlihanliang_pingjunzhi_1(corns.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					
+				}
+				else if(newNum == 03) {
+					c.setShengmeilihanliang_pingjunzhi(corns.get(j).getShengmeilihanliang_pingjunzhi());
+				}
+				else if(newNum == 05) {
+					c.setSezeqiwei_pingjunzhi(corns.get(j).getSezeqiwei_pingjunzhi());
+				}
+				else if(newNum == 06) {
+					c.setZhifangsuanzhi_pingjunzhi(corns.get(j).getZhifangsuanzhi_pingjunzhi());
+				}
+				else if(newNum == 07) {
+					c.setPinchangpingfenzhi(corns.get(j).getPinchangpingfenzhi());
+				}
+			}
+ 			cs.add(c);
+		}
+		return cs;
+	}
 }
 
