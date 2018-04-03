@@ -188,5 +188,18 @@ public class POIUtils {
 		        return style;
 			}
 
-
+			/**
+			 * @return HSSFCellStyle
+			 * @ 样式五  橘色背景  字体12
+			 */
+			public HSSFCellStyle Style1(HSSFWorkbook wb) {
+				HSSFCellStyle style = Style(wb);
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("黑体");
+				fon.setFontHeightInPoints((short) 12);// 设置字体大小
+				style.setWrapText(true); 
+				 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setFont(fon);// 选择需要用到的字体格式
+				return style;
+			}
 }

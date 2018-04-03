@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import static org.mockito.Matchers.doubleThat;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -69,7 +71,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 
 		sheet.autoSizeColumn(0);    //自动换行
 		// ----------------------------------------------
-		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 43));
+		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 41));
 		HSSFRow row = sheet.createRow(0);
 		row.setHeight((short) 800); // 行高
 		HSSFCell cell = row.createCell(0);
@@ -266,63 +268,91 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		
 		sheet.addMergedRegion(new CellRangeAddress(6, 6, 0, 6));
 		HSSFRow row6 = sheet.createRow(6);
-		row6.setHeight((short) 500); // 行高
 		
-		HSSFCell row2cell47 = row6.createCell(0);
-		row2cell47.setCellStyle(utils.Style(wb));
-		row2cell47.setCellValue("合计");
+		HSSFCell row6cell47 = row6.createCell(0);
+		row6cell47.setCellStyle(utils.Style1(wb));
+		row6cell47.setCellValue("合计");
 		
-		sheet.addMergedRegion(new CellRangeAddress(6, 6, 8,8));
-		HSSFCell row2cell48 = row6.createCell(6);
+		HSSFCell row6cell = row6.createCell(7);
+		row6cell.setCellStyle(utils.Style1(wb));
+		row6cell.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		row6cell.setCellFormula("SUM(H8) ");
 		
-//		row2cell48.setCellValue("5");
-		row2cell48.setCellType(HSSFCell.CELL_TYPE_FORMULA);
-		row2cell48.setCellFormula("SUM(H8,H9) "); 
 		
+		HSSFCell row6cell2 = row6.createCell(27);
+		row6cell2.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		cell4.setCellStyle(utils.Style1(wb));
+		row6cell2.setCellFormula("SUM(AB8)");
+		
+		sheet.addMergedRegion(new CellRangeAddress(7, 7, 1,6));
 		HSSFRow row7 = sheet.createRow(7);
+		HSSFCell row7cell = row7.createCell(1);
+		row7cell.setCellStyle(utils.Style1(wb));
+		row7cell.setCellValue("小计");
+		
+		HSSFCell row7cell1 = row7.createCell(7);
+		row7cell1.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		row7cell1.setCellFormula("SUM(H9) "); 
+		
+		
+		HSSFCell row7cell2 = row7.createCell(27);
+		row7cell2.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		cell4.setCellStyle(utils.Style1(wb));
+		row7cell2.setCellFormula("SUM(AB9)");
+		
+		
+		
+		HSSFRow row8 = sheet.createRow(8);
 		String[] sampleNum = sampleNums.split(",");
 		for (int i = 0; i < sampleNum.length; i++) {
 			CornExaminingReport cornExaminingReport = icornExaminingReportDao.findBasicSituation(sampleNum[i]);
-			row7.createCell(0).setCellValue(cornExaminingReport.getpLibraryName());
-			row7.createCell(1).setCellValue(cornExaminingReport.getLibraryName());
-			row7.createCell(2).setCellValue(cornExaminingReport.getSampleNum());
-			row7.createCell(3).setCellValue(cornExaminingReport.getSampleNo());
-			row7.createCell(4).setCellValue(cornExaminingReport.getPosition());
-			row7.createCell(5).setCellValue(cornExaminingReport.getSort());
-			row7.createCell(6).setCellValue(cornExaminingReport.getAmount());
-			row7.createCell(7).setCellValue(cornExaminingReport.getGainTime());
-			row7.createCell(8).setCellValue(cornExaminingReport.getStorageTime());
-			row7.createCell(9).setCellValue(cornExaminingReport.getSampleTime());
-			row7.createCell(10).setCellValue(cornExaminingReport.getLength());
-			row7.createCell(11).setCellValue(cornExaminingReport.getWide());
-			row7.createCell(12).setCellValue(cornExaminingReport.getHigh());
-			row7.createCell(13).setCellValue(cornExaminingReport.getDeductVolume());
-			row7.createCell(14).setCellValue(cornExaminingReport.getRealVolume());
-			row7.createCell(15).setCellValue(cornExaminingReport.getRealCapacity());
-			row7.createCell(16).setCellValue(cornExaminingReport.getCorrectioFactor());
-			row7.createCell(17).setCellValue(cornExaminingReport.getAveDensity());
-			row7.createCell(18).setCellValue(cornExaminingReport.getUnQuality());
-			row7.createCell(19).setCellValue(cornExaminingReport.getGrainQuality());
-			row7.createCell(20).setCellValue(cornExaminingReport.getSlip());
+			row8.createCell(0).setCellValue(cornExaminingReport.getpLibraryName());
+			row8.createCell(2).setCellValue(cornExaminingReport.getLibraryName());
+			row8.createCell(3).setCellValue(cornExaminingReport.getSampleNum());
+			row8.createCell(4).setCellValue(cornExaminingReport.getSampleNo());
+			row8.createCell(5).setCellValue(cornExaminingReport.getPosition());
+			row8.createCell(6).setCellValue(cornExaminingReport.getSort());
+			row8.createCell(7).setCellValue(Double.valueOf(cornExaminingReport.getAmount()));
+			row8.createCell(8).setCellValue(cornExaminingReport.getGainTime());
+			row8.createCell(9).setCellValue(cornExaminingReport.getStorageTime());
+			
+			row8.createCell(10).setCellValue(cornExaminingReport.getCheckApplyTime());//
+			row8.createCell(11).setCellValue(cornExaminingReport.getAssignMissionTime());//
+			row8.createCell(12).setCellValue(cornExaminingReport.getSampleTime());
+			
+			row8.createCell(17).setCellValue(cornExaminingReport.getRemark());//
+			
+			row8.createCell(18).setCellValue(cornExaminingReport.getLength());
+			row8.createCell(19).setCellValue(cornExaminingReport.getWide());
+			row8.createCell(20).setCellValue(cornExaminingReport.getHigh());
+			row8.createCell(21).setCellValue(cornExaminingReport.getDeductVolume());
+			row8.createCell(22).setCellValue(cornExaminingReport.getRealVolume());
+			row8.createCell(23).setCellValue(cornExaminingReport.getRealCapacity());
+			row8.createCell(24).setCellValue(cornExaminingReport.getCorrectioFactor());
+			row8.createCell(25).setCellValue(cornExaminingReport.getAveDensity());
+			row8.createCell(26).setCellValue(cornExaminingReport.getUnQuality());
+			row8.createCell(27).setCellValue(cornExaminingReport.getGrainQuality());
+			row8.createCell(28).setCellValue(cornExaminingReport.getSlip());
 		}
 		
 		   
 		   String[] id = ids.split(",");
 		   for (int i = 0; i < id.length; i++) {
 			   CornExaminingReport cornExaminingReport = icornExaminingReportDao.findQualityAcceptance(id[i]);
-			row7.createCell(21).setCellValue(cornExaminingReport.getQualityGrade());
-			row7.createCell(22).setCellValue(cornExaminingReport.getShuifen_pingjunzhi());
-			row7.createCell(23).setCellValue(cornExaminingReport.getZazhizongliang_1());
-			row7.createCell(24).setCellValue(cornExaminingReport.getBuwanshanlihanliang_pingjunzhi_1());
-			row7.createCell(25).setCellValue(cornExaminingReport.getShengmeilihanliang_pingjunzhi());
-			row7.createCell(26).setCellValue(cornExaminingReport.getSezeqiwei_pingjunzhi());
-			row7.createCell(27).setCellValue(cornExaminingReport.getZhifangsuanzhi_pingjunzhi());
-			row7.createCell(28).setCellValue(cornExaminingReport.getPinchangpingfenzhi());
+			row8.createCell(29).setCellValue(cornExaminingReport.getQualityGrade());
+			row8.createCell(30).setCellValue(cornExaminingReport.getShuifen_pingjunzhi());
+			row8.createCell(31).setCellValue(cornExaminingReport.getZazhizongliang_1());
+			row8.createCell(32).setCellValue(cornExaminingReport.getBuwanshanlihanliang_pingjunzhi_1());
+			row8.createCell(33).setCellValue(cornExaminingReport.getShengmeilihanliang_pingjunzhi());
+			row8.createCell(34).setCellValue(cornExaminingReport.getSezeqiwei_pingjunzhi());
+			row8.createCell(35).setCellValue(cornExaminingReport.getZhifangsuanzhi_pingjunzhi());
+			row8.createCell(36).setCellValue(cornExaminingReport.getPinchangpingfenzhi());
 			
 		}
 		   try {
 			FileOutputStream out = new FileOutputStream("E://student2.xls");
-		} catch (FileNotFoundException e) {
+			wb.write(out);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -411,6 +441,8 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		
 		HSSFRow row7 = sheet.createRow(7);
 		
+		HSSFRow row8 = sheet.createRow(8);
+		
 		for (int i = 29; i < 40; i++) {
 			if(i < 31){
 				HSSFCell  row2cell= row3.createCell(i);
@@ -460,55 +492,76 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		row2cell46.setCellValue(ParamUtils.text[8]);
 		
 		HSSFCell row6cell = row6.createCell(0);
+		cell4.setCellStyle(utils.Style1(wb));
 		row6cell.setCellValue("合计");
 		
 		HSSFCell row6cell1 = row6.createCell(7);
 		row6cell1.setCellType(HSSFCell.CELL_TYPE_FORMULA);
-		row6cell1.setCellFormula("SUM(H8,H9,H10)");
+		cell4.setCellStyle(utils.Style1(wb));
+		row6cell1.setCellFormula("SUM(H8)");
+		
+		HSSFCell row6cell2 = row6.createCell(27);
+		row6cell2.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		cell4.setCellStyle(utils.Style1(wb));
+		row6cell2.setCellFormula("SUM(AB8)");
+		
+		HSSFCell row7cell = row7.createCell(1);
+		cell4.setCellStyle(utils.Style1(wb));
+		row7cell.setCellValue("小计");
+		
+		HSSFCell row7cell1 = row7.createCell(7);
+		row7cell1.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		cell4.setCellStyle(utils.Style1(wb));
+		row7cell1.setCellFormula("SUM(H9)");
+		
+		HSSFCell row7cell2 = row7.createCell(27);
+		row7cell2.setCellType(HSSFCell.CELL_TYPE_FORMULA);
+		cell4.setCellStyle(utils.Style1(wb));
+		row7cell2.setCellFormula("SUM(AB9)");
 
 		String[] sampleNum = sampleNums.split(",");
 		for (int i = 0; i < sampleNum.length; i++) {
 			//查询基本情况
 			WheatExaminingReport Wobjiect = wheatExaminingReportDao.findBasicSituation(sampleNum[i]);
-			row7.createCell(0).setCellValue(Wobjiect.getpLibraryName());
-			System.out.println(Wobjiect.getpLibraryName());
-			row7.createCell(1).setCellValue(Wobjiect.getLibraryName());
-			row7.createCell(2).setCellValue(Wobjiect.getSampleNum());
-			row7.createCell(3).setCellValue(Wobjiect.getSampleNo());
-			row7.createCell(4).setCellValue(Wobjiect.getPosition());
-			row7.createCell(5).setCellValue(Wobjiect.getStorageTime());
-			row7.createCell(6).setCellValue(Wobjiect.getAmount());
-			row7.createCell(7).setCellValue(Wobjiect.getGainTime());
-			row7.createCell(8).setCellValue(Wobjiect.getStorageTime());
-			row7.createCell(9).setCellValue(Wobjiect.getSampleTime());
-			row7.createCell(10).setCellValue(Wobjiect.getRemark());
-			row7.createCell(11).setCellValue(Wobjiect.getLength());
-			row7.createCell(12).setCellValue(Wobjiect.getWide());
-			row7.createCell(13).setCellValue(Wobjiect.getHigh());
-			row7.createCell(14).setCellValue(Wobjiect.getDeductVolume());
-			row7.createCell(15).setCellValue(Wobjiect.getRealVolume());
-			row7.createCell(16).setCellValue(Wobjiect.getRealCapacity());
-			row7.createCell(17).setCellValue(Wobjiect.getCorrectioFactor());
-			row7.createCell(18).setCellValue(Wobjiect.getAveDensity());
-			row7.createCell(19).setCellValue(Wobjiect.getUnQuality());
-			row7.createCell(20).setCellValue(Wobjiect.getGrainQuality());
-			row7.createCell(21).setCellValue(Wobjiect.getSlip());
+			row8.createCell(0).setCellValue(Wobjiect.getpLibraryName());
+			row8.createCell(2).setCellValue(Wobjiect.getLibraryName());
+			row8.createCell(3).setCellValue(Wobjiect.getSampleNum());
+			row8.createCell(4).setCellValue(Wobjiect.getSampleNo());
+			row8.createCell(5).setCellValue(Wobjiect.getPosition());
+			row8.createCell(6).setCellValue(Wobjiect.getStorageTime());
+			row8.createCell(7).setCellValue(Double.valueOf(Wobjiect.getAmount()));
+			row8.createCell(8).setCellValue(Wobjiect.getGainTime());
+			row8.createCell(9).setCellValue(Wobjiect.getStorageTime());
+			row8.createCell(12).setCellValue(Wobjiect.getSampleTime());
+			row8.createCell(17).setCellValue(Wobjiect.getRemark());
+			row8.createCell(18).setCellValue(Wobjiect.getLength());
+			row8.createCell(19).setCellValue(Wobjiect.getWide());
+			row8.createCell(20).setCellValue(Wobjiect.getHigh());
+			row8.createCell(21).setCellValue(Wobjiect.getDeductVolume());
+			row8.createCell(22).setCellValue(Wobjiect.getRealVolume());
+			row8.createCell(23).setCellValue(Wobjiect.getRealCapacity());
+			row8.createCell(24).setCellValue(Wobjiect.getCorrectioFactor());
+			row8.createCell(25).setCellValue(Wobjiect.getAveDensity());
+			row8.createCell(26).setCellValue(Wobjiect.getUnQuality());
+			row8.createCell(27).setCellValue(Wobjiect.getGrainQuality());
+			row8.createCell(28).setCellValue(Wobjiect.getSlip());
 		}
 		
 		String[] id = ids.split(",");
 		for (int i = 0; i < id.length; i++) {
 			//查询质量验收情况（根据小样编号
 			WheatExaminingReport Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(id[i]);
-			row7.createCell(22).setCellValue(Wobjiect1.getQualityGrade());
-			row7.createCell(23).setCellValue(Wobjiect1.getShuifen_pingjunzhi());
-			row7.createCell(24).setCellValue(Wobjiect1.getZazhizongliang_1());
-			row7.createCell(25).setCellValue(Wobjiect1.getKuangwuzhihanliang_pingjunzhi());
-			row7.createCell(26).setCellValue(Wobjiect1.getBuwanshanlihanliang_pingjunzhi_1());
-			row7.createCell(27).setCellValue(Wobjiect1.getYingduzhishu_pingjunzhi());
-			row7.createCell(28).setCellValue(Wobjiect1.getSezeqiwei_pingjunzhi());
-			row7.createCell(29).setCellValue(Wobjiect1.getPingjunzhiganmianjinzhiliang());
-			row7.createCell(30).setCellValue(Wobjiect1.getShimianjin_pingjunzhi());
-			row7.createCell(31).setCellValue(Wobjiect1.getPinchangpingfenzhi());
+			row8.createCell(28).setCellValue(Wobjiect1.getQualityGrade());
+			row8.createCell(30).setCellValue(Wobjiect1.getShuifen_pingjunzhi());
+			row8.createCell(31).setCellValue(Wobjiect1.getZazhizongliang_1());
+			row8.createCell(32).setCellValue(Wobjiect1.getKuangwuzhihanliang_pingjunzhi());
+			row8.createCell(33).setCellValue(Wobjiect1.getBuwanshanlihanliang_pingjunzhi_1());
+			row8.createCell(34).setCellValue(Wobjiect1.getYingduzhishu_pingjunzhi());
+			row8.createCell(35).setCellValue(Wobjiect1.getSezeqiwei_pingjunzhi());
+//			row8.createCell(29).setCellValue(Wobjiect1.getPingjunzhiganmianjinzhiliang());
+			row8.createCell(38).setCellValue(Wobjiect1.getShimianjin_pingjunzhi());
+			row8.createCell(39).setCellValue(Wobjiect1.getPinchangpingfenzhi());
+			
 		}
 		try {
 			FileOutputStream out = new FileOutputStream(ParamUtils.filePath);  
@@ -562,6 +615,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		sheet.addMergedRegion(new CellRangeAddress(3, 5, 42, 42));
 		sheet.addMergedRegion(new CellRangeAddress(1, 5, 43, 43));
 		sheet.addMergedRegion(new CellRangeAddress(6, 6, 0, 6));
+		sheet.addMergedRegion(new CellRangeAddress(7, 7, 1, 6));
 		return sheet;
 	}
 
