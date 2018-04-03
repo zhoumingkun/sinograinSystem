@@ -13,7 +13,7 @@
 	  LEFT JOIN barn_sample bs ON bs.pId = br.id 
 	  LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id
 		<if test=" _parameter != null and _parameter != '' ">
-		where bs.sampleNum=#{sampleNum}
+		where bs.id=#{id}
 		</if>
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
@@ -30,7 +30,7 @@
 		LEFT JOIN barn_zhifangsuanzhi_cedingjilu bzc ON bzc.smallSampleId = bss.id 
 		LEFT JOIN barn_yumipinchang_pingfenjilu byp ON byp.smallSampleId = bss.id
 		<if test=" _parameter != null and _parameter != '' ">
-		where bss.id=#{id}
+		where bss.sampleId=#{id}
 		</if>
 	</select>
 	
