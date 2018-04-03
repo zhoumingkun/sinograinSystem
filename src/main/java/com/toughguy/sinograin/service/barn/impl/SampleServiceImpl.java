@@ -560,22 +560,44 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			row8.createCell(27).setCellValue(Wobjiect.getGrainQuality());
 			row8.createCell(28).setCellValue(Wobjiect.getSlip());
 			//查询质量验收情况（根据小样编号
-			WheatExaminingReport Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			row8.createCell(28).setCellValue(Wobjiect1.getQualityGrade());
-			row8.createCell(30).setCellValue(Wobjiect1.getShuifen_pingjunzhi());
-			row8.createCell(31).setCellValue(Wobjiect1.getZazhizongliang_1());
-			row8.createCell(32).setCellValue(Wobjiect1.getKuangwuzhihanliang_pingjunzhi());
-			row8.createCell(33).setCellValue(Wobjiect1.getBuwanshanlihanliang_pingjunzhi_1());
-			row8.createCell(34).setCellValue(Wobjiect1.getYingduzhishu_pingjunzhi());
-			row8.createCell(35).setCellValue(Wobjiect1.getSezeqiwei_pingjunzhi());
-//			row8.createCell(29).setCellValue(Wobjiect1.getPingjunzhiganmianjinzhiliang());
-			row8.createCell(38).setCellValue(Wobjiect1.getShimianjin_pingjunzhi());
-			row8.createCell(39).setCellValue(Wobjiect1.getPinchangpingfenzhi());
-		}
-		
-		
+			List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
 			
-		
+			for(int j=1; j<Wobjiect1.size(); j++) {
+				int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
+				row8.createCell(29).setCellValue(Wobjiect1.get(j).getQualityGrade());
+				row8.createCell(30).setCellValue(Wobjiect1.get(j).getRealCapacity());
+				
+				if(newNum == 04) {
+					row8.createCell(31).setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
+				}
+				else if(newNum == 01) {
+					row8.createCell(32).setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
+					row8.createCell(33).setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
+					row8.createCell(34).setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+				}
+				else if(newNum == 05) {
+					row8.createCell(35).setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
+					row8.createCell(36).setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
+				}
+				else if(newNum == 06) {
+					row8.createCell(37).setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
+				    row8.createCell(38).setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
+				}
+				else if(newNum == 07) {
+					row8.createCell(39).setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
+				}
+				System.out.println(newNum);
+//			row8.createCell(28).setCellValue(Wobjiect1.getQualityGrade());
+//			row8.createCell(30).setCellValue(Wobjiect1.getShuifen_pingjunzhi());
+//			row8.createCell(31).setCellValue(Wobjiect1.getZazhizongliang_1());
+//			row8.createCell(32).setCellValue(Wobjiect1.getKuangwuzhihanliang_pingjunzhi());				
+//			row8.createCell(33).setCellValue(Wobjiect1.getBuwanshanlihanliang_pingjunzhi_1());
+//			row8.createCell(34).setCellValue(Wobjiect1.getYingduzhishu_pingjunzhi());
+//			row8.createCell(35).setCellValue(Wobjiect1.getSezeqiwei_pingjunzhi());
+//			row8.createCell(29).setCellValue(Wobjiect1.getPingjunzhiganmianjinzhiliang());
+//			row8.createCell(38).setCellValue(Wobjiect1.getShimianjin_pingjunzhi());
+//			row8.createCell(39).setCellValue(Wobjiect1.getPinchangpingfenzhi());
+		}
 		try {
 			FileOutputStream out = new FileOutputStream(ParamUtils.filePath);  
 			wb.write(out);
@@ -583,7 +605,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			e.printStackTrace();
 		}
 	}
-
+	}
 	/**
 	 * @param wb
 	 * @return HSSFSheet sheet

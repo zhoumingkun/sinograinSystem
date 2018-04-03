@@ -43,6 +43,8 @@ public class WheatExaminingReport {
 	private String pingjunzhiganmianjinzhiliang;  //平均值干面筋质量m2（g）
 	private String shimianjin_pingjunzhi;     //湿面筋平均值
 	private String pinchangpingfenzhi;  //品尝评分值
+	
+	private String smallSampleNum; //小样编号
 	public String getpLibraryName() {
 		return pLibraryName;
 	}
@@ -249,5 +251,12 @@ public class WheatExaminingReport {
 	public void setShimianjin_pingjunzhi(String shimianjin_pingjunzhi) {
 		this.shimianjin_pingjunzhi = shimianjin_pingjunzhi;
 	}
+	public String getSmallSampleNum() {
+		return smallSampleNum;
+	}
+	public void setSmallSampleNum(String smallSampleNum) {
+		this.smallSampleNum = smallSampleNum;
+	}
+	
 	
 }

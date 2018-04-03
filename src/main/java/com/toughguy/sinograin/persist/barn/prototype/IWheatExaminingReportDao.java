@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.persist.barn.prototype;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
@@ -15,5 +17,5 @@ public interface IWheatExaminingReportDao {
 	/*
 	 * 查询质量验收情况（根据小样编号
 	 */
-	public WheatExaminingReport findQualityAcceptance(@Param("id")int id);
+	public List<WheatExaminingReport> findQualityAcceptance(@Param("id") int id);
 }
