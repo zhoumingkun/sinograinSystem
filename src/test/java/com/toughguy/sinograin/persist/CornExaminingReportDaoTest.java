@@ -31,14 +31,14 @@ public class CornExaminingReportDaoTest {
 	    //查询所有面筋吸水量测定记录
 		@Test
 		public void testFindAllicornExaminingReportDao(){
-		sampleService.Export("20180016","2");
+		sampleService.Export("8");
 			
 		}
 		
-		@Test
-		public void testFind(){
-		sampleService.ExeclPOI("20180016","2");
-			
-		}
+//		@Test
+//		public void testFind(){
+//		sampleService.ExeclPOI("20180016","2");
+//			
+//		}
 
 }

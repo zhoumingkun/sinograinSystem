@@ -64,7 +64,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).findSamplesByTask(taskName);	
 	}
-	public void Export(String sampleNums,String ids) {
+	public void Export(String ids) {
 		POIUtils utils = new POIUtils();
 		HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿
 		HSSFSheet sheet = wb.createSheet("汇总表"); // 工作簿名称
@@ -303,9 +303,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		
 		
 		HSSFRow row8 = sheet.createRow(8);
-		String[] sampleNum = sampleNums.split(",");
-		for (int i = 0; i < sampleNum.length; i++) {
-			CornExaminingReport cornExaminingReport = icornExaminingReportDao.findBasicSituation(sampleNum[i]);
+		String[] id = ids.split(",");
+		for (int i = 0; i < id.length; i++) {
+			CornExaminingReport cornExaminingReport = icornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
 			row8.createCell(0).setCellValue(cornExaminingReport.getpLibraryName());
 			row8.createCell(2).setCellValue(cornExaminingReport.getLibraryName());
 			row8.createCell(3).setCellValue(cornExaminingReport.getSampleNum());
@@ -333,21 +333,35 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			row8.createCell(26).setCellValue(cornExaminingReport.getUnQuality());
 			row8.createCell(27).setCellValue(cornExaminingReport.getGrainQuality());
 			row8.createCell(28).setCellValue(cornExaminingReport.getSlip());
-		}
-		
-		   
-		   String[] id = ids.split(",");
-		   for (int i = 0; i < id.length; i++) {
-			   CornExaminingReport cornExaminingReport = icornExaminingReportDao.findQualityAcceptance(id[i]);
-			row8.createCell(29).setCellValue(cornExaminingReport.getQualityGrade());
-			row8.createCell(30).setCellValue(cornExaminingReport.getShuifen_pingjunzhi());
-			row8.createCell(31).setCellValue(cornExaminingReport.getZazhizongliang_1());
-			row8.createCell(32).setCellValue(cornExaminingReport.getBuwanshanlihanliang_pingjunzhi_1());
-			row8.createCell(33).setCellValue(cornExaminingReport.getShengmeilihanliang_pingjunzhi());
-			row8.createCell(34).setCellValue(cornExaminingReport.getSezeqiwei_pingjunzhi());
-			row8.createCell(35).setCellValue(cornExaminingReport.getZhifangsuanzhi_pingjunzhi());
-			row8.createCell(36).setCellValue(cornExaminingReport.getPinchangpingfenzhi());
-			
+			List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
+			for(int j=1; j<cornExaminingReport1.size(); j++) {
+				int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
+				row8.createCell(29).setCellValue(cornExaminingReport1.get(j).getQualityGrade());
+				row8.createCell(30).setCellValue(cornExaminingReport1.get(j).getRealCapacity());
+				if(newNum == 04) {
+					row8.createCell(31).setCellValue(cornExaminingReport1.get(j).getShuifen_pingjunzhi());
+				}
+				else if(newNum == 02) {
+					row8.createCell(32).setCellValue(cornExaminingReport1.get(j).getZazhizongliang_1());
+				}
+				else if(newNum == 01) {
+					row8.createCell(33).setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					
+				}
+				else if(newNum == 03) {
+					row8.createCell(34).setCellValue(cornExaminingReport1.get(j).getShengmeilihanliang_pingjunzhi());
+				}
+				else if(newNum == 05) {
+					row8.createCell(35).setCellValue(cornExaminingReport1.get(j).getSezeqiwei_pingjunzhi());
+				}
+				else if(newNum == 06) {
+					row8.createCell(36).setCellValue(cornExaminingReport1.get(j).getZhifangsuanzhi_pingjunzhi());
+				}
+				else if(newNum == 07) {
+					row8.createCell(37).setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
+				}
+				System.out.println(newNum);
+			}
 		}
 		   try {
 			FileOutputStream out = new FileOutputStream("E://student2.xls");
@@ -365,7 +379,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 * 
 	 */
 	@Override
-	public void ExeclPOI(String sampleNums,String ids) {
+	public void ExeclPOI(String ids) {
 		POIUtils utils = new POIUtils();
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿
@@ -519,10 +533,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		cell4.setCellStyle(utils.Style1(wb));
 		row7cell2.setCellFormula("SUM(AB9)");
 
-		String[] sampleNum = sampleNums.split(",");
-		for (int i = 0; i < sampleNum.length; i++) {
+		String[] id = ids.split(",");
+		for (int i = 0; i < id.length; i++) {
 			//查询基本情况
-			WheatExaminingReport Wobjiect = wheatExaminingReportDao.findBasicSituation(sampleNum[i]);
+			WheatExaminingReport Wobjiect = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
 			row8.createCell(0).setCellValue(Wobjiect.getpLibraryName());
 			row8.createCell(2).setCellValue(Wobjiect.getLibraryName());
 			row8.createCell(3).setCellValue(Wobjiect.getSampleNum());
@@ -545,12 +559,8 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			row8.createCell(26).setCellValue(Wobjiect.getUnQuality());
 			row8.createCell(27).setCellValue(Wobjiect.getGrainQuality());
 			row8.createCell(28).setCellValue(Wobjiect.getSlip());
-		}
-		
-		String[] id = ids.split(",");
-		for (int i = 0; i < id.length; i++) {
 			//查询质量验收情况（根据小样编号
-			WheatExaminingReport Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(id[i]);
+			WheatExaminingReport Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
 			row8.createCell(28).setCellValue(Wobjiect1.getQualityGrade());
 			row8.createCell(30).setCellValue(Wobjiect1.getShuifen_pingjunzhi());
 			row8.createCell(31).setCellValue(Wobjiect1.getZazhizongliang_1());
@@ -561,8 +571,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 //			row8.createCell(29).setCellValue(Wobjiect1.getPingjunzhiganmianjinzhiliang());
 			row8.createCell(38).setCellValue(Wobjiect1.getShimianjin_pingjunzhi());
 			row8.createCell(39).setCellValue(Wobjiect1.getPinchangpingfenzhi());
-			
 		}
+		
+		
+			
+		
 		try {
 			FileOutputStream out = new FileOutputStream(ParamUtils.filePath);  
 			wb.write(out);

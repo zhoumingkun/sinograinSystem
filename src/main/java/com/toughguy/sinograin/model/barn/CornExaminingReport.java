@@ -41,6 +41,8 @@ public class CornExaminingReport {
 	private String sezeqiwei_pingjunzhi;      //色泽气味平均值
 	private String zhifangsuanzhi_pingjunzhi;  //平均值（mgKOH/100g干基）(脂肪酸值)
 	private String pinchangpingfenzhi;  //品尝评分值
+	
+	private String smallSampleNum; //小样编号
 	public String getpLibraryName() {
 		return pLibraryName;
 	}
@@ -234,6 +236,12 @@ public class CornExaminingReport {
 	}
 	public void setPinchangpingfenzhi(String pinchangpingfenzhi) {
 		this.pinchangpingfenzhi = pinchangpingfenzhi;
+	}
+	public String getSmallSampleNum() {
+		return smallSampleNum;
+	}
+	public void setSmallSampleNum(String smallSampleNum) {
+		this.smallSampleNum = smallSampleNum;
 	}
 
 }

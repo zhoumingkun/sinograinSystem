@@ -16,11 +16,11 @@ public class WheatExaminingReportDaoImpl  implements IWheatExaminingReportDao{
 	@Autowired
 	SqlSessionTemplate sessionTemplate;
 	
-	public WheatExaminingReport findBasicSituation(@Param("sampleNum")String sampleNum){
-		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.WheatExaminingReport.findBasicSituation", sampleNum);
+	public WheatExaminingReport findBasicSituation(@Param("id")int id){
+		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.WheatExaminingReport.findBasicSituation", id);
 	}
 	
-	public WheatExaminingReport findQualityAcceptance(@Param("id")String id){
+	public WheatExaminingReport findQualityAcceptance(@Param("id")int id){
 		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.WheatExaminingReport.findQualityAcceptance", id);
 	}
 }

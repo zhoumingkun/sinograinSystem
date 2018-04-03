@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.toughguy.sinograin.model.barn.CornExaminingReport">
 	<!-- 查询基本情况（根据检验编号） -->
-	<select id="findBasicSituation" parameterType="String" resultType="CornExaminingReport">
+	<select id="findBasicSituation" parameterType="int" resultType="CornExaminingReport">
 	SELECT pbl.libraryName pLibraryName, bl.libraryName, bs.sampleNum, bs.sampleNo,
 	 bs.position, bs.sort, bs.amount, bs.gainTime, bs.storageTime,br.createTime checkApplyTime,
 	 br.updateTime assignMissionTime, bs.sampleTime, bs.remark, bm.length, bm.wide, bm.high, 
@@ -17,8 +17,8 @@
 		</if>
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
-	<select id="findQualityAcceptance" parameterType="String" resultType="CornExaminingReport">
-		SELECT bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, 
+	<select id="findQualityAcceptance" parameterType="int" resultType="CornExaminingReport">
+		SELECT bss.smallSampleNum,bm.realCapacity, bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, 
 		bzbc.zazhizongliang_1, bzbc.buwanshanlihanliang_pingjunzhi_1,
 		bzbc.shengmeilihanliang_pingjunzhi, bcc.sezeqiwei_pingjunzhi,
 		bzc.pingjunzhi zhifangsuanzhi_pingjunzhi, byp.pinchangpingfenzhi 

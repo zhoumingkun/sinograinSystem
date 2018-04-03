@@ -10,10 +10,10 @@ public interface IWheatExaminingReportDao {
 	/*
 	 * 查询基本情况
 	 */
-	public WheatExaminingReport findBasicSituation(@Param("sampleNum")String sampleNum);
+	public WheatExaminingReport findBasicSituation(@Param("id")int id);
 	
 	/*
 	 * 查询质量验收情况（根据小样编号
 	 */
-	public WheatExaminingReport findQualityAcceptance(@Param("id")String id);
+	public WheatExaminingReport findQualityAcceptance(@Param("id")int id);
 }
