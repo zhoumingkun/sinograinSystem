@@ -177,6 +177,9 @@
 			<if test=" sampleState != null and sampleState != '' ">
 				and sampleState = #{sampleState}
 			</if>
+			<if test=" ruKuSampleState != null and ruKuSampleState != '' ">
+				or sampleState = #{ruKuSampleState}
+			</if>
 			<if test=" sampleStateLike != null and sampleStateLike != '' ">
 				and sampleState like concat(concat('%', #{sampleStateLike, jdbcType=VARCHAR}),'%')
 			</if>
