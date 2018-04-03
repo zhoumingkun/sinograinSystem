@@ -12,10 +12,12 @@
 	  LEFT JOIN barn_register br ON br.libraryId = bl.id 
 	  LEFT JOIN barn_sample bs ON bs.pId = br.id 
 	LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id
-		<include refid="paramsSQL"/>
+		<if test=" _parameter != null and _parameter != '' ">
+		where bs.sampleNum=#{sampleNum}
+		</if>
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
-	<select id="findQualityAcceptance" parameterType="int" resultType="CornExaminingReport">
+	<select id="findQualityAcceptance" parameterType="int" resultType="WheatExaminingReport">
 		SELECT bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, bzbc.zazhizongliang_1, 
 		bzbc.kuangwuzhihanliang_pingjunzhi, bzbc.buwanshanlihanliang_pingjunzhi_1, 
 		bcc.yingduzhishu_pingjunzhi, bcc.sezeqiwei_pingjunzhi, bmc.pingjunzhiganmianjinzhiliang, 
@@ -27,7 +29,9 @@
 		LEFT JOIN barn_check_cedingjilu bcc ON bcc.smallSampleId = bss.id 
 		LEFT JOIN barn_mianjinxishuiliang_cedingjilu bmc ON bmc.smallSampleId = bss.id 
 		LEFT JOIN barn_mantoupinchang_pingfenjilu bmp ON bmp.smallSampleId = bss.id
-		<include refid="paramsSQL"/>
+		<if test=" _parameter != null and _parameter != '' ">
+		where bss.id=#{id}
+		</if>
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">

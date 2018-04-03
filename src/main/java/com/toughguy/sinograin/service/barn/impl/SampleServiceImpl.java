@@ -282,7 +282,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		HSSFRow row7 = sheet.createRow(7);
 		String[] sampleNum = sampleNums.split(",");
 		for (int i = 0; i < sampleNum.length; i++) {
-			CornExaminingReport cornExaminingReport = icornExaminingReportDao.findReportAll(sampleNum[i]);
+			CornExaminingReport cornExaminingReport = icornExaminingReportDao.findBasicSituation(sampleNum[i]);
 			row7.createCell(0).setCellValue(cornExaminingReport.getpLibraryName());
 			row7.createCell(1).setCellValue(cornExaminingReport.getLibraryName());
 			row7.createCell(2).setCellValue(cornExaminingReport.getSampleNum());
@@ -309,7 +309,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		   
 		   String[] id = ids.split(",");
 		   for (int i = 0; i < id.length; i++) {
-			   CornExaminingReport cornExaminingReport = icornExaminingReportDao.findReportAllBysmall(id[i]);
+			   CornExaminingReport cornExaminingReport = icornExaminingReportDao.findQualityAcceptance(id[i]);
 			row7.createCell(21).setCellValue(cornExaminingReport.getQualityGrade());
 			row7.createCell(22).setCellValue(cornExaminingReport.getShuifen_pingjunzhi());
 			row7.createCell(23).setCellValue(cornExaminingReport.getZazhizongliang_1());
@@ -335,7 +335,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 * 
 	 */
 	@Override
-	public void ExeclPOI(String sampleNums,String smallSampleNums) {
+	public void ExeclPOI(String sampleNums,String ids) {
 		POIUtils utils = new POIUtils();
 		System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		HSSFWorkbook wb = new HSSFWorkbook(); // 创建工作簿
@@ -471,6 +471,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			//查询基本情况
 			WheatExaminingReport Wobjiect = wheatExaminingReportDao.findBasicSituation(sampleNum[i]);
 			row7.createCell(0).setCellValue(Wobjiect.getpLibraryName());
+			System.out.println(Wobjiect.getpLibraryName());
 			row7.createCell(1).setCellValue(Wobjiect.getLibraryName());
 			row7.createCell(2).setCellValue(Wobjiect.getSampleNum());
 			row7.createCell(3).setCellValue(Wobjiect.getSampleNo());
@@ -494,10 +495,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			row7.createCell(21).setCellValue(Wobjiect.getSlip());
 		}
 		
-		String[] smallSampleNum = smallSampleNums.split(",");
-		for (int i = 0; i < smallSampleNum.length; i++) {
+		String[] id = ids.split(",");
+		for (int i = 0; i < id.length; i++) {
 			//查询质量验收情况（根据小样编号
-			WheatExaminingReport Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(sampleNum[i]);
+			WheatExaminingReport Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(id[i]);
 			row7.createCell(22).setCellValue(Wobjiect1.getQualityGrade());
 			row7.createCell(23).setCellValue(Wobjiect1.getShuifen_pingjunzhi());
 			row7.createCell(24).setCellValue(Wobjiect1.getZazhizongliang_1());

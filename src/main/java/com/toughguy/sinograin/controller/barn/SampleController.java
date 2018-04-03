@@ -250,9 +250,9 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
 	//@RequiresPermissions("sample:edit")
-	public String ExeclPOI(String sampleNums,String smallSampleNums) {
+	public String ExeclPOI(String sampleNums,String ids) {
 		try {			
-			sampleService.ExeclPOI(sampleNums,smallSampleNums);
+			sampleService.ExeclPOI(sampleNums,ids);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -9,6 +9,7 @@ import com.toughguy.sinograin.persist.prototype.IGenericDao;
 public interface ICornExaminingReportDao extends IGenericDao<CornExaminingReport, Integer>{
 
 	
-	public CornExaminingReport findReportAll(@Param("sampleNum") String sampleNum);
-	public CornExaminingReport findReportAllBysmall(@Param("id") String id);
+	public CornExaminingReport findBasicSituation(@Param("sampleNum") String sampleNum);
+	public CornExaminingReport findQualityAcceptance(@Param("id") String id);
+	
 }

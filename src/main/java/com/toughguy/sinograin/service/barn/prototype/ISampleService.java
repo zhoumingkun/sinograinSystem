@@ -36,9 +36,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	public List<Sample> findSamplesByTask(String taskName);
 	
 	
-	public void Export(String sampleNum,String smallSample);
+	public void Export(String sampleNums,String ids);
 
-	public void ExeclPOI(String sampleNums, String smallSampleNums);
+	public void ExeclPOI(String sampleNums, String ids);
 
 	
 }

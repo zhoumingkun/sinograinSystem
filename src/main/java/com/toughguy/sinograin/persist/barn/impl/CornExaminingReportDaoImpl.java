@@ -17,12 +17,12 @@ public class CornExaminingReportDaoImpl   extends GenericDaoImpl<CornExaminingRe
 	SqlSessionTemplate sessionTemplate;
 	
 	@Override
-	public CornExaminingReport findReportAll(@Param("sampleNum") String sampleNum) {
+	public CornExaminingReport findBasicSituation(@Param("sampleNum") String sampleNum) {
 		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.CornExaminingReport.findBasicSituation",sampleNum);
 	}
 	
 	@Override
-	public CornExaminingReport findReportAllBysmall(@Param("id") String id) {
+	public CornExaminingReport findQualityAcceptance(@Param("id") String id) {
 		return sessionTemplate.selectOne("com.toughguy.sinograin.model.barn.CornExaminingReport.findQualityAcceptance",id);
 	}
 
