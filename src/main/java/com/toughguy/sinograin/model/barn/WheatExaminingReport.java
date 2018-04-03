@@ -18,6 +18,8 @@ public class WheatExaminingReport {
 	private String amount;   	//数量
 	private String  gainTime;  	//收获年度(生产年份)
 	private Date storageTime;	//入库时间（样品室）
+	private Date checkApplyTime; //验收申请时间(表的创建时间)
+	private Date assignMissionTime; //任务下达时间(表的状态为2的修改时间)
 	private Date sampleTime;   	//扦样时间
 	private String remark;      //备注
 	private double length;        	//长度
@@ -94,6 +96,19 @@ public class WheatExaminingReport {
 	}
 	public void setStorageTime(Date storageTime) {
 		this.storageTime = storageTime;
+	}
+	
+	public Date getCheckApplyTime() {
+		return checkApplyTime;
+	}
+	public void setCheckApplyTime(Date checkApplyTime) {
+		this.checkApplyTime = checkApplyTime;
+	}
+	public Date getAssignMissionTime() {
+		return assignMissionTime;
+	}
+	public void setAssignMissionTime(Date assignMissionTime) {
+		this.assignMissionTime = assignMissionTime;
 	}
 	public Date getSampleTime() {
 		return sampleTime;
