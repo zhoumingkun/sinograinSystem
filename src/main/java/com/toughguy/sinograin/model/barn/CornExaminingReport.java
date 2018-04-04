@@ -43,6 +43,7 @@ public class CornExaminingReport {
 	private String pinchangpingfenzhi;  //品尝评分值
 	
 	private String smallSampleNum; //小样编号
+	private String taskName; //任务名称（页面展示）
 	public String getpLibraryName() {
 		return pLibraryName;
 	}

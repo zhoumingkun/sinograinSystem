@@ -18,11 +18,12 @@
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
 	<select id="findQualityAcceptance" parameterType="int" resultType="CornExaminingReport">
-		SELECT bss.smallSampleNum,bm.realCapacity, bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, 
+		SELECT bt.taskName,bss.smallSampleNum,bm.realCapacity, bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, 
 		bzbc.zazhizongliang_1, bzbc.buwanshanlihanliang_pingjunzhi_1,
 		bzbc.shengmeilihanliang_pingjunzhi, bcc.sezeqiwei_pingjunzhi,
 		bzc.pingjunzhi zhifangsuanzhi_pingjunzhi, byp.pinchangpingfenzhi 
 		FROM barn_sample bs LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
+		LEFT JOIN barn_task bt ON bss.taskId = bt.id
 		LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id 
 		LEFT JOIN barn_shuifen_cedingjilu bsc ON bsc.smallSampleId = bss.id 
 		LEFT JOIN barn_zazhi_buwanshanli_cedingjilu bzbc ON bzbc.smallSampleId = bss.id 
