@@ -706,7 +706,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 * 导出小麦质量验收情况表
 	 * 
 	 */
-	public  void ExportXMzhiliang(String ids,String title) { {
+	public  void ExportXMzhiliang(HttpServletResponse response,String ids,String title) { {
 		//传入的文件  
         FileInputStream fileInput;
         POIUtils utils = new POIUtils();
@@ -718,7 +718,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 			//对应Excel文件中的sheet，0代表第一个             
 			HSSFSheet sh = workbook.getSheetAt(0);  
-			 HSSFRow row = sh.createRow(8);
+//			 HSSFRow row = sh.createRow(8);
 //			 row.createCell(0).setCellValue("bb");
 //			 sh.getRow(9).getCell(2).setCellValue("xx");
 //			 sh.getRow(9).getCell(3).setCellValue("xx");
@@ -727,7 +727,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			 
 			 List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(ids));
 				
-				for(int j=1; j<Wobjiect1.size(); j++) {
+				for(int j=0; j<Wobjiect1.size(); j++) {
+				    HSSFRow row = sh.createRow(8+j);
+				    row.setHeight((short) 300); // 行高
 					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
 					System.out.println(newNum);
 					HSSFCell cell1 = row.createCell(0);
@@ -783,17 +785,35 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						cell12.setCellStyle(utils.Style1(workbook));
 						cell12.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
 					}
+					HSSFCell cell9 = row.createCell(9);
+					cell9.setCellStyle(utils.Style1(workbook));
+					cell9.setCellValue("");
+					
+					HSSFCell cell13 = row.createCell(13);
+					cell13.setCellStyle(utils.Style1(workbook));
+					cell13.setCellValue("");
+					
+					HSSFCell cell14 = row.createCell(14);
+					cell14.setCellStyle(utils.Style1(workbook));
+					cell14.setCellValue("");
 				}
-				HSSFCell cell13 = row.createCell(13);
-				cell13.setCellStyle(utils.Style1(workbook));
-				cell13.setCellValue("");
-				
-				HSSFCell cell14 = row.createCell(14);
-				cell14.setCellStyle(utils.Style1(workbook));
-				cell14.setCellValue("");
 
-			 FileOutputStream out = new FileOutputStream("E://小麦质量.xls");  
-			 workbook.write(out);
+//			 FileOutputStream out = new FileOutputStream("E://小麦质量.xls");  
+//			 workbook.write(out);
+			//将修改后的文件写出到D:\\excel目录下  
+	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
+	        OutputStream output = response.getOutputStream();
+    		response.reset();
+    		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    		workbook.write(output);
+    		output.flush();  
+	        //将Excel写出        
+	        workbook.write(output);  
+	        //关闭流  
+	        fileInput.close();  
+	        output.close();  
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
@@ -807,7 +827,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 * 导出玉米质量验收情况表
 	 * 
 	 */
-	public  void ExportYMzhiliang(String ids,String title) { {
+	public  void ExportYMzhiliang(HttpServletResponse response,String ids,String title) { {
 		//传入的文件  
         FileInputStream fileInput;
         POIUtils utils = new POIUtils();
@@ -819,7 +839,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 			//对应Excel文件中的sheet，0代表第一个             
 			HSSFSheet sh = workbook.getSheetAt(0);  
-			 HSSFRow row = sh.createRow(8);
+//			 HSSFRow row = sh.createRow(8);
 //			 row.createCell(0).setCellValue("bb");
 //			 sh.getRow(9).getCell(2).setCellValue("xx");
 //			 sh.getRow(9).getCell(3).setCellValue("xx");
@@ -828,12 +848,22 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			 
 		
 		List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(Integer.parseInt(ids));
-		for(int j=1; j<cornExaminingReport1.size(); j++) {
+		for(int j=0; j<cornExaminingReport1.size(); j++) {
+			HSSFRow row = sh.createRow(8+j);
+			row.setHeight((short) 300); // 行高
 			int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
 			System.out.println(newNum);
-			row.createCell(0).setCellValue(cornExaminingReport1.get(j).getTaskName());
-			row.createCell(1).setCellValue(cornExaminingReport1.get(j).getQualityGrade());
-			row.createCell(2).setCellValue(cornExaminingReport1.get(j).getRealCapacity());
+			HSSFCell createCell = row.createCell(0);
+			createCell.setCellStyle(utils.Style1(workbook));
+			createCell.setCellValue(cornExaminingReport1.get(j).getTaskName());
+			
+			HSSFCell createCell2 = row.createCell(1);
+			createCell2.setCellStyle(utils.Style1(workbook));
+			createCell2.setCellValue(cornExaminingReport1.get(j).getQualityGrade());
+			
+			HSSFCell createCell3 = row.createCell(2);
+			createCell3.setCellStyle(utils.Style1(workbook));
+			createCell3.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
 			if(newNum == 04) {
 				HSSFCell cell1 = row.createCell(3);
 				cell1.setCellStyle(utils.Style1(workbook));
@@ -861,19 +891,43 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell5.setCellValue(cornExaminingReport1.get(j).getSezeqiwei_pingjunzhi());
 			}
 			else if(newNum == 06) {
-				HSSFCell cell6 = row.createCell(8);
+				HSSFCell cell6 = row.createCell(9);
 				cell6.setCellStyle(utils.Style1(workbook));
 				cell6.setCellValue(cornExaminingReport1.get(j).getZhifangsuanzhi_pingjunzhi());
 			}
 			else if(newNum == 07) {
-				HSSFCell cell7 = row.createCell(9);
+				HSSFCell cell7 = row.createCell(10);
 				cell7.setCellStyle(utils.Style1(workbook));
 				cell7.setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
 			}
+			HSSFCell cell12 = row.createCell(8);
+			cell12.setCellStyle(utils.Style1(workbook));
+			cell12.setCellValue("");
+			
+			HSSFCell cell13 = row.createCell(11);
+			cell13.setCellStyle(utils.Style1(workbook));
+			cell13.setCellValue("");
+			
+			HSSFCell cell14 = row.createCell(12);
+			cell14.setCellStyle(utils.Style1(workbook));
+			cell14.setCellValue("");
 		}
    
-		FileOutputStream out = new FileOutputStream("E://玉米质量.xls");  
-		 workbook.write(out);
+//		FileOutputStream out = new FileOutputStream("E://玉米质量.xls");  
+//		 workbook.write(out);
+		//将修改后的文件写出到D:\\excel目录下  
+        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
+        OutputStream output = response.getOutputStream();
+		response.reset();
+		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+		workbook.write(output);
+		output.flush();  
+        //将Excel写出        
+        workbook.write(output);  
+        //关闭流  
+        fileInput.close();  
+        output.close();  
 	} catch (Exception e) {
 		e.printStackTrace();
 	}  

@@ -372,5 +372,37 @@ public class SampleController {
 		}
 		return cs;
 	}
+	
+	/**
+	 * 导出小麦质量
+	 */
+	@RequestMapping(value = "/ExportXMzhiliang")
+	//@RequiresPermissions("sample:edit")
+	public String ExportXMzhiliang(HttpServletResponse response,String ids,String title){
+		try {
+			//返回结果
+			sampleService.ExportXMzhiliang(response,ids,title);
+			return "{ \"success\" : true }";
+		}catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
+	/**
+	 * 导出玉米质量
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/ExportYMzhiliang")
+	//@RequiresPermissions("sample:edit")
+	public String ExportYMzhiliang(HttpServletResponse response,String ids,String title){
+		try {
+			//返回结果
+			sampleService.ExportYMzhiliang(response,ids,title);
+			return "{ \"success\" : true }";
+		}catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
+
+	
 }
 

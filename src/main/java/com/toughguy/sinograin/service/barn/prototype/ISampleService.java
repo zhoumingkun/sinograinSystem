@@ -49,11 +49,11 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	/**
 	 * 导出小麦质量
 	 */
-	public void ExportXMzhiliang(String ids,String title);
+	public void ExportXMzhiliang(HttpServletResponse response,String ids,String title);
 	/**
 	 * 导出玉米质量
 	 */
-	public void ExportYMzhiliang(String ids,String title);
+	public void ExportYMzhiliang(HttpServletResponse response,String ids,String title);
 
 	
 }
