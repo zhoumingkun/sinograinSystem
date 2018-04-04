@@ -7,9 +7,10 @@
 		values ( #{id}, #{taskName},#{createTime},#{updateTime})
 	</insert>
 	<!-- 根据库ID查样品ID -->
-	<select id="findsampleIdBylibraryId" parameterType="int" resultType="Sample">
-		select bs.position from barn_library bl LEFT JOIN barn_register br ON br.libraryId = bl.id 
-        LEFT JOIN barn_sample bs on bs.pId = br.id  where bl.id = #{id}
+	<select id="findsampleIdBylibraryId" parameterType="Sample" resultType="Sample">
+		select bs.* from barn_library bl LEFT JOIN barn_register br ON br.libraryId = bl.id 
+        LEFT JOIN barn_sample bs on bs.pId = br.id 
+        <include refid="paramsSQL"/>
 	</select>
 	<!-- 根据样品ID查任务ID -->
 	<select id="findtaskIdBysampleId" parameterType="int" resultType="Task">
@@ -73,7 +74,13 @@
 			</if>	
 			<if test="updateTime != null ">
 				and updateTime = #{updateTime}
+			</if>
+			<if test="libraryId != null and libraryId != ''">
+				and bl.id = #{libraryId}
 			</if>	
+			<if test="position != null and position != ''">
+				and bs.position = #{position}
+			</if>
 		</where>
 	</sql>
 	

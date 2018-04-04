@@ -2,6 +2,7 @@ package com.toughguy.sinograin.persist.barn.impl;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -21,8 +22,8 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements ITaskD
 	SqlSessionTemplate sessionTemplate;
 	
 	@Override
-	public List<Sample> findsampleIdBylibraryId(@Param("id") int id) {
-		return sessionTemplate.selectList("com.toughguy.sinograin.model.barn.Task.findsampleIdBylibraryId",id);
+	public List<Sample> findsampleIdBylibraryId(Map<String, Object> params) {
+		return sessionTemplate.selectList("com.toughguy.sinograin.model.barn.Task.findsampleIdBylibraryId",params);
 	}
 	
 	@Override

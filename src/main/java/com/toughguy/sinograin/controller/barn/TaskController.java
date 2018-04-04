@@ -17,8 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.Task;
+import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
+import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.ITaskService;
 
 @Controller
@@ -26,32 +28,66 @@ import com.toughguy.sinograin.service.barn.prototype.ITaskService;
 public class TaskController {
 	@Autowired
 	private ITaskService taskService;
-	
 	@Autowired
 	private ICornExaminingReportDao cornExaminingReportDao;
-	//根据库ID查样品ID
-	@ResponseBody
-	@RequestMapping("/findsampleIdBylibraryId")
-	//@RequiresPermissions("sample:edit")
-	public List<Sample> findsampleIdBylibraryId(int id) {
-			List<Sample> list = taskService.findsampleIdBylibraryId(id);
-			List<CornExaminingReport> array = new ArrayList<>();
-			for (int i = 0; i < list.size(); i++) {
-				List<CornExaminingReport> cornExaminingReport = cornExaminingReportDao.findQualityAcceptance(list.get(i).getId());
-				
-			}
-			
-			return null;
-	}
+	@Autowired
+	private IWheatExaminingReportDao wheatExaminingReportDao;
 	
-	//根据样品ID查任务ID
+	//玉米库id和货位号查询质检报告
+	@ResponseBody
+	@RequestMapping("/findCornSampleIdBylibraryId")
+	//@RequiresPermissions("sample:edit")
+	public List<CornExaminingReport> findCornSampleIdBylibraryId(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			List<Sample> ss = taskService.findsampleIdBylibraryId(map);	
+			for(Sample s : ss) {
+				List<CornExaminingReport> cs = cornExaminingReportDao.findQualityAcceptance(s.getId());
+				return cs;
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+		//小麦库id和货位号查询质检报告
 		@ResponseBody
-		@RequestMapping("/findtaskIdBysampleId")
+		@RequestMapping("/findWheatSampleIdBylibraryId")
 		//@RequiresPermissions("sample:edit")
-		public List<Task> findtaskIdBysampleId(int id) {
-				return taskService.findtaskIdBysampleId(id);
+		public List<WheatExaminingReport> findWheatSampleIdBylibraryId(String params) {
+			try {
+				ObjectMapper om = new ObjectMapper();
+				Map<String, Object> map = new HashMap<String, Object>();
+				if (!StringUtils.isEmpty(params)) {
+					// 参数处理
+					map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				}
+				List<Sample> ss = taskService.findsampleIdBylibraryId(map);	
+				for(Sample s : ss) {
+					List<WheatExaminingReport> ws = wheatExaminingReportDao.findQualityAcceptance(s.getId());
+					return ws;
+				}
+				return null;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
 		}
 	
+//	//根据样品ID查任务ID
+//		@ResponseBody
+//		@RequestMapping("/findtaskIdBysampleId")
+//		//@RequiresPermissions("sample:edit")
+//		public List<Task> findtaskIdBysampleId(int id) {
+//				return taskService.findtaskIdBysampleId(id);
+//		}
+//	
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")

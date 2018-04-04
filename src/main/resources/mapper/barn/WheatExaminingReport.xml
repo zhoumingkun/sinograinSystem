@@ -18,7 +18,7 @@
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
 	<select id="findQualityAcceptance" parameterType="int" resultType="WheatExaminingReport">
-		SELECT bt.taskName, bm.qualityGrade,bss.smallSampleNum, bsc.pingjunzhi shuifen_pingjunzhi, bzbc.zazhizongliang_1, 
+		SELECT distinct bt.taskName, bm.qualityGrade,bss.smallSampleNum, bsc.pingjunzhi shuifen_pingjunzhi, bzbc.zazhizongliang_1, 
 		bzbc.kuangwuzhihanliang_pingjunzhi, bzbc.buwanshanlihanliang_pingjunzhi_1, 
 		bcc.yingduzhishu_pingjunzhi, bcc.sezeqiwei_pingjunzhi, bmc.pingjunzhiganmianjinzhiliang, 
 		bcc.shimianjin_pingjunzhi, bmp.pinchangpingfenzhi FROM barn_sample bs 
@@ -33,6 +33,7 @@
 		<if test=" _parameter != null and _parameter != '' ">
 		where bss.sampleId=#{id}
 		</if>
+		GROUP BY bs.id
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">

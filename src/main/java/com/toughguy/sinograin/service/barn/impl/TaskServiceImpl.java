@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,9 @@ public class TaskServiceImpl extends GenericServiceImpl<Task, Integer> implement
 
 	@Override
 	
-	public List<Sample> findsampleIdBylibraryId(int id) {
+	public List<Sample> findsampleIdBylibraryId(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		return ((ITaskDao)dao).findsampleIdBylibraryId(id);	
+		return ((ITaskDao)dao).findsampleIdBylibraryId(params);	
 	}
 
 	@Override

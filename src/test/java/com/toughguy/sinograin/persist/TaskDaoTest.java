@@ -32,13 +32,13 @@ public class TaskDaoTest {
 	public void init(){}
 	
 	
-	@Test
-	public void testFindsampleIdBylibraryId(){
-//		Map<String,Object> params = new HashMap<String,Object>();
-//		params.put("chenjiangzhi_1", "lisi");
-		List<Sample> list = iTaskService.findsampleIdBylibraryId(36);
-		System.out.println(list.get(0).getId());
-	}
+//	@Test
+//	public void testFindsampleIdBylibraryId(){
+////		Map<String,Object> params = new HashMap<String,Object>();
+////		params.put("chenjiangzhi_1", "lisi");
+//		List<Sample> list = iTaskService.findsampleIdBylibraryId(36);
+//		System.out.println(list.get(0).getId());
+//	}
 	    //查询所有真菌毒素记录
 		@Test
 		public void testFindAllitaskDao(){
