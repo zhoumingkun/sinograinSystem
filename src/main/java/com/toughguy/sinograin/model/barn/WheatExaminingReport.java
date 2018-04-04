@@ -258,6 +258,12 @@ public class WheatExaminingReport {
 	public void setSmallSampleNum(String smallSampleNum) {
 		this.smallSampleNum = smallSampleNum;
 	}
+	public String getTaskName() {
+		return taskName;
+	}
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
 	
 	
 }
