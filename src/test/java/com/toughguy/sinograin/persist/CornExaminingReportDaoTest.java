@@ -46,4 +46,18 @@ public class CornExaminingReportDaoTest {
 //			
 //		}
 
+		//小麦质量
+		@Test
+		public void testExportXM(){
+		sampleService.ExportXMzhiliang("8","中央储备粮轮换验收申请统计表（2016年度）");
+			
+		}
+		
+		//玉米质量
+		@Test
+		public void testExportYM(){
+		sampleService.ExportYMzhiliang("8","中央储备粮轮换验收申请统计表（2016年度）");
+			
+		}
+
 }
