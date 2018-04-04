@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -256,12 +258,13 @@ public class SampleController {
 		}
 	}
 
+	//导出小麦总表
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
 	//@RequiresPermissions("sample:edit")
-	public String ExeclPOI(String ids,String title) {
+	public String ExeclPOI(HttpServletResponse response,String ids,String title) {
 		try {			
-			sampleService.ExeclPOI(ids,title);
+			sampleService.ExeclPOI(response,ids,title);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -272,10 +275,10 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
-	public  String Export(String ids,String title){
+	public  String Export(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
-			sampleService.Export(ids,title);
+			sampleService.Export(response,ids,title);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

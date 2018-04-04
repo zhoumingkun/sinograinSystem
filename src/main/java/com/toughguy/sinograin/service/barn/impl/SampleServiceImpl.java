@@ -1,19 +1,17 @@
 package com.toughguy.sinograin.service.barn.impl;
 
-import static org.mockito.Matchers.doubleThat;
-
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +27,10 @@ import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
-import com.toughguy.sinograin.util.ParamUtils;
+
+
+
+
 
 @Service
 public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> implements ISampleService {
@@ -70,7 +71,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	
 	
 	
-	public void Export(String ids,String title) {
+	public void Export(HttpServletResponse response,String ids,String title) {
 		//传入的文件  
         FileInputStream fileInput;
         POIUtils utils = new POIUtils();
@@ -227,6 +228,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell17.setCellStyle(utils.Style1(workbook));
 				cell17.setCellValue(cornExaminingReport.getSampleTime());
 				
+				Region region4 = new Region(i+9, (short) 13, i+9, (short) 16);
+				HSSFCell celll = row3.createCell(13);
+				utils.setRegionStyle(sheet, region4, utils.Style1(workbook));
+				sheet.addMergedRegion(region4);
+				celll.setCellStyle(utils.Style1(workbook));
+				celll.setCellValue("");
+				
 				HSSFCell cell18 = row3.createCell(17);
 				cell18.setCellStyle(utils.Style1(workbook));
 				cell18.setCellValue(cornExaminingReport.getRemark());//
@@ -275,11 +283,41 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell29.setCellStyle(utils.Style1(workbook));
 				cell29.setCellValue(cornExaminingReport.getSlip());
 				
+				//没有的字段暂时为空
+				HSSFCell cellNull = row3.createCell(33);
+				cellNull.setCellStyle(utils.Style1(workbook));
+//				cell32.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+				cellNull.setCellValue("");
+				
+				HSSFCell cell38 = row3.createCell(38);
+				cell38.setCellStyle(utils.Style1(workbook));
+				cell38.setCellValue("");
+				
+				HSSFCell cell39 = row3.createCell(39);
+				cell39.setCellStyle(utils.Style1(workbook));
+				cell39.setCellValue("");
+				
+				HSSFCell cell40 = row3.createCell(40);
+				cell40.setCellStyle(utils.Style1(workbook));
+				cell40.setCellValue("");
+				
+				HSSFCell cell41 = row3.createCell(41);
+				cell41.setCellStyle(utils.Style1(workbook));
+				cell41.setCellValue("");
+				
+				HSSFCell cell42 = row3.createCell(42);
+				cell42.setCellStyle(utils.Style1(workbook));
+				cell42.setCellValue("");
 				List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
 				for(int j=1; j<cornExaminingReport1.size(); j++) {
 					int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
-					row3.createCell(29).setCellValue(cornExaminingReport1.get(j).getQualityGrade());
-					row3.createCell(30).setCellValue(cornExaminingReport1.get(j).getRealCapacity());
+					HSSFCell createCell = row3.createCell(29);
+					createCell.setCellStyle(utils.Style1(workbook));
+					createCell.setCellValue(cornExaminingReport1.get(j).getQualityGrade());
+					
+					HSSFCell createCell2 = row3.createCell(30);
+					createCell2.setCellStyle(utils.Style1(workbook));
+					createCell2.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
 					if(newNum == 04) {
 						HSSFCell cell30 = row3.createCell(31);
 						cell30.setCellStyle(utils.Style1(workbook));
@@ -289,13 +327,17 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						HSSFCell cell31 = row3.createCell(32);
 						cell31.setCellStyle(utils.Style1(workbook));
 						cell31.setCellValue(cornExaminingReport1.get(j).getZazhizongliang_1());
-					}
-					else if(newNum == 01) {
+						
 						HSSFCell cell32 = row3.createCell(33);
 						cell32.setCellStyle(utils.Style1(workbook));
 						cell32.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-						
 					}
+//					else if(newNum == 01) {
+//						HSSFCell cell32 = row3.createCell(33);
+//						cell32.setCellStyle(utils.Style1(workbook));
+//						cell32.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+//						cell32.setCellValue("");
+//					}
 					else if(newNum == 03) {
 						HSSFCell cell33 = row3.createCell(34);
 						cell33.setCellStyle(utils.Style1(workbook));
@@ -323,8 +365,23 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			cell2.setCellStyle(utils.Style1(workbook));
 			cell2.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
 			cell2.setCellFormula(Sum);
-			 FileOutputStream out = new FileOutputStream("E://玉米检测报表.xls");  
-			 workbook.write(out);
+//			 FileOutputStream out = new FileOutputStream("E://玉米检测报表.xls");  
+//			 workbook.write(out);
+			
+			
+			//将修改后的文件写出到D:\\excel目录下  
+	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
+	        OutputStream output = response.getOutputStream();
+    		response.reset();
+    		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    		workbook.write(output);
+    		output.flush();  
+	        //将Excel写出        
+	        workbook.write(output);  
+	        //关闭流  
+	        fileInput.close();  
+	        output.close();  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
@@ -336,7 +393,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 * 
 	 */
 	@Override
-	public void ExeclPOI(String ids,String title) {
+	public void ExeclPOI(HttpServletResponse response,String ids,String title) {
 		POIUtils utils = new POIUtils();
 		//传入的文件  
         FileInputStream fileInput;
@@ -382,6 +439,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			cell4.setCellStyle(utils.Style1(workbook));
 			cell4.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
 			cell4.setCellFormula("SUM(AB9)");
+						
 			String pLibraryName = null;
 			int startRow = 0;
 			int endRow = 0;
@@ -442,6 +500,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				} else {
 					
 				}
+				HSSFCell cellsum = row3.createCell(1);
+				cellsum.setCellStyle(utils.Style1(workbook));
+				cellsum.setCellValue(i+1);
+				
 				HSSFCell cell6 = row3.createCell(2);
 				cell6.setCellStyle(utils.Style1(workbook));
 				cell6.setCellValue(Wobjiect.getLibraryName());
@@ -460,7 +522,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				
 				HSSFCell cell10 = row3.createCell(6);
 				cell10.setCellStyle(utils.Style1(workbook));
-				cell10.setCellValue(Wobjiect.getStorageTime());
+				cell10.setCellValue(Wobjiect.getSort());
 				
 				HSSFCell cell11 = row3.createCell(7);
 				cell11.setCellStyle(utils.Style1(workbook));
@@ -474,117 +536,162 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell13.setCellStyle(utils.Style1(workbook));
 				cell13.setCellValue(Wobjiect.getStorageTime());
 				
+				HSSFCell createCell = row3.createCell(10);
+				createCell.setCellStyle(utils.Style1(workbook));
+				createCell.setCellValue(Wobjiect.getCheckApplyTime());
+				
+				HSSFCell createCell1 = row3.createCell(11);
+				createCell1.setCellStyle(utils.Style1(workbook));
+				createCell1.setCellValue(Wobjiect.getAssignMissionTime());
+				
 				HSSFCell cell14 = row3.createCell(12);
 				cell14.setCellStyle(utils.Style1(workbook));
 				cell14.setCellValue(Wobjiect.getSampleTime());
 				
-				HSSFCell cell15 = row3.createCell(17);
+				Region region5 = new Region(i+9, (short) 13, i+9, (short) 15);
+				HSSFCell createCell2 = row3.createCell(13);
+				utils.setRegionStyle(sheet, region5, utils.Style1(workbook));
+				sheet.addMergedRegion(region5);
+				createCell2.setCellStyle(utils.Style1(workbook));
+				createCell2.setCellValue("");
+				
+				HSSFCell cell15 = row3.createCell(16);
 				cell15.setCellStyle(utils.Style1(workbook));
 				cell15.setCellValue(Wobjiect.getRemark());
 				
-				HSSFCell cell16 = row3.createCell(18);
+				HSSFCell cell16 = row3.createCell(17);
 				cell16.setCellStyle(utils.Style1(workbook));
 				cell16.setCellValue(Wobjiect.getLength());
 				
-				HSSFCell cell17 = row3.createCell(19);
+				HSSFCell cell17 = row3.createCell(18);
 				cell17.setCellStyle(utils.Style1(workbook));
 				cell17.setCellValue(Wobjiect.getWide());
 				
-				HSSFCell cell18 = row3.createCell(20);
+				HSSFCell cell18 = row3.createCell(19);
 				cell18.setCellStyle(utils.Style1(workbook));
 				cell18.setCellValue(Wobjiect.getHigh());
 				
-				HSSFCell cell19 = row3.createCell(21);
+				HSSFCell cell19 = row3.createCell(20);
 				cell19.setCellStyle(utils.Style1(workbook));
 				cell19.setCellValue(Wobjiect.getDeductVolume());
 				
-				HSSFCell cell20 = row3.createCell(22);
+				HSSFCell cell20 = row3.createCell(21);
 				cell20.setCellStyle(utils.Style1(workbook));
 				cell20.setCellValue(Wobjiect.getRealVolume());
 				
-				HSSFCell cell21 = row3.createCell(23);
+				HSSFCell cell21 = row3.createCell(22);
 				cell21.setCellStyle(utils.Style1(workbook));
 				cell21.setCellValue(Wobjiect.getRealCapacity());
 				
-				HSSFCell cell22 = row3.createCell(24);
+				HSSFCell cell22 = row3.createCell(23);
 				cell22.setCellStyle(utils.Style1(workbook));
 				cell22.setCellValue(Wobjiect.getCorrectioFactor());
 				
-				HSSFCell cell23 = row3.createCell(25);
+				HSSFCell cell23 = row3.createCell(24);
 				cell23.setCellStyle(utils.Style1(workbook));
 				cell23.setCellValue(Wobjiect.getAveDensity());
 				
-				HSSFCell cell24 = row3.createCell(26);
+				HSSFCell cell24 = row3.createCell(25);
 				cell24.setCellStyle(utils.Style1(workbook));
 				cell24.setCellValue(Wobjiect.getUnQuality());
 				
-				HSSFCell cell25 = row3.createCell(27);
+				HSSFCell cell25 = row3.createCell(26);
 				cell25.setCellStyle(utils.Style1(workbook));
 				cell25.setCellValue(Wobjiect.getGrainQuality());
 				
-				HSSFCell cell26 = row3.createCell(28);
+				HSSFCell cell26 = row3.createCell(27);
 				cell26.setCellStyle(utils.Style1(workbook));
 				cell26.setCellValue(Wobjiect.getSlip());
+				
+				HSSFCell cell39 = row3.createCell(39);
+				cell39.setCellStyle(utils.Style1(workbook));
+				cell39.setCellValue("");
+				
+				HSSFCell cell40 = row3.createCell(40);
+				cell40.setCellStyle(utils.Style1(workbook));
+				cell40.setCellValue("");
+				
+				HSSFCell cell41 = row3.createCell(41);
+				cell41.setCellStyle(utils.Style1(workbook));
+				cell41.setCellValue("");
+				
+				HSSFCell cell42 = row3.createCell(42);
+				cell42.setCellStyle(utils.Style1(workbook));
+				cell42.setCellValue("");
 				//查询质量验收情况（根据小样编号
 				List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
 				
 				for(int j=1; j<Wobjiect1.size(); j++) {
 					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
-					HSSFCell cell27 = row3.createCell(29);
+					HSSFCell cell27 = row3.createCell(28);
 					cell27.setCellStyle(utils.Style1(workbook));
 					cell27.setCellValue(Wobjiect1.get(j).getQualityGrade());
 					
-					HSSFCell cell28 = row3.createCell(30);
+					HSSFCell cell28 = row3.createCell(29);
 					cell28.setCellStyle(utils.Style1(workbook));
 					cell28.setCellValue(Wobjiect1.get(j).getRealCapacity());
 					
 					if(newNum == 04) {
-						HSSFCell cell29 = row3.createCell(31);
+						HSSFCell cell29 = row3.createCell(30);
 						cell29.setCellStyle(utils.Style1(workbook));
 						cell29.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
 					}
-					else if(newNum == 01) {
-						HSSFCell cell30 = row3.createCell(32);
+					else if(newNum == 02) {
+						HSSFCell cell30 = row3.createCell(31);
 						cell30.setCellStyle(utils.Style1(workbook));
 						cell30.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
 						
-						HSSFCell cell31 = row3.createCell(33);
+						HSSFCell cell31 = row3.createCell(32);
 						cell31.setCellStyle(utils.Style1(workbook));
 						cell31.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
 						
-						HSSFCell cell32 = row3.createCell(34);
+						HSSFCell cell32 = row3.createCell(33);
 						cell32.setCellStyle(utils.Style1(workbook));
 						cell32.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
 					}
 					else if(newNum == 05) {
-						HSSFCell cell33 = row3.createCell(35);
+						HSSFCell cell33 = row3.createCell(34);
 						cell33.setCellStyle(utils.Style1(workbook));
 						cell33.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
 						
-						HSSFCell cell34 = row3.createCell(36);
+						HSSFCell cell34 = row3.createCell(35);
 						cell34.setCellStyle(utils.Style1(workbook));
 						cell34.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
 					}
 					else if(newNum == 06) {
-						HSSFCell cell35 = row3.createCell(37);
+						HSSFCell cell35 = row3.createCell(36);
 						cell35.setCellStyle(utils.Style1(workbook));
 						cell35.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
 					    
-						HSSFCell cell36 = row3.createCell(38);
+						HSSFCell cell36 = row3.createCell(37);
 						cell36.setCellStyle(utils.Style1(workbook));
 						cell36.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
 					}
 					else if(newNum == 07) {
-						HSSFCell cell37 = row3.createCell(39);
+						HSSFCell cell37 = row3.createCell(38);
 						cell37.setCellStyle(utils.Style1(workbook));
 						cell37.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
 					}
 				}
 			}
-			FileOutputStream out = new FileOutputStream("E://小麦检测报表.xls");  
-			workbook.write(out);
+//			FileOutputStream out = new FileOutputStream("E://小麦检测报表.xls");  
+//			workbook.write(out);
+			
+			//将修改后的文件写出到D:\\excel目录下  
+	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
+	        OutputStream output = response.getOutputStream();
+    		response.reset();
+    		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    		workbook.write(output);
+    		output.flush();  
+	        //将Excel写出        
+	        workbook.write(output);  
+	        //关闭流  
+	        fileInput.close();  
+	        output.close();  
 			}catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}		
 	}
 

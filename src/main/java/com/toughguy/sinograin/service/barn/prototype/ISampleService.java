@@ -3,6 +3,8 @@ package com.toughguy.sinograin.service.barn.prototype;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.prototype.IGenericService;
@@ -38,12 +40,12 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	/**
 	 * 导出玉米
 	 */
-	public void Export(String ids,String title);
+	public void Export(HttpServletResponse response,String ids,String title);
 
 	/**
 	 * 导出小麦
 	 */
-	public void ExeclPOI(String ids,String title);
+	public void ExeclPOI(HttpServletResponse response,String ids,String title);
 
 	
 }
