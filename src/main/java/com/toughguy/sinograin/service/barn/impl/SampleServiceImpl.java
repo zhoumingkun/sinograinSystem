@@ -674,6 +674,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					}
 				}
 			}
+			String Sum = "Sum(H10:H" + (id.length + 9) + ")";
+			HSSFCell cellAA = row1.createCell(7);
+			cellAA.setCellStyle(utils.Style1(workbook));
+			cellAA.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
+			cellAA.setCellFormula(Sum);
 //			FileOutputStream out = new FileOutputStream("E://小麦检测报表.xls");  
 //			workbook.write(out);
 			
