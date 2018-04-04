@@ -134,6 +134,7 @@ public class SafetyReportController {
 			PagerModel<SafetyReport> pg = safeService.findPaginated(map);	
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
+			System.out.println(pg.getTotal());
 			result.put("total", pg.getTotal());
 			result.put("rows", pg.getData());
 			return om.writeValueAsString(result);

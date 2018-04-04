@@ -34,9 +34,11 @@
 	
 	<!-- 分页查询安全报告 -->
 	<select id="findPaginated" resultType="SafetyReport" parameterType="Map">
-		SELECT sr.*,l.libraryName,s.position,pbl.libraryName pLibraryName FROM barn_safety_report sr 
-		LEFT JOIN barn_sample s ON sr.sampleId = s.id 
-		LEFT JOIN barn_register r on s.pId = r.id 
+		SELECT distinct bt.taskName,sr.*,l.libraryName,bs.position,pbl.libraryName pLibraryName FROM barn_safety_report sr 
+		LEFT JOIN barn_sample bs ON sr.sampleId = bs.id 
+		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id
+		LEFT JOIN barn_task bt ON bss.taskId = bt.id
+		LEFT JOIN barn_register r on bs.pId = r.id 
 		LEFT JOIN barn_library l on r.libraryId = l.id
 		LEFT JOIN barn_library pbl on l.pLibraryId = pbl.id
 		<include refid="paramsSQL"/>
@@ -44,7 +46,13 @@
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		SELECT count(*) FROM barn_safety_report sr LEFT JOIN barn_sample s ON sr.sampleId = s.id LEFT JOIN barn_register r on s.pId = r.id LEFT JOIN barn_library l on r.libraryId = l.id
+		SELECT count(distinct sr.id) FROM barn_safety_report sr 
+		LEFT JOIN barn_sample bs ON sr.sampleId = bs.id 
+		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id
+		LEFT JOIN barn_task bt ON bss.taskId = bt.id
+		LEFT JOIN barn_register r on bs.pId = r.id 
+		LEFT JOIN barn_library l on r.libraryId = l.id
+		LEFT JOIN barn_library pbl on l.pLibraryId = pbl.id
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -105,6 +113,9 @@
 			</if>
 			<if test=" position != null and position != '' ">
 				and s.position = #{position}
+			</if>
+			<if test=" taskId != null and taskId != '' ">
+				and bss.taskId = #{taskId}
 			</if>
 		</where>
 	</sql>
