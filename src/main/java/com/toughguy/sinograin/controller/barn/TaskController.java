@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.controller.barn;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.model.barn.CornExaminingReport;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.Task;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.ITaskService;
 
 @Controller
@@ -23,7 +27,31 @@ public class TaskController {
 	@Autowired
 	private ITaskService taskService;
 	
-
+	@Autowired
+	private ICornExaminingReportDao cornExaminingReportDao;
+	//根据库ID查样品ID
+	@ResponseBody
+	@RequestMapping("/findsampleIdBylibraryId")
+	//@RequiresPermissions("sample:edit")
+	public List<Sample> findsampleIdBylibraryId(int id) {
+			List<Sample> list = taskService.findsampleIdBylibraryId(id);
+			List<CornExaminingReport> array = new ArrayList<>();
+			for (int i = 0; i < list.size(); i++) {
+				List<CornExaminingReport> cornExaminingReport = cornExaminingReportDao.findQualityAcceptance(list.get(i).getId());
+				
+			}
+			
+			return null;
+	}
+	
+	//根据样品ID查任务ID
+		@ResponseBody
+		@RequestMapping("/findtaskIdBysampleId")
+		//@RequiresPermissions("sample:edit")
+		public List<Task> findtaskIdBysampleId(int id) {
+				return taskService.findtaskIdBysampleId(id);
+		}
+	
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")

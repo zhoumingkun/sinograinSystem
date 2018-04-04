@@ -6,7 +6,15 @@
 		insert into barn_task (id, taskName,createTime,updateTime) 
 		values ( #{id}, #{taskName},#{createTime},#{updateTime})
 	</insert>
-	
+	<!-- 根据库ID查样品ID -->
+	<select id="findsampleIdBylibraryId" parameterType="int" resultType="Sample">
+		select bs.position from barn_library bl LEFT JOIN barn_register br ON br.libraryId = bl.id 
+        LEFT JOIN barn_sample bs on bs.pId = br.id  where bl.id = #{id}
+	</select>
+	<!-- 根据样品ID查任务ID -->
+	<select id="findtaskIdBysampleId" parameterType="int" resultType="Task">
+		select distinct taskId from barn_small_sample where sampleId = #{id};
+	</select>
 	<!-- 删除某个测定记录 -->
 	<delete id="delete" parameterType="int" >
 		delete from barn_task where id = #{id}
