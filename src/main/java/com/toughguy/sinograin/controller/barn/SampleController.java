@@ -259,9 +259,9 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
 	//@RequiresPermissions("sample:edit")
-	public String ExeclPOI(String ids) {
+	public String ExeclPOI(String ids,String title) {
 		try {			
-			sampleService.ExeclPOI(ids);
+			sampleService.ExeclPOI(ids,title);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -272,10 +272,10 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
-	public  String Export(String ids){
+	public  String Export(String ids,String title){
 		try {
 			//返回结果
-			sampleService.Export(ids);
+			sampleService.Export(ids,title);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

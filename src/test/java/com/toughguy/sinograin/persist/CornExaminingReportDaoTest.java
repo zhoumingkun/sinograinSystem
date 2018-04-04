@@ -29,16 +29,16 @@ public class CornExaminingReportDaoTest {
 	@Before
 	public void init(){}
 	    //查询所有面筋吸水量测定记录
-		@Test
-		public void testFindAllicornExaminingReportDao(){
-		sampleService.Export("8");
-			
-		}
-		
 //		@Test
-//		public void testFind(){
-//		sampleService.ExeclPOI("20180016","2");
+//		public void testFindAllicornExaminingReportDao(){
+//		sampleService.Export("8","中央储备粮轮换验收申请统计表（2016年度）");
 //			
 //		}
+		
+		@Test
+		public void testFind(){
+		sampleService.ExeclPOI("8,9,10","中央储备粮轮换验收申请统计表（2016年度）");
+			
+		}
 
 }

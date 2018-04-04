@@ -24,20 +24,27 @@ public class POIUtils {
 	public HSSFCellStyle Style(HSSFWorkbook wb) {
 		HSSFCellStyle style = wb.createCellStyle();
 		// 设置边框	
-		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-		style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
-		style.setBottomBorderColor(HSSFColor.BLACK.index);
-		style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
-		style.setLeftBorderColor(HSSFColor.BLACK.index);
-		style.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
-		style.setRightBorderColor(HSSFColor.BLACK.index);
-		style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
-		style.setTopBorderColor(HSSFColor.BLACK.index);
-		// 设置边框颜色
-		style.setTopBorderColor(HSSFColor.BLACK.index);
-		style.setBottomBorderColor(HSSFColor.BLACK.index);
-		style.setLeftBorderColor(HSSFColor.BLACK.index);
-		style.setRightBorderColor(HSSFColor.BLACK.index);
+//		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+//		style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
+//		style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);
+//		style.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);
+//		style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);
+		
+//		style.setRightBorderColor(HSSFColor.BLACK.index);
+//		style.setLeftBorderColor(HSSFColor.BLACK.index);
+//		style.setTopBorderColor(HSSFColor.BLACK.index);
+//		style.setBottomBorderColor(HSSFColor.BLACK.index);
+//		// 设置边框颜色
+//		style.setTopBorderColor(HSSFColor.BLACK.index);
+//		style.setBottomBorderColor(HSSFColor.BLACK.index);
+//		style.setLeftBorderColor(HSSFColor.BLACK.index);
+//		style.setRightBorderColor(HSSFColor.BLACK.index);
+		
+		style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+		style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+		style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+		
 		
 		HSSFFont fon = wb.createFont();
 		fon.setFontName("黑体");
@@ -196,10 +203,27 @@ public class POIUtils {
 				HSSFCellStyle style = Style(wb);
 				HSSFFont fon = wb.createFont();
 				fon.setFontName("黑体");
-				fon.setFontHeightInPoints((short) 12);// 设置字体大小
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setWrapText(true); 
 				 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setFont(fon);// 选择需要用到的字体格式
 				return style;
+			}
+			
+			/**
+			* 设置单元格边框（解决合并单元格显示部分边框问题）
+			* @param sheet 
+			* @param region
+			* @param cs
+			*/
+			@SuppressWarnings("deprecation")
+			public static void setRegionStyle(HSSFSheet sheet, Region region, HSSFCellStyle cs) {
+			 for (int i = region.getRowFrom(); i <= region.getRowTo(); i++) {
+			  HSSFRow row = HSSFCellUtil.getRow(i, sheet);
+			  for (int j = region.getColumnFrom(); j <= region.getColumnTo(); j++) {
+			   HSSFCell cell = HSSFCellUtil.getCell(row, (short) j);
+			   cell.setCellStyle(cs);
+			  }
+			 }
 			}
 }

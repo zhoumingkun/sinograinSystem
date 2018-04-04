@@ -38,12 +38,12 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	/**
 	 * 导出玉米
 	 */
-	public void Export(String ids);
+	public void Export(String ids,String title);
 
 	/**
 	 * 导出小麦
 	 */
-	public void ExeclPOI(String ids);
+	public void ExeclPOI(String ids,String title);
 
 	
 }
