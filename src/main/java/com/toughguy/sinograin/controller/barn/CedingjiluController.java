@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.toughguy.sinograin.model.barn.Cedingjilu;
+import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.service.barn.prototype.ICedingjiluService;
+import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 
 @Controller
 @RequestMapping("/cedingjilu")
 public class CedingjiluController {
 	@Autowired
 	private ICedingjiluService cedingjiluService;
-
+	@Autowired
+	private ISmallSampleService smallSampleService;
+	
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")
@@ -50,6 +54,9 @@ public class CedingjiluController {
 	//@RequiresPermissions("library:add")
 	public String save(Cedingjilu cedingjilu) {
 		try {
+			SmallSample smallSample = smallSampleService.find(cedingjilu.getsmallSampleId());
+			smallSample.setState(2);
+			smallSampleService.update(smallSample);
 			cedingjiluService.save(cedingjilu);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
