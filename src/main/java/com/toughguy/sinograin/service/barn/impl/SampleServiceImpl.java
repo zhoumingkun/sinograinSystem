@@ -729,6 +729,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				
 				for(int j=1; j<Wobjiect1.size(); j++) {
 					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
+					System.out.println(newNum);
 					HSSFCell cell1 = row.createCell(0);
 					cell1.setCellStyle(utils.Style1(workbook));
 					cell1.setCellValue(Wobjiect1.get(j).getTaskName());
@@ -829,7 +830,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(Integer.parseInt(ids));
 		for(int j=1; j<cornExaminingReport1.size(); j++) {
 			int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
-			
+			System.out.println(newNum);
 			row.createCell(0).setCellValue(cornExaminingReport1.get(j).getTaskName());
 			row.createCell(1).setCellValue(cornExaminingReport1.get(j).getQualityGrade());
 			row.createCell(2).setCellValue(cornExaminingReport1.get(j).getRealCapacity());
