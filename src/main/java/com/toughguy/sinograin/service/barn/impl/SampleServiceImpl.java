@@ -120,13 +120,18 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			cell4.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
 			cell4.setCellFormula("SUM(AB9)");
 			String pLibraryName = null;
-			int startRow = 0;
-			int endRow = 0;
+			int startRow = 10;
+			int endRow = 7;
+			//是否合并
 			boolean is = false;
+			//是否是第一次
+			boolean isFirst = true;
+			//记录上一次的i值
+			int oldI=0;
 			String[] id = ids.split(",");
 			for (int i = 0; i < id.length; i++) {
 				CornExaminingReport cornExaminingReport = icornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
-				HSSFRow row3 = sheet.createRow(i+9);
+				HSSFRow row3 = sheet.createRow(startRow + (i-oldI-1));
 				row3.setHeight((short) 300); // 行高
 				if(pLibraryName == null || pLibraryName.equals("")) {
 					pLibraryName = cornExaminingReport.getpLibraryName();
@@ -134,15 +139,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					HSSFCell cellPLibraryName = row3.createCell(0);
 					cellPLibraryName.setCellStyle(utils.Style1(workbook));
 					cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
+					endRow = i+9;
+					startRow=i+11;
+					isFirst = true;
 				} else if(pLibraryName.equals(cornExaminingReport.getpLibraryName())){
 					is = true;
-					if(startRow == i+8) {
-						HSSFCell cellPLibraryName = row3.createCell(0);
-						cellPLibraryName.setCellStyle(utils.Style1(workbook));
-						cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
-					}
 				} else {
-					endRow = i+8;
+					endRow = startRow + (i-oldI-1);
 					if(is == true) {
 						//合并直属库单元格
 						Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
@@ -152,18 +155,37 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						cellPLibraryName.setCellStyle(utils.Style1(workbook));
 						cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 					} else {
-						if(startRow == i+8) {
-							HSSFCell cellPLibraryName = row3.createCell(0);
-							cellPLibraryName.setCellStyle(utils.Style1(workbook));
-							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
-						}
+						HSSFCell cellPLibraryName = row3.createCell(0);
+						cellPLibraryName.setCellStyle(utils.Style1(workbook));
+						cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 					}
 					is = false;
+					CornExaminingReport newCornExaminingReport = icornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i + 1]));
+					if(cornExaminingReport.getpLibraryName().equals(newCornExaminingReport.getpLibraryName())) {
+						if(pLibraryName.equals(cornExaminingReport.getpLibraryName())){
+						}else {
+							Region regionXiaoJi = new Region(endRow-1, (short) 0, endRow-1, (short) 6);
+							HSSFRow rowXiaoJi = sheet.createRow(endRow-1);
+							HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
+							utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
+							sheet.addMergedRegion(regionXiaoJi);
+							cellXiaoJi.setCellValue("小计");
+						}
+					} else {
+						Region regionXiaoJi = new Region(endRow-1, (short) 0, endRow-1, (short) 6);
+						HSSFRow rowXiaoJi = sheet.createRow(endRow-1);
+						HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
+						utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
+						sheet.addMergedRegion(regionXiaoJi);
+						cellXiaoJi.setCellValue("小计");
+						startRow = endRow+2;
+						oldI = i;
+					}
 					pLibraryName = cornExaminingReport.getpLibraryName();
-					startRow = i+9;
+					isFirst = false;
 				}
 				if(i == id.length -1) {
-					endRow = i+9;
+					endRow = startRow + (i-oldI-1);
 					if(is == true) {
 						//合并直属库单元格
 						Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
@@ -175,10 +197,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						HSSFCell cellPLibraryName = row3.createCell(0);
 						cellPLibraryName.setCellValue(pLibraryName);
 					}
-				} else {
-					
 				}
-				
 				HSSFCell cell6 = row3.createCell(1);
 				cell6.setCellStyle(utils.Style1(workbook));
 				cell6.setCellValue(i+1);
@@ -442,12 +461,17 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			cell4.setCellFormula("SUM(AB9)");
 						
 			String pLibraryName = null;
-			int startRow = 0;
-			int endRow = 0;
+			int startRow = 10;
+			int endRow = 7;
+			//是否合并
 			boolean is = false;
+			//是否是第一次
+			boolean isFirst = true;
+			//记录上一次的i值
+			int oldI=0;
 			String[] id = ids.split(",");
 			for (int i = 0; i < id.length; i++) {
-				HSSFRow row3 = sheet.createRow(i+9);
+				HSSFRow row3 = sheet.createRow(startRow + (i-oldI-1));
 				row3.setHeight((short) 300); // 行高
 				//查询基本情况
 				WheatExaminingReport Wobjiect = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
@@ -457,15 +481,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					HSSFCell cellPLibraryName = row3.createCell(0);
 					cellPLibraryName.setCellStyle(utils.Style1(workbook));
 					cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
+					endRow = i+9;
+					startRow=i+11;
+					isFirst = true;
 				} else if(pLibraryName.equals(Wobjiect.getpLibraryName())){
 					is = true;
-					if(startRow == i+8) {
-						HSSFCell cellPLibraryName = row3.createCell(0);
-						cellPLibraryName.setCellStyle(utils.Style1(workbook));
-						cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
-					}
 				} else {
-					endRow = i+8;
+					endRow = startRow + (i-oldI-1);
 					if(is == true) {
 						//合并直属库单元格
 						Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
@@ -475,18 +497,37 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						cellPLibraryName.setCellStyle(utils.Style1(workbook));
 						cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 					} else {
-						if(startRow == i+8) {
-							HSSFCell cellPLibraryName = row3.createCell(0);
-							cellPLibraryName.setCellStyle(utils.Style1(workbook));
-							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
-						}
+						HSSFCell cellPLibraryName = row3.createCell(0);
+						cellPLibraryName.setCellStyle(utils.Style1(workbook));
+						cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 					}
 					is = false;
+					WheatExaminingReport newWobjiect = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i + 1]));
+					if(Wobjiect.getpLibraryName().equals(newWobjiect.getpLibraryName())) {
+						if(pLibraryName.equals(Wobjiect.getpLibraryName())){
+						}else {
+							Region regionXiaoJi = new Region(endRow-1, (short) 0, endRow-1, (short) 6);
+							HSSFRow rowXiaoJi = sheet.createRow(endRow-1);
+							HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
+							utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
+							sheet.addMergedRegion(regionXiaoJi);
+							cellXiaoJi.setCellValue("小计");
+						}
+					} else {
+						Region regionXiaoJi = new Region(endRow-1, (short) 0, endRow-1, (short) 6);
+						HSSFRow rowXiaoJi = sheet.createRow(endRow-1);
+						HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
+						utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
+						sheet.addMergedRegion(regionXiaoJi);
+						cellXiaoJi.setCellValue("小计");
+						startRow = endRow+2;
+						oldI = i;
+					}
 					pLibraryName = Wobjiect.getpLibraryName();
-					startRow = i+9;
+					isFirst = false;
 				}
 				if(i == id.length -1) {
-					endRow = i+9;
+					endRow = startRow + (i-oldI-1);
 					if(is == true) {
 						//合并直属库单元格
 						Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
@@ -498,8 +539,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						HSSFCell cellPLibraryName = row3.createCell(0);
 						cellPLibraryName.setCellValue(pLibraryName);
 					}
-				} else {
-					
 				}
 				HSSFCell cellsum = row3.createCell(1);
 				cellsum.setCellStyle(utils.Style1(workbook));
