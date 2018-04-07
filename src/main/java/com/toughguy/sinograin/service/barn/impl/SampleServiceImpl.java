@@ -144,7 +144,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					}
 				}
 			}
-			for (int i = 0; i < id.length; i++) {
+			for (int i = 0; i < intId.length; i++) {
 				CornExaminingReport cornExaminingReport = icornExaminingReportDao.findBasicSituation(intId[i]);
 				HSSFRow row3 =null;
 				if(isFirst == true) {
