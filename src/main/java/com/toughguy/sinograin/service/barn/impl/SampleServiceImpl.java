@@ -187,8 +187,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							System.out.println("最后一次合并");
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
 							HSSFCell cellPLibraryName = row3.createCell(0);
-							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
+							utils.setRegionStyle(sheet, region3, utils.Style2(workbook));
 							sheet.addMergedRegion(region3);
+							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(pLibraryName);
 						} else {
 							HSSFCell cellPLibraryName = row3.createCell(0);
@@ -209,7 +210,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
 							sheet.addMergedRegion(region3);
-							cellPLibraryName.setCellStyle(utils.Style1(workbook));
+							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 						} else {
 							System.out.println("不合并");
@@ -267,6 +268,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
 							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style1(workbook));
+							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 						} else {
 							HSSFCell cellPLibraryName = row3.createCell(0);
@@ -612,6 +614,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
 							sheet.addMergedRegion(region3);
+							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(pLibraryName);
 						} else {
 							HSSFCell cellPLibraryName = row3.createCell(0);
@@ -632,7 +635,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
 							sheet.addMergedRegion(region3);
-							cellPLibraryName.setCellStyle(utils.Style1(workbook));
+							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 						} else {
 							System.out.println("不合并");
@@ -689,7 +692,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
 							sheet.addMergedRegion(region3);
-							cellPLibraryName.setCellStyle(utils.Style1(workbook));
+							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 						} else {
 							HSSFCell cellPLibraryName = row3.createCell(0);

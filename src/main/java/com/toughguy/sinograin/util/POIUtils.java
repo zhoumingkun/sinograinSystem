@@ -210,6 +210,18 @@ public class POIUtils {
 				return style;
 			}
 			
+			
+			public HSSFCellStyle Style2(HSSFWorkbook wb) {
+				HSSFCellStyle style = Style(wb);
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("黑体");
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setWrapText(true); 
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+				style.setFont(fon);// 选择需要用到的字体格式
+				return style;
+			}
+			
 			/**
 			* 设置单元格边框（解决合并单元格显示部分边框问题）
 			* @param sheet 

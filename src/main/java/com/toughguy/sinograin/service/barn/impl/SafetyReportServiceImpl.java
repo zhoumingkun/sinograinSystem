@@ -3,6 +3,7 @@ package com.toughguy.sinograin.service.barn.impl;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -44,39 +45,47 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 			
 //			List<SafetyReport> ss = safetyReportService.find(ids);
 //			System.out.println(ss.size());
-			for(int j=1; j<ids.length; j++) {
+			for(int j=0; j<ids.length; j++) {
 				SafetyReport safetyReport = safetyReportService.find(ids[j]);
 				HSSFSheet sh = workbook.getSheetAt(0);  
-				HSSFRow row = sh.createRow(j+1);
+				HSSFRow row = sh.createRow(j+2);
+				row.setHeight((short) 300);
 				HSSFCell createCell = row.createCell(0);
-				createCell.setCellStyle(utils.Style1(workbook));
-				createCell.setCellValue(j);
+				createCell.setCellStyle(utils.Style2(workbook));
+				createCell.setCellValue(j+1);
 				
 				HSSFCell createCell2 = row.createCell(1);
 				createCell2.setCellStyle(utils.Style1(workbook));
-				createCell2.setCellValue(safetyReport.getLibraryName());
+				createCell2.setCellValue(safetyReport.getpLibraryName()+"_" +safetyReport.getLibraryName());
 				
 				HSSFCell createCell3 = row.createCell(2);
-				createCell3.setCellStyle(utils.Style1(workbook));
+				createCell3.setCellStyle(utils.Style2(workbook));
 				createCell3.setCellValue(safetyReport.getProblem());
 				
 				HSSFCell createCell4 = row.createCell(3);
-				createCell4.setCellStyle(utils.Style1(workbook));
-				createCell4.setCellValue(safetyReport.getIsDeal());
+				createCell4.setCellStyle(utils.Style2(workbook));
+				if(safetyReport.getIsDeal() == -1) {
+					createCell4.setCellValue("待解决");
+				} else {
+					createCell4.setCellValue("已解决");
+				}
 				
 				HSSFCell createCell5 = row.createCell(4);
-				createCell5.setCellStyle(utils.Style1(workbook));
+				createCell5.setCellStyle(utils.Style2(workbook));
 				createCell5.setCellValue(safetyReport.getPosition());
 				
 				HSSFCell createCell6 = row.createCell(5);
-				createCell6.setCellStyle(utils.Style1(workbook));
-				createCell6.setCellValue(safetyReport.getCreateTime());
+				createCell6.setCellStyle(utils.Style2(workbook));
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				String res = simpleDateFormat.format(safetyReport.getCreateTime());
+				createCell6.setCellValue(res);
 			}
 //			FileOutputStream out = new FileOutputStream("E://监督检查报告.xls");  
 //			 workbook.write(out);
 			OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+"监督检查报告"+".xls");
+    		response.setHeader("Access-Control-Allow-Origin", "*");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( "监督检查报告".getBytes("gb2312"), "ISO8859-1" )+".xls");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
     		output.flush();  
