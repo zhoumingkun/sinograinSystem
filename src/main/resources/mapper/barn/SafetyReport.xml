@@ -28,7 +28,14 @@
 	
 	<!-- 查询全部安全报告 -->
 	<select id="findAll" resultType="SafetyReport" parameterType="Map">
-		select * from barn_safety_report
+		select DISTINCT sr.* FROM barn_safety_report sr 
+		LEFT JOIN barn_sample bs ON sr.sampleId = bs.id 
+		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id
+		LEFT JOIN barn_task bt ON bss.taskId = bt.id
+		LEFT JOIN barn_register r on bs.pId = r.id 
+		LEFT JOIN barn_library l on r.libraryId = l.id
+		LEFT JOIN barn_library pbl on l.pLibraryId = pbl.id
+
 		<include refid="paramsSQL"/>
 	</select>
 	

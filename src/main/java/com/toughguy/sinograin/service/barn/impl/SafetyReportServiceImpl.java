@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 	 * 导出监督检查报告
 	 * 
 	 */
-	public void ExportSafetyReport(HttpServletResponse response,String ids) { 
+	public void ExportSafetyReport(HttpServletResponse response,int[] ids) { 
 		//传入的文件  
         FileInputStream fileInput;
         POIUtils utils = new POIUtils();
@@ -41,9 +42,10 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 			//对应Excel文件中的sheet，0代表第一个             
 			
-			List<SafetyReport> ss = safetyReportService.findAll();
-			System.out.println(ss.size());
-			for(int j=1; j<ss.size(); j++) {
+//			List<SafetyReport> ss = safetyReportService.find(ids);
+//			System.out.println(ss.size());
+			for(int j=1; j<ids.length; j++) {
+				SafetyReport safetyReport = safetyReportService.find(ids[j]);
 				HSSFSheet sh = workbook.getSheetAt(0);  
 				HSSFRow row = sh.createRow(j+1);
 				HSSFCell createCell = row.createCell(0);
@@ -52,26 +54,37 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 				
 				HSSFCell createCell2 = row.createCell(1);
 				createCell2.setCellStyle(utils.Style1(workbook));
-				createCell2.setCellValue(ss.get(j).getLibraryName());
+				createCell2.setCellValue(safetyReport.getLibraryName());
 				
 				HSSFCell createCell3 = row.createCell(2);
 				createCell3.setCellStyle(utils.Style1(workbook));
-				createCell3.setCellValue(ss.get(j).getProblem());
+				createCell3.setCellValue(safetyReport.getProblem());
 				
 				HSSFCell createCell4 = row.createCell(3);
 				createCell4.setCellStyle(utils.Style1(workbook));
-				createCell4.setCellValue(ss.get(j).getIsDeal());
+				createCell4.setCellValue(safetyReport.getIsDeal());
 				
 				HSSFCell createCell5 = row.createCell(4);
 				createCell5.setCellStyle(utils.Style1(workbook));
-				createCell5.setCellValue(ss.get(j).getPosition());
+				createCell5.setCellValue(safetyReport.getPosition());
 				
 				HSSFCell createCell6 = row.createCell(5);
 				createCell6.setCellStyle(utils.Style1(workbook));
-				createCell6.setCellValue(ss.get(j).getCreateTime());
+				createCell6.setCellValue(safetyReport.getCreateTime());
 			}
-			FileOutputStream out = new FileOutputStream("E://监督检查报告.xls");  
-			 workbook.write(out);
+//			FileOutputStream out = new FileOutputStream("E://监督检查报告.xls");  
+//			 workbook.write(out);
+			OutputStream output = response.getOutputStream();
+    		response.reset();
+    		response.setHeader("Content-disposition", "attachment; filename="+"监督检查报告"+".xls");
+    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    		workbook.write(output);
+    		output.flush();  
+	        //将Excel写出        
+	        workbook.write(output);  
+	        //关闭流  
+	        fileInput.close();  
+	        output.close(); 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  

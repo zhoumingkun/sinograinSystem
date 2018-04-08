@@ -474,7 +474,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
     		output.flush();  
@@ -888,7 +888,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
     		output.flush();  
@@ -1005,7 +1005,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
     		output.flush();  
@@ -1120,7 +1120,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
         //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
         OutputStream output = response.getOutputStream();
 		response.reset();
-		response.setHeader("Content-disposition", "attachment; filename="+title+".xls");
+		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
 		response.setContentType("application/vnd.ms-excel;charset=utf-8");
 		workbook.write(output);
 		output.flush();  

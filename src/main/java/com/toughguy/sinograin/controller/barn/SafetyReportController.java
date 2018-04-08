@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.controller.barn;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,8 +126,26 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/export") 
-	public String Export(HttpServletResponse response,String ids) {
+	public String Export(HttpServletResponse response,String params) {
 		try {			
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			List<SafetyReport> ss = safeService.findAll(map);
+			System.out.println(ss.size());
+			List<Integer> idss = new ArrayList<Integer>();
+			for(int i = 0;i<ss.size();i++) {
+				System.out.println(ss.get(i).getId());
+				idss.add(ss.get(i).getId());
+			}
+			int[] ids = new int[idss.size()];
+			for(int i=0;i<idss.size();i++) {
+				ids[i] = idss.get(i);
+			}
+			System.out.println(ids.length);
 			safeService.ExportSafetyReport(response,ids);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -134,6 +153,8 @@ public class SafetyReportController {
 			return "{ \"success\" : false }";
 		}
 	}
+
+		
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")

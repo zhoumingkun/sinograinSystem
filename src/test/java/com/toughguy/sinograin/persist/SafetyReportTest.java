@@ -24,9 +24,9 @@ public class SafetyReportTest {
 	@Autowired
 	private ISafetyReportService safetyReportService;
 	
-	@Test
-	public void testReg(){
-//		safetyReportService.ExportSafetyReport();
-	}
+//	@Test
+//	public void testReg(){
+//		safetyReportService.ExportSafetyReport(null, null);
+//	}
 
 }
