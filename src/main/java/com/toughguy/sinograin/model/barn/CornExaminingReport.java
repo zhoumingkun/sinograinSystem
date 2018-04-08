@@ -42,6 +42,7 @@ public class CornExaminingReport {
 	private String zhifangsuanzhi_pingjunzhi;  //平均值（mgKOH/100g干基）(脂肪酸值)
 	private String pinchangpingfenzhi;  //品尝评分值
 	
+	private int sampleId;  //样品id（页面展示）
 	private String smallSampleNum; //小样编号
 	private String taskName; //任务名称（页面展示）
 	public String getpLibraryName() {
@@ -249,6 +250,12 @@ public class CornExaminingReport {
 	}
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
+	}
+	public int getSampleId() {
+		return sampleId;
+	}
+	public void setSampleId(int sampleId) {
+		this.sampleId = sampleId;
 	}
 
 }
