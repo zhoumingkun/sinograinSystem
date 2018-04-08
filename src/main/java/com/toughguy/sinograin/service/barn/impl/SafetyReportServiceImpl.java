@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -27,7 +29,7 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 	 * 导出监督检查报告
 	 * 
 	 */
-	public void ExportSafetyReport() { 
+	public void ExportSafetyReport(HttpServletResponse response,String ids) { 
 		//传入的文件  
         FileInputStream fileInput;
         POIUtils utils = new POIUtils();

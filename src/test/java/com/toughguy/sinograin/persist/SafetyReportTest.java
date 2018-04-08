@@ -26,7 +26,7 @@ public class SafetyReportTest {
 	
 	@Test
 	public void testReg(){
-		safetyReportService.ExportSafetyReport();
+//		safetyReportService.ExportSafetyReport();
 	}
 
 }
