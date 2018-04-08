@@ -9,11 +9,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -125,8 +128,9 @@ public class SafetyReportController {
 	}		
 	
 	@ResponseBody
-	@RequestMapping(value = "/export") 
-	public String Export(HttpServletResponse response,String params) {
+	@RequestMapping(value = "/export/{params}") 
+	public String Export(HttpServletResponse response,@PathVariable String params) {
+		System.out.println(params);
 		try {			
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();

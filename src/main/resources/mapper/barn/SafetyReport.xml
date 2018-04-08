@@ -23,7 +23,12 @@
 	
 	<!-- 查询某条安全报告 -->
 	<select id="find" parameterType="int" resultType="SafetyReport">
-		select * from barn_safety_report where id = #{id}
+		select bsr.*,bs.position,bl.libraryName,pbl.libraryName pLibraryName from barn_safety_report bsr 
+		LEFT JOIN barn_sample bs on bsr.sampleId = bs.id 
+		LEFT JOIN barn_register br ON bs.pId = br.id 
+		LEFT JOIN barn_library bl ON br.libraryId = bl.id 
+		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.id
+		where bsr.id = #{id}
 	</select>
 	
 	<!-- 查询全部安全报告 -->
