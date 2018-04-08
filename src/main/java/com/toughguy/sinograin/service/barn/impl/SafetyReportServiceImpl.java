@@ -49,20 +49,21 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 				SafetyReport safetyReport = safetyReportService.find(ids[j]);
 				HSSFSheet sh = workbook.getSheetAt(0);  
 				HSSFRow row = sh.createRow(j+2);
+				row.setHeight((short) 300);
 				HSSFCell createCell = row.createCell(0);
-				createCell.setCellStyle(utils.Style1(workbook));
-				createCell.setCellValue(j);
+				createCell.setCellStyle(utils.Style2(workbook));
+				createCell.setCellValue(j+1);
 				
 				HSSFCell createCell2 = row.createCell(1);
 				createCell2.setCellStyle(utils.Style1(workbook));
 				createCell2.setCellValue(safetyReport.getpLibraryName()+"_" +safetyReport.getLibraryName());
 				
 				HSSFCell createCell3 = row.createCell(2);
-				createCell3.setCellStyle(utils.Style1(workbook));
+				createCell3.setCellStyle(utils.Style2(workbook));
 				createCell3.setCellValue(safetyReport.getProblem());
 				
 				HSSFCell createCell4 = row.createCell(3);
-				createCell4.setCellStyle(utils.Style1(workbook));
+				createCell4.setCellStyle(utils.Style2(workbook));
 				if(safetyReport.getIsDeal() == -1) {
 					createCell4.setCellValue("待解决");
 				} else {
@@ -70,11 +71,11 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 				}
 				
 				HSSFCell createCell5 = row.createCell(4);
-				createCell5.setCellStyle(utils.Style1(workbook));
+				createCell5.setCellStyle(utils.Style2(workbook));
 				createCell5.setCellValue(safetyReport.getPosition());
 				
 				HSSFCell createCell6 = row.createCell(5);
-				createCell6.setCellStyle(utils.Style1(workbook));
+				createCell6.setCellStyle(utils.Style2(workbook));
 				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 				String res = simpleDateFormat.format(safetyReport.getCreateTime());
 				createCell6.setCellValue(res);
