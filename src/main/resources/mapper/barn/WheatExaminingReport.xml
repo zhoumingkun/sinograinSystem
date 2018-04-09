@@ -21,7 +21,7 @@
 		SELECT distinct bt.taskName, bm.qualityGrade,bss.smallSampleNum, bsc.pingjunzhi shuifen_pingjunzhi, bzbc.zazhizongliang_1, 
 		bzbc.kuangwuzhihanliang_pingjunzhi, bzbc.buwanshanlihanliang_pingjunzhi_1, 
 		bcc.yingduzhishu_pingjunzhi, bcc.sezeqiwei_pingjunzhi, bmc.pingjunzhiganmianjinzhiliang, 
-		bcc.shimianjin_pingjunzhi, bmp.pinchangpingfenzhi , bs.id sampleId FROM barn_sample bs 
+		bcc.shimianjin_pingjunzhi, bmp.pinchangpingfenzhi , bs.id sampleId,bs.sampleNum FROM barn_sample bs 
 		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bss.taskId = bt.id
 		LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id 

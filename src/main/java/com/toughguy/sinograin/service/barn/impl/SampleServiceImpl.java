@@ -105,7 +105,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 //			cell2.setCellStyle(utils.Style1(workbook));
 //			cell2.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
 //			cell2.setCellFormula("SUM(H9)");
-//			
+			for (int i = 8; i < 42; i++) {
+			HSSFCell createCell = row1.createCell(i);
+			createCell.setCellStyle(utils.Style1(workbook));
+			createCell.setCellValue("");
+		}
 			
 			HSSFRow row2 = sheet.createRow(8);
 			Region region2 = new Region(8, (short) 1, 8, (short) 6);
@@ -114,6 +118,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			utils.setRegionStyle(sheet, region2, utils.Style1(workbook));
 			sheet.addMergedRegion(region2);
 			cell3.setCellValue("小计");
+			
+			for (int i = 8; i < 42; i++) {
+				HSSFCell createCell = row2.createCell(i);
+				createCell.setCellStyle(utils.Style1(workbook));
+				createCell.setCellValue("");
+			}
 			
 			HSSFCell cell4 = row2.createCell(7);
 			cell4.setCellStyle(utils.Style1(workbook));
@@ -229,6 +239,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							sheet.addMergedRegion(regionXiaoJi);
 							cellXiaoJi.setCellValue("小计");
 							endRow = startRow + (i-oldI-1);
+							
+							for (int j = 8; j < 42; j++) {
+								HSSFCell createCell = rowXiaoJi.createCell(j);
+								createCell.setCellStyle(utils.Style1(workbook));
+								createCell.setCellValue("");
+							}
+							
 						} else {
 							System.out.println("加小计w" + i + "endRow" + endRow);
 							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
@@ -240,6 +257,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							endRow = startRow + (i-oldI-1);
 							startRow = endRow+2;
 							oldI = i;
+							
+							for (int j = 8; j < 42; j++) {
+								HSSFCell createCell = rowXiaoJi.createCell(j);
+								createCell.setCellStyle(utils.Style1(workbook));
+								createCell.setCellValue("");
+							}
 						}
 						
 						
@@ -261,6 +284,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						row3 = sheet.createRow(startRow + (i-oldI)+1);
 						System.out.println(row3.getRowNum() + "----------------");
 						row3.setHeight((short) 300); // 行高
+						
+						for (int j = 8; j < 42; j++) {
+							HSSFCell createCell = rowXiaoJi.createCell(j);
+							createCell.setCellStyle(utils.Style1(workbook));
+							createCell.setCellValue("");
+						}
 						if(is == true) {
 							//合并直属库单元格
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
@@ -291,7 +320,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				
 				HSSFCell cell8 = row3.createCell(3);
 				cell8.setCellStyle(utils.Style1(workbook));
-				cell8.setCellValue(cornExaminingReport.getSampleNum());
+				cell8.setCellValue("监"+cornExaminingReport.getSampleNum());
 				
 				HSSFCell cell9 = row3.createCell(4);
 				cell9.setCellStyle(utils.Style1(workbook));
@@ -331,7 +360,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell17.setCellStyle(utils.Style1(workbook));
 				cell17.setCellValue(cornExaminingReport.getSampleTime());
 				
-				Region region4 = new Region(i+9, (short) 13, i+9, (short) 16);
+				Region region4 = new Region(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 16);
 				HSSFCell celll = row3.createCell(13);
 				utils.setRegionStyle(sheet, region4, utils.Style1(workbook));
 				sheet.addMergedRegion(region4);
@@ -411,7 +440,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				HSSFCell cell42 = row3.createCell(42);
 				cell42.setCellStyle(utils.Style1(workbook));
 				cell42.setCellValue("");
-				List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
+				List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(intId[i]);
 				for(int j=1; j<cornExaminingReport1.size(); j++) {
 					int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
 					HSSFCell createCell = row3.createCell(29);
@@ -508,7 +537,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 			//对应Excel文件中的sheet，0代表第一个             
 			HSSFSheet sheet = workbook.getSheetAt(0);
-			
+			sheet.createFreezePane(10,7,10,7 ); //冻结行列
 			HSSFRow row = sheet.createRow(0);
 			Region region = new Region(0, (short) 0, 1, (short) 41);
 			 
@@ -524,7 +553,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			utils.setRegionStyle(sheet, region1, utils.Style1(workbook));
 			sheet.addMergedRegion(region1);
 			cell1.setCellValue("合计");
-			
+			for (int i = 8; i < 43; i++) {
+				HSSFCell createCell = row1.createCell(i);
+				createCell.setCellStyle(utils.Style1(workbook));
+				createCell.setCellValue("");
+			}
 			HSSFCell cell2 = row1.createCell(7);
 			cell2.setCellStyle(utils.Style1(workbook));
 			cell2.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
@@ -537,7 +570,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			utils.setRegionStyle(sheet, region2, utils.Style1(workbook));
 			sheet.addMergedRegion(region2);
 			cell3.setCellValue("小计");
-			
+			for (int i = 8; i < 43; i++) {
+				HSSFCell createCell = row2.createCell(i);
+				createCell.setCellStyle(utils.Style1(workbook));
+				createCell.setCellValue("");
+			}
 			HSSFCell cell4 = row2.createCell(7);
 			cell4.setCellStyle(utils.Style1(workbook));
 			cell4.setCellType(HSSFCell.CELL_TYPE_NUMERIC);
@@ -654,6 +691,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							sheet.addMergedRegion(regionXiaoJi);
 							cellXiaoJi.setCellValue("小计");
 							endRow = startRow + (i-oldI-1);
+							for (int j = 8; j < 43; j++) {
+								HSSFCell createCell = rowXiaoJi.createCell(j);
+								createCell.setCellStyle(utils.Style1(workbook));
+								createCell.setCellValue("");
+							}
 						} else {
 							System.out.println("加小计w" + i + "endRow" + endRow);
 							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
@@ -665,6 +707,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							endRow = startRow + (i-oldI-1);
 							startRow = endRow+2;
 							oldI = i;
+							for (int j = 8; j < 43; j++) {
+								HSSFCell createCell = rowXiaoJi.createCell(j);
+								createCell.setCellStyle(utils.Style1(workbook));
+								createCell.setCellValue("");
+							}
 						}
 						
 						
@@ -686,6 +733,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						row3 = sheet.createRow(startRow + (i-oldI)+1);
 						System.out.println(row3.getRowNum() + "----------------");
 						row3.setHeight((short) 300); // 行高
+						for (int j = 8; j < 43; j++) {
+							HSSFCell createCell = rowXiaoJi.createCell(j);
+							createCell.setCellStyle(utils.Style1(workbook));
+							createCell.setCellValue("");
+						}
 						if(is == true) {
 							//合并直属库单元格
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
@@ -715,7 +767,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				
 				HSSFCell cell7 = row3.createCell(3);
 				cell7.setCellStyle(utils.Style1(workbook));
-				cell7.setCellValue(Wobjiect.getSampleNum());
+				cell7.setCellValue("监"+Wobjiect.getSampleNum());
 				
 				HSSFCell cell8 = row3.createCell(4);
 				cell8.setCellStyle(utils.Style1(workbook));
@@ -820,14 +872,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell41.setCellStyle(utils.Style1(workbook));
 				cell41.setCellValue("");
 				
-				HSSFCell cell42 = row3.createCell(42);
-				cell42.setCellStyle(utils.Style1(workbook));
-				cell42.setCellValue("");
 				//查询质量验收情况（根据小样编号
-				List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-				
-				for(int j=1; j<Wobjiect1.size(); j++) {
+				List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(intId[i]);
+				for(int j=0; j<Wobjiect1.size(); j++) {
 					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
+					System.out.println(newNum+"NEWnum");
 					HSSFCell cell27 = row3.createCell(28);
 					cell27.setCellStyle(utils.Style1(workbook));
 					cell27.setCellValue(Wobjiect1.get(j).getQualityGrade());
@@ -836,12 +885,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					cell28.setCellStyle(utils.Style1(workbook));
 					cell28.setCellValue(Wobjiect1.get(j).getRealCapacity());
 					
-					if(newNum == 04) {
+					if(newNum == 4) {
 						HSSFCell cell29 = row3.createCell(30);
 						cell29.setCellStyle(utils.Style1(workbook));
 						cell29.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
 					}
-					else if(newNum == 02) {
+					else if(newNum == 2) {
 						HSSFCell cell30 = row3.createCell(31);
 						cell30.setCellStyle(utils.Style1(workbook));
 						cell30.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
@@ -854,7 +903,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						cell32.setCellStyle(utils.Style1(workbook));
 						cell32.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
 					}
-					else if(newNum == 05) {
+					else if(newNum == 5) {
 						HSSFCell cell33 = row3.createCell(34);
 						cell33.setCellStyle(utils.Style1(workbook));
 						cell33.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
@@ -863,7 +912,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						cell34.setCellStyle(utils.Style1(workbook));
 						cell34.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
 					}
-					else if(newNum == 06) {
+					else if(newNum == 6) {
 						HSSFCell cell35 = row3.createCell(36);
 						cell35.setCellStyle(utils.Style1(workbook));
 						cell35.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
@@ -872,7 +921,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						cell36.setCellStyle(utils.Style1(workbook));
 						cell36.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
 					}
-					else if(newNum == 07) {
+					else if(newNum == 7) {
 						HSSFCell cell37 = row3.createCell(38);
 						cell37.setCellStyle(utils.Style1(workbook));
 						cell37.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
@@ -942,64 +991,68 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					
 					HSSFCell cell2 = row.createCell(1);
 					cell2.setCellStyle(utils.Style1(workbook));
-					cell2.setCellValue(Wobjiect1.get(j).getQualityGrade());
+					cell2.setCellValue("监" + Wobjiect1.get(j).getSampleNum());
 					
 					HSSFCell cell3 = row.createCell(2);
 					cell3.setCellStyle(utils.Style1(workbook));
-					cell3.setCellValue(Wobjiect1.get(j).getRealCapacity());
+					cell3.setCellValue(Wobjiect1.get(j).getQualityGrade());
 					
-					if(newNum == 04) {
-						HSSFCell cell4 = row.createCell(3);
-						cell4.setCellStyle(utils.Style1(workbook));
-						cell4.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
-					}
-					else if(newNum == 01) {
+					HSSFCell cell4 = row.createCell(3);
+					cell4.setCellStyle(utils.Style1(workbook));
+					cell4.setCellValue(Wobjiect1.get(j).getRealCapacity());
+					
+					if(newNum == 4) {
 						HSSFCell cell5 = row.createCell(4);
 						cell5.setCellStyle(utils.Style1(workbook));
-						cell5.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
-						
+						cell5.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
+					}
+					else if(newNum == 1) {
 						HSSFCell cell6 = row.createCell(5);
 						cell6.setCellStyle(utils.Style1(workbook));
-						cell6.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
+						cell6.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
 						
 						HSSFCell cell7 = row.createCell(6);
 						cell7.setCellStyle(utils.Style1(workbook));
-						cell7.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-					}
-					else if(newNum == 05) {
+						cell7.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
+						
 						HSSFCell cell8 = row.createCell(7);
 						cell8.setCellStyle(utils.Style1(workbook));
-						cell8.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
-						
+						cell8.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					}
+					else if(newNum == 5) {
 						HSSFCell cell9 = row.createCell(8);
-						cell8.setCellStyle(utils.Style1(workbook));
-						cell8.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
-					}
-					else if(newNum == 06) {
-						HSSFCell cell10 = row.createCell(10);
+						cell9.setCellStyle(utils.Style1(workbook));
+						cell9.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
+						
+						HSSFCell cell10 = row.createCell(9);
 						cell10.setCellStyle(utils.Style1(workbook));
-						cell10.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
-					    
-						HSSFCell cell11 = row.createCell(11);
-						cell11.setCellStyle(utils.Style1(workbook));
-						cell11.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
+						cell10.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
 					}
-					else if(newNum == 07) {
-						HSSFCell cell12 = row.createCell(12);
+					else if(newNum == 6) {
+						HSSFCell cell12 = row.createCell(11);
 						cell12.setCellStyle(utils.Style1(workbook));
-						cell12.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
+						cell12.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
+					    
+						HSSFCell cell13 = row.createCell(12);
+						cell13.setCellStyle(utils.Style1(workbook));
+						cell13.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
 					}
-					HSSFCell cell9 = row.createCell(9);
-					cell9.setCellStyle(utils.Style1(workbook));
-					cell9.setCellValue("");
+					else if(newNum == 7) {
+						HSSFCell cell14 = row.createCell(13);
+						cell14.setCellStyle(utils.Style1(workbook));
+						cell14.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
+					}
+					HSSFCell cell11 = row.createCell(10);
+					cell11.setCellStyle(utils.Style1(workbook));
+					cell11.setCellValue("");
 					
-					HSSFCell cell13 = row.createCell(13);
-					cell13.setCellStyle(utils.Style1(workbook));
-					cell13.setCellValue("");
+					HSSFCell cell15 = row.createCell(14);
+					cell15.setCellStyle(utils.Style1(workbook));
+					cell15.setCellValue("");
 					
-					HSSFCell cell14 = row.createCell(14);
-					cell14.setCellStyle(utils.Style1(workbook));
-					cell14.setCellValue("");
+					HSSFCell cell16 = row.createCell(15);
+					cell16.setCellStyle(utils.Style1(workbook));
+					cell16.setCellValue("");
 				}
 
 //			 FileOutputStream out = new FileOutputStream("E://小麦质量.xls");  
@@ -1063,56 +1116,60 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			
 			HSSFCell createCell2 = row.createCell(1);
 			createCell2.setCellStyle(utils.Style1(workbook));
-			createCell2.setCellValue(cornExaminingReport1.get(j).getQualityGrade());
+			createCell2.setCellValue("监" + cornExaminingReport1.get(j).getSampleNum());
 			
 			HSSFCell createCell3 = row.createCell(2);
 			createCell3.setCellStyle(utils.Style1(workbook));
-			createCell3.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
+			createCell3.setCellValue(cornExaminingReport1.get(j).getQualityGrade());
+			
+			HSSFCell createCell4 = row.createCell(3);
+			createCell4.setCellStyle(utils.Style1(workbook));
+			createCell4.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
 			if(newNum == 04) {
-				HSSFCell cell1 = row.createCell(3);
+				HSSFCell cell1 = row.createCell(4);
 				cell1.setCellStyle(utils.Style1(workbook));
 				cell1.setCellValue(cornExaminingReport1.get(j).getShuifen_pingjunzhi());
 			}
 			else if(newNum == 02) {
-				HSSFCell cell2 = row.createCell(4);
+				HSSFCell cell2 = row.createCell(5);
 				cell2.setCellStyle(utils.Style1(workbook));
 				cell2.setCellValue(cornExaminingReport1.get(j).getZazhizongliang_1());
 			}
 			else if(newNum == 01) {
-				HSSFCell cell3 = row.createCell(5);
+				HSSFCell cell3 = row.createCell(6);
 				cell3.setCellStyle(utils.Style1(workbook));
 				cell3.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
 				
 			}
 			else if(newNum == 03) {
-				HSSFCell cell4 = row.createCell(6);
+				HSSFCell cell4 = row.createCell(7);
 				cell4.setCellStyle(utils.Style1(workbook));
 				cell4.setCellValue(cornExaminingReport1.get(j).getShengmeilihanliang_pingjunzhi());
 			}
 			else if(newNum == 05) {
-				HSSFCell cell5 = row.createCell(7);
+				HSSFCell cell5 = row.createCell(8);
 				cell5.setCellStyle(utils.Style1(workbook));
 				cell5.setCellValue(cornExaminingReport1.get(j).getSezeqiwei_pingjunzhi());
 			}
 			else if(newNum == 06) {
-				HSSFCell cell6 = row.createCell(9);
+				HSSFCell cell6 = row.createCell(10);
 				cell6.setCellStyle(utils.Style1(workbook));
 				cell6.setCellValue(cornExaminingReport1.get(j).getZhifangsuanzhi_pingjunzhi());
 			}
 			else if(newNum == 07) {
-				HSSFCell cell7 = row.createCell(10);
+				HSSFCell cell7 = row.createCell(11);
 				cell7.setCellStyle(utils.Style1(workbook));
 				cell7.setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
 			}
-			HSSFCell cell12 = row.createCell(8);
+			HSSFCell cell12 = row.createCell(9);
 			cell12.setCellStyle(utils.Style1(workbook));
 			cell12.setCellValue("");
 			
-			HSSFCell cell13 = row.createCell(11);
+			HSSFCell cell13 = row.createCell(12);
 			cell13.setCellStyle(utils.Style1(workbook));
 			cell13.setCellValue("");
 			
-			HSSFCell cell14 = row.createCell(12);
+			HSSFCell cell14 = row.createCell(13);
 			cell14.setCellStyle(utils.Style1(workbook));
 			cell14.setCellValue("");
 		}
