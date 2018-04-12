@@ -31,13 +31,13 @@ public class ZhifangsuanzhiController {
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("zhifangsuanzhi:all")
+	//@RequiresPermissions("zhifangsuanzhi:getById")
 	public Zhifangsuanzhi get(int id){
 		return zhifangsuanzhiService.find(id);
 	}
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("zhifangsuanzhi:all")
+	//@RequiresPermissions("zhifangsuanzhi:getBySmallSampleId")
 	public Zhifangsuanzhi getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -50,7 +50,7 @@ public class ZhifangsuanzhiController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("zhifangsuanzhi:delete")
+	//@RequiresPermissions("zhifangsuanzhi:remove")
 	public String remove(int id) {
 		try {
 			zhifangsuanzhiService.delete(id);
@@ -76,7 +76,7 @@ public class ZhifangsuanzhiController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("zhifangsuanzhi:delete")
+	//@RequiresPermissions("zhifangsuanzhi:save")
 	public String save(Zhifangsuanzhi zhifangsuanzhi) {
 		try {
 			SmallSample ss = smallSampleService.find(zhifangsuanzhi.getSmallSampleId());

@@ -55,14 +55,14 @@ public class SmallSampleController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("SmallSample:all")
+	//@RequiresPermissions("SmallSample:getById")
 	public SmallSample get(int id){
 		return smallSampleService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySmallSampleNum")
-	//@RequiresPermissions("sample:all")
+	//@RequiresPermissions("sample:getBySmallSampleNum")
 	public SmallSample getBySmallSampleNum(String smallSampleNum) {
 		SmallSample smallSample =  smallSampleService.findBySmallSampleNum(smallSampleNum);
 		if(smallSample.getCheckPoint() == 1 || smallSample.getCheckPoint() == 2 ||smallSample.getCheckPoint() == 3) {

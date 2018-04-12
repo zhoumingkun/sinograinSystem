@@ -31,14 +31,14 @@ public class MantoupinchangController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("mantoupinchang:all")
+	//@RequiresPermissions("mantoupinchang:getById")
 	public Mantoupinchang get(int id){
 		return mantoupinchangService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("mantoupinchang:all")
+	//@RequiresPermissions("mantoupinchang:getBySmallSampleId")
 	public Mantoupinchang getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -66,7 +66,7 @@ public class MantoupinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("mantoupinchang:delete")
+	//@RequiresPermissions("mantoupinchang:remove")
 	public String remove(int id) {
 		try {
 			mantoupinchangService.delete(id);

@@ -57,14 +57,14 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/get")
-	//@RequiresPermissions("sample:all")
+	//@RequiresPermissions("sample:getById")
 	public Sample get(int id) {	
 		return sampleService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("sample:delete")
+	//@RequiresPermissions("sample:remove")
 	public String remove(int id) {
 		try {
 			sampleService.delete(id);
@@ -105,21 +105,21 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNo")
-	//@RequiresPermissions("sample:all")
+	//@RequiresPermissions("sample:getBySampleNo")
 	public Sample getBySampleNo(String sampleNo) {	
 			return sampleService.findBySampleNo(sampleNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
-	//@RequiresPermissions("sample:all")
+	//@RequiresPermissions("sample:getBySampleNum")
 	public Sample getBySampleNum(String sampleNo) {
 			return sampleService.findBySampleNum(sampleNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveOrEditAll")
-	//@RequiresPermissions("sample:save")
+	//@RequiresPermissions("sample:saveOrEditAll")
 	public String saveOrEditAll(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -148,7 +148,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
-	//@RequiresPermissions("sample:save")
+	//@RequiresPermissions("sample:saveAll")
 	public String saveSampleAndRegister(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -165,7 +165,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/split")
-	//@RequiresPermissions("SmallSample:split")
+	//@RequiresPermissions("sample:split")
 	public String splitSample(int id,int isPrint,String params,int taskId) {
 		try {
 			if(isPrint == 3) {
@@ -261,7 +261,7 @@ public class SampleController {
 	//导出小麦总表
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
-	//@RequiresPermissions("sample:report")
+	//@RequiresPermissions("sample:reportXM")
 	public String ExeclPOI(HttpServletResponse response,String ids,String title) {
 		try {			
 			sampleService.ExeclPOI(response,ids,title);
@@ -275,7 +275,7 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
-	//@RequiresPermissions("sample:report")
+	//@RequiresPermissions("sample:reportYM")
 	public  String Export(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -289,7 +289,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/findSamplesByTask")
-	//@RequiresPermissions("sample:all")
+	//@RequiresPermissions("sample:findSamplesByTask")
 	public List<Sample> findSamplesByTask(String taskName) {		
 		return sampleService.findSamplesByTask(taskName);
 	}
@@ -297,7 +297,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dataWheatReport")
-	//@RequiresPermissions("sample:report")
+	//@RequiresPermissions("sample:dataWheatReport")
 	public List<WheatExaminingReport> dataWheatReport(String ids) {
 		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
 		String[] id = ids.split(",");
@@ -335,7 +335,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/dataCornReport")
-	//@RequiresPermissions("sample:report")
+	//@RequiresPermissions("sample:dataCornReport")
 	public List<CornExaminingReport> dataCornReport(String ids) {
 		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
 		String[] id = ids.split(",");
@@ -379,7 +379,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportXMzhiliang")
-	//@RequiresPermissions("sample:report")
+	//@RequiresPermissions("sample:ExportXMzhiliang")
 	public String ExportXMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -394,7 +394,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportYMzhiliang")
-	//@RequiresPermissions("sample:report")
+	//@RequiresPermissions("sample:ExportYMzhiliang")
 	public String ExportYMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果

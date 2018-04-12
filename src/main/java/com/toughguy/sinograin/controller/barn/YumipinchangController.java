@@ -32,14 +32,14 @@ public class YumipinchangController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("yumipinchang:all")
+	//@RequiresPermissions("yumipinchang:getById")
 	public Yumipinchang get(int id){
 		return yumipinchangService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("yumipinchang:all")
+	//@RequiresPermissions("yumipinchang:getBySmallSampleId")
 	public Yumipinchang getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -69,7 +69,7 @@ public class YumipinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("yumipinchang:delete")
+	//@RequiresPermissions("yumipinchang:remove")
 	public String remove(int id) {
 		try {
 			yumipinchangService.delete(id);

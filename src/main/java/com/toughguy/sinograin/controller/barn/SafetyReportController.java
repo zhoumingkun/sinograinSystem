@@ -46,13 +46,13 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("safety:all")
+	//@RequiresPermissions("safety:getById")
 	public SafetyReport get(int id){
 		return safeService.find(id);
 	}
 	@ResponseBody
 	@RequestMapping("/remove")
-	//@RequiresPermissions("safety:delete")
+	//@RequiresPermissions("safety:remove")
 	public String remove(int id){
 		try {		
 			safeService.delete(id);
@@ -110,7 +110,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/uploadBase64")
-	//@RequiresPermissions("safety:upload")
+	//@RequiresPermissions("safety:uploadBase64")
 	public String uploadPicture(String pictureFile){
 		// 重命名文件
 		String path = BackupUtil.rename("jpg");

@@ -66,7 +66,7 @@ public class RoleController {
 	@RequestMapping(value = "/listAll")
 	//@SystemControllerLog(description="权限管理-角色全部列表")
 	@ResponseBody
-	@RequiresPermissions("role:list")
+	@RequiresPermissions("role:listAll")
 	public List<Role> listAllRole(HttpSession session) {
 		List <Role> roleList = roleService.findRoleTree();
 		return roleList;
@@ -210,7 +210,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteAll")
-	@RequiresPermissions("role:delete")
+	@RequiresPermissions("role:deleteAll")
 	//@SystemControllerLog(description="权限管理-删除多个角色")
 	public String deleteAllRole(String role_ids) {
 		try {

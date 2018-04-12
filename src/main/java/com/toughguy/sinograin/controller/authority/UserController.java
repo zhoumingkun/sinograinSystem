@@ -165,7 +165,7 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "/deleteAll")
-	@RequiresPermissions("user:detele")
+	@RequiresPermissions("user:deleteAll")
 	//@SystemControllerLog(description="权限管理-删除多个用户")
 	public String deteteAllUser(String user_ids) {
 		try {

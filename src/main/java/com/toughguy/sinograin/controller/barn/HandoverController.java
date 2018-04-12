@@ -35,14 +35,14 @@ public class HandoverController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("handover:all")
+	//@RequiresPermissions("handover:getById")
 	public Handover get(int id){
 		return handoverService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("handover:delete")
+	//@RequiresPermissions("handover:remove")
 	public String remove(Handover handover) {
 		try {
 			barnService.dealCheck(handover,3,null);

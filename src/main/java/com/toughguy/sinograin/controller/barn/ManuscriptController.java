@@ -65,7 +65,7 @@ public class ManuscriptController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveMan")
-	//@RequiresPermissions("manuscript:all")
+	//@RequiresPermissions("manuscript:saveMan")
 	public String saveMan(String params){
 		try{
 			Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
@@ -80,7 +80,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveOrEditMobile")
-	//@RequiresPermissions("manuscript:save")
+	//@RequiresPermissions("manuscript:saveOrEditMobile")
 	public String saveManMobile(String params,int type) {
 		try {
 			ObjectMapper om = new ObjectMapper();

@@ -32,14 +32,14 @@ public class ZhenjundusuController {
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("zhenjundusu:all")
+	//@RequiresPermissions("zhenjundusu:getById")
 	public Zhenjundusu get(int id){
 		return zhenjundusuService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("zhenjundusu:all")
+	//@RequiresPermissions("zhenjundusu:getBySmallSampleId")
 	public Zhenjundusu getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -52,7 +52,7 @@ public class ZhenjundusuController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("zhenjundusu:delete")
+	//@RequiresPermissions("zhenjundusu:remove")
 	public String remove(int id) {
 		try {
 			zhenjundusuService.delete(id);

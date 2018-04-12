@@ -23,14 +23,14 @@ public class MantoubirongController {
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("Mantoubirong:all")
+	//@RequiresPermissions("Mantoubirong:getById")
 	public Mantoubirong get(int id){
 		return mantoubirongService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("Mantoubirong:delete")
+	//@RequiresPermissions("Mantoubirong:remove")
 	public String remove(int id) {
 		try {
 			mantoubirongService.delete(id);

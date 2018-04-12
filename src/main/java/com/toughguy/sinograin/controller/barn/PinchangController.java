@@ -25,7 +25,7 @@ public class PinchangController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("pinchang:all")
+	//@RequiresPermissions("pinchang:getById")
 	public Pinchang get(int id){
 		return pinchangService.find(id);
 	}
@@ -46,7 +46,7 @@ public class PinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("pinchang:delete")
+	//@RequiresPermissions("pinchang:remove")
 	public String remove(int id) {
 		try {
 			pinchangService.delete(id);

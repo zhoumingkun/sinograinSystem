@@ -31,14 +31,14 @@ public class BuwanshanliController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("buwanshanli:all")
+	//@RequiresPermissions("buwanshanli:getById")
 	public Buwanshanli get(int id){
 		return buwanshanliService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("buwanshanli:all")
+	//@RequiresPermissions("buwanshanli:getBySmallSampleId")
 	public Buwanshanli getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -67,7 +67,7 @@ public class BuwanshanliController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("buwanshanli:delete")
+	//@RequiresPermissions("buwanshanli:remove")
 	public String remove(int id) {
 		try {
 			buwanshanliService.delete(id);

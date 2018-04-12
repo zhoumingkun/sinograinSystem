@@ -36,7 +36,7 @@ public class TaskController {
 	//玉米库id和货位号查询质检报告
 	@ResponseBody
 	@RequestMapping("/findCornSampleIdBylibraryId")
-	//@RequiresPermissions("task:all")
+	//@RequiresPermissions("task:findCornSampleIdBylibraryId")
 	public List<CornExaminingReport> findCornSampleIdBylibraryId(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -59,7 +59,7 @@ public class TaskController {
 		//小麦库id和货位号查询质检报告
 		@ResponseBody
 		@RequestMapping("/findWheatSampleIdBylibraryId")
-		//@RequiresPermissions("task:all")
+		//@RequiresPermissions("task:findWheatSampleIdBylibraryId")
 		public List<WheatExaminingReport> findWheatSampleIdBylibraryId(String params) {
 			try {
 				ObjectMapper om = new ObjectMapper();
@@ -96,14 +96,14 @@ public class TaskController {
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("task:all")
+	//@RequiresPermissions("task:getById")
 	public Task get(int id){
 		return taskService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("task:delete")
+	//@RequiresPermissions("task:remove")
 	public String remove(int id) {
 		try {
 			taskService.delete(id);

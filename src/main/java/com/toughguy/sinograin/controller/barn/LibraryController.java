@@ -33,7 +33,7 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping("/getFirst")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("library:getFirst")
 	public String getFirst(String params){
 		try { 
 			ObjectMapper om = new ObjectMapper();
@@ -52,7 +52,7 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("library:getById")
 	public Library get(int id){
 		return libraryService.find(id);
 	}

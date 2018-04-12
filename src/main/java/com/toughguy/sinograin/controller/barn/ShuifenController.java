@@ -32,14 +32,14 @@ public class ShuifenController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("shuifen:all")
+	//@RequiresPermissions("shuifen:getById")
 	public Shuifen get(int id){
 		return shuifenService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("shuifen:all")
+	//@RequiresPermissions("shuifen:getBySmallSampleId")
 	public Shuifen getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -68,7 +68,7 @@ public class ShuifenController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("shuifen:delete")
+	//@RequiresPermissions("shuifen:remove")
 	public String remove(int id) {
 		try {
 			shuifenService.delete(id);

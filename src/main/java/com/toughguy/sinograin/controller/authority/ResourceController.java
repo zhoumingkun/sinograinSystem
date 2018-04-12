@@ -110,7 +110,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/listAll")
-	@RequiresPermissions("resource:list")
+	@RequiresPermissions("resource:listAll")
 	public List<Resource> findResource() {
 		List<Resource> resourceList = resourceService.findResourceTree();
 		return resourceList;
@@ -118,7 +118,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/get/resourceAndOperation")
-	@RequiresPermissions("resource:list")
+	@RequiresPermissions("resource:resourceAndOperation")
 	public String findResourceAndOperation() {
 		List<Resource> resourceList = resourceService.findAll();
 		List<Operation> operationList = operationService.findAll();
@@ -144,7 +144,7 @@ public class ResourceController {
 	//@SystemControllerLog(description="权限管理-删除多个资源")
 	@ResponseBody
 	@RequestMapping(value = "/deleteAll")
-	@RequiresPermissions("resource:delete")
+	@RequiresPermissions("resource:deleteAll")
 	public String deteteAllResource(String resource_ids) {
 		try {
 			String[] array  = resource_ids.split(",");

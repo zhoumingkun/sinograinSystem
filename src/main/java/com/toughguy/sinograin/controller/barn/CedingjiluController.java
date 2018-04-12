@@ -31,13 +31,13 @@ public class CedingjiluController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("cedingjilu:all")
+	//@RequiresPermissions("cedingjilu:getById")
 	public Cedingjilu get(int id){
 		return cedingjiluService.find(id);
 	}
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("cedingjilu:all")
+	//@RequiresPermissions("cedingjilu:getBySmallSampleId")
 	public Cedingjilu getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -67,7 +67,7 @@ public class CedingjiluController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("cedingjilu:delete")
+	//@RequiresPermissions("cedingjilu:remove")
 	public String remove(int id) {
 		try {
 			cedingjiluService.delete(id);

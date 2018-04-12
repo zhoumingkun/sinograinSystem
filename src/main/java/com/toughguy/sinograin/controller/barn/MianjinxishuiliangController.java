@@ -36,14 +36,14 @@ public class MianjinxishuiliangController {
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("mianjinxishuiliang:all")
+	//@RequiresPermissions("mianjinxishuiliang:getById")
 	public Mianjinxishuiliang get(int id){
 		return mianjinxishuiliangService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("mianjinxishuiliang:all")
+	//@RequiresPermissions("mianjinxishuiliang:getBySmallSampleId")
 	public Mianjinxishuiliang getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -56,7 +56,7 @@ public class MianjinxishuiliangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("mianjinxishuiliang:delete")
+	//@RequiresPermissions("mianjinxishuiliang:remove")
 	public String remove(int id) {
 		try {
 			mianjinxishuiliangService.delete(id);
