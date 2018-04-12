@@ -165,7 +165,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/split")
-	//@RequiresPermissions("SmallSample:add")
+	//@RequiresPermissions("SmallSample:split")
 	public String splitSample(int id,int isPrint,String params,int taskId) {
 		try {
 			if(isPrint == 3) {
@@ -261,7 +261,7 @@ public class SampleController {
 	//导出小麦总表
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
-	//@RequiresPermissions("sample:export")
+	//@RequiresPermissions("sample:report")
 	public String ExeclPOI(HttpServletResponse response,String ids,String title) {
 		try {			
 			sampleService.ExeclPOI(response,ids,title);
@@ -275,7 +275,7 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
-	//@RequiresPermissions("sample:export")
+	//@RequiresPermissions("sample:report")
 	public  String Export(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -297,7 +297,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dataWheatReport")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:report")
 	public List<WheatExaminingReport> dataWheatReport(String ids) {
 		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
 		String[] id = ids.split(",");
@@ -335,7 +335,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/dataCornReport")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:report")
 	public List<CornExaminingReport> dataCornReport(String ids) {
 		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
 		String[] id = ids.split(",");
@@ -379,7 +379,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportXMzhiliang")
-	//@RequiresPermissions("sample:export")
+	//@RequiresPermissions("sample:report")
 	public String ExportXMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -394,7 +394,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportYMzhiliang")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:report")
 	public String ExportYMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
