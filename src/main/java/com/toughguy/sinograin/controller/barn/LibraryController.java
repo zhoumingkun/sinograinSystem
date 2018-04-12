@@ -70,7 +70,7 @@ public class LibraryController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("library:save")
 	public String saveSample(Library library) {
 		try {
 			libraryService.save(library);

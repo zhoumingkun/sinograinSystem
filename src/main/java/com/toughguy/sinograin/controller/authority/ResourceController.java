@@ -69,7 +69,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("resource:add")
+	//@RequiresPermissions("resource:save")
 	//@SystemControllerLog(description="权限管理-添加资源")
 	public String saveResources(Resource resource,String params) {
 		try {

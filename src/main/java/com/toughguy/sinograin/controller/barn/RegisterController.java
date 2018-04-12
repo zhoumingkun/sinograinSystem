@@ -50,7 +50,7 @@ public class RegisterController {
 	}
 	@ResponseBody
 	@RequestMapping("/remove")
-	//@RequiresPermissions("register:remove")
+	//@RequiresPermissions("register:delete")
 	public String delete(int id){
 		try {
 			registerService.deleteRegisterAndSample(id);
@@ -194,7 +194,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("register:add")
+	//@RequiresPermissions("register:save")
 	public String saveSample(Register register) {
 		try {
 			registerService.save(register);

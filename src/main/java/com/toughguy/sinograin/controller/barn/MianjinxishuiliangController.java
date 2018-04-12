@@ -30,20 +30,20 @@ public class MianjinxishuiliangController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("mianjinxishuiliang:all")
 	public List<Mianjinxishuiliang> getAll(){
 		return mianjinxishuiliangService.findAll();
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("mianjinxishuiliang:all")
 	public Mianjinxishuiliang get(int id){
 		return mianjinxishuiliangService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("mianjinxishuiliang:all")
 	public Mianjinxishuiliang getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -56,7 +56,7 @@ public class MianjinxishuiliangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("mianjinxishuiliang:delete")
 	public String remove(int id) {
 		try {
 			mianjinxishuiliangService.delete(id);
@@ -70,7 +70,7 @@ public class MianjinxishuiliangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("mianjinxishuiliang:edit")
 	public String remove(Mianjinxishuiliang mianjinxishuiliang) {
 		try {
 			mianjinxishuiliangService.update(mianjinxishuiliang);
@@ -82,7 +82,7 @@ public class MianjinxishuiliangController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("mianjinxishuiliang:save")
 	public String save(Mianjinxishuiliang mianjinxishuiliang) {
 		try {
 			SmallSample smallSample = smallSampleService.find(mianjinxishuiliang.getSmallSampleId());

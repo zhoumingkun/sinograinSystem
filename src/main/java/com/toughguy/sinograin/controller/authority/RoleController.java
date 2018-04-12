@@ -116,7 +116,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	@RequiresPermissions("role:add")
+	@RequiresPermissions("role:save")
 	//@SystemControllerLog(description="权限管理-添加角色")
 	public String saveRole(Role newRole) {
 		try {

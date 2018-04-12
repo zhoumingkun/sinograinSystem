@@ -18,14 +18,14 @@ public class PinchangController {
 
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("pinchang:all")
 	public List<Pinchang> getAll(){
 		return pinchangService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("pinchang:all")
 	public Pinchang get(int id){
 		return pinchangService.find(id);
 	}
@@ -33,7 +33,7 @@ public class PinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("pinchang:save")
 	public String save(Pinchang pinchang) {
 		try {
 			pinchangService.save(pinchang);
@@ -46,7 +46,7 @@ public class PinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("sample:get")
+	//@RequiresPermissions("pinchang:delete")
 	public String remove(int id) {
 		try {
 			pinchangService.delete(id);
@@ -59,7 +59,7 @@ public class PinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("pinchang:edit")
 	public String remove(Pinchang pinchang) {
 		try {
 			pinchangService.update(pinchang);
@@ -73,7 +73,7 @@ public class PinchangController {
 	/*	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("pinchang:edit")
 	public String edit(Handover handover,String[] deleteIds) {
 		try {
 			barnService.dealCheck(handover,2,deleteIds);
@@ -85,7 +85,7 @@ public class PinchangController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("pinchang:save")
 	public String saveSample(Handover handover) {
 		try {
 			barnService.dealCheck(handover,1,null);
@@ -99,7 +99,7 @@ public class PinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	//@RequiresPermissions("library:list")
+	//@RequiresPermissions("pinchang:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

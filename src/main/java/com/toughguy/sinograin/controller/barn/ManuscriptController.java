@@ -52,7 +52,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("manuscript:add")
+	//@RequiresPermissions("manuscript:save")
 	public String saveManuscript(Manuscript manuscript) {
 		try {
 			manuscriptService.save(manuscript);
@@ -65,6 +65,7 @@ public class ManuscriptController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveMan")
+	//@RequiresPermissions("manuscript:all")
 	public String saveMan(String params){
 		try{
 			Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);
@@ -79,7 +80,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveOrEditMobile")
-	//@RequiresPermissions("manuscript:add")
+	//@RequiresPermissions("manuscript:save")
 	public String saveManMobile(String params,int type) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -120,7 +121,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
-	//@RequiresPermissions("manuscript:add")
+	//@RequiresPermissions("manuscript:export")
 	public String exprotExcel(HttpServletResponse response,int id) {
 		try {
 			Manuscript manuscript = manuscriptService.find(id);

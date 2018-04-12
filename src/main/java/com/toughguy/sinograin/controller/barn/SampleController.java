@@ -57,14 +57,14 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/get")
-	//@RequiresPermissions("sample:get")
+	//@RequiresPermissions("sample:all")
 	public Sample get(int id) {	
 		return sampleService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("sample:get")
+	//@RequiresPermissions("sample:delete")
 	public String remove(int id) {
 		try {
 			sampleService.delete(id);
@@ -105,21 +105,21 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNo")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:all")
 	public Sample getBySampleNo(String sampleNo) {	
 			return sampleService.findBySampleNo(sampleNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:all")
 	public Sample getBySampleNum(String sampleNo) {
 			return sampleService.findBySampleNum(sampleNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/saveOrEditAll")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:save")
 	public String saveOrEditAll(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -136,7 +136,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("sample:add")
+	//@RequiresPermissions("sample:save")
 	public String saveSample(Sample sample) {
 		try {
 			sampleService.save(sample);
@@ -148,7 +148,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
-	//@RequiresPermissions("sample:add")
+	//@RequiresPermissions("sample:save")
 	public String saveSampleAndRegister(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -261,7 +261,7 @@ public class SampleController {
 	//导出小麦总表
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:export")
 	public String ExeclPOI(HttpServletResponse response,String ids,String title) {
 		try {			
 			sampleService.ExeclPOI(response,ids,title);
@@ -275,6 +275,7 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
+	//@RequiresPermissions("sample:export")
 	public  String Export(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -288,7 +289,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/findSamplesByTask")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:all")
 	public List<Sample> findSamplesByTask(String taskName) {		
 		return sampleService.findSamplesByTask(taskName);
 	}
@@ -376,8 +377,9 @@ public class SampleController {
 	/**
 	 * 导出小麦质量
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/ExportXMzhiliang")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:export")
 	public String ExportXMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果

@@ -52,6 +52,7 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping("/remove")
+	//@RequiresPermissions("safety:delete")
 	public String remove(int id){
 		try {		
 			safeService.delete(id);
@@ -75,7 +76,7 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("safety:add")
+	//@RequiresPermissions("safety:save")
 	public String saveSample(String params) {	
 		
 		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class); 
@@ -109,6 +110,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/uploadBase64")
+	//@RequiresPermissions("safety:upload")
 	public String uploadPicture(String pictureFile){
 		// 重命名文件
 		String path = BackupUtil.rename("jpg");
@@ -129,6 +131,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/export/{params}") 
+	//@RequiresPermissions("safety:export")
 	public String Export(HttpServletResponse response,@PathVariable String params) {
 		System.out.println(params);
 		try {			

@@ -36,7 +36,7 @@ public class TaskController {
 	//玉米库id和货位号查询质检报告
 	@ResponseBody
 	@RequestMapping("/findCornSampleIdBylibraryId")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("task:all")
 	public List<CornExaminingReport> findCornSampleIdBylibraryId(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -59,7 +59,7 @@ public class TaskController {
 		//小麦库id和货位号查询质检报告
 		@ResponseBody
 		@RequestMapping("/findWheatSampleIdBylibraryId")
-		//@RequiresPermissions("sample:edit")
+		//@RequiresPermissions("task:all")
 		public List<WheatExaminingReport> findWheatSampleIdBylibraryId(String params) {
 			try {
 				ObjectMapper om = new ObjectMapper();
@@ -90,20 +90,20 @@ public class TaskController {
 //	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("task:all")
 	public List<Task> getAll(){
 		return taskService.findAll();
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("task:all")
 	public Task get(int id){
 		return taskService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("task:delete")
 	public String remove(int id) {
 		try {
 			taskService.delete(id);
@@ -117,7 +117,7 @@ public class TaskController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("task:edit")
 	public String remove(Task task) {
 		try {
 			taskService.update(task);
@@ -129,7 +129,7 @@ public class TaskController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("task:save")
 	public String save(Task task) {
 		try {
 			taskService.save(task);
@@ -142,7 +142,7 @@ public class TaskController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	//@RequiresPermissions("library:list")
+	//@RequiresPermissions("task:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

@@ -28,21 +28,21 @@ public class HandoverController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("handover:all")
 	public List<Handover> getAll(){
 		return handoverService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("handover:all")
 	public Handover get(int id){
 		return handoverService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("handover:delete")
 	public String remove(Handover handover) {
 		try {
 			barnService.dealCheck(handover,3,null);
@@ -55,7 +55,7 @@ public class HandoverController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("handover:edit")
 	public String edit(Handover handover,String[] deleteIds) {
 		try {
 			barnService.dealCheck(handover,2,deleteIds);
@@ -67,7 +67,7 @@ public class HandoverController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("handover:save")
 	public String saveSample(Handover handover) {
 		try {
 			barnService.dealCheck(handover,1,null);
@@ -81,7 +81,7 @@ public class HandoverController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	//@RequiresPermissions("library:list")
+	//@RequiresPermissions("handover:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

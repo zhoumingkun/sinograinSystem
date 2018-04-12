@@ -63,7 +63,7 @@ public class UserController {
 	
 	@ResponseBody	
 	@RequestMapping(value = "/save")
-	@RequiresPermissions("user:add")
+	@RequiresPermissions("user:save")
 	//@SystemControllerLog(description="权限管理-添加用户")
 	public String saveUser(User user) {
 		try {

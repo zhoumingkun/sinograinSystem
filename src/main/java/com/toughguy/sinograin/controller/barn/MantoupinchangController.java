@@ -24,21 +24,21 @@ public class MantoupinchangController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("mantoupinchang:all")
 	public List<Mantoupinchang> getAll(){
 		return mantoupinchangService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("mantoupinchang:all")
 	public Mantoupinchang get(int id){
 		return mantoupinchangService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getBySmallSampleId")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("mantoupinchang:all")
 	public Mantoupinchang getBySmallSampleId(int id){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
@@ -50,7 +50,7 @@ public class MantoupinchangController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("mantoupinchang:save")
 	public String save(Mantoupinchang mantoupinchang) {
 		try {
 			SmallSample smallSample = smallSampleService.find(mantoupinchang.getSmallSampleId());
@@ -66,7 +66,7 @@ public class MantoupinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("sample:get")
+	//@RequiresPermissions("mantoupinchang:delete")
 	public String remove(int id) {
 		try {
 			mantoupinchangService.delete(id);
@@ -79,7 +79,7 @@ public class MantoupinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("mantoupinchang:edit")
 	public String remove(Mantoupinchang mantoupinchang) {
 		try {
 			mantoupinchangService.update(mantoupinchang);
@@ -90,55 +90,5 @@ public class MantoupinchangController {
 		}
 	}
 	
-	/*	
-	@ResponseBody
-	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
-	public String edit(Handover handover,String[] deleteIds) {
-		try {
-			barnService.dealCheck(handover,2,deleteIds);
-			return "{ \"success\" : true }";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"success\" : false }";
-		}
-	}
-	@ResponseBody
-	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
-	public String saveSample(Handover handover) {
-		try {
-			barnService.dealCheck(handover,1,null);
-			int id = handover.getId();
-			return "{ \"success\" : true ,\"id\":"+ id +" }";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"success\" : false }";
-		}
-	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/data")
-	//@RequiresPermissions("library:list")
-	public String data(String params) {
-		try {
-			ObjectMapper om = new ObjectMapper();
-			Map<String, Object> map = new HashMap<String, Object>();
-			if (!StringUtils.isEmpty(params)) {
-				// 参数处理
-				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
-			}
-			PagerModel<Handover> pg = handoverService.findPaginated(map);
-			
-			// 序列化查询结果为JSON
-			Map<String, Object> result = new HashMap<String, Object>();
-			result.put("total", pg.getTotal());
-			result.put("rows", pg.getData());
-			return om.writeValueAsString(result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"total\" : 0, \"rows\" : [] }";
-		}
-	}
-*/	
 }

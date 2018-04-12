@@ -17,20 +17,20 @@ public class MantoubirongController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("Mantoubirong:all")
 	public List<Mantoubirong> getAll(){
 		return mantoubirongService.findAll();
 	}
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("Mantoubirong:all")
 	public Mantoubirong get(int id){
 		return mantoubirongService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("Mantoubirong:delete")
 	public String remove(int id) {
 		try {
 			mantoubirongService.delete(id);
@@ -44,7 +44,7 @@ public class MantoubirongController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	//@RequiresPermissions("Mantoubirong:edit")
 	public String remove(Mantoubirong mantoubirong) {
 		try {
 			mantoubirongService.update(mantoubirong);
@@ -56,7 +56,7 @@ public class MantoubirongController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:add")
+	//@RequiresPermissions("Mantoubirong:save")
 	public String save(Mantoubirong mantoubirong) {
 		try {
 			mantoubirongService.save(mantoubirong);

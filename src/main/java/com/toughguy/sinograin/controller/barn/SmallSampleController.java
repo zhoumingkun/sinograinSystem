@@ -62,7 +62,7 @@ public class SmallSampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySmallSampleNum")
-	//@RequiresPermissions("sample:edit")
+	//@RequiresPermissions("sample:all")
 	public SmallSample getBySmallSampleNum(String smallSampleNum) {
 		SmallSample smallSample =  smallSampleService.findBySmallSampleNum(smallSampleNum);
 		if(smallSample.getCheckPoint() == 1 || smallSample.getCheckPoint() == 2 ||smallSample.getCheckPoint() == 3) {
@@ -120,7 +120,7 @@ public class SmallSampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("SmallSample:add")
+	//@RequiresPermissions("SmallSample:save")
 	public String save(SmallSample smallSample) {
 		try {
 			smallSampleService.save(smallSample);
