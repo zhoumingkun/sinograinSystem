@@ -46,7 +46,7 @@ import com.toughguy.sinograin.util.JsonUtil;
  */
 
 @Controller
-@RequestMapping(value="/resources")
+@RequestMapping(value="/resource")
 public class ResourceController {
 	@Autowired
 	private IResourceService resourceService;
@@ -83,7 +83,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	@RequiresPermissions("resource:edit")
+//	@RequiresPermissions("resource:edit")
 	//@SystemControllerLog(description="权限管理-编辑资源")
 	public String editResource(Resource newResource,String params) {
 		try {
@@ -102,7 +102,7 @@ public class ResourceController {
 	//@SystemControllerLog(description="权限管理-资源列表")
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	@RequiresPermissions("resource:list")
+//	@RequiresPermissions("resource:list")
 	public String data(String params,HttpSession session) {
 		return authService.findAllResourceInduleOperation(params);
 	}
@@ -110,7 +110,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/listAll")
-	@RequiresPermissions("resource:listAll")
+//	@RequiresPermissions("resource:listAll")
 	public List<Resource> findResource() {
 		List<Resource> resourceList = resourceService.findResourceTree();
 		return resourceList;
@@ -118,7 +118,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/get/resourceAndOperation")
-	@RequiresPermissions("resource:resourceAndOperation")
+//	@RequiresPermissions("resource:resourceAndOperation")
 	public String findResourceAndOperation() {
 		List<Resource> resourceList = resourceService.findAll();
 		List<Operation> operationList = operationService.findAll();
@@ -130,7 +130,7 @@ public class ResourceController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/delete")
-	@RequiresPermissions("resource:delete")
+//	@RequiresPermissions("resource:delete")
 	public String deleteResource(int id) {
 		try {
 			authService.deleteResource(id);
@@ -144,7 +144,7 @@ public class ResourceController {
 	//@SystemControllerLog(description="权限管理-删除多个资源")
 	@ResponseBody
 	@RequestMapping(value = "/deleteAll")
-	@RequiresPermissions("resource:deleteAll")
+//	@RequiresPermissions("resource:deleteAll")
 	public String deteteAllResource(String resource_ids) {
 		try {
 			String[] array  = resource_ids.split(",");
