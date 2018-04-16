@@ -93,7 +93,7 @@
 		SELECT
 			r.*
 		FROM
-			lemon_liquid_auth_role r
+			auth_role r
 		LEFT JOIN auth_user_role u_r ON r.id = u_r.roleId
 		LEFT JOIN auth_user u ON u.id = u_r.userId
 		WHERE
