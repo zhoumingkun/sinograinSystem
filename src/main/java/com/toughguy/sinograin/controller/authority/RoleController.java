@@ -130,13 +130,7 @@ public class RoleController {
 		try {
 			String displayName = newRole.getDisplayName();
 			String roleName = PinyinUtil.converterToSpell(displayName).split(",")[0]; //转为拼音 多音取第一个
-			ObjectMapper om = new ObjectMapper();
-			Map<String, Object> map = new HashMap<String, Object>();
-			if (!StringUtils.isEmpty(roleName)) {
-				// 参数处理
-				map = om.readValue(roleName, new TypeReference<Map<String, Object>>() {});
-			}
-			List<Role> list = roleService.findAll(map);
+			List<Role> list = roleService.findByName(roleName);
 			if(list.size() > 0){
 				return "角色名重复";
 			}else{

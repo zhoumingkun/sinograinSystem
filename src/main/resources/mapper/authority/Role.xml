@@ -35,6 +35,11 @@
 		delete from auth_role_operation where roleId = #{roleId}
 	</delete>
 	
+	<!-- 查询某个角色根据昵称 -->
+	<select id="findByName" parameterType="String" resultType="Role">
+	   SELECT * FROM auth_role WHERE roleName= #{roleName}
+	</select>
+	
 	<!-- 查询某个角色 -->
 	<select id="find" parameterType="int" resultType="Role">
 		SELECT
