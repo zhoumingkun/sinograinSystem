@@ -63,10 +63,18 @@ public class RoleController {
 		return "default/authority/role/list";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/get")
+	public Role get(int id) {
+		Role role = roleService.find(id);
+		return role;
+		
+	}
+	
 	@RequestMapping(value = "/listAll")
 	//@SystemControllerLog(description="权限管理-角色全部列表")
 	@ResponseBody
-	@RequiresPermissions("role:listAll")
+//	@RequiresPermissions("role:listAll")
 	public List<Role> listAllRole(HttpSession session) {
 		List <Role> roleList = roleService.findRoleTree();
 		return roleList;
@@ -84,7 +92,7 @@ public class RoleController {
 	//@SystemControllerLog(description="权限管理-角色列表")
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	@RequiresPermissions("role:list")
+//	@RequiresPermissions("role:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -116,15 +124,26 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	@RequiresPermissions("role:save")
+//	@RequiresPermissions("role:save")
 	//@SystemControllerLog(description="权限管理-添加角色")
 	public String saveRole(Role newRole) {
 		try {
 			String displayName = newRole.getDisplayName();
 			String roleName = PinyinUtil.converterToSpell(displayName).split(",")[0]; //转为拼音 多音取第一个
-			newRole.setRoleName(roleName);
-			roleService.save(newRole);
-			return "{ \"success\" : true }";
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(roleName)) {
+				// 参数处理
+				map = om.readValue(roleName, new TypeReference<Map<String, Object>>() {});
+			}
+			List<Role> list = roleService.findAll(map);
+			if(list.size() > 0){
+				return "角色名重复";
+			}else{
+				newRole.setRoleName(roleName);
+				roleService.save(newRole);
+				return "{ \"success\" : true }";
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -140,7 +159,7 @@ public class RoleController {
 	
 	//@SystemControllerLog(description="权限管理-查看角色")
 	@RequestMapping(value = "/view/{id}")
-	@RequiresPermissions("role:view")
+//	@RequiresPermissions("role:view")
 	public String viewRole(@PathVariable int id, HttpSession session) {
 		
 		Role role = roleService.find(id);
@@ -152,7 +171,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	@RequiresPermissions("role:edit")
+//	@RequiresPermissions("role:edit")
 	//@SystemControllerLog(description="权限管理-修改角色")
 	public String edit(Role newRole,HttpSession session) {
 		try {
@@ -176,7 +195,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/auth")
-	@RequiresPermissions("role:auth")
+//	@RequiresPermissions("role:auth")
 	//@SystemControllerLog(description="权限管理-给角色分配资源")
 	public String authRole(int roleId, String operationIds) {
 		try{
@@ -195,7 +214,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/delete")
-	@RequiresPermissions("role:delete")
+//	@RequiresPermissions("role:delete")
 	//@SystemControllerLog(description="权限管理-删除角色")
 	public String deleteRole(int id) {
 		try {
@@ -210,7 +229,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteAll")
-	@RequiresPermissions("role:deleteAll")
+//	@RequiresPermissions("role:deleteAll")
 	//@SystemControllerLog(description="权限管理-删除多个角色")
 	public String deleteAllRole(String role_ids) {
 		try {
