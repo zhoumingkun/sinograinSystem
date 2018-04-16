@@ -25,7 +25,7 @@ public class YumipinchangController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	//@RequiresPermissions("yumipinchang:all")
 	public List<Yumipinchang> getAll(){
 		return yumipinchangService.findAll();
 	}
