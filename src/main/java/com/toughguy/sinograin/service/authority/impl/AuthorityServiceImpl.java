@@ -159,7 +159,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			if("".equals(o.getOperation())||"".equals(o.getPermission())){
 				continue;
 			}else{
-				if("".equals(o.getRelyName())||"选择资源".equals(o.getRelyName())){
+				if("".equals(o.getRelyName())||"无".equals(o.getRelyName())){
 					odList.add(o);
 					}
 				for(OperationDTO od:operationList){
@@ -204,7 +204,22 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			for(Resource r: resourceList){
 				Map<String,Object> ma = new HashMap<String,Object>();
 				ma.put("resourceId", r.getId());
+				if(r.getResourcePId() == -1){
+					r.setResourcePName("无");
+				}else{
+					Resource resource = resourceService.find(r.getResourcePId());
+					r.setResourcePName(resource.getResourceName());
+				}
 				List<Operation> oper = operationService.findAll(ma);
+				String OperatingNum="";
+				for (Operation operation : oper) {
+					OperatingNum += operation.getDisplayName()+"、";
+				}
+				if(OperatingNum.length() == 0) {
+					r.setOperatingNum(OperatingNum);
+				} else {
+					r.setOperatingNum(OperatingNum.substring(0,OperatingNum.length()-1));
+				}
 				r.setOperationList(oper);
 			}
 			// 序列化查询结果为JSON

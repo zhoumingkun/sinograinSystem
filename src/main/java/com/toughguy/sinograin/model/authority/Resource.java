@@ -44,8 +44,17 @@ public class Resource extends AbstractModel{
 	private List<Resource> list = new ArrayList<Resource>();
 	private List<Operation> operationList = new ArrayList<Operation>();
 	
+	private String OperatingNum; //资源对应的操作名集合    （前台）
 	
 	
+	public String getOperatingNum() {
+		return OperatingNum;
+	}
+
+	public void setOperatingNum(String operatingNum) {
+		OperatingNum = operatingNum;
+	}
+
 	public List<Operation> getOperationList() {
 		return operationList;
 	}
