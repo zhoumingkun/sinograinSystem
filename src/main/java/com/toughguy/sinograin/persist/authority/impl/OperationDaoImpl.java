@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.persist.authority.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.toughguy.sinograin.model.authority.Operation;
@@ -35,6 +37,11 @@ public class OperationDaoImpl extends GenericDaoImpl<Operation, Integer> impleme
 	@Override
 	public void deleteAllByResourceId(int resourceId) {
 		sqlSessionTemplate.delete(typeNameSpace + ".deleteAllByResourceId", resourceId);
+	}
+
+	@Override
+	public List<Operation> findById(int id) {
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findById", id);
 	}
 
 	

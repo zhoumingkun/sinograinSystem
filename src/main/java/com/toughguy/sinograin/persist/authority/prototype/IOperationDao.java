@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.persist.authority.prototype;
 
+import java.util.List;
+
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.persist.prototype.IGenericDao;
 
@@ -34,5 +36,11 @@ public interface IOperationDao extends IGenericDao<Operation, Integer> {
 	 * @param resourceId 资源id
 	 */
 	public void deleteAllByResourceId(int resourceId);
+	
+	/**
+	 * 根据资源ID查找操作
+	 * @param id 资源id
+	 */
+	public List<Operation> findById(int id);
 
 }
