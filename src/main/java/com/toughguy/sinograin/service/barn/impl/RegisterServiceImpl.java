@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -38,8 +39,8 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	private ISampleDao sampleDao;
 	
 	@Override
-	public List<Register> findByLibraryId(int libraryId) {
-		List<Register> registers = registerDao.findByLibraryId(libraryId);
+	public List<Register> findByLibraryId(Map<String, Object> params) {
+		List<Register> registers = registerDao.findByLibraryId(params);
 		return registers;
 	}
 

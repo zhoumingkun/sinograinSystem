@@ -24,6 +24,7 @@ public class LibraryController {
 	@Autowired
 	private ILibraryService libraryService;
 	
+	
 	@ResponseBody
 	@RequestMapping("/getAll")
 	//@RequiresPermissions("library:all")

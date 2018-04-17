@@ -30,11 +30,11 @@ public class RegisterDaoTest {
 		r.setRegState(0);
 		registerDao.save(r);
 	}
-	@Test
-	public void testSelete() {
-		List<Register> rs = registerService.findByLibraryId(0);
-		System.out.println(rs);
-	}
+//	@Test
+//	public void testSelete() {
+//		List<Register> rs = registerService.findByLibraryId(0);
+//		System.out.println(rs);
+//	}
 	@Test
 	public void testUpdate() {
 		Register r = new Register();

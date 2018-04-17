@@ -20,6 +20,7 @@ import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
+import com.toughguy.sinograin.model.barn.Shuifen;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
@@ -48,6 +49,48 @@ public class RegisterController {
 	public List<Register> getAll(){
 		return registerService.findAll();
 	}
+	
+	
+//	//根据libraryId查库点
+//		@ResponseBody
+//		@RequestMapping("/findByLibraryId")
+//		//@RequiresPermissions("register:findByLibraryId")
+//		public Register findByLibraryId(Integer libraryId){
+//			Map<String, Object> map = new HashMap<String, Object>();
+//			map.put("libraryId", libraryId);
+//			List<Register> rs = registerService.findByLibraryId(map);
+//			System.out.println(rs);
+//			for(Register r:rs) {
+//				return r;
+//			}
+//			return null;
+//		}
+	
+//	
+//	@SuppressWarnings("unchecked")
+//	//根据libraryId查库点
+//	@ResponseBody
+//	@RequestMapping("/findByLibraryId")
+//	//@RequiresPermissions("register:findByLibraryId")
+//	public String findByLibraryId(Integer libraryId){
+//		try {
+//			ObjectMapper om = new ObjectMapper();
+//		    Map<String, Object> map = new HashMap<String, Object>();
+////		    if (!StringUtils.isEmpty(libraryId)) {
+////		    	map = om.readValue(libraryId, new TypeReference<Map<String, Object>>() {});
+////		    }
+//		    List<Register> pg = registerService.findByLibraryId(map);
+//		    Map<String, Object> result = new HashMap<String, Object>();
+//		    result.put("total", ((PagerModel<Register>) pg).getTotal());
+//			result.put("rows", ((PagerModel<Register>) pg).getData());
+//			return om.writeValueAsString(result);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "{ \"total\" : 0, \"rows\" : [] }";
+//		}
+//	}
+//	
+	
 	@ResponseBody
 	@RequestMapping("/remove")
 	//@RequiresPermissions("register:remove")

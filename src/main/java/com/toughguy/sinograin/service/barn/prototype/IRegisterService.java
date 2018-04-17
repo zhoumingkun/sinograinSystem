@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.service.barn.prototype;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +14,7 @@ public interface IRegisterService extends IGenericService<Register, Integer> {
 	/**
 	 * 根据库id查找扦样表
 	 */
-	public List<Register> findByLibraryId(int libraryId);
+	public List<Register> findByLibraryId(Map<String, Object> params);
 	
 	/**
 	 * 导出扦样表
