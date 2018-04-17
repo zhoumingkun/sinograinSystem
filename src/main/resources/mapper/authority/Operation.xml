@@ -58,6 +58,12 @@
 		order by id asc
 	</select>
 	
+	
+	<!-- 根据资源ID查找操作 -->
+	<select id="findById" resultType="Operation" parameterType="int">
+		select * from auth_operation where resourceId = #{id}
+	</select>
+	
 	<!-- 分页查找 -->
 	<select id="findPaginated" parameterType="Map" resultType="Operation">
 		select * from auth_operation 
