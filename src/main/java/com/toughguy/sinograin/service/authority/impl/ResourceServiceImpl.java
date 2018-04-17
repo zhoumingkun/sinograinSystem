@@ -22,8 +22,6 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 	@Autowired
 	IOperationDao operationDao;
 	private List<TreeDTO> treeList = new ArrayList<>();
-	private List<TreeDTO> treeList2 = new ArrayList<>();
-	private List<TreeDTO> treeList3 = new ArrayList<>();
 	@Override
 	public List<Integer> findROsByResourceId(int resourceId) {
 		
@@ -65,16 +63,19 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 			TreeDTO tree1 = new TreeDTO();
 			tree1.setName(r.getResourceName());
 			tree1.setId(r.getId());
+			treeList.add(tree1);
 			if(r.getList().size() != 0) {
+				List<TreeDTO> treeList2 = new ArrayList<>();
 				for(Resource r1:r.getList()) {
 					TreeDTO tree2 = new TreeDTO();
 					tree2.setName(r1.getResourceName());
 					tree2.setId(r1.getId());
 					treeList2.add(tree2);
 					tree1.setChildren(treeList2);
-					if(r1.getList().size() !=0) {
+					if(r1.getList().size() != 0) {
 						tree(r1.getList());
 					} else if(r1.getOperationList().size() != 0){
+						List<TreeDTO> treeList3 = new ArrayList<>();
 						for(Operation o:r1.getOperationList()) {
 							if(r1.getId() == o.getResourceId()) {
 								TreeDTO tree3 = new TreeDTO();
@@ -87,6 +88,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 					}
 				}
 			} else if(r.getOperationList().size() != 0) {
+				List<TreeDTO> treeList3 = new ArrayList<>();
 				for(Operation o:r.getOperationList()) {
 					if(r.getId() == o.getResourceId()) {
 						TreeDTO tree3 = new TreeDTO();
@@ -97,7 +99,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 					}
 				}
 			}
-			treeList.add(tree1);
+
 		}
 		return treeList;
 	}
