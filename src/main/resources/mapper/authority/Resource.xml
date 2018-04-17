@@ -65,7 +65,7 @@
 	
 	<!-- 查找资源总数 -->
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from auth_resource 
+		select count(*) FROM auth_resource r1 LEFT JOIN auth_resource rp ON r1.resourcePID = rp.id  
 		<include refid="paramsSQL" />
 	</select>
 	
@@ -76,7 +76,7 @@
 				and resourceName = #{resourceNameLike, jdbcType=VARCHAR}
 			</if>
 			<if test=" resourceNameLike != null and resourceNameLike != '' ">
-				and resourceName like concat(concat('%', #{resourceNameLike, jdbcType=VARCHAR}),'%')
+				and r1.resourceName like concat(concat('%', #{resourceNameLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" resourceType != null and resourceType != '' ">
 				and resourceName = #{resourceName, jdbcType=INTEGER}
