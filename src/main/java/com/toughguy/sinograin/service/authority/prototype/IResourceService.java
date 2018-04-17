@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.authority.prototype;
 
 import java.util.List;
 
+import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.service.prototype.IGenericService;
 
@@ -42,6 +43,6 @@ public interface IResourceService extends IGenericService<Resource, Integer> {
 	 * 查询全部资源，树形结构
 	 * @return 资源
 	 */
-	 public List<Resource> findResourceTree();
+	 public List<TreeDTO> findResourceTree();
 
 }

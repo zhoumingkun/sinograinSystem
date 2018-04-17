@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.service.authority.prototype.IAuthorityService;
@@ -111,9 +112,9 @@ public class ResourceController {
 	@ResponseBody
 	@RequestMapping(value = "/listAll")
 //	@RequiresPermissions("resource:listAll")
-	public List<Resource> findResource() {
-		List<Resource> resourceList = resourceService.findResourceTree();
-		return resourceList;
+	public List<TreeDTO> findResource() {
+		List<TreeDTO> treeDtoList = resourceService.findResourceTree();
+		return treeDtoList;
 	}
 	
 	@ResponseBody
