@@ -16,8 +16,8 @@ public class TreeDTO {
 	private int id;
 	private List<TreeDTO> children;
 	private	int type;  // -1 资源 ；1操作
-	private String disabled;  //是否禁用 ture/false
-	private String checked;  //是否选中 ture/false
+	private boolean disabled;  //是否禁用 ture/false
+	private boolean checked;  //是否选中 ture/false
 	private String index;  //唯一标识
 	
 	public int getId() {
@@ -62,22 +62,22 @@ public class TreeDTO {
 	}
 
 
-	public String getDisabled() {
+	public boolean getDisabled() {
 		return disabled;
 	}
 
 
-	public void setDisabled(String disabled) {
+	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
 
 
-	public String getChecked() {
+	public boolean getChecked() {
 		return checked;
 	}
 
 
-	public void setChecked(String checked) {
+	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
 

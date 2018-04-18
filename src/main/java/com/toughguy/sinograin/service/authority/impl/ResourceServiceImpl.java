@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.Resource;
+import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.persist.authority.prototype.IOperationDao;
 import com.toughguy.sinograin.persist.authority.prototype.IResourceDao;
+import com.toughguy.sinograin.persist.authority.prototype.IRoleDao;
 import com.toughguy.sinograin.service.authority.prototype.IResourceService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 
@@ -19,6 +21,8 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 
 	@Autowired
 	IOperationDao operationDao;
+	@Autowired
+	IRoleDao roleDao;
 
 	@Override
 	public List<Integer> findROsByResourceId(int resourceId) {
@@ -57,7 +61,9 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 
 	public List<TreeDTO> tree(List<Resource> roles, int roleId) {
 		List<TreeDTO> treeList = new ArrayList<>();
-		List<Operation> list = operationDao.findByRoleId(roleId); // 得到该对象所拥有的操作集合
+		List<Operation> list = operationDao.findByRoleId(roleId); // 得到该角色所拥有的操作集合
+		Role role = roleDao.find(roleId);
+		List<Operation> operList = operationDao.findByRoleId(role.getRoleRelyId());  //得到依赖角色的所有操作
 		for (Resource r : roles) {
 			if (list.size() > 0) {
 					TreeDTO tree1 = new TreeDTO();
@@ -107,12 +113,20 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 										tree3.setId(o.getId());
 										tree3.setType(1);
 										tree3.setIndex(o.getGuid());
+										for (int i = 0; i < operList.size(); i++) {
+											if (o.getId() == operList.get(i).getId()) {
+												tree3.setDisabled(true);
+												break;
+											}else{
+												tree3.setDisabled(false);
+											}
+										}
 										for (int j = 0; j < list.size(); j++) {
 											if (o.getId() == list.get(j).getId()) {
-												tree3.setChecked("true");
+												tree3.setChecked(true);
 												break;
 											} else {
-												tree3.setChecked("false");
+												tree3.setChecked(false);
 											}
 										}
 										treeList3.add(tree3);
@@ -130,12 +144,20 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 								tree3.setId(o.getId());
 								tree3.setType(1);
 								tree3.setIndex(o.getGuid());
+								for (int i = 0; i < operList.size(); i++) {
+									if (o.getId() == operList.get(i).getId()) {
+										tree3.setDisabled(true);
+										break;
+									}else{
+										tree3.setDisabled(false);
+									}
+								}
 								for (int j = 0; j < list.size(); j++) {
 									if (o.getId() == list.get(j).getId()) {
-										tree3.setChecked("true");
+										tree3.setChecked(true);
 										break;
 									} else {
-										tree3.setChecked("false");
+										tree3.setChecked(false);
 									}
 								}
 								treeList3.add(tree3);
