@@ -41,8 +41,9 @@ public interface IResourceService extends IGenericService<Resource, Integer> {
 	
 	/**
 	 * 查询全部资源，树形结构
+	 * @param roleId 
 	 * @return 资源
 	 */
-	 public List<TreeDTO> findResourceTree();
+	 public List<TreeDTO> findResourceTree(int roleId);
 
 }

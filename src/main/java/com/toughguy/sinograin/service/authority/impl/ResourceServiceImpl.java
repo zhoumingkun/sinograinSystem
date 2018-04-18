@@ -1,7 +1,5 @@
 package com.toughguy.sinograin.service.authority.impl;
 
-import static org.mockito.Mockito.reset;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,90 +16,184 @@ import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 
 @Service
 public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> implements IResourceService {
-	
+
 	@Autowired
 	IOperationDao operationDao;
+
 	@Override
 	public List<Integer> findROsByResourceId(int resourceId) {
-		
-		return ((IResourceDao)dao).findROsByResourceId(resourceId);
+
+		return ((IResourceDao) dao).findROsByResourceId(resourceId);
 	}
-	
-	
-	
+
 	@Override
-	public List<TreeDTO> findResourceTree() {
-		List<Resource> resource= findAll(); //查出所有资源
-    	for (Resource res : resource) {
-    		List<Operation> Operation = operationDao.findById(res.getId());
-    		for (Operation ope : Operation) {
-    			res.getOperationList().add(ope);
-    		}
+	public List<TreeDTO> findResourceTree(int roleId) {
+		List<Resource> resource = findAll(); // 查出所有资源
+		for (Resource res : resource) {
+			List<Operation> Operation = operationDao.findById(res.getId());
+			for (Operation ope : Operation) {
+				res.getOperationList().add(ope);
+			}
 		}
-		return listToTree(resource);	//转化为树形结构
+		return listToTree(resource, roleId); // 转化为树形结构
 	}
-	//将集合转化为树形结构
-	private List<TreeDTO> listToTree(List<Resource> roles){
+
+	// 将集合转化为树形结构
+	private List<TreeDTO> listToTree(List<Resource> roles, int roleId) {
 		List<Resource> resourceTrees = new ArrayList<Resource>();
-			//System.out.println(JsonUtil.objectToJson(roles));
+		// System.out.println(JsonUtil.objectToJson(roles));
 		for (Resource res : roles) {
-            if(res.getResourcePId() == -1 || res.getResourcePId() == 0){
-            	resourceTrees.add(res);
-            	}
-	        for (Resource r : roles) {
-	            if(r.getResourcePId() == res.getId()){
-	                	res.getList().add(r);
-	            }
-	         }
-       }
-		return tree(resourceTrees);
+			if (res.getResourcePId() == -1 || res.getResourcePId() == 0) {
+				resourceTrees.add(res);
+			}
+			for (Resource r : roles) {
+				if (r.getResourcePId() == res.getId()) {
+					res.getList().add(r);
+				}
+			}
+		}
+		return tree(resourceTrees, roleId);
 	}
-	
-	public List<TreeDTO> tree(List<Resource> roles) {
-		 List<TreeDTO> treeList = new ArrayList<>();
-		for(Resource r:roles) {
-			TreeDTO tree1 = new TreeDTO();
-			tree1.setName(r.getResourceName());
-			tree1.setId(r.getId());
-			treeList.add(tree1);
-			if(r.getList().size() != 0) {
-				List<TreeDTO> treeList2 = new ArrayList<>();
-				for(Resource r1:r.getList()) {
-					TreeDTO tree2 = new TreeDTO();
-					tree2.setName(r1.getResourceName());
-					tree2.setId(r1.getId());
-					treeList2.add(tree2);
-					tree1.setChildren(treeList2);
-					if(r1.getList().size() != 0) {
-						tree(r1.getList());
-					} else if(r1.getOperationList().size() != 0){
+
+	public List<TreeDTO> tree(List<Resource> roles, int roleId) {
+		List<TreeDTO> treeList = new ArrayList<>();
+		List<Operation> list = operationDao.findByRoleId(roleId); // 得到该对象所拥有的操作集合
+		for (Resource r : roles) {
+			if (list.size() > 0) {
+					TreeDTO tree1 = new TreeDTO();
+					tree1.setName(r.getResourceName());
+					tree1.setId(r.getId());
+					tree1.setType(-1);
+					tree1.setIndex(r.getGuid());
+//					List<Resource> rList =((IResourceDao) dao).findById(r.getId()); //查询出资源所拥有的下属资源
+//					for (int j = 0; j < list.size(); j++) {
+//						for (Resource resource : rList) {
+//							if (resource.getId() == list.get(j).getResourceId()) {
+//								tree1.setChecked("true");
+//								break;   //如果该角色有此操作的资源  跳出循环
+//							} else {
+//								tree1.setChecked("false");
+//							}
+//						}
+//					}
+					treeList.add(tree1);
+					if (r.getList().size() != 0) {
+						List<TreeDTO> treeList2 = new ArrayList<>();
+						for (Resource r1 : r.getList()) {
+							TreeDTO tree2 = new TreeDTO();
+							tree2.setName(r1.getResourceName());
+							tree2.setId(r1.getId());
+							tree2.setType(-1);
+							tree2.setIndex(r1.getGuid());
+//							for (int j = 0; j < list.size(); j++) {
+//								System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
+//								if (r1.getId() == list.get(j).getResourceId()) {
+//									tree2.setChecked("true");
+//									break;
+//								} else {
+//									tree2.setChecked("false");
+//								}
+//							}
+							treeList2.add(tree2);
+							tree1.setChildren(treeList2);
+							if (r1.getList().size() != 0) {
+								tree(r1.getList(), roleId);
+							} else if (r1.getOperationList().size() != 0) {
+								List<TreeDTO> treeList3 = new ArrayList<>();
+								for (Operation o : r1.getOperationList()) {
+									if (r1.getId() == o.getResourceId()) {
+										TreeDTO tree3 = new TreeDTO();
+										tree3.setName(o.getDisplayName());
+										tree3.setId(o.getId());
+										tree3.setType(1);
+										tree3.setIndex(o.getGuid());
+										for (int j = 0; j < list.size(); j++) {
+											if (o.getId() == list.get(j).getId()) {
+												tree3.setChecked("true");
+												break;
+											} else {
+												tree3.setChecked("false");
+											}
+										}
+										treeList3.add(tree3);
+										tree2.setChildren(treeList3);
+									}
+								}
+							}
+						}
+					} else if (r.getOperationList().size() != 0) {
 						List<TreeDTO> treeList3 = new ArrayList<>();
-						for(Operation o:r1.getOperationList()) {
-							if(r1.getId() == o.getResourceId()) {
+						for (Operation o : r.getOperationList()) {
+							if (r.getId() == o.getResourceId()) {
 								TreeDTO tree3 = new TreeDTO();
 								tree3.setName(o.getDisplayName());
 								tree3.setId(o.getId());
+								tree3.setType(1);
+								tree3.setIndex(o.getGuid());
+								for (int j = 0; j < list.size(); j++) {
+									if (o.getId() == list.get(j).getId()) {
+										tree3.setChecked("true");
+										break;
+									} else {
+										tree3.setChecked("false");
+									}
+								}
 								treeList3.add(tree3);
-								tree2.setChildren(treeList3);
+								tree1.setChildren(treeList3);
 							}
 						}
 					}
-				}
-			} else if(r.getOperationList().size() != 0) {
-				List<TreeDTO> treeList3 = new ArrayList<>();
-				for(Operation o:r.getOperationList()) {
-					if(r.getId() == o.getResourceId()) {
-						TreeDTO tree3 = new TreeDTO();
-						tree3.setName(o.getDisplayName());
-						tree3.setId(o.getId());
-						treeList3.add(tree3);
-						tree1.setChildren(treeList3);
+			} else { // 该角色还未拥有资源与操作
+					TreeDTO tree1 = new TreeDTO();
+					tree1.setName(r.getResourceName());
+					tree1.setId(r.getId());
+					tree1.setType(-1);
+					tree1.setIndex(r.getGuid());
+					treeList.add(tree1);
+					if (r.getList().size() != 0) {
+						List<TreeDTO> treeList2 = new ArrayList<>();
+						for (Resource r1 : r.getList()) {
+							TreeDTO tree2 = new TreeDTO();
+							tree2.setName(r1.getResourceName());
+							tree2.setId(r1.getId());
+							tree2.setType(-1);
+							tree2.setIndex(r1.getGuid());
+							treeList2.add(tree2);
+							tree1.setChildren(treeList2);
+							if (r1.getList().size() != 0) {
+								tree(r1.getList(), roleId);
+							} else if (r1.getOperationList().size() != 0) {
+								List<TreeDTO> treeList3 = new ArrayList<>();
+								for (Operation o : r1.getOperationList()) {
+									if (r1.getId() == o.getResourceId()) {
+										TreeDTO tree3 = new TreeDTO();
+										tree3.setName(o.getDisplayName());
+										tree3.setId(o.getId());
+										tree3.setType(1);
+										tree3.setIndex(o.getGuid());
+										treeList3.add(tree3);
+										tree2.setChildren(treeList3);
+									}
+								}
+							}
+						}
+					} else if (r.getOperationList().size() != 0) {
+						List<TreeDTO> treeList3 = new ArrayList<>();
+						for (Operation o : r.getOperationList()) {
+							if (r.getId() == o.getResourceId()) {
+								TreeDTO tree3 = new TreeDTO();
+								tree3.setName(o.getDisplayName());
+								tree3.setId(o.getId());
+								tree3.setType(1);
+								tree3.setIndex(o.getGuid());
+								treeList3.add(tree3);
+								tree1.setChildren(treeList3);
+							}
+						}
 					}
-				}
 			}
-
 		}
 		return treeList;
 	}
-		
+
 }

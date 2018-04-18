@@ -44,6 +44,11 @@ public class OperationDaoImpl extends GenericDaoImpl<Operation, Integer> impleme
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findById", id);
 	}
 
+	@Override
+	public List<Operation> findByRoleId(int roleId) {
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByRoleId", roleId);
+	}
+
 	
 
 }

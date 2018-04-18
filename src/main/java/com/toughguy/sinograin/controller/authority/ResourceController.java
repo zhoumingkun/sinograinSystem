@@ -112,8 +112,8 @@ public class ResourceController {
 	@ResponseBody
 	@RequestMapping(value = "/listAll")
 //	@RequiresPermissions("resource:listAll")
-	public List<TreeDTO> findResource() {
-		List<TreeDTO> treeDtoList = resourceService.findResourceTree();
+	public List<TreeDTO> findResource(int roleId) {
+		List<TreeDTO> treeDtoList = resourceService.findResourceTree(roleId);
 		return treeDtoList;
 	}
 	

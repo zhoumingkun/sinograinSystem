@@ -69,6 +69,11 @@
 		<include refid="paramsSQL" />
 	</select>
 	
+	<!-- 根据资源Id查找下属资源 -->
+	<select id="findById" parameterType="int" resultType="resource">
+		select * FROM auth_resource where resourcePId = #{id}
+	</select>
+	
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 	 	<where>

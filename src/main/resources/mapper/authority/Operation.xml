@@ -58,6 +58,10 @@
 		order by id asc
 	</select>
 	
+	<!-- 查找全部操作 -->
+	<select id="findByRoleId" resultType="Operation" parameterType="int">
+		SELECT b.* from auth_role_operation a,auth_operation b where a.roleId = #{roleId} and a.operationId = b.id
+	</select>
 	
 	<!-- 根据资源ID查找操作 -->
 	<select id="findById" resultType="Operation" parameterType="int">

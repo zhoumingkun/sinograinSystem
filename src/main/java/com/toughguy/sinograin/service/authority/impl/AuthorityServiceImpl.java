@@ -116,8 +116,10 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	@Override
 	public void authRole(int roleId, List <Integer> array){
 		roleService.deleteRoleAndOperationsRelationByRoleId(roleId); //删除角色与操作关系集
-		for(Integer i : array){
-			roleService.saveRoleAndOperationRelation(roleId, i); //保存角色操作关系
+		if(array.size() > 0){
+			for(Integer i : array){
+				roleService.saveRoleAndOperationRelation(roleId, i); //保存角色操作关系
+			}
 		}
 	}
 	// 用户授权
