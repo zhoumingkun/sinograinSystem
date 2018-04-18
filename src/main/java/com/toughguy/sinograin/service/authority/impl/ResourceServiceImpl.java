@@ -117,10 +117,20 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 										tree3.setIndex(o.getGuid());
 										for (int i = 0; i < operList.size(); i++) {
 											if (o.getId() == operList.get(i).getId()) {
-												tree3.setDisabled(true);
+//												if(operList.size() == r1.getOperationList().size()){
+//													tree1.setDisabled(true);
+//													treeList.add(tree1);
+//													tree2.setDisabled(true);
+//													treeList2.add(tree2);
+//													tree1.setChildren(treeList2);
+//												}else{
+													tree3.setDisabled(true);
+													tree3.setChecked(true);
+//												}
 												break;
 											} else {
 												tree3.setDisabled(false);
+												tree3.setChecked(false);
 											}
 										}
 										for (int j = 0; j < list.size(); j++) {
@@ -149,19 +159,21 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 								for (int i = 0; i < operList.size(); i++) {
 									if (o.getId() == operList.get(i).getId()) {
 										tree3.setDisabled(true);
-										break;
-									} else {
-										tree3.setDisabled(false);
-									}
-								}
-								for (int j = 0; j < list.size(); j++) {
-									if (o.getId() == list.get(j).getId()) {
 										tree3.setChecked(true);
 										break;
 									} else {
+										tree3.setDisabled(false);
 										tree3.setChecked(false);
 									}
 								}
+//								for (int j = 0; j < list.size(); j++) {
+//									if (o.getId() == list.get(j).getId()) {
+//										tree3.setChecked(true);
+//										break;
+//									} else {
+//										tree3.setChecked(false);
+//									}
+//								}
 								treeList3.add(tree3);
 								tree1.setChildren(treeList3);
 							}
@@ -287,6 +299,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 										for (int i = 0; i < operList.size(); i++) {
 											if (o.getId() == operList.get(i).getId()) {
 												tree3.setDisabled(true);
+												tree3.setChecked(true);
 												break;
 											} else {
 												tree3.setDisabled(false);
@@ -310,6 +323,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 								for (int i = 0; i < operList.size(); i++) {
 									if (o.getId() == operList.get(i).getId()) {
 										tree3.setDisabled(true);
+										tree3.setChecked(true);
 										break;
 									} else {
 										tree3.setDisabled(false);
