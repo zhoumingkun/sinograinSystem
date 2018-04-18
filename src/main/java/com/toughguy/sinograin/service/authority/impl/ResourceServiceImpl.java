@@ -21,7 +21,6 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 	
 	@Autowired
 	IOperationDao operationDao;
-	private List<TreeDTO> treeList = new ArrayList<>();
 	@Override
 	public List<Integer> findROsByResourceId(int resourceId) {
 		
@@ -59,6 +58,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 	}
 	
 	public List<TreeDTO> tree(List<Resource> roles) {
+		 List<TreeDTO> treeList = new ArrayList<>();
 		for(Resource r:roles) {
 			TreeDTO tree1 = new TreeDTO();
 			tree1.setName(r.getResourceName());
