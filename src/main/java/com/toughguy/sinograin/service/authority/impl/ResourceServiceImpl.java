@@ -413,7 +413,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 	}
 
 	@Override
-	public List<Role> findByresourceName(String resourceName) {
+	public List<Resource> findByresourceName(String resourceName) {
 		// TODO Auto-generated method stub
 		return ((IResourceDao) dao).findByresourceName(resourceName);
 	}

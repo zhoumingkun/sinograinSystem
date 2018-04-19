@@ -46,7 +46,7 @@ public class ResourceDaoImpl extends GenericDaoImpl<Resource, Integer> implement
 	}
 
 	@Override
-	public List<Role> findByresourceName(String resourceName) {
+	public List<Resource> findByresourceName(String resourceName) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findByresourceName", resourceName);
 	}

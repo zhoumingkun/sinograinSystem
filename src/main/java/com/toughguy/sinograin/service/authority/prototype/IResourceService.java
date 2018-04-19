@@ -48,6 +48,6 @@ public interface IResourceService extends IGenericService<Resource, Integer> {
 	 public List<TreeDTO> findResourceTree(int roleId);
 	 
 	 
-	 public List<Role> findByresourceName(String resourceName);
+	 public List<Resource> findByresourceName(String resourceName);
 
 }

@@ -46,7 +46,7 @@ public interface IResourceDao extends IGenericDao<Resource, Integer> {
 	
 	
 	
-	public List<Role> findByresourceName(String resourceName);
+	public List<Resource> findByresourceName(String resourceName);
 	
 
 }

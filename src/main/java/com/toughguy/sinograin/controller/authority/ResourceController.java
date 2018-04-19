@@ -167,7 +167,7 @@ public class ResourceController {
 	//@SystemControllerLog(description="权限管理-根据资源名称查是否重复")
 	public String findByresourceName(String resourceName) {
 
-			List<Role> list = resourceService.findByresourceName(resourceName);
+			List<Resource> list = resourceService.findByresourceName(resourceName);
 			if(list.size() > 0){
 				return "{ \"success\" : false }";
 			}else{
