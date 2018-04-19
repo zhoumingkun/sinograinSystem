@@ -65,25 +65,26 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 		Role role = roleDao.find(roleId);
 		List<Operation> operList = operationDao.findByRoleId(role.getRoleRelyId()); // 得到依赖角色的所有操作
 		for (Resource r : roles) {
-			if (list.size() > 0) {
+			 //判断本身是否有权限
+			if (list.size() > 0) {     //本身拥有权限   
 				if (operList.size() > 0) { // 有角色依赖 本身也有权限
 					TreeDTO tree1 = new TreeDTO();
 					tree1.setName(r.getResourceName());
 					tree1.setId(r.getId());
 					tree1.setType(-1);
 					tree1.setIndex(r.getGuid());
-					// List<Resource> rList =((IResourceDao)
-					// dao).findById(r.getId()); //查询出资源所拥有的下属资源
-					// for (int j = 0; j < list.size(); j++) {
-					// for (Resource resource : rList) {
-					// if (resource.getId() == list.get(j).getResourceId()) {
-					// tree1.setChecked("true");
-					// break; //如果该角色有此操作的资源 跳出循环
-					// } else {
-					// tree1.setChecked("false");
-					// }
-					// }
-					// }
+					/* List<Resource> rList =((IResourceDao)
+					 dao).findById(r.getId()); //查询出资源所拥有的下属资源
+					 for (int j = 0; j < list.size(); j++) {
+					 for (Resource resource : rList) {
+					 if (resource.getId() == list.get(j).getResourceId()) {
+					 tree1.setChecked("true");
+					 break; //如果该角色有此操作的资源 跳出循环
+					 } else {
+					 tree1.setChecked("false");
+					 }
+					 }
+					 }*/
 					treeList.add(tree1);
 					if (r.getList().size() != 0) {
 						List<TreeDTO> treeList2 = new ArrayList<>();
@@ -93,15 +94,15 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 							tree2.setId(r1.getId());
 							tree2.setType(-1);
 							tree2.setIndex(r1.getGuid());
-							// for (int j = 0; j < list.size(); j++) {
-							// System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
-							// if (r1.getId() == list.get(j).getResourceId()) {
-							// tree2.setChecked("true");
-							// break;
-							// } else {
-							// tree2.setChecked("false");
-							// }
-							// }
+							/* for (int j = 0; j < list.size(); j++) {
+							 System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
+							 if (r1.getId() == list.get(j).getResourceId()) {
+							 tree2.setChecked("true");
+							 break;
+							 } else {
+							 tree2.setChecked("false");
+							 }
+							 }*/
 							treeList2.add(tree2);
 							tree1.setChildren(treeList2);
 							if (r1.getList().size() != 0) {
@@ -117,12 +118,17 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 										tree3.setIndex(o.getGuid());
 										for (int i = 0; i < operList.size(); i++) {
 											if (o.getId() == operList.get(i).getId()) {
+												//判断角色依赖的操作与资源的操作是否相等  相等则将资源禁闭
+												System.out.println(operList.size()+"=-------="+r1.getOperationList().size());
 //												if(operList.size() == r1.getOperationList().size()){
-//													tree1.setDisabled(true);
-//													treeList.add(tree1);
+////													tree1.setDisabled(true);
+////													treeList.add(tree1);
 //													tree2.setDisabled(true);
+//													tree2.setChecked(true);
 //													treeList2.add(tree2);
 //													tree1.setChildren(treeList2);
+//													tree3.setDisabled(true);
+//													tree3.setChecked(true);
 //												}else{
 													tree3.setDisabled(true);
 													tree3.setChecked(true);
@@ -158,22 +164,22 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 								tree3.setIndex(o.getGuid());
 								for (int i = 0; i < operList.size(); i++) {
 									if (o.getId() == operList.get(i).getId()) {
-										tree3.setDisabled(true);
-										tree3.setChecked(true);
+											tree3.setDisabled(true);
+											tree3.setChecked(true);
 										break;
 									} else {
 										tree3.setDisabled(false);
 										tree3.setChecked(false);
 									}
 								}
-//								for (int j = 0; j < list.size(); j++) {
-//									if (o.getId() == list.get(j).getId()) {
-//										tree3.setChecked(true);
-//										break;
-//									} else {
-//										tree3.setChecked(false);
-//									}
-//								}
+								/*for (int j = 0; j < list.size(); j++) {
+									if (o.getId() == list.get(j).getId()) {
+										tree3.setChecked(true);
+										break;
+									} else {
+										tree3.setChecked(false);
+									}
+								}*/
 								treeList3.add(tree3);
 								tree1.setChildren(treeList3);
 							}
@@ -185,18 +191,18 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 					tree1.setId(r.getId());
 					tree1.setType(-1);
 					tree1.setIndex(r.getGuid());
-					// List<Resource> rList =((IResourceDao)
-					// dao).findById(r.getId()); //查询出资源所拥有的下属资源
-					// for (int j = 0; j < list.size(); j++) {
-					// for (Resource resource : rList) {
-					// if (resource.getId() == list.get(j).getResourceId()) {
-					// tree1.setChecked("true");
-					// break; //如果该角色有此操作的资源 跳出循环
-					// } else {
-					// tree1.setChecked("false");
-					// }
-					// }
-					// }
+					/* List<Resource> rList =((IResourceDao)
+					 dao).findById(r.getId()); //查询出资源所拥有的下属资源
+					 for (int j = 0; j < list.size(); j++) {
+					 for (Resource resource : rList) {
+					 if (resource.getId() == list.get(j).getResourceId()) {
+					 tree1.setChecked("true");
+					 break; //如果该角色有此操作的资源 跳出循环
+					 } else {
+					 tree1.setChecked("false");
+					 }
+					 }
+					 }*/
 					treeList.add(tree1);
 					if (r.getList().size() != 0) {
 						List<TreeDTO> treeList2 = new ArrayList<>();
@@ -206,15 +212,15 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 							tree2.setId(r1.getId());
 							tree2.setType(-1);
 							tree2.setIndex(r1.getGuid());
-							// for (int j = 0; j < list.size(); j++) {
-							// System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
-							// if (r1.getId() == list.get(j).getResourceId()) {
-							// tree2.setChecked("true");
-							// break;
-							// } else {
-							// tree2.setChecked("false");
-							// }
-							// }
+							/* for (int j = 0; j < list.size(); j++) {
+							 System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
+							 if (r1.getId() == list.get(j).getResourceId()) {
+							 tree2.setChecked("true");
+							 break;
+							 } else {
+							 tree2.setChecked("false");
+							 }
+							 }*/
 							treeList2.add(tree2);
 							tree1.setChildren(treeList2);
 							if (r1.getList().size() != 0) {
@@ -267,7 +273,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 						}
 					}
 				}
-			} else { // 该角色还未拥有资源与操作
+			} else { // 该角色还未拥有权限
 				if (operList.size() > 0) { // 有角色依赖 本身没有权限
 					TreeDTO tree1 = new TreeDTO();
 					tree1.setName(r.getResourceName());
@@ -298,8 +304,18 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 										tree3.setIndex(o.getGuid());
 										for (int i = 0; i < operList.size(); i++) {
 											if (o.getId() == operList.get(i).getId()) {
-												tree3.setDisabled(true);
-												tree3.setChecked(true);
+												//判断资源的操作与角色依赖的操作个数是否相等
+//												if(operList.size() == r.getOperationList().size()){
+//													tree2.setDisabled(true);
+//													tree2.setChecked(true);
+//													treeList2.add(tree2);
+//													tree1.setChildren(treeList2);
+//													tree3.setDisabled(true);
+//													tree3.setChecked(true);
+//												}else{
+													tree3.setDisabled(true);
+													tree3.setChecked(true);
+//												}
 												break;
 											} else {
 												tree3.setDisabled(false);
@@ -322,8 +338,16 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 								tree3.setIndex(o.getGuid());
 								for (int i = 0; i < operList.size(); i++) {
 									if (o.getId() == operList.get(i).getId()) {
+//										if(operList.size() == r.getOperationList().size()){
+//											tree1.setDisabled(true);
+//											treeList.add(tree1);
+//											tree2.setDisabled(true);
+//											treeList2.add(tree2);
+//											tree1.setChildren(treeList2);
+//									}else{
 										tree3.setDisabled(true);
 										tree3.setChecked(true);
+//									}
 										break;
 									} else {
 										tree3.setDisabled(false);
@@ -334,7 +358,7 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 							}
 						}
 					}
-				} else {
+				} else {  // 没有角色依赖 本身无权限
 					TreeDTO tree1 = new TreeDTO();
 					tree1.setName(r.getResourceName());
 					tree1.setId(r.getId());
