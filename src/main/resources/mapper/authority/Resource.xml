@@ -74,6 +74,11 @@
 		select * FROM auth_resource where resourcePId = #{id}
 	</select>
 	
+	<!-- 根据资源资源名称查找 -->
+	<select id="resourceName" parameterType="String" resultType="resource">
+		select * FROM auth_resource where resourceName = #{resourceName}
+	</select>
+	
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 	 	<where>

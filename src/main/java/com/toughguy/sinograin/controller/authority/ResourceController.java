@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.Resource;
+import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.service.authority.prototype.IAuthorityService;
 import com.toughguy.sinograin.service.authority.prototype.IOperationService;
 import com.toughguy.sinograin.service.authority.prototype.IResourceService;
@@ -160,5 +161,21 @@ public class ResourceController {
 			return "{ \"success\" : false, \"msg\" : \"操作失败\" }";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/findByresourceName")
+//	@RequiresPermissions("role:findByresourceName")
+	//@SystemControllerLog(description="权限管理-根据资源名称查是否重复")
+	public String findByresourceName(String resourceName) {
 
+			List<Role> list = resourceService.findByresourceName(resourceName);
+			if(list.size() > 0){
+				return "{ \"success\" : false }";
+			}else{
+				return "{ \"success\" : true }";
+			}
+		}
 }
+
+
+
+

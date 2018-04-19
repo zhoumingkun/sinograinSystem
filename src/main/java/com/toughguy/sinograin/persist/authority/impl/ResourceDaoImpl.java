@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.toughguy.sinograin.model.authority.Resource;
+import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.persist.authority.prototype.IResourceDao;
 import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
 /**
@@ -42,6 +43,12 @@ public class ResourceDaoImpl extends GenericDaoImpl<Resource, Integer> implement
 	@Override
 	public List<Resource> findById(int id) {
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findById", id);
+	}
+
+	@Override
+	public List<Role> findByresourceName(String resourceName) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByresourceName", resourceName);
 	}
 
 

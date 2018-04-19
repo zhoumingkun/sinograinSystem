@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Resource;
+import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.service.prototype.IGenericService;
 
 /**
@@ -45,5 +46,8 @@ public interface IResourceService extends IGenericService<Resource, Integer> {
 	 * @return 资源
 	 */
 	 public List<TreeDTO> findResourceTree(int roleId);
+	 
+	 
+	 public List<Role> findByresourceName(String resourceName);
 
 }

@@ -3,6 +3,7 @@ package com.toughguy.sinograin.persist.authority.prototype;
 import java.util.List;
 
 import com.toughguy.sinograin.model.authority.Resource;
+import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.persist.prototype.IGenericDao;
 
 /**
@@ -42,5 +43,10 @@ public interface IResourceDao extends IGenericDao<Resource, Integer> {
 	 * @return 
 	 */
 	public List<Resource> findById(int id);
+	
+	
+	
+	public List<Role> findByresourceName(String resourceName);
+	
 
 }
