@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.model.authority.User;
 import com.toughguy.sinograin.service.authority.prototype.IAuthorityService;
@@ -148,6 +149,14 @@ public class UserController {
 	public String getRoleByUser(Integer id) {
 		List<Role> roleList = authService.findRolesByUserId(id);
 		return JsonUtil.objectToJson(roleList);
+	}
+	
+	//@SystemControllerLog(description="权限管理-获取用户角色")
+	@ResponseBody
+	@RequestMapping(value = "/getRoles")
+	public List<TreeDTO> findRoleByUser(Integer id) {
+			List<TreeDTO> list = authService.findRoleByUser(id);
+			return list;
 	}
 	
 	@ResponseBody

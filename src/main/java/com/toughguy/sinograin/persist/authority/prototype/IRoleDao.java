@@ -85,4 +85,10 @@ public interface IRoleDao extends IGenericDao<Role, Integer>{
 	
 	public List<Role> findBydisplayName(String displayName);
 
+	/**
+	 * 根据角色ID查询下属角色
+	 * @param roleName 角色名
+	 */
+	public List<Role> findRelyRole(int id);
+
 }

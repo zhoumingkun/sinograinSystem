@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.authority.prototype;
 
 import java.util.List;
 
+import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.model.authority.Role;
@@ -101,4 +102,11 @@ public interface IAuthorityService {
 	 * @param id 资源id
 	 */
 	public void deleteResource(int id);
+	
+	/**
+	 * 根据用ID查找角色以及依赖的角色
+	 * @param userId 用户ID
+	 * 
+	 */
+	public List<TreeDTO> findRoleByUser(int userId);
 }

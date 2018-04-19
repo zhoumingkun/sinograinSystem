@@ -74,6 +74,11 @@
 		select operationId from auth_role_operation where roleId = #{roleId}
 	</select>
 	
+	<!--根据角色ID查询下属角色 -->
+	<select id="findRelyRole" parameterType="int" resultType="Role">
+		select * from auth_role where roleExtendPId = #{id}
+	</select>
+	
 	<!-- 根据角色id查询角色和操作的对应关系 -->
 	<select id="findOperationByRoleId" parameterType="int" resultType="Operation">
 		SELECT

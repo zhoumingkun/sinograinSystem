@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.OperationDTO;
+import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.model.authority.Role;
@@ -267,6 +268,114 @@ public class AuthorityServiceImpl implements IAuthorityService{
 		operationService.deleteAllByResourceId(id);
 	}
 	
+	
+	
+	/*@Override
+	public List<TreeDTO> findRoleByUser(int userId) {
+		List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
+		List<Role> list = roleService.findAll();
+//		List<Role> list = userService.findRoleByUserId(userId);
+		for(Role r:list){
+			TreeDTO tree = new TreeDTO();
+			tree.setId(r.getId());
+			tree.setName(r.getRoleName());
+			tree.setIndex(r.getGuid());
+			litsTree.add(tree);
+			int pid = r.getRoleExtendPId();
+			if(pid>=0){
+				List<TreeDTO> children=findByRoleId(pid);
+				tree.setChildren(children);
+				litsTree.add(tree);
+			}
+		}
+		return litsTree;
+	}
+	
+	// 递归查询角色
+		private List<TreeDTO> findByRoleId(int roleId){
+			List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
+			Role r = roleService.find(roleId);
+			TreeDTO tree = new TreeDTO();
+			tree.setId(r.getId());
+			tree.setName(r.getRoleName());
+			tree.setIndex(r.getGuid());
+			litsTree.add(tree);
+			if(r.getRoleExtendPId()>=0){
+				List<TreeDTO> children=findByRoleId(r.getRoleExtendPId());
+				tree.setChildren(children);
+				litsTree.add(tree);
+			}
+			return litsTree;
+		}*/
+	
+	
+	@Override
+	public List<TreeDTO> findRoleByUser(int userId) {
+		List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
+		List<Role> list = roleService.findAll();
+//		List<Role> list = userService.findRoleByUserId(userId);
+		for(Role r:list){
+			if(r.getRoleExtendPId() == -1){
+				TreeDTO tree = new TreeDTO();
+				tree.setId(r.getId());
+				tree.setName(r.getRoleName());
+				tree.setIndex(r.getGuid());
+				litsTree.add(tree);
+				List<Role> roleList = roleService.findRelyRole(r.getId());
+				System.out.println(roleList.size());
+				if(roleList.size() > 0){
+					litsTree = findByRoleId(roleList,tree,litsTree);
+				}
+			}	
+		}
+		
+		//集合去重
+		Set<TreeDTO> set = new  HashSet<TreeDTO>(); 
+		List<TreeDTO> lits = new ArrayList<TreeDTO>();
+		for (TreeDTO treeDTO : litsTree) {
+			if(set.add(treeDTO)){
+				lits.add(treeDTO);
+            }
+		}
+		return lits;
+	}
+	
+	private List<TreeDTO> findByRoleId(List<Role> roleList,TreeDTO tree,List<TreeDTO> litsTree){
+			List<TreeDTO> litsTree1 = new ArrayList<TreeDTO>();
+			for (Role role : roleList) {
+				TreeDTO tree1 = new TreeDTO();
+				tree1.setId(role.getId());
+				tree1.setName(role.getRoleName());
+				tree1.setIndex(role.getGuid());
+				litsTree1.add(tree1);
+				tree.setChildren(litsTree1);
+				litsTree.add(tree);
+				List<Role> roleLists = roleService.findRelyRole(role.getId());
+				System.out.println(roleLists.size()+"------");
+				if(roleLists.size() > 0){
+					findByRoleId(roleLists,tree1,litsTree);
+				}
+			}
+		return litsTree;
+	} 
+	
+	/*// 递归查询角色
+		private List<TreeDTO> findByRoleId(int roleId){
+			List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
+			Role r = roleService.find(roleId);
+			TreeDTO tree = new TreeDTO();
+			tree.setId(r.getId());
+			tree.setName(r.getRoleName());
+			tree.setIndex(r.getGuid());
+			litsTree.add(tree);
+			if(r.getRoleExtendPId()>=0){
+				List<TreeDTO> children=findByRoleId(r.getRoleExtendPId());
+				tree.setChildren(children);
+				litsTree.add(tree);
+			}
+			return litsTree;
+		}
+	 */
 }
 
 

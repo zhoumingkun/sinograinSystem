@@ -245,18 +245,11 @@ public class RoleController {
 //	@RequiresPermissions("role:findBydisplayName")
 	//@SystemControllerLog(description="权限管理-根据角色中文名称查是否重复")
 	public String findBydisplayName(String displayName) {
-		try {
-
-			List<Role> list = roleService.findBydisplayName(displayName);
-			if(list.size() > 0){
-				return "角色中文名称重复";
-			}else{
-				return "{ \"success\" : true }";
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		List<Role> list = roleService.findBydisplayName(displayName);
+		if(list.size() > 0){
 			return "{ \"success\" : false }";
+		}else{
+			return "{ \"success\" : true }";
 		}
 	}
 }
