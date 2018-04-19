@@ -40,6 +40,11 @@
 		select * from auth_user where id = #{id}
 	</select>
 	
+	<!-- 根据用户名称查是否重复 -->
+	<select id="findByuserName" parameterType="String" resultType="User">
+		select * from auth_user where userName = #{userName}
+	</select>
+	
 	<!-- 查询全部用户 -->
 	<select id="findAll" resultType="User" parameterType="Map">
 		select * from auth_user

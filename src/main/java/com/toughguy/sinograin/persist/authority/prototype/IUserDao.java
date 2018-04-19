@@ -2,6 +2,7 @@ package com.toughguy.sinograin.persist.authority.prototype;
 
 import java.util.List;
 
+import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.model.authority.User;
 import com.toughguy.sinograin.persist.prototype.IGenericDao;
@@ -77,5 +78,11 @@ public interface IUserDao extends IGenericDao<User, Integer> {
 	 * 
 	 */
 	public User findUserInfoByUserName(String userName);
+	/**
+	 * 根据用户名称查是否重复
+	 * @param userName 用户名称
+	 * 
+	 */
+	public List<User> findByuserName(String userName);
 
 }

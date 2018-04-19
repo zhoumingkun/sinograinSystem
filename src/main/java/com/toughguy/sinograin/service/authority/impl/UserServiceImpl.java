@@ -110,6 +110,12 @@ public class UserServiceImpl extends GenericServiceImpl<User, Integer> implement
 	public User findUserInfoByUserName(String userName) {
 		return ((IUserDao) dao).findUserInfoByUserName(userName);
 	}
+
+	@Override
+	public List<User> findByuserName(String userName) {
+		// TODO Auto-generated method stub
+		return ((IUserDao) dao).findByuserName(userName);
+	}
 	
 	/*@Override
 	@Cacheable(value="liquiduser")

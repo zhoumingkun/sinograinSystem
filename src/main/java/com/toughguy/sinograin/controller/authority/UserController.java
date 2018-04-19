@@ -212,4 +212,19 @@ public class UserController {
 	public String data(String params,HttpSession session) {
 		return authService.findAllUserInduleRoles(params);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/findByuserName")
+//	@RequiresPermissions("user:findByuserName")
+	//@SystemControllerLog(description="权限管理-根据用户名称查是否重复")
+	public String findByuserName(String userName) {
+		List<User> list = userService.findByuserName(userName);
+		if(list.size() > 0){
+			return "{ \"success\" : false }";
+		}else{
+			return "{ \"success\" : true }";
+		}
+	}
 }
+

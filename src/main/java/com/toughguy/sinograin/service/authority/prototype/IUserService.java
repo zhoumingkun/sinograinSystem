@@ -83,6 +83,12 @@ public interface IUserService extends IGenericService<User, Integer> {
 	 * 
 	 */
 	public User findUserInfoByUserName(String userName);
+	/**
+	 * 根据用户名称查是否重复
+	 * @param userName 用户名称
+	 * 
+	 */
+	public List<User> findByuserName(String userName);
 
 
 }

@@ -78,4 +78,10 @@ public class UserDaoImpl extends GenericDaoImpl<User, Integer> implements IUserD
 		return sqlSessionTemplate.selectOne(typeNameSpace + ".findUserInfoByUserName", userName);
 	}
 
+	@Override
+	public List<User> findByuserName(String userName) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByuserName", userName);
+	}
+
 }
