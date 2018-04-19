@@ -90,5 +90,8 @@ public interface IRoleDao extends IGenericDao<Role, Integer>{
 	 * @param roleName 角色名
 	 */
 	public List<Role> findRelyRole(int id);
-
+	/**
+	 * 根据角色依赖ID查询对应的角色 
+	 */
+	public Role findRelyId(int roleRelyId);
 }

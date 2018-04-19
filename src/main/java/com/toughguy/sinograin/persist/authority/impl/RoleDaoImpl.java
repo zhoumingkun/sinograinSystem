@@ -91,4 +91,10 @@ public class RoleDaoImpl extends GenericDaoImpl<Role, Integer> implements IRoleD
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findRelyRole",id);
 	}
 
+	@Override
+	public Role findRelyId(int roleRelyId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findRelyId",roleRelyId);
+	}
+
 }

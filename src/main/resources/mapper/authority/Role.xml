@@ -79,6 +79,11 @@
 		select * from auth_role where roleExtendPId = #{id}
 	</select>
 	
+	<!--根据角色依赖ID查询对应的角色 -->
+	<select id="findRelyId" parameterType="int" resultType="Role">
+		select * from auth_role where id = #{roleRelyId}
+	</select>
+	
 	<!-- 根据角色id查询角色和操作的对应关系 -->
 	<select id="findOperationByRoleId" parameterType="int" resultType="Operation">
 		SELECT

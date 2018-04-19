@@ -21,6 +21,7 @@ import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.model.authority.User;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.persist.authority.prototype.IRoleDao;
 import com.toughguy.sinograin.service.authority.prototype.IAuthorityService;
 import com.toughguy.sinograin.service.authority.prototype.IOperationService;
 import com.toughguy.sinograin.service.authority.prototype.IResourceService;
@@ -36,6 +37,8 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	private IUserService userService;
 	@Autowired
 	private IRoleService roleService;
+	@Autowired
+	private IRoleDao roleDao;
 	@Autowired
 	private IResourceService resourceService;
 	@Autowired
@@ -280,19 +283,20 @@ public class AuthorityServiceImpl implements IAuthorityService{
 				tree.setId(r.getId());
 				tree.setName(r.getDisplayName());
 				tree.setIndex(r.getGuid());
+				if(r.getRoleRelyId() == -1){
+					tree.setRelyId("-1");
+				}else{
+					Role re = roleDao.findRelyId(r.getRoleRelyId());
+					tree.setRelyId(re.getGuid());
+				}
 				if(lsitRole.size() > 0){
 					for (int i = 0; i < lsitRole.size(); i++) {
-						if(lsitRole.get(i).getId() == r.getId() && lsitRole.get(i).getRoleExtendPId() == -1){
-							tree.setDisabled(true);
+						if(lsitRole.get(i).getId() == r.getId()){
+//							tree.setDisabled(true);
 							tree.setChecked(true);
-						}else{
-							tree.setDisabled(false);
-							tree.setChecked(false);
+							break;
 						}
 					}
-				}else{
-					tree.setDisabled(false);
-					tree.setChecked(false);
 				}
 				litsTree.add(tree);
 				List<Role> roleList = roleService.findRelyRole(r.getId());
@@ -322,19 +326,20 @@ public class AuthorityServiceImpl implements IAuthorityService{
 				tree1.setId(role.getId());
 				tree1.setName(role.getDisplayName());
 				tree1.setIndex(role.getGuid());
+				if(role.getRoleRelyId() == -1){
+					tree1.setRelyId("-1");
+				}else{
+					Role re = roleDao.findRelyId(role.getRoleRelyId());
+					tree1.setRelyId(re.getGuid());
+				}
 				if(lsitRole.size() > 0){
 					for (int i = 0; i < lsitRole.size(); i++) {
 						if(lsitRole.get(i).getId() == role.getId() && role.getId() != -1){
-							tree1.setDisabled(true);
+//							tree1.setDisabled(true);
 							tree1.setChecked(true);
-						}else{
-							tree1.setDisabled(false);
-							tree1.setChecked(false);
+							break;
 						}
 					}
-				}else{
-					tree1.setDisabled(false);
-					tree1.setChecked(false);
 				}
 				litsTree1.add(tree1);
 				tree.setChildren(litsTree1);

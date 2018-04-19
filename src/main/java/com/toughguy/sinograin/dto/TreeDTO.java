@@ -16,10 +16,10 @@ public class TreeDTO {
 	private int id;
 	private List<TreeDTO> children;
 	private	int type;  // -1 资源 ；1操作
-	private boolean disabled;  //是否禁用 ture/false
-	private boolean checked;  //是否选中 ture/false
+	private boolean disabled=false;  //是否禁用 ture/false
+	private boolean checked=false;  //是否选中 ture/false
 	private String index;  //唯一标识
-	
+	private String relyId;  //唯一标识
 	public int getId() {
 		return id;
 	}
@@ -89,6 +89,16 @@ public class TreeDTO {
 
 	public void setIndex(String index) {
 		this.index = index;
+	}
+
+
+	public String getRelyId() {
+		return relyId;
+	}
+
+
+	public void setRelyId(String relyId) {
+		this.relyId = relyId;
 	}
 
 
