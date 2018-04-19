@@ -163,7 +163,7 @@ public class ResourceController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/findByresourceName")
-//	@RequiresPermissions("role:findByresourceName")
+//	@RequiresPermissions("resource:findByresourceName")
 	//@SystemControllerLog(description="权限管理-根据资源名称查是否重复")
 	public String findByresourceName(String resourceName) {
 
