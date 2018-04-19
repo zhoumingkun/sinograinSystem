@@ -269,46 +269,6 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	}
 	
 	
-	
-	/*@Override
-	public List<TreeDTO> findRoleByUser(int userId) {
-		List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
-		List<Role> list = roleService.findAll();
-//		List<Role> list = userService.findRoleByUserId(userId);
-		for(Role r:list){
-			TreeDTO tree = new TreeDTO();
-			tree.setId(r.getId());
-			tree.setName(r.getRoleName());
-			tree.setIndex(r.getGuid());
-			litsTree.add(tree);
-			int pid = r.getRoleExtendPId();
-			if(pid>=0){
-				List<TreeDTO> children=findByRoleId(pid);
-				tree.setChildren(children);
-				litsTree.add(tree);
-			}
-		}
-		return litsTree;
-	}
-	
-	// 递归查询角色
-		private List<TreeDTO> findByRoleId(int roleId){
-			List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
-			Role r = roleService.find(roleId);
-			TreeDTO tree = new TreeDTO();
-			tree.setId(r.getId());
-			tree.setName(r.getRoleName());
-			tree.setIndex(r.getGuid());
-			litsTree.add(tree);
-			if(r.getRoleExtendPId()>=0){
-				List<TreeDTO> children=findByRoleId(r.getRoleExtendPId());
-				tree.setChildren(children);
-				litsTree.add(tree);
-			}
-			return litsTree;
-		}*/
-	
-	
 	@Override
 	public List<TreeDTO> findRoleByUser(int userId) {
 		List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
@@ -349,7 +309,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 				tree1.setIndex(role.getGuid());
 				litsTree1.add(tree1);
 				tree.setChildren(litsTree1);
-				litsTree.add(tree);
+//				litsTree.add(tree);
 				List<Role> roleLists = roleService.findRelyRole(role.getId());
 				System.out.println(roleLists.size()+"------");
 				if(roleLists.size() > 0){
@@ -358,24 +318,6 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			}
 		return litsTree;
 	} 
-	
-	/*// 递归查询角色
-		private List<TreeDTO> findByRoleId(int roleId){
-			List<TreeDTO> litsTree = new ArrayList<TreeDTO>();
-			Role r = roleService.find(roleId);
-			TreeDTO tree = new TreeDTO();
-			tree.setId(r.getId());
-			tree.setName(r.getRoleName());
-			tree.setIndex(r.getGuid());
-			litsTree.add(tree);
-			if(r.getRoleExtendPId()>=0){
-				List<TreeDTO> children=findByRoleId(r.getRoleExtendPId());
-				tree.setChildren(children);
-				litsTree.add(tree);
-			}
-			return litsTree;
-		}
-	 */
 }
 
 
