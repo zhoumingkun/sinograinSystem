@@ -40,6 +40,11 @@
 	   SELECT * FROM auth_role WHERE roleName= #{roleName}
 	</select>
 	
+	<!-- 查询某个角色根据角色中文名称 -->
+	<select id="findBydisplayName" parameterType="String" resultType="Role">
+	   SELECT * FROM auth_role WHERE displayName= #{displayName}
+	</select>
+	
 	<!-- 查询某个角色 -->
 	<select id="find" parameterType="int" resultType="Role">
 		SELECT

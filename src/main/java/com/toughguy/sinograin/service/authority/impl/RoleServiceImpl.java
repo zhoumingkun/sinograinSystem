@@ -161,4 +161,10 @@ public class RoleServiceImpl extends GenericServiceImpl<Role, Integer> implement
 		return ((IRoleDao) dao).findByName(roleName);
 	}
 
+	@Override
+	public List<Role> findBydisplayName(String displayName) {
+		// TODO Auto-generated method stub
+		return ((IRoleDao) dao).findBydisplayName(displayName);
+	}
+
 }

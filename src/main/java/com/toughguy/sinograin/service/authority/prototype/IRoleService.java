@@ -92,6 +92,8 @@ public interface IRoleService extends IGenericService<Role, Integer>{
 	 * @param roleName 角色名
 	 */
 	public List<Role> findByName(String roleName);
+	
+	public List<Role> findBydisplayName(String displayName);
 
 
 }
