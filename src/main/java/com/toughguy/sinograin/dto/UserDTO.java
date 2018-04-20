@@ -16,8 +16,8 @@ public class UserDTO {
 	
 	private String libraryName; //库名
 
-	
-	
+	private String permissions; //操作名 拼接字符串
+	private String resourceName;//资源名称 拼接字符串
 	public int getId() {
 		return id;
 	}
@@ -66,6 +66,26 @@ public class UserDTO {
 		this.libraryName = libraryName;
 	}
 	
+	
+	
+	public String getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(String permissions) {
+		this.permissions = permissions;
+	}
+	
+	
+
+	public String getResourceName() {
+		return resourceName;
+	}
+
+	public void setResourceName(String resourceName) {
+		this.resourceName = resourceName;
+	}
+
 	@Override
 	public String toString() {
 		return JsonUtil.objectToJson(this);

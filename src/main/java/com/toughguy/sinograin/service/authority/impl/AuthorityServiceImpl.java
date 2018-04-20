@@ -251,8 +251,15 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			PagerModel<User> pg = userService.findPaginated(map);
 			List<User> userList = pg.getData();
 			for(User u: userList){
+				String name = "";
 				List<Role> roles = userService.findRoleByUserId(u.getId());
-				u.setRoleList(roles);
+				if(roles.size() > 0){
+					for (Role role : roles) {
+						String displayName = role.getDisplayName();
+						name +=displayName+",";
+					}
+					u.setRolesName(name.substring(0, name.length()-1));
+				}
 			}
 			//序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
@@ -300,7 +307,6 @@ public class AuthorityServiceImpl implements IAuthorityService{
 				}
 				litsTree.add(tree);
 				List<Role> roleList = roleService.findRelyRole(r.getId());
-				System.out.println(roleList.size());
 				if(roleList.size() > 0){
 					litsTree = findByRoleId(roleList,tree,litsTree,userId);
 				}
@@ -345,7 +351,6 @@ public class AuthorityServiceImpl implements IAuthorityService{
 				tree.setChildren(litsTree1);
 //				litsTree.add(tree);
 				List<Role> roleLists = roleService.findRelyRole(role.getId());
-				System.out.println(roleLists.size()+"------");
 				if(roleLists.size() > 0){
 					findByRoleId(roleLists,tree1,litsTree,userId);
 				}

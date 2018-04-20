@@ -68,6 +68,11 @@
 		select * from auth_operation where resourceId = #{id} 
 	</select>
 	
+	<!-- 根据用户ID查找操作 -->
+	<select id="findByUserId" resultType="Operation" parameterType="int">
+	select distinct   c.* from auth_user_role a,auth_role_operation b,auth_operation c where a.userId =#{userId} and a.roleId = b.roleId AND b.operationId = c.id
+	</select>
+	
 	<!-- 分页查找 -->
 	<select id="findPaginated" parameterType="Map" resultType="Operation">
 		select * from auth_operation 

@@ -47,4 +47,8 @@ public interface IOperationDao extends IGenericDao<Operation, Integer> {
 	 * @param id 资源id
 	 */
 	public List<Operation> findByRoleId(int roleId);
+	/*
+	 * 根据用户ID查找操作
+	 */
+	public List<Operation> findByUserId(int userId);
 }

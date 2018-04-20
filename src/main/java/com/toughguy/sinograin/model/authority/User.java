@@ -42,6 +42,7 @@ public class User extends AbstractModel {
 	
 	private String libraryName; //库名（前台）
 	
+	private String rolesName="无";   //角色名拼接字符串  前台显示
 
 	public List<Role> getRoleList() {
 		return roleList;
@@ -106,6 +107,15 @@ public class User extends AbstractModel {
 
 	public void setLibraryName(String libraryName) {
 		this.libraryName = libraryName;
+	}
+
+	
+	public String getRolesName() {
+		return rolesName;
+	}
+
+	public void setRolesName(String rolesName) {
+		this.rolesName = rolesName;
 	}
 
 	@Override

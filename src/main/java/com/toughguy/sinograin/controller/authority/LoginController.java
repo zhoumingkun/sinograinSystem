@@ -1,6 +1,8 @@
 
 package com.toughguy.sinograin.controller.authority;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.code.kaptcha.Constants;
 import com.toughguy.sinograin.dto.UserDTO;
+import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.User;
+import com.toughguy.sinograin.persist.authority.prototype.IOperationDao;
+import com.toughguy.sinograin.persist.authority.prototype.IResourceDao;
 import com.toughguy.sinograin.persist.authority.prototype.IUserDao;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -51,6 +56,12 @@ public class LoginController {
 	
 	@Autowired
 	private IUserDao userDao;
+	
+	@Autowired
+	private IOperationDao operationDao;
+	
+	@Autowired
+	private IResourceDao resourceDao;
 	
 	/**
 	 *  登录页面
@@ -92,6 +103,18 @@ public class LoginController {
 		currentUser.login(token);
 		User u = userDao.findUserInfoByUserName(user.getUserName());
 		UserDTO ut = new UserDTO();
+		List<Operation> list = operationDao.findByUserId(u.getId());
+		String name = "";          //用户拥有的操作名称
+		String resourceName ="";   //用户拥有的资源名称
+		for (Operation operation : list) {
+			String permission = operation.getPermission();
+			name += permission+",";
+			int resourceId = operation.getResourceId();
+			String reName = resourceDao.find(resourceId).getResourceName();
+			resourceName += reName+",";
+		}
+		ut.setPermissions(name.substring(0, name.length()-1));
+		ut.setResourceName(resourceName.substring(0, resourceName.length()-1));
 		BeanUtils.copyProperties(u, ut); //省去set的烦恼，利用beanUtils进行属性copy
 		String userDTO = JsonUtil.objectToJson(ut);
 		//mv.setViewName("redirect:/index.html");
