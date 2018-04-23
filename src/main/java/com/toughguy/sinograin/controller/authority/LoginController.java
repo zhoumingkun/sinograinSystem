@@ -101,6 +101,7 @@ public class LoginController {
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
 		currentUser.login(token);
+		System.out.println(token);
 		User u = userDao.findUserInfoByUserName(user.getUserName());
 		UserDTO ut = new UserDTO();
 		List<Operation> list = operationDao.findByUserId(u.getId());
@@ -115,6 +116,7 @@ public class LoginController {
 		}
 		ut.setPermissions(name.substring(0, name.length()-1));
 		ut.setResourceName(resourceName.substring(0, resourceName.length()-1));
+		ut.setToken(session.getId());
 		BeanUtils.copyProperties(u, ut); //省去set的烦恼，利用beanUtils进行属性copy
 		String userDTO = JsonUtil.objectToJson(ut);
 		//mv.setViewName("redirect:/index.html");

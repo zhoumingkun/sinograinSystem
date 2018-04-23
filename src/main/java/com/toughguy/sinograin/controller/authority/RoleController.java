@@ -74,7 +74,7 @@ public class RoleController {
 	@RequestMapping(value = "/listAll")
 	//@SystemControllerLog(description="权限管理-角色全部列表")
 	@ResponseBody
-//	@RequiresPermissions("role:listAll")
+	@RequiresPermissions("role:listAll")
 	public List<Role> listAllRole(HttpSession session) {
 		List <Role> roleList = roleService.findRoleTree();
 		return roleList;
@@ -92,7 +92,7 @@ public class RoleController {
 	//@SystemControllerLog(description="权限管理-角色列表")
 	@ResponseBody
 	@RequestMapping(value = "/data")
-//	@RequiresPermissions("role:list")
+	@RequiresPermissions("role:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -124,7 +124,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-//	@RequiresPermissions("role:save")
+	@RequiresPermissions("role:save")
 	//@SystemControllerLog(description="权限管理-添加角色")
 	public String saveRole(Role newRole) {
 		try {
@@ -153,7 +153,7 @@ public class RoleController {
 	
 	//@SystemControllerLog(description="权限管理-查看角色")
 	@RequestMapping(value = "/view/{id}")
-//	@RequiresPermissions("role:view")
+	@RequiresPermissions("role:view")
 	public String viewRole(@PathVariable int id, HttpSession session) {
 		
 		Role role = roleService.find(id);
@@ -165,7 +165,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-//	@RequiresPermissions("role:edit")
+	@RequiresPermissions("role:edit")
 	//@SystemControllerLog(description="权限管理-修改角色")
 	public String edit(Role newRole,HttpSession session) {
 		try {
@@ -189,7 +189,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/auth")
-//	@RequiresPermissions("role:auth")
+	@RequiresPermissions("role:auth")
 	//@SystemControllerLog(description="权限管理-给角色分配资源")
 	public String authRole(int roleId, String operationIds) {
 		try{
@@ -208,7 +208,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/delete")
-//	@RequiresPermissions("role:delete")
+	@RequiresPermissions("role:delete")
 	//@SystemControllerLog(description="权限管理-删除角色")
 	public String deleteRole(int id) {
 		try {
@@ -223,7 +223,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/deleteAll")
-//	@RequiresPermissions("role:deleteAll")
+	@RequiresPermissions("role:deleteAll")
 	//@SystemControllerLog(description="权限管理-删除多个角色")
 	public String deleteAllRole(String role_ids) {
 		try {
@@ -242,7 +242,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/findBydisplayName")
-//	@RequiresPermissions("role:findBydisplayName")
+	@RequiresPermissions("role:findBydisplayName")
 	//@SystemControllerLog(description="权限管理-根据角色中文名称查是否重复")
 	public String findBydisplayName(String displayName) {
 		List<Role> list = roleService.findBydisplayName(displayName);

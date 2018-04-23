@@ -18,6 +18,8 @@ public class UserDTO {
 
 	private String permissions; //操作名 拼接字符串
 	private String resourceName;//资源名称 拼接字符串
+	
+	private String token;
 	public int getId() {
 		return id;
 	}
@@ -85,7 +87,18 @@ public class UserDTO {
 	public void setResourceName(String resourceName) {
 		this.resourceName = resourceName;
 	}
+	
+	
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	
 	@Override
 	public String toString() {
 		return JsonUtil.objectToJson(this);

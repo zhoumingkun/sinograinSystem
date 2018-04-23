@@ -27,14 +27,14 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	//@RequiresPermissions("library:all")
+	@RequiresPermissions("library:all")
 	public List<Library> getAll(){
 		return libraryService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/getFirst")
-	//@RequiresPermissions("library:getFirst")
+	@RequiresPermissions("library:getFirst")
 	public String getFirst(String params){
 		try { 
 			ObjectMapper om = new ObjectMapper();
@@ -53,13 +53,13 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("library:getById")
+	@RequiresPermissions("library:getById")
 	public Library get(int id){
 		return libraryService.find(id);
 	}
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("library:edit")
+	@RequiresPermissions("library:edit")
 	public String edit(Library library) {
 		try {
 			libraryService.update(library);
@@ -71,7 +71,7 @@ public class LibraryController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("library:save")
+	@RequiresPermissions("library:save")
 	public String saveSample(Library library) {
 		try {
 			libraryService.save(library);
@@ -84,7 +84,7 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	//@RequiresPermissions("library:list")
+	@RequiresPermissions("library:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

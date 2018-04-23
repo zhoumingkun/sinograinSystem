@@ -215,7 +215,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	//@RequiresPermissions("sample:list")
+	@RequiresPermissions("sample:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

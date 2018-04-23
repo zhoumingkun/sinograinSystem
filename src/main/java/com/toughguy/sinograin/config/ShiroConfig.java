@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -32,8 +33,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/common/**", "anon"); 
         filterChainDefinitionMap.put("/default/**","anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
-        //filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问
+        //filterChainDefinitionMap.put("/**", "anon");
         bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return bean;
     }
@@ -43,6 +44,7 @@ public class ShiroConfig {
 	public SecurityManager securitManager(@Qualifier("systemRealm") SystemRealm systemRealm){
 		DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
 		manager.setRealm(systemRealm);
+		manager.setSessionManager(sessionManager());  
 		return manager;
 	}
 	//-- 配置自定义权限认证授权器
@@ -74,4 +76,12 @@ public class ShiroConfig {
         advisor.setSecurityManager(manager);
         return advisor;
     }
+    
+    
+  //自定义sessionManager  
+    @Bean  
+    public SessionManager sessionManager() {  
+        MySessionManager mySessionManager = new MySessionManager();  
+        return mySessionManager;  
+    }  
 }
