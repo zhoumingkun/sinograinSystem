@@ -64,7 +64,7 @@
 	
 	<!-- 查询全部角色与角色拥有的用户数量-->
 	<select id="findAllCount" resultType="Role" parameterType="Map">
-		select r.*,count(r.id) userCount from auth_role r left join lemon_liquid_auth_user_role ur on r.id = ur.roleId
+		select r.*,count(r.id) userCount from auth_role r left join auth_user_role ur on r.id = ur.roleId
 		<include refid="paramsSQL"/>
 		 GROUP BY r.id
 	</select>
@@ -89,7 +89,7 @@
 		SELECT
 			o.*
 		FROM
-			lemon_liquid_auth_operation o
+			auth_operation o
 		LEFT JOIN auth_role_operation r_o ON o.id = r_o.operationId
 		LEFT JOIN auth_role r ON r.id = r_o.roleId
 		WHERE

@@ -53,7 +53,7 @@
 	
 	<!-- 查找资源对应的全部操作 -->
 	<select id="findROsByResourceId" resultType="Integer" parameterType="int">
-		select id from lemon_liquid_auth_operation where resourceId = #{resourceId} 
+		select id from auth_operation where resourceId = #{resourceId} 
 	</select>
 	
 	<!-- 查找资源分页查询 -->
