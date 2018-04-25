@@ -100,7 +100,7 @@
 			</if>
 			
 			<if test=" sampleId != null and sampleId != '' ">
-				and sampleId = #{sampleId}
+				and sr.sampleId = #{sampleId}
 			</if>
 			<if test=" sampleIdLike != null and sampleIdLike != '' ">
 				and sampleId like concat(concat('%', #{sampleIdLike, jdbcType=VARCHAR}),'%')
