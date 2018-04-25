@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.toughguy.sinograin.dto.OperationDTO;
 import com.toughguy.sinograin.dto.TreeDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.model.authority.Resource;
@@ -416,6 +417,38 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 	public List<Resource> findByresourceName(String resourceName) {
 		// TODO Auto-generated method stub
 		return ((IResourceDao) dao).findByresourceName(resourceName);
+	}
+
+	
+	 /**
+	 * 查看资源
+	 * @param resourceId
+	 * @return Resource
+	 */
+	@Override
+	public Resource checkResource(int resourceId) {
+		Resource resource = ((IResourceDao) dao).find(resourceId);
+		List<Operation> list = operationDao.findById(resourceId); //查出资源对应操作
+		List<OperationDTO> listDTO = new ArrayList<>();
+		if(list.size() > 0){
+			for (Operation operation : list) {
+				OperationDTO operationDTO = new OperationDTO();
+				operationDTO.setId(operation.getId());
+				operationDTO.setOperation(operation.getDisplayName());
+				operationDTO.setPermission(operation.getPermission());
+				if(operation.getOperationRId() == -1){
+					operationDTO.setOperationRId(-1);
+					operationDTO.setRelyName("无");
+				}else{
+					Operation operation2 = operationDao.findOperation(operation.getOperationRId());
+					operationDTO.setRelyName(operation2.getDisplayName());
+					operationDTO.setOperationRId(operation.getOperationRId());
+				}
+				listDTO.add(operationDTO);
+			}
+		}
+		resource.setListDTO(listDTO);
+		return resource;
 	}
 
 	

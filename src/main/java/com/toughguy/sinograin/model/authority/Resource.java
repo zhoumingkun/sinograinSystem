@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.toughguy.sinograin.dto.OperationDTO;
 import com.toughguy.sinograin.model.AbstractModel;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -43,6 +44,7 @@ public class Resource extends AbstractModel{
 	private String resourcePName; //资源父名称
 	private List<Resource> list = new ArrayList<Resource>();
 	private List<Operation> operationList = new ArrayList<Operation>();
+	private List<OperationDTO> ListDTO = new ArrayList<OperationDTO>();
 	
 	private String OperatingNum; //资源对应的操作名集合    （前台）
 	
@@ -117,6 +119,15 @@ public class Resource extends AbstractModel{
 
 	public void setResourcePName(String resourcePName) {
 		this.resourcePName = resourcePName;
+	}
+
+	
+	public List<OperationDTO> getListDTO() {
+		return ListDTO;
+	}
+
+	public void setListDTO(List<OperationDTO> listDTO) {
+		ListDTO = listDTO;
 	}
 
 	@Override

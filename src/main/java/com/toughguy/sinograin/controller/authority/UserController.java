@@ -68,6 +68,7 @@ public class UserController {
 	//@SystemControllerLog(description="权限管理-添加用户")
 	public String saveUser(User user) {
 		try {
+			user.setUserPass(new DefaultPasswordService().encryptPassword(user.getUserPass()));
 			userService.save(user);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

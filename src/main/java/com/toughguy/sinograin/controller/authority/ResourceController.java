@@ -174,6 +174,22 @@ public class ResourceController {
 				return "{ \"success\" : true }";
 			}
 		}
+	
+	
+
+	/**
+	 * 查看资源
+	 * @param resourceId
+	 * @return Resource
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/checkResource")
+//	@RequiresPermissions("resource:check")
+	public Resource checkResource(int resourceId) {
+		Resource resource = resourceService.checkResource(resourceId);
+		return resource;
+	}
+	
 }
 
 

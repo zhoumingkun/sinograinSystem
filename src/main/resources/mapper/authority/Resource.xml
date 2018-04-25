@@ -75,7 +75,7 @@
 	</select>
 	
 	<!-- 根据资源资源名称查找 -->
-	<select id="resourceName" parameterType="String" resultType="resource">
+	<select id="findByresourceName" parameterType="String" resultType="resource">
 		select * FROM auth_resource where resourceName = #{resourceName}
 	</select>
 	

@@ -2,6 +2,7 @@ package com.toughguy.sinograin.persist.authority.prototype;
 
 import java.util.List;
 
+import com.toughguy.sinograin.dto.OperationDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.persist.prototype.IGenericDao;
 
@@ -51,4 +52,9 @@ public interface IOperationDao extends IGenericDao<Operation, Integer> {
 	 * 根据用户ID查找操作
 	 */
 	public List<Operation> findByUserId(int userId);
+	/**
+	 * 根据依赖ID查找操作
+	 * @param operationRId 依赖id
+	 */
+	public Operation findOperation(int operationRId);
 }

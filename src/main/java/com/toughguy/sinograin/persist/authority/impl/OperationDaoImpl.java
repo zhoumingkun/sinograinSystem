@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import com.toughguy.sinograin.dto.OperationDTO;
 import com.toughguy.sinograin.model.authority.Operation;
 import com.toughguy.sinograin.persist.authority.prototype.IOperationDao;
 import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
@@ -52,6 +53,11 @@ public class OperationDaoImpl extends GenericDaoImpl<Operation, Integer> impleme
 	@Override
 	public List<Operation> findByUserId(int userId) {
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findByUserId", userId);
+	}
+
+	@Override
+	public Operation findOperation(int operationRId) {
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findOperation", operationRId);
 	}
 
 }

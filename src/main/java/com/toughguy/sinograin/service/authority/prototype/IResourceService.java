@@ -50,4 +50,11 @@ public interface IResourceService extends IGenericService<Resource, Integer> {
 	 
 	 public List<Resource> findByresourceName(String resourceName);
 
+	 /**
+	 * 查看资源
+	 * @param resourceId
+	 * @return Resource
+	 */
+	public Resource checkResource(int resourceId);
+
 }
