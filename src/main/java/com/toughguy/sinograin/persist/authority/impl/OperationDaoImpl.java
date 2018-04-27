@@ -60,4 +60,9 @@ public class OperationDaoImpl extends GenericDaoImpl<Operation, Integer> impleme
 		return sqlSessionTemplate.selectOne(typeNameSpace + ".findOperation", operationRId);
 	}
 
+	@Override
+	public void deleteRoleAndOperation(int id) {
+		sqlSessionTemplate.delete(typeNameSpace + ".deleteRoleAndOperation", id);
+	}
+
 }

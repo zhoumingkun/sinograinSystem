@@ -57,7 +57,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/get")
-	//@RequiresPermissions("sample:getById")
+	@RequiresPermissions("sample:getById")
 	public Sample get(int id) {	
 		return sampleService.find(id);
 	}
@@ -77,7 +77,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("sample:edit")
+	@RequiresPermissions("sample:edit")
 	public String edit(Sample sample) {
 		try {
 			Sample sample1 = sampleService.find(sample.getId());
@@ -105,14 +105,14 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNo")
-	//@RequiresPermissions("sample:getBySampleNo")
+	@RequiresPermissions("sample:getBySampleNo")
 	public Sample getBySampleNo(String sampleNo) {	
 			return sampleService.findBySampleNo(sampleNo);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
-	//@RequiresPermissions("sample:getBySampleNum")
+	@RequiresPermissions("sample:getBySampleNum")
 	public Sample getBySampleNum(String sampleNo) {
 			return sampleService.findBySampleNum(sampleNo);
 	}
@@ -148,7 +148,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
-	//@RequiresPermissions("sample:saveAll")
+	@RequiresPermissions("sample:saveAll")
 	public String saveSampleAndRegister(Register register,String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -237,7 +237,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/dataMobile")
-	//@RequiresPermissions("sample:list")
+	@RequiresPermissions("sample:list")
 	public String dataMobile(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

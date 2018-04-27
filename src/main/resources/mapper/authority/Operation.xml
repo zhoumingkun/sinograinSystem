@@ -14,7 +14,6 @@
 		<set>
 			<if test="operationName != null and operationName != ''">operationName = #{operationName},</if>
 			<if test="displayName != null and displayName != ''">displayName = #{displayName},</if>
-			<if test="operationURL != null and operationURL != ''">operationURL = #{operationURL},</if>
 			<if test="resourceId != null and resourceId != ''">resourceId = #{resourceId},</if>
 			<if test="operationRId != null and operationRId != ''">operationRId = #{operationRId},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
@@ -25,6 +24,11 @@
 	<!-- 删除操作 -->
 	<delete id="delete" parameterType="int">
 		delete from auth_operation where id = #{id}
+	</delete>
+	
+	<!-- 删除操作 -->
+	<delete id="deleteRoleAndOperation" parameterType="int">
+		delete from auth_role_operation where operationId = #{id}
 	</delete>
 	
 	<!-- 删除全部操作  -->
@@ -44,6 +48,11 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<!-- 根据操作Id查询角色对应操作表的id -->
+	<!-- <select id="findResultId" resultType="int" parameterType="int">
+		select * from auth_operation
+	</select> -->
 	
 	<!-- 查找操作 -->
 	<select id="find" resultType="Operation" parameterType="int">

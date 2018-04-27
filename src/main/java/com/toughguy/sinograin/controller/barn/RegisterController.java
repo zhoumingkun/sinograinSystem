@@ -94,7 +94,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping("/remove")
-	//@RequiresPermissions("register:remove")
+	@RequiresPermissions("register:remove")
 	public String delete(int id){
 		try {
 			registerService.deleteRegisterAndSample(id);

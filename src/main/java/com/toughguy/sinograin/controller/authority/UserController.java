@@ -64,7 +64,7 @@ public class UserController {
 	
 	@ResponseBody	
 	@RequestMapping(value = "/save")
-//	@RequiresPermissions("user:save")
+	@RequiresPermissions("user:save")
 	//@SystemControllerLog(description="权限管理-添加用户")
 	public String saveUser(User user) {
 		try {
@@ -109,7 +109,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	//@SystemControllerLog(description="权限管理-更新用户")
-//	@RequiresPermissions("user:edit")
+	@RequiresPermissions("user:edit")
 	public String editUser(User newUser) {
 		try {
 			User user = userService.find(newUser.getId());

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +66,7 @@ public class ManuscriptController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/saveMan")
-	//@RequiresPermissions("manuscript:saveMan")
+	@RequiresPermissions("manuscript:saveMan")
 	public String saveMan(String params){
 		try{
 			Manuscript manuscript = JsonUtil.jsonToPojo(params, Manuscript.class);

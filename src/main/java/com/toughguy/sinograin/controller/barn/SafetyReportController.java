@@ -46,7 +46,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("safety:getById")
+	@RequiresPermissions("safety:getById")
 	public SafetyReport get(int id){
 		return safeService.find(id);
 	}
@@ -76,7 +76,7 @@ public class SafetyReportController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("safety:save")
+	@RequiresPermissions("safety:save")
 	public String saveSample(String params) {	
 		
 		List<SafetyReport> reportList = JsonUtil.jsonToList(params, SafetyReport.class); 

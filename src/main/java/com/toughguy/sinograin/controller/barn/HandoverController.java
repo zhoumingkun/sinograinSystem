@@ -36,7 +36,7 @@ public class HandoverController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	//@RequiresPermissions("handover:getById")
+	@RequiresPermissions("handover:getById")
 	public Handover get(int id){
 		return handoverService.find(id);
 	}
@@ -68,7 +68,7 @@ public class HandoverController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("handover:save")
+	@RequiresPermissions("handover:save")
 	public String saveSample(Handover handover) {
 		try {
 			barnService.dealCheck(handover,1,null);

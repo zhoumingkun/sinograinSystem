@@ -21,6 +21,7 @@ import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.model.authority.User;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.persist.authority.prototype.IOperationDao;
 import com.toughguy.sinograin.persist.authority.prototype.IRoleDao;
 import com.toughguy.sinograin.service.authority.prototype.IAuthorityService;
 import com.toughguy.sinograin.service.authority.prototype.IOperationService;
@@ -43,7 +44,11 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	private IResourceService resourceService;
 	@Autowired
 	private IOperationService operationService;
+	@Autowired
+	private IOperationDao operationDao;
 
+	@Autowired
+	private IOperationDao operationdao;
 	
 	private List<Role> roles ;    //存储角色
 	private List<Role> recRole;  //存储递归角色
@@ -150,7 +155,7 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	public void updateResourceAndOperation(Resource resource,String params){
 		resourceService.update(resource);
 		int resourceId = resource.getId();
-		operationService.deleteAllByResourceId(resourceId);
+		//operationService.deleteAllByResourceId(resourceId);
 		List<OperationDTO> operationList=conversionParams(params);
 		for(OperationDTO s : operationList){
 			saveOperation(resourceId,-1,s);		
@@ -181,12 +186,19 @@ public class AuthorityServiceImpl implements IAuthorityService{
 	}
 	private void saveOperation(int resourceId,int rid,OperationDTO od){
 		Operation operation =new Operation();
+		if(od.getId() != 0){
+			operation.setId(od.getId());
+		}
 		operation.setResourceId(resourceId);
 		operation.setDisplayName(od.getOperation());
 		operation.setPermission(od.getPermission());
 		operation.setOperationName(PinyinUtil.converterToSpell(operation.getDisplayName()).split(",")[0]);
 		operation.setOperationRId(rid);
-		operationService.save(operation);
+		if(od.getId() != 0){
+			operationService.update(operation);
+		}else{
+			operationService.save(operation);
+		}
 		int relyId = operation.getId();
 		if(!CollectionUtils.isEmpty(od.getList())){
 			for(OperationDTO o: od.getList()){
@@ -274,8 +286,8 @@ public class AuthorityServiceImpl implements IAuthorityService{
 
 	@Override
 	public void deleteResource(int id) {
-		resourceService.delete(id);
-		operationService.deleteAllByResourceId(id);
+		operationService.delete(id);
+		operationDao.deleteRoleAndOperation(id);
 	}
 	
 	

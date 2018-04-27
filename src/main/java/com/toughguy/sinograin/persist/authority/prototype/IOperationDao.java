@@ -57,4 +57,9 @@ public interface IOperationDao extends IGenericDao<Operation, Integer> {
 	 * @param operationRId 依赖id
 	 */
 	public Operation findOperation(int operationRId);
+	/**
+	 * 根据操作ID删除角色操作对应关系表
+	 * @param operationRId 依赖id
+	 */
+	public void deleteRoleAndOperation(int id);
 }

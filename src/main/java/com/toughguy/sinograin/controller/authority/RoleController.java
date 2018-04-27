@@ -189,7 +189,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/auth")
-	//@RequiresPermissions("role:auth")
+	@RequiresPermissions("role:auth")
 	//@SystemControllerLog(description="权限管理-给角色分配资源")
 	public String authRole(int roleId, String operationIds) {
 		try{
