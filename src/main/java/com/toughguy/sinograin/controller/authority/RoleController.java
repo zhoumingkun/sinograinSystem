@@ -242,7 +242,7 @@ public class RoleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/findBydisplayName")
-	@RequiresPermissions("role:findBydisplayName")
+	//@RequiresPermissions("role:findBydisplayName")
 	//@SystemControllerLog(description="权限管理-根据角色中文名称查是否重复")
 	public String findBydisplayName(String displayName) {
 		List<Role> list = roleService.findBydisplayName(displayName);

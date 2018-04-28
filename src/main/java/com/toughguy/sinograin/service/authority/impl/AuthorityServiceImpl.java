@@ -317,26 +317,30 @@ public class AuthorityServiceImpl implements IAuthorityService{
 						}
 					}
 				}
-				litsTree.add(tree);
+				//litsTree.add(tree);
 				List<Role> roleList = roleService.findRelyRole(r.getId());
 				if(roleList.size() > 0){
-					litsTree = findByRoleId(roleList,tree,litsTree,userId);
+					//litsTree = findByRoleId(roleList,tree,litsTree,userId);
+					tree =findByRoleId(roleList,tree,userId);
+					
 				}
+				litsTree.add(tree);
 			}	
 		}
 		
 		//集合去重
-		Set<TreeDTO> set = new  HashSet<TreeDTO>(); 
+		/*Set<TreeDTO> set = new  HashSet<TreeDTO>(); 
 		List<TreeDTO> lits = new ArrayList<TreeDTO>();
 		for (TreeDTO treeDTO : litsTree) {
 			if(set.add(treeDTO)){
 				lits.add(treeDTO);
             }
 		}
-		return lits;
+		return lits;*/
+		return litsTree;
 	}
 	
-	private List<TreeDTO> findByRoleId(List<Role> roleList,TreeDTO tree,List<TreeDTO> litsTree,int userId){
+/*	private List<TreeDTO> findByRoleId(List<Role> roleList,TreeDTO tree,List<TreeDTO> litsTree,int userId){
 			List<TreeDTO> litsTree1 = new ArrayList<TreeDTO>();
 			List<Role> lsitRole= userService.findRoleByUserId(userId);//查询用户已经有的角色 修改状态
 			for (Role role : roleList) {
@@ -368,7 +372,42 @@ public class AuthorityServiceImpl implements IAuthorityService{
 				}
 			}
 		return litsTree;
-	} 
+	}*/ 
+	
+	
+	private TreeDTO findByRoleId(List<Role> roleList,TreeDTO tree,int userId){
+		List<TreeDTO> litsTree1 = new ArrayList<TreeDTO>();
+		List<Role> lsitRole= userService.findRoleByUserId(userId);//查询用户已经有的角色 修改状态
+		for (Role role : roleList) {
+			TreeDTO tree1 = new TreeDTO();
+			tree1.setId(role.getId());
+			tree1.setName(role.getDisplayName());
+			tree1.setIndex(role.getGuid());
+			if(role.getRoleRelyId() == -1){
+				tree1.setRelyId("-1");
+			}else{
+				Role re = roleDao.findRelyId(role.getRoleRelyId());
+				tree1.setRelyId(re.getGuid());
+			}
+			if(lsitRole.size() > 0){
+				for (int i = 0; i < lsitRole.size(); i++) {
+					if(lsitRole.get(i).getId() == role.getId() && role.getId() != -1){
+//						tree1.setDisabled(true);
+						tree1.setChecked(true);
+						break;
+					}
+				}
+			}
+			litsTree1.add(tree1);
+			tree.setChildren(litsTree1);
+//			litsTree.add(tree);
+			List<Role> roleLists = roleService.findRelyRole(role.getId());
+			if(roleLists.size() > 0){
+				findByRoleId(roleLists,tree1,userId);
+			}
+		}
+		return tree;
+     } 
 }
 
 
