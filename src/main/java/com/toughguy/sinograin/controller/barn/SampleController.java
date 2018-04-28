@@ -261,7 +261,7 @@ public class SampleController {
 	//导出小麦总表
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
-	//@RequiresPermissions("sample:reportXM")
+	@RequiresPermissions("sample:reportXMorYM")
 	public String ExeclPOI(HttpServletResponse response,String ids,String title) {
 		try {			
 			sampleService.ExeclPOI(response,ids,title);
@@ -275,7 +275,7 @@ public class SampleController {
 	//导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
-	//@RequiresPermissions("sample:reportYM")
+	@RequiresPermissions("sample:reportXMorYM")
 	public  String Export(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -297,7 +297,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dataWheatReport")
-	//@RequiresPermissions("sample:dataWheatReport")
+	@RequiresPermissions("sample:dataWheatReport")
 	public List<WheatExaminingReport> dataWheatReport(String ids) {
 		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
 		String[] id = ids.split(",");
@@ -379,7 +379,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportXMzhiliang")
-	//@RequiresPermissions("sample:ExportXMzhiliang")
+	@RequiresPermissions("sample:ExportXMorYMzhiliang")
 	public String ExportXMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果
@@ -394,7 +394,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportYMzhiliang")
-	//@RequiresPermissions("sample:ExportYMzhiliang")
+	@RequiresPermissions("sample:ExportXMorYMzhiliang")
 	public String ExportYMzhiliang(HttpServletResponse response,String ids,String title){
 		try {
 			//返回结果

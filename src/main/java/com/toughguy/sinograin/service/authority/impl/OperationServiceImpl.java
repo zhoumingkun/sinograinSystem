@@ -60,7 +60,6 @@ public class OperationServiceImpl extends GenericServiceImpl<Operation, Integer>
 
 	@Override
 	public List<Operation> findAllOperationsByRoleId(int roleId) {
-		System.out.println(roleId);
 		// 获取当前roleid 的 所有操作 ， 并且存入临时存储列表中
 		List<Operation> operationListAll = operationDao.findByRoleId(roleId);
 		// 查找父角色

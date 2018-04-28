@@ -60,7 +60,6 @@ public class RegisterController {
 //			Map<String, Object> map = new HashMap<String, Object>();
 //			map.put("libraryId", libraryId);
 //			List<Register> rs = registerService.findByLibraryId(map);
-//			System.out.println(rs);
 //			for(Register r:rs) {
 //				return r;
 //			}
@@ -152,7 +151,7 @@ public class RegisterController {
 	}*/
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
-	//@RequiresPermissions("register:export")
+	@RequiresPermissions("register:export")
 	public String exportExcel(int pId,HttpServletResponse response){
 		try{
 			Register reg = registerService.find(pId);
@@ -238,7 +237,7 @@ public class RegisterController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("register:save")
+	@RequiresPermissions("register:save")
 	public String saveSample(Register register) {
 		try {
 			registerService.save(register);

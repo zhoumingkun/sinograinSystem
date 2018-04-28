@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +63,7 @@ public class SmallSampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getBySmallSampleNum")
-	//@RequiresPermissions("sample:getBySmallSampleNum")
+	@RequiresPermissions("sample:getBySmallSampleNum")
 	public SmallSample getBySmallSampleNum(String smallSampleNum) {
 		SmallSample smallSample =  smallSampleService.findBySmallSampleNum(smallSampleNum);
 		if(smallSample.getCheckPoint() == 1 || smallSample.getCheckPoint() == 2 ||smallSample.getCheckPoint() == 3) {

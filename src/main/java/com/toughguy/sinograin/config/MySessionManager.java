@@ -30,7 +30,11 @@ public class MySessionManager extends DefaultWebSessionManager {
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);  
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);  
             return id;  
-        } else {  
+        } else { 
+        	// 通过get参数获取sessionid
+        	if(request.getParameter("sessionid") != null){
+        		return request.getParameter("sessionid");
+        	}
             //否则按默认规则从cookie取sessionId  
             return super.getSessionId(request, response);  
         }  

@@ -53,7 +53,7 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	@RequiresPermissions("library:getById")
+	//@RequiresPermissions("library:getById")
 	public Library get(int id){
 		return libraryService.find(id);
 	}

@@ -44,7 +44,6 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 			//对应Excel文件中的sheet，0代表第一个             
 			
 //			List<SafetyReport> ss = safetyReportService.find(ids);
-//			System.out.println(ss.size());
 			for(int j=0; j<ids.length; j++) {
 				SafetyReport safetyReport = safetyReportService.find(ids[j]);
 				HSSFSheet sh = workbook.getSheetAt(0);  

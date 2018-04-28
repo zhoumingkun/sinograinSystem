@@ -101,7 +101,6 @@ public class LoginController {
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
 		currentUser.login(token);
-		System.out.println(token);
 		User u = userDao.findUserInfoByUserName(user.getUserName());
 		UserDTO ut = new UserDTO();
 		List<Operation> list = operationDao.findByUserId(u.getId());

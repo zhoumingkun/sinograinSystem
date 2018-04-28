@@ -52,7 +52,7 @@ public class CedingjiluController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("cedingjilu:save")
+	@RequiresPermissions("all:save")
 	public String save(Cedingjilu cedingjilu) {
 		try {
 			SmallSample smallSample = smallSampleService.find(cedingjilu.getsmallSampleId());
@@ -81,7 +81,7 @@ public class CedingjiluController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("cedingjilu:edit")
+	@RequiresPermissions("all:edit")
 	public String remove(Cedingjilu cedingjilu) {
 		try {
 			cedingjiluService.update(cedingjilu);

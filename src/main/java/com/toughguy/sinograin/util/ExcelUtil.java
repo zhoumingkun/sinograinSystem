@@ -167,12 +167,9 @@ public class ExcelUtil<T>{
            // FileOutputStream exportXls = new FileOutputStream(dto.getFileName());
            // wb.write(exportXls);
            // exportXls.close();
-            System.out.println("导出成功!");
         } catch (FileNotFoundException e) {
-            System.out.println("导出失败!");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("导出失败!");
             e.printStackTrace();
         }
     }

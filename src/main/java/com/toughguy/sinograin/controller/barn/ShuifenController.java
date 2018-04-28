@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,7 +53,7 @@ public class ShuifenController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("shuifen:save")
+	@RequiresPermissions("all:save")
 	public String save(Shuifen shuifen) {
 		try {
 			SmallSample smallSample = smallSampleService.find(shuifen.getSmallSampleId());
@@ -81,7 +82,7 @@ public class ShuifenController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("shuifen:edit")
+	@RequiresPermissions("all:edit")
 	public String remove(Shuifen shuifen) {
 		try {
 			shuifenService.update(shuifen);

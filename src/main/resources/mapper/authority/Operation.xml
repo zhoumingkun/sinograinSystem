@@ -16,6 +16,7 @@
 			<if test="displayName != null and displayName != ''">displayName = #{displayName},</if>
 			<if test="resourceId != null and resourceId != ''">resourceId = #{resourceId},</if>
 			<if test="operationRId != null and operationRId != ''">operationRId = #{operationRId},</if>
+			<if test="permission != null and permission != ''">permission = #{permission},</if>
 			<if test="updateTime != null ">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}

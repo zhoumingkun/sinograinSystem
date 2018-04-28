@@ -46,7 +46,6 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 	// 将集合转化为树形结构
 	private List<TreeDTO> listToTree(List<Resource> roles, int roleId) {
 		List<Resource> resourceTrees = new ArrayList<Resource>();
-		// System.out.println(JsonUtil.objectToJson(roles));
 		for (Resource res : roles) {
 			if (res.getResourcePId() == -1 || res.getResourcePId() == 0) {
 				resourceTrees.add(res);
@@ -96,7 +95,6 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 							tree2.setType(-1);
 							tree2.setIndex(r1.getGuid());
 							/* for (int j = 0; j < list.size(); j++) {
-							 System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
 							 if (r1.getId() == list.get(j).getResourceId()) {
 							 tree2.setChecked("true");
 							 break;
@@ -120,7 +118,6 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 										for (int i = 0; i < operList.size(); i++) {
 											if (o.getId() == operList.get(i).getId()) {
 												//判断角色依赖的操作与资源的操作是否相等  相等则将资源禁闭
-												System.out.println(operList.size()+"=-------="+r1.getOperationList().size());
 //												if(operList.size() == r1.getOperationList().size()){
 ////													tree1.setDisabled(true);
 ////													treeList.add(tree1);
@@ -214,7 +211,6 @@ public class ResourceServiceImpl extends GenericServiceImpl<Resource, Integer> i
 							tree2.setType(-1);
 							tree2.setIndex(r1.getGuid());
 							/* for (int j = 0; j < list.size(); j++) {
-							 System.out.println(r1.getId()+"-------"+list.get(j).getResourceId());
 							 if (r1.getId() == list.get(j).getResourceId()) {
 							 tree2.setChecked("true");
 							 break;

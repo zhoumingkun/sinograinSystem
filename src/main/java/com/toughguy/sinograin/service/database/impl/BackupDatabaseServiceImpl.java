@@ -43,7 +43,6 @@ public class BackupDatabaseServiceImpl extends GenericServiceImpl<BackupDatabase
 			sbf.append(" --ignore-table="+dbName+"."+s);
 		}
 		//sbf.append(" --ignore-table=lemon.lemon_liquid_log_systemlog");
-		System.out.println(cmd + sbf);
 		Process process = runtime.exec(cmd + sbf);
 		InputStream inputStream = process.getInputStream();//得到输入流，写成.sql文件
 		InputStreamReader reader = new InputStreamReader(inputStream,"utf-8");

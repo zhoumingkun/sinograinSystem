@@ -131,9 +131,8 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/export/{params}") 
-	//@RequiresPermissions("safety:export")
+	@RequiresPermissions("safety:export")
 	public String Export(HttpServletResponse response,@PathVariable String params) {
-		System.out.println(params);
 		try {			
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -142,17 +141,14 @@ public class SafetyReportController {
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
 			List<SafetyReport> ss = safeService.findAll(map);
-			System.out.println(ss.size());
 			List<Integer> idss = new ArrayList<Integer>();
 			for(int i = 0;i<ss.size();i++) {
-				System.out.println(ss.get(i).getId());
 				idss.add(ss.get(i).getId());
 			}
 			int[] ids = new int[idss.size()];
 			for(int i=0;i<idss.size();i++) {
 				ids[i] = idss.get(i);
 			}
-			System.out.println(ids.length);
 			safeService.ExportSafetyReport(response,ids);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -165,7 +161,7 @@ public class SafetyReportController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	//@RequiresPermissions("safety:list")
+	@RequiresPermissions("safety:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -177,7 +173,6 @@ public class SafetyReportController {
 			PagerModel<SafetyReport> pg = safeService.findPaginated(map);	
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
-			System.out.println(pg.getTotal());
 			result.put("total", pg.getTotal());
 			result.put("rows", pg.getData());
 			return om.writeValueAsString(result);

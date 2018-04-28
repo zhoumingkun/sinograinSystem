@@ -90,7 +90,6 @@ public class SystemRealm extends AuthorizingRealm{
 				String []permission = o.getPermission().split(",");
 				for(String s:permission){
 					info.addStringPermission(s);
-					//System.out.println(s);
 				}
 			}
 		}

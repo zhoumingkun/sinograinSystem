@@ -14,7 +14,6 @@ public class LibraryDaoImpl extends GenericDaoImpl<Library, Integer> implements 
 
 	@Override
 	public List<Library> findFirst(Map<String, Object> params) {
-		System.out.println(params);
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findFirst",params);
 	}
 

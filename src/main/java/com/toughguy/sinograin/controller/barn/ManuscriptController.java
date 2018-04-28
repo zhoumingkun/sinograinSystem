@@ -40,7 +40,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("manuscript:edit")
+	@RequiresPermissions("manuscript:edit")
 	public String edit(Manuscript manuscript) {
 		try {
 			manuscriptService.update(manuscript);
@@ -122,7 +122,7 @@ public class ManuscriptController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
-	//@RequiresPermissions("manuscript:export")
+	@RequiresPermissions("manuscript:export")
 	public String exprotExcel(HttpServletResponse response,int id) {
 		try {
 			Manuscript manuscript = manuscriptService.find(id);

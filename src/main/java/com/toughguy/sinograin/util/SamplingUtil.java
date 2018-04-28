@@ -48,7 +48,6 @@ public class SamplingUtil {
 	     Iterator itr = prop.entrySet().iterator();
 	        while (itr.hasNext()){
 	            Entry<String,String> e = (Entry)itr.next();
-	            System.out.println(e.getKey() + ": " + e.getValue());
 	            if (e.getKey().indexOf("grain."+year) >= 0 ) {
 	            	flag = 2;
 	                break;

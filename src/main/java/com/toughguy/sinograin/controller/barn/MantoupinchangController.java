@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,7 @@ public class MantoupinchangController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("mantoupinchang:save")
+	@RequiresPermissions("all:save")
 	public String save(Mantoupinchang mantoupinchang) {
 		try {
 			SmallSample smallSample = smallSampleService.find(mantoupinchang.getSmallSampleId());
@@ -79,7 +80,7 @@ public class MantoupinchangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("mantoupinchang:edit")
+	@RequiresPermissions("all:edit")
 	public String remove(Mantoupinchang mantoupinchang) {
 		try {
 			mantoupinchangService.update(mantoupinchang);

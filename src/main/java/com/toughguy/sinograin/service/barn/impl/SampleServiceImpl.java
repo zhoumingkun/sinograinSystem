@@ -161,9 +161,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					row3 = sheet.createRow(startRow + (i-oldI));
 					row3.setHeight((short) 300); // 行高
 				} else {
-					System.out.println(i + "---" + startRow);
 					row3 = sheet.createRow(startRow + (i-oldI-1));
-					System.out.println(row3.getRowNum());
 					row3.setHeight((short) 300); // 行高
 				}
 				if(pLibraryName == null || pLibraryName.equals("")) {
@@ -184,17 +182,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				} else if(pLibraryName.equals(cornExaminingReport.getpLibraryName())){
 					is = true;
 					if(i == intId.length -1) {
-						System.out.println(i);
-						System.out.println(endRow);
-						System.out.println(oldI);
-						System.out.println(startRow);
 						row3 = sheet.createRow(startRow + (i-oldI-1));
-						System.out.println(row3.getRowNum() + "----------------");
 						row3.setHeight((short) 300); // 行高
 						endRow = startRow + (i-oldI-1);
 						if(is == true) {
 							//合并直属库单元格
-							System.out.println("最后一次合并");
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style2(workbook));
@@ -211,11 +203,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					if(i != intId.length-1) {
 						if(is == true) {
 							//合并直属库单元格
-							System.out.println("合并单元格");
-							System.out.println(i);
-							System.out.println(startRow);
-							System.out.println(endRow);
-							System.out.println(row3.getRowNum());
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
@@ -223,15 +210,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 						} else {
-							System.out.println("不合并");
-							System.out.println(row3.getRowNum());
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							cellPLibraryName.setCellStyle(utils.Style1(workbook));
 							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 						}
 						CornExaminingReport newCornExaminingReport = icornExaminingReportDao.findBasicSituation(intId[i+1]);
 						if(cornExaminingReport.getpLibraryName().equals(newCornExaminingReport.getpLibraryName())) {
-							System.out.println("加小计q" + i + "endRow" + endRow);
 							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
 							HSSFRow rowXiaoJi = sheet.createRow(endRow+1);
 							HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
@@ -247,7 +231,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							}
 							
 						} else {
-							System.out.println("加小计w" + i + "endRow" + endRow);
 							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
 							HSSFRow rowXiaoJi = sheet.createRow(endRow+1);
 							HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
@@ -270,11 +253,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						if(is == true) {
 							endRow = startRow + (i-oldI-1);
 						}
-						System.out.println(i);
-						System.out.println(endRow);
-						System.out.println(oldI);
-						System.out.println(startRow);
-						System.out.println("加小计w" + i + "endRow" + endRow);
 						Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
 						HSSFRow rowXiaoJi = sheet.createRow(endRow+1);
 						HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
@@ -282,7 +260,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						sheet.addMergedRegion(regionXiaoJi);
 						cellXiaoJi.setCellValue("小计");
 						row3 = sheet.createRow(startRow + (i-oldI)+1);
-						System.out.println(row3.getRowNum() + "----------------");
 						row3.setHeight((short) 300); // 行高
 						
 						for (int j = 8; j < 42; j++) {
@@ -611,9 +588,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					row3 = sheet.createRow(startRow + (i-oldI));
 					row3.setHeight((short) 300); // 行高
 				} else {
-					System.out.println(i + "---" + startRow);
 					row3 = sheet.createRow(startRow + (i-oldI-1));
-					System.out.println(row3.getRowNum());
 					row3.setHeight((short) 300); // 行高
 				}
 				//查询基本情况
@@ -636,17 +611,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				} else if(pLibraryName.equals(Wobjiect.getpLibraryName())){
 					is = true;
 					if(i == intId.length -1) {
-						System.out.println(i);
-						System.out.println(endRow);
-						System.out.println(oldI);
-						System.out.println(startRow);
 						row3 = sheet.createRow(startRow + (i-oldI-1));
-						System.out.println(row3.getRowNum() + "----------------");
 						row3.setHeight((short) 300); // 行高
 						endRow = startRow + (i-oldI-1);
 						if(is == true) {
 							//合并直属库单元格
-							System.out.println("最后一次合并");
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
@@ -663,11 +632,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					if(i != intId.length-1) {
 						if(is == true) {
 							//合并直属库单元格
-							System.out.println("合并单元格");
-							System.out.println(i);
-							System.out.println(startRow);
-							System.out.println(endRow);
-							System.out.println(row3.getRowNum());
 							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
@@ -675,15 +639,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 						} else {
-							System.out.println("不合并");
-							System.out.println(row3.getRowNum());
 							HSSFCell cellPLibraryName = row3.createCell(0);
 							cellPLibraryName.setCellStyle(utils.Style1(workbook));
 							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 						}
 						WheatExaminingReport newWobjiect = wheatExaminingReportDao.findBasicSituation(intId[i + 1]);
 						if(Wobjiect.getpLibraryName().equals(newWobjiect.getpLibraryName())) {
-							System.out.println("加小计q" + i + "endRow" + endRow);
 							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
 							HSSFRow rowXiaoJi = sheet.createRow(endRow+1);
 							HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
@@ -697,7 +658,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 								createCell.setCellValue("");
 							}
 						} else {
-							System.out.println("加小计w" + i + "endRow" + endRow);
 							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
 							HSSFRow rowXiaoJi = sheet.createRow(endRow+1);
 							HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
@@ -719,11 +679,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						if(is == true) {
 							endRow = startRow + (i-oldI-1);
 						}
-						System.out.println(i);
-						System.out.println(endRow);
-						System.out.println(oldI);
-						System.out.println(startRow);
-						System.out.println("加小计w" + i + "endRow" + endRow);
 						Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
 						HSSFRow rowXiaoJi = sheet.createRow(endRow+1);
 						HSSFCell cellXiaoJi = rowXiaoJi.createCell(0);
@@ -731,7 +686,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						sheet.addMergedRegion(regionXiaoJi);
 						cellXiaoJi.setCellValue("小计");
 						row3 = sheet.createRow(startRow + (i-oldI)+1);
-						System.out.println(row3.getRowNum() + "----------------");
 						row3.setHeight((short) 300); // 行高
 						for (int j = 8; j < 43; j++) {
 							HSSFCell createCell = rowXiaoJi.createCell(j);
@@ -876,7 +830,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(intId[i]);
 				for(int j=0; j<Wobjiect1.size(); j++) {
 					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
-					System.out.println(newNum+"NEWnum");
 					HSSFCell cell27 = row3.createCell(28);
 					cell27.setCellStyle(utils.Style1(workbook));
 					cell27.setCellValue(Wobjiect1.get(j).getQualityGrade());
@@ -984,7 +937,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				    HSSFRow row = sh.createRow(8+j);
 				    row.setHeight((short) 300); // 行高
 					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
-					System.out.println(newNum);
 					HSSFCell cell1 = row.createCell(0);
 					cell1.setCellStyle(utils.Style1(workbook));
 					cell1.setCellValue(Wobjiect1.get(j).getTaskName());
@@ -1109,7 +1061,6 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			HSSFRow row = sh.createRow(8+j);
 			row.setHeight((short) 300); // 行高
 			int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
-			System.out.println(newNum);
 			HSSFCell createCell = row.createCell(0);
 			createCell.setCellStyle(utils.Style1(workbook));
 			createCell.setCellValue(cornExaminingReport1.get(j).getTaskName());

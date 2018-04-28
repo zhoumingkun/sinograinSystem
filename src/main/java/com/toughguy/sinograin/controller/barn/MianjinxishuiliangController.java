@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +71,7 @@ public class MianjinxishuiliangController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	//@RequiresPermissions("mianjinxishuiliang:edit")
+	@RequiresPermissions("all:edit")
 	public String remove(Mianjinxishuiliang mianjinxishuiliang) {
 		try {
 			mianjinxishuiliangService.update(mianjinxishuiliang);
@@ -82,7 +83,7 @@ public class MianjinxishuiliangController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("mianjinxishuiliang:save")
+	@RequiresPermissions("all:save")
 	public String save(Mianjinxishuiliang mianjinxishuiliang) {
 		try {
 			SmallSample smallSample = smallSampleService.find(mianjinxishuiliang.getSmallSampleId());
