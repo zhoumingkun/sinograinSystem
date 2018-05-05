@@ -1,6 +1,9 @@
 package com.toughguy.sinograin.persist.authority.prototype;
 
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.toughguy.sinograin.model.authority.Resource;
 import com.toughguy.sinograin.model.authority.Role;
@@ -84,5 +87,4 @@ public interface IUserDao extends IGenericDao<User, Integer> {
 	 * 
 	 */
 	public List<User> findByuserName(String userName);
-
 }

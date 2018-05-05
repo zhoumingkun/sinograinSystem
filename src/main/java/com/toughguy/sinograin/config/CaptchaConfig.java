@@ -1,7 +1,9 @@
 package com.toughguy.sinograin.config;
 
 import java.util.Properties;
+import java.util.Random;
 
+import org.apache.poi.ss.usermodel.Color;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +52,8 @@ public class CaptchaConfig {
 		properties.setProperty("kaptcha.session.key", env.getProperty("kaptcha.sessionKey")); 
 		properties.setProperty("kaptcha.textproducer.char.length", env.getProperty("kaptcha.textproducerCharLength"));
 		properties.setProperty("kaptcha.textproducer.font.names", env.getProperty("kaptcha.textproducerFontNames"));   
+		properties.setProperty("kaptcha.background.clear.from", env.getProperty("kaptcha.backgroundClearFrom"));  
+        properties.setProperty("kaptcha.background.clear.to", env.getProperty("kaptcha.backgroundClearTo"));  
 		Config config=new Config(properties); 
 		defaultKaptcha.setConfig(config); 
 		return defaultKaptcha; 

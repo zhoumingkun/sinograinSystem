@@ -1,16 +1,24 @@
 package com.toughguy.sinograin.controller.captcha;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import sun.misc.BASE64Encoder; 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -44,7 +52,7 @@ public class CaptchaResource {
 	@Autowired
 	private Producer captchaProducer;
 
-	@RequestMapping("/captcha")
+/*	@RequestMapping("/captcha")
 	public void getVerifyCodeImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 
@@ -64,7 +72,7 @@ public class CaptchaResource {
 		//-- create the image with the text
 		BufferedImage bi = captchaProducer.createImage(capText);
 		ServletOutputStream out = response.getOutputStream();
-
+		
 		//-- write the data out
 		ImageIO.write(bi, "jpg", out);
 		try {
@@ -72,5 +80,29 @@ public class CaptchaResource {
 		} finally {
 			out.close();
 		}
-	}
+	}*/
+	
+	@ResponseBody  
+    @RequestMapping(value = "/captcha", method = RequestMethod.POST)  
+    public Map<String, Object> captcha(HttpServletResponse response) throws ServletException, IOException {  
+  
+        // 生成文字验证码  
+  
+        String text = captchaProducer.createText();  
+        // 生成图片验证码  
+        ByteArrayOutputStream outputStream = null;   
+        BufferedImage image = captchaProducer.createImage(text);  
+          
+        outputStream = new ByteArrayOutputStream();    
+        ImageIO.write(image, "jpg", outputStream);    
+          
+        // 对字节数组Base64编码    
+        BASE64Encoder encoder = new BASE64Encoder();
+          
+        // 生成captcha的token  
+        Map<String, Object> map = new HashMap<>();  
+        map.put("img", encoder.encode(outputStream.toByteArray()));  
+        map.put("captcha", text);  
+        return map;  
+    }  
 }

@@ -392,7 +392,6 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			if(lsitRole.size() > 0){
 				for (int i = 0; i < lsitRole.size(); i++) {
 					if(lsitRole.get(i).getId() == role.getId() && role.getId() != -1){
-//						tree1.setDisabled(true);
 						tree1.setChecked(true);
 						break;
 					}
@@ -400,7 +399,6 @@ public class AuthorityServiceImpl implements IAuthorityService{
 			}
 			litsTree1.add(tree1);
 			tree.setChildren(litsTree1);
-//			litsTree.add(tree);
 			List<Role> roleLists = roleService.findRelyRole(role.getId());
 			if(roleLists.size() > 0){
 				findByRoleId(roleLists,tree1,userId);

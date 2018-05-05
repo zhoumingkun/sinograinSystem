@@ -1,17 +1,21 @@
 
 package com.toughguy.sinograin.controller.authority;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,6 +66,8 @@ public class LoginController {
 	
 	@Autowired
 	private IResourceDao resourceDao;
+
+	private String userPass;
 	
 	/**
 	 *  登录页面
@@ -90,18 +96,24 @@ public class LoginController {
 	//@SystemControllerLog(description="登录系统")
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
-	public String login(User user, String verityCode, HttpSession session,HttpServletRequest request) throws Exception{		
+	public String login(User user, String verityCode, HttpSession session,HttpServletRequest request, String captcha) throws Exception{		
 		//-- 产生的验证码获取的方法，若需要认证则自己写验证的逻辑, verityCode为用户输入的验证码，嘿嘿，简单吧
-		String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		System.out.println(rightCode);
-//		if(!rightCode.equals(verityCode.trim())){
-//			return "{ \"success\" : false ,\"code\":\"验证码错误\" }";
-//		}
+//		String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
+		if(!captcha.equals(verityCode.trim())){
+			return "{ \"success\" : false ,\"code\":\"您输入的验证码信息不正确,请重新输入\" }";
+		}
+		User u = userDao.findUserInfoByUserName(user.getUserName());
 		//ModelAndView mv = new ModelAndView();
+		if(StringUtils.isEmpty(u)){
+			return "{ \"success\" : false ,\"code\":\"您输入的账户或密码不正确,请重新输入\" }";
+		}else{
+			if(!u.getUserPass().equals(new DefaultPasswordService().encryptPassword(user.getUserPass()))){
+				return "{ \"success\" : false ,\"code\":\"您输入的账户或密码不正确,请重新输入\" }";
+			}
+		}
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
 		currentUser.login(token);
-		User u = userDao.findUserInfoByUserName(user.getUserName());
 		UserDTO ut = new UserDTO();
 		List<Operation> list = operationDao.findByUserId(u.getId());
 		String name = "";          //用户拥有的操作名称
@@ -122,10 +134,3 @@ public class LoginController {
 		return "{ \"success\" : true ,\"user\":"+userDTO+"}";
 	}
 }
-
-
-
-
-
-
-
