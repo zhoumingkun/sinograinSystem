@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.subject.Subject;
@@ -96,24 +98,25 @@ public class LoginController {
 	//@SystemControllerLog(description="登录系统")
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
-	public String login(User user, String verityCode, HttpSession session,HttpServletRequest request, String captcha) throws Exception{		
+	public String login(User user, String verityCode, HttpSession session,HttpServletRequest request, String captcha){		
 		//-- 产生的验证码获取的方法，若需要认证则自己写验证的逻辑, verityCode为用户输入的验证码，嘿嘿，简单吧
 //		String rightCode = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
 		if(!captcha.equals(verityCode.trim())){
 			return "{ \"success\" : false ,\"code\":\"您输入的验证码信息不正确,请重新输入\" }";
 		}
-		User u = userDao.findUserInfoByUserName(user.getUserName());
 		//ModelAndView mv = new ModelAndView();
-		if(StringUtils.isEmpty(u)){
-			return "{ \"success\" : false ,\"code\":\"您输入的账户或密码不正确,请重新输入\" }";
-		}else{
-			if(!u.getUserPass().equals(new DefaultPasswordService().encryptPassword(user.getUserPass()))){
-				return "{ \"success\" : false ,\"code\":\"您输入的账户或密码不正确,请重新输入\" }";
-			}
-		}
-		Subject currentUser = SecurityUtils.getSubject();
-		UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
-		currentUser.login(token);
+	    try{
+	    	Subject currentUser = SecurityUtils.getSubject();
+	    	UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
+	    	System.out.println(new DefaultPasswordService().encryptPassword(user.getUserPass()));
+	    	currentUser.login(token);
+	    } catch ( UnknownAccountException e ) {
+	    	return "{ \"success\" : false ,\"code\":\"您输入的用户名或密码不正确,请重新输入\" }";
+        } catch ( IncorrectCredentialsException e ) {
+        	return "{ \"success\" : false ,\"code\":\"您输入的用户名或密码不正确,请重新输入\" }";
+        }
+		
+		User u = userDao.findUserInfoByUserName(user.getUserName());
 		UserDTO ut = new UserDTO();
 		List<Operation> list = operationDao.findByUserId(u.getId());
 		String name = "";          //用户拥有的操作名称
