@@ -128,8 +128,14 @@
 			<if test=" sampleNoLike != null and sampleNoLike != '' ">
 				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>
-			<if test=" sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != ''">
-				and (sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%'))
+			<if test=" sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != '' and ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
+				and ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
+				and sampleState = #{ruKuSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
+				and sampleState = #{fenxiaoyangSampleState})
+			</if>
+			<if test=" sampleWordOrsampleNumLike == null or sampleWordOrsampleNumLike == '' and ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
+				and sampleState = #{ruKuSampleState} or sampleState = #{fenxiaoyangSampleState}
+			
 			</if>
 			<if test=" position != null and position != '' ">
 				and position = #{position}
@@ -176,9 +182,6 @@
 			</if>
 			<if test=" sampleState != null and sampleState != '' ">
 				and sampleState = #{sampleState}
-			</if>
-			<if test=" ruKuSampleState != null and ruKuSampleState != '' ">
-				or sampleState = #{ruKuSampleState}
 			</if>
 			<if test=" sampleStateLike != null and sampleStateLike != '' ">
 				and sampleState like concat(concat('%', #{sampleStateLike, jdbcType=VARCHAR}),'%')
