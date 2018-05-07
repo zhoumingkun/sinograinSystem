@@ -133,9 +133,8 @@
 				and sampleState = #{ruKuSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
 				and sampleState = #{fenxiaoyangSampleState})
 			</if>
-			<if test=" sampleWordOrsampleNumLike == null or sampleWordOrsampleNumLike == '' and ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
+			<if test=" ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != '' and (sampleWordOrsampleNumLike == null or sampleWordOrsampleNumLike == '')">
 				and sampleState = #{ruKuSampleState} or sampleState = #{fenxiaoyangSampleState}
-			
 			</if>
 			<if test=" position != null and position != '' ">
 				and position = #{position}
