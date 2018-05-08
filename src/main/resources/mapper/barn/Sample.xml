@@ -61,7 +61,7 @@
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_sample s 
+		select count(distinct s.id) from barn_sample s 
 		left join barn_register r on s.pId = r.id 
 		left join barn_library l on r.libraryId = l.id 
 		LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
@@ -145,7 +145,7 @@
 				and sampleState = #{ruKuSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
 				and sampleState = #{fenxiaoyangSampleState})
 			</if>
-			<if test=" ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != '' and sampleWordOrsampleNumLike == null">
+			<if test="sampleWordOrsampleNumLike != null and ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
 				and sampleState = #{ruKuSampleState} or sampleState = #{fenxiaoyangSampleState}
 			</if>
 			<if test=" position != null and position != '' ">
