@@ -140,13 +140,17 @@
 			<if test=" sampleNoLike != null and sampleNoLike != '' ">
 				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>
-			<if test=" sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != '' and ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
-				and ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
-				and sampleState = #{ruKuSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
-				and sampleState = #{fenxiaoyangSampleState})
-			</if>
-			<if test="sampleWordOrsampleNumLike != null and ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
-				and sampleState = #{ruKuSampleState} or sampleState = #{fenxiaoyangSampleState}
+			<if test="ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
+				<choose>
+					<when test="sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != ''">
+						and ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
+						and sampleState = #{ruKuSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
+						and sampleState = #{fenxiaoyangSampleState})
+					</when>
+					<otherwise>
+						and sampleState = #{ruKuSampleState} or sampleState = #{fenxiaoyangSampleState}
+					</otherwise>
+				</choose>
 			</if>
 			<if test=" position != null and position != '' ">
 				and position = #{position}
