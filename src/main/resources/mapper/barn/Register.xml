@@ -85,7 +85,7 @@
 				and libraryId = #{libraryId}
 			</if>
 			<if test=" pLibraryId != null and pLibraryId != '' ">
-				and pLibraryId = #{pLibraryId}
+				and bl.pLibraryId = #{pLibraryId}
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}

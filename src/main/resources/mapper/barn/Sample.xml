@@ -35,7 +35,10 @@
 	
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
-		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
+		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,pbl.libraryName pLibraryName from barn_sample s 
+		left join barn_register r on s.pId = r.id 
+		left join barn_library l on r.libraryId = l.id
+		left join barn_library pbl on l.pLibraryId = pbl.id
 		where s.id = #{id}
 	</select>
 	
@@ -48,22 +51,30 @@
 	
 	<!-- 分页查询扦样 -->
 	<select id="findPaginated" resultType="Sample" parameterType="Map">
-		select s.*,r.formName,l.id libraryId,l.libraryName,l.pLibraryId pLibraryId, m.id mId,sr.id srId from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id 
-		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id
+		select s.*,r.formName,l.id libraryId,l.libraryName,l.pLibraryId pLibraryId, m.id mId,sr.id srId ,pbl.libraryName pLibraryName from barn_sample s 
+		left join barn_register r on s.pId = r.id 
+		left join barn_library l on r.libraryId = l.id 
+		LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
+		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id 
 		<include refid="paramsSQL"/>
 		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
+		select count(*) from barn_sample s 
+		left join barn_register r on s.pId = r.id 
+		left join barn_library l on r.libraryId = l.id 
+		LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
+		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id 
 		<include refid="paramsSQL"/>
 	</select>
 	
 	<!-- 分页查询扦样（移动端） -->
 	<select id="findPaginatedMobile" resultType="Sample" parameterType="Map">
-		SELECT s.*,r.formName formName,l.libraryName libraryName,l.pLibraryId pLibraryId FROM barn_sample s
+		SELECT s.*,r.formName formName,l.libraryName libraryName,l.pLibraryId pLibraryId,pbl.libraryName pLibraryName FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
+			LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id
 		<include refid="paramsSQLMobile"/>
 		 ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
@@ -72,6 +83,7 @@
 		SELECT count(*) FROM barn_sample s
 			LEFT JOIN barn_register r ON s.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
+			LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id
 		<include refid="paramsSQLMobile"/>
 	</select>
 	<!-- 修个某条扦样 -->
@@ -111,9 +123,9 @@
 	
 	<!-- 根据任务名字查询样品集 -->
 	<select id="findSamplesByTask" parameterType="String" resultType="Sample">
-		SELECT DISTINCT bs.*, pbl.libraryName pLibraryName, bl.libraryName 
-		FROM barn_library pbl LEFT JOIN barn_library bl ON bl.pLibraryId = pbl.id 
-		LEFT JOIN barn_register br ON br.libraryId = bl.id 
+		SELECT DISTINCT bs.*, pbl.libraryName pLibraryName, l.libraryName 
+		FROM barn_library pbl LEFT JOIN barn_library l ON l.pLibraryId = pbl.id 
+		LEFT JOIN barn_register r ON r.libraryId = l.id 
 		LEFT JOIN barn_sample bs ON bs.pId = br.id 
 		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bt.id = bss.taskId
@@ -144,8 +156,8 @@
 				and position like concat(concat('%', #{positionLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<!-- 查询库中信息 -->
-			<if test="libId != null and libId != '' ">
-				and l.id = #{libId}
+			<if test="libraryId != null and libraryId != '' ">
+				and l.id = #{libraryId}
 			</if>
 			<if test=" sort != null and sort != '' ">
 				and sort = #{sort}
@@ -192,9 +204,6 @@
 			<if test=" autographLike != null and autographLike != '' ">
 				and autograph like concat(concat('%', #{autographLike, jdbcType=VARCHAR}),'%')
 			</if>
-			<if test=" pId != null and pId != '' ">
-				and pId = #{pId}
-			</if>
 			<if test=" gainTime != null and gainTime != '' ">
 				and gainTime = #{gainTime}
 			</if>
@@ -219,6 +228,9 @@
 			</if>
 			<if test=" depot != null and depot != '' ">
 				and depot = #{depot}
+			</if>
+			<if test=" pId != null and pId != '' ">
+				and r.id = #{pId}
 			</if>
 		</where>
 	</sql>
