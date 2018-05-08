@@ -20,6 +20,7 @@ public class SmallSample extends AbstractModel {
 	private int taskId;                 //任务id
 	
 	private String sampleNum;	//检测编号 (页面展示)
+	private String sampleWord;  //扦样编号(页面展示文字)
 	private String sort;    	//分类(品种,页面展示)
 	
 	public String getSmallSampleNum() {
@@ -79,6 +80,12 @@ public class SmallSample extends AbstractModel {
 	}
 	public void setTaskId(int taskId) {
 		this.taskId = taskId;
+	}
+	public String getSampleWord() {
+		return sampleWord;
+	}
+	public void setSampleWord(String sampleWord) {
+		this.sampleWord = sampleWord;
 	}
 	@Override
 	public String toString(){

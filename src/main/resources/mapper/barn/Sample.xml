@@ -126,7 +126,7 @@
 		SELECT DISTINCT bs.*, pbl.libraryName pLibraryName, l.libraryName 
 		FROM barn_library pbl LEFT JOIN barn_library l ON l.pLibraryId = pbl.id 
 		LEFT JOIN barn_register r ON r.libraryId = l.id 
-		LEFT JOIN barn_sample bs ON bs.pId = br.id 
+		LEFT JOIN barn_sample bs ON bs.pId = r.id 
 		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bt.id = bss.taskId
 		where taskName = #{taskName}
@@ -145,7 +145,7 @@
 				and sampleState = #{ruKuSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
 				and sampleState = #{fenxiaoyangSampleState})
 			</if>
-			<if test=" ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != '' and (sampleWordOrsampleNumLike == null or sampleWordOrsampleNumLike == '')">
+			<if test=" ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != '' and sampleWordOrsampleNumLike == null">
 				and sampleState = #{ruKuSampleState} or sampleState = #{fenxiaoyangSampleState}
 			</if>
 			<if test=" position != null and position != '' ">
