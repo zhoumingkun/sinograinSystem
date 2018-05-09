@@ -23,7 +23,7 @@ public class SmallSample extends AbstractModel {
 	private String sampleWord;  //扦样编号(页面展示文字)
 	private String sampleNo;  //扦样编号(页面展示文字)
 	private String sort;    	//分类(品种,页面展示)
-	public String getSmallSampleNum() {
+	public String getSmallSampleNum() { 
 		return smallSampleNum;
 	}
 	public void setSmallSampleNum(String smallSampleNum) {
