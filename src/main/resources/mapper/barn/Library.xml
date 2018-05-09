@@ -47,7 +47,7 @@
 		select bl.*,GROUP_CONCAT(br.id) as noSampleIds,max(br.createTime) regCreateTime, pbl.libraryName pLibraryName from barn_library bl 
 		LEFT JOIN barn_register br on br.libraryId = bl.id and br.regState = -1 left join barn_library pbl on pbl.id = bl.pLibraryId 
 		<include refid="paramsSQL"/>
-		GROUP BY pbl.id ORDER BY bl.createTime desc  limit #{offset}, #{limit}
+		GROUP BY bl.id ORDER BY bl.createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
