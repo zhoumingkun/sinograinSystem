@@ -95,7 +95,6 @@ public class SmallSample extends AbstractModel {
 		this.sampleNo = sampleNo;
 	}
 	
-	
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
