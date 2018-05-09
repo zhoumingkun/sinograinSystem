@@ -38,7 +38,7 @@
 	
 	<!-- 分页查询小样 -->
 	<select id="findPaginated" resultType="SmallSample" parameterType="Map">
-		select bss.*,bs.sampleNum,bs.sort,bs.sampleWord FROM barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId 
+		select bss.*,bs.sampleNum,bs.sampleNo,bs.sort,bs.sampleWord FROM barn_small_sample bss LEFT JOIN barn_sample bs ON bs.id = bss.sampleId 
 		<include refid="paramsSQL"/>
 		ORDER BY bss.createTime desc  limit #{offset}, #{limit}
 	</select>

@@ -21,6 +21,7 @@ public class SmallSample extends AbstractModel {
 	
 	private String sampleNum;	//检测编号 (页面展示)
 	private String sampleWord;  //扦样编号(页面展示文字)
+	private String sampleNo;  //扦样编号(页面展示文字)
 	private String sort;    	//分类(品种,页面展示)
 	
 	public String getSmallSampleNum() {
@@ -86,6 +87,13 @@ public class SmallSample extends AbstractModel {
 	}
 	public void setSampleWord(String sampleWord) {
 		this.sampleWord = sampleWord;
+	}
+	
+	public String getSampleNo() {
+		return sampleNo;
+	}
+	public void setSampleNo(String sampleNo) {
+		this.sampleNo = sampleNo;
 	}
 	@Override
 	public String toString(){
