@@ -27,7 +27,7 @@ public class LibraryController {
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	@RequiresPermissions("library:all")
+	@RequiresPermissions("library:list")
 	public List<Library> getAll(){
 		return libraryService.findAll();
 	}
