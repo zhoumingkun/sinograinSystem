@@ -66,6 +66,9 @@
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>
+		    <if test=" taskNameLike != null and taskNameLike != '' ">
+				and taskName like concat(concat('%', #{taskNameLike, jdbcType=VARCHAR}),'%')
+			</if>
 			<if test="taskName != null and taskName != ''">
 				and taskName = #{taskName}
 			</if>
