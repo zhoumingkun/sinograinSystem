@@ -23,8 +23,7 @@ public class SmallSample extends AbstractModel {
 	private String sampleWord;  //扦样编号(页面展示文字)
 	private String sampleNo;  //扦样编号(页面展示文字)
 	private String sort;    	//分类(品种,页面展示)
-	private String taskName;     //任务名称
-	public String getSmallSampleNum() {
+	public String getSmallSampleNum() { 
 		return smallSampleNum;
 	}
 	public void setSmallSampleNum(String smallSampleNum) {
@@ -96,12 +95,7 @@ public class SmallSample extends AbstractModel {
 		this.sampleNo = sampleNo;
 	}
 	
-	public String getTaskName() {
-		return taskName;
-	}
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
-	}
+	
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
