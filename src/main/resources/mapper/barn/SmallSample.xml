@@ -73,6 +73,9 @@
 			<if test=" smallSampleNumLike != null and smallSampleNumLike != '' ">
 				and smallSampleNum like concat(concat('%', #{smallSampleNumLike, jdbcType=VARCHAR}),'%')
 			</if>
+			<if test=" sampleNoOrSmallSampleNumLike != null and sampleNoOrSmallSampleNumLike != '' ">
+				and ((sampleNo like concat(concat('%', #{sampleNoOrSmallSampleNumLike, jdbcType=VARCHAR}),'%') or smallSampleNum like concat(concat('%', #{sampleNoOrSmallSampleNumLike, jdbcType=VARCHAR}),'%')))
+			</if>
 			<if test=" sampleId != null and sampleId != '' ">
 				and sampleId = #{sampleId}
 			</if>

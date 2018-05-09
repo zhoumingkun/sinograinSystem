@@ -124,7 +124,7 @@
 				and rummager = #{rummager}
 			</if>
 			<if test=" position != null and position != '' ">
-				and s.position = #{position}
+				and position = #{position}
 			</if>
 			<if test=" taskId != null and taskId != '' ">
 				and bss.taskId = #{taskId}
