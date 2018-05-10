@@ -17,4 +17,10 @@ public class LibraryDaoImpl extends GenericDaoImpl<Library, Integer> implements 
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findFirst",params);
 	}
 
+	@Override
+	public List<Library> findByParams(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByParams",params);
+	}
+
 }
