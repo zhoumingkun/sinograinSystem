@@ -20,5 +20,10 @@ public class LibraryServiceImpl extends GenericServiceImpl<Library, Integer> imp
 	public List<Library> findFirst(Map<String, Object> params) {	
 		return dao.findFirst(params);
 	}
+	@Override
+	public List<Library> findByParams(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return dao.findByParams(params);
+	}
 
 }

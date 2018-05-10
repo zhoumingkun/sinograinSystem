@@ -31,7 +31,24 @@ public class LibraryController {
 	public List<Library> getAll(){
 		return libraryService.findAll();
 	}
-	
+	@ResponseBody
+	@RequestMapping("/getByParams")
+	@RequiresPermissions("library:list")
+	public String getByParams(String params){
+		try { 
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			List<Library> ls =  libraryService.findByParams(map);
+			return om.writeValueAsString(ls);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
+	}
 	@ResponseBody
 	@RequestMapping("/getFirst")
 	@RequiresPermissions("library:getFirst")

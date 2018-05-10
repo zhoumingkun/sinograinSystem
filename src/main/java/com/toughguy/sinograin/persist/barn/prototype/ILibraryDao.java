@@ -9,4 +9,11 @@ import com.toughguy.sinograin.persist.prototype.IGenericDao;
 public interface ILibraryDao extends IGenericDao<Library, Integer>  {
 	
 	public List<Library> findFirst(Map<String, Object> params);
+	
+	/**
+	 * 根据条件查询多个库
+	 * @param params
+	 * @return 库集合
+	 */
+	public List<Library> findByParams(Map<String, Object> params);
 }
