@@ -409,13 +409,13 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
-	public String findAllCereals() {
+	public Map findAllCereals() {
 			Sample sample = sampleService.findAllCereals();
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("XMNumber", sample.getXMNumber());
 			map.put("YMNumber", sample.getYMNumber());
 			map.put("SYYNumber", sample.getSYYNumber());
-			return JSONUtils.toJSONString(map);
+			return map;
 	}
 
 }
