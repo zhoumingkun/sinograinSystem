@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.toughguy.sinograin.dto.NumberDTO;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ISampleDao;
@@ -56,6 +57,11 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 	public List<Sample> findSamplesByTask(String taskName) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findSamplesByTask", taskName);
+	}
+	@Override
+	public NumberDTO findAllCereals(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return  sqlSessionTemplate.selectOne(typeNameSpace + ".findAllCereals", params);
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.toughguy.sinograin.persist.barn.prototype;
 import java.util.List;
 import java.util.Map;
 
+import com.toughguy.sinograin.dto.NumberDTO;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.prototype.IGenericDao;
@@ -34,4 +35,9 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 * 根据任务查询样品
 	 */
 	public List<Sample> findSamplesByTask(String taskName);
+	
+	/**
+	 * 查询平台所有小麦玉米食用油库存总量
+	 */
+	public NumberDTO findAllCereals(Map<String, Object> params);
 }

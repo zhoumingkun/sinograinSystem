@@ -18,6 +18,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.toughguy.sinograin.dto.NumberDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
@@ -1144,6 +1145,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		e.printStackTrace();
 	}  
 	}
+	}
+
+	@Override
+	public NumberDTO findAllCereals(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findAllCereals(params);
 	}
 }
 
