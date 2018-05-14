@@ -1,4 +1,5 @@
 package com.toughguy.sinograin.controller.barn;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SamplingDTO;
@@ -47,24 +49,24 @@ public class SampleController {
 	private IWheatExaminingReportDao wheatExaminingReportDao;
 	@Autowired
 	private ICornExaminingReportDao cornExaminingReportDao;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
-	//@RequiresPermissions("sample:all")
-	public List<Sample> getAll() {		
+	// @RequiresPermissions("sample:all")
+	public List<Sample> getAll() {
 		return sampleService.findAll();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/get")
 	@RequiresPermissions("sample:getById")
-	public Sample get(int id) {	
+	public Sample get(int id) {
 		return sampleService.find(id);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/remove")
-	//@RequiresPermissions("sample:remove")
+	// @RequiresPermissions("sample:remove")
 	public String remove(int id) {
 		try {
 			sampleService.delete(id);
@@ -74,7 +76,7 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	@RequiresPermissions("sample:edit")
@@ -82,16 +84,16 @@ public class SampleController {
 		try {
 			Sample sample1 = sampleService.find(sample.getId());
 			sample.setPosition(sample1.getPosition());
-			if(sample.getSampleState()== 2){
+			if (sample.getSampleState() == 2) {
 				String sampleNum = SamplingUtil.sampleNum();
-				//生成二维码
+				// 生成二维码
 				String path = UploadUtil.getAbsolutePath("barcode");
-				File f = new File(path);  //无路径则创建 
-				if(!f.exists()){
+				File f = new File(path); // 无路径则创建
+				if (!f.exists()) {
 					f.mkdirs();
 				}
 				String barFileName = BarCodeUtil.rename("png");
-				BarCodeUtil.generateFile(sampleNum, path + "/"+ barFileName);
+				BarCodeUtil.generateFile(sampleNum, path + "/" + barFileName);
 				sample.setSampleNumPic(barFileName);
 				sample.setSampleNum(sampleNum);
 			}
@@ -102,25 +104,25 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNo")
 	@RequiresPermissions("sample:getBySampleNo")
-	public Sample getBySampleNo(String sampleNo) {	
-			return sampleService.findBySampleNo(sampleNo);
+	public Sample getBySampleNo(String sampleNo) {
+		return sampleService.findBySampleNo(sampleNo);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
 	@RequiresPermissions("sample:getBySampleNum")
 	public Sample getBySampleNum(String sampleNo) {
-			return sampleService.findBySampleNum(sampleNo);
+		return sampleService.findBySampleNum(sampleNo);
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/saveOrEditAll")
-	//@RequiresPermissions("sample:saveOrEditAll")
-	public String saveOrEditAll(Register register,String sample) {
+	// @RequiresPermissions("sample:saveOrEditAll")
+	public String saveOrEditAll(Register register, String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
 			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
@@ -133,10 +135,10 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	//@RequiresPermissions("sample:save")
+	// @RequiresPermissions("sample:save")
 	public String saveSample(Sample sample) {
 		try {
 			sampleService.save(sample);
@@ -146,10 +148,11 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/saveAll")
 	@RequiresPermissions("sample:saveAll")
-	public String saveSampleAndRegister(Register register,String sample) {
+	public String saveSampleAndRegister(Register register, String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
 			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
@@ -162,49 +165,51 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/split")
-	//@RequiresPermissions("sample:split")
-	public String splitSample(int id,int isPrint,String params,int taskId) {
+	// @RequiresPermissions("sample:split")
+	public String splitSample(int id, int isPrint, String params, int taskId) {
 		try {
-			if(isPrint == 3) {
+			if (isPrint == 3) {
 				ObjectMapper om = new ObjectMapper();
 				Map<String, Object> map = new HashMap<String, Object>();
 				if (!StringUtils.isEmpty(params)) {
 					// 参数处理
-					map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+					map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+					});
 				}
-				List<SmallSample> smallSamples =  smallSampleService.findAll(map);
+				List<SmallSample> smallSamples = smallSampleService.findAll(map);
 				String smallSampleNums = null;
-				for(SmallSample smallSample:smallSamples) {
-					if(smallSampleNums == null) {
+				for (SmallSample smallSample : smallSamples) {
+					if (smallSampleNums == null) {
 						smallSampleNums = smallSample.getSmallSampleNum() + ",";
 					} else {
 						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
 					}
 				}
-				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
+				String ss = smallSampleNums.substring(0, smallSampleNums.length() - 1);
 				return ss;
-			} else{
+			} else {
 				Sample sample = sampleService.find(id);
-				barnService.saveSmallSample(sample,taskId);
+				barnService.saveSmallSample(sample, taskId);
 				ObjectMapper om = new ObjectMapper();
 				Map<String, Object> map = new HashMap<String, Object>();
 				if (!StringUtils.isEmpty(params)) {
 					// 参数处理
-					map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+					map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+					});
 				}
-				List<SmallSample> smallSamples =  smallSampleService.findAll(map);
+				List<SmallSample> smallSamples = smallSampleService.findAll(map);
 				String smallSampleNums = null;
-				for(SmallSample smallSample:smallSamples) {
-					if(smallSampleNums == null) {
+				for (SmallSample smallSample : smallSamples) {
+					if (smallSampleNums == null) {
 						smallSampleNums = smallSample.getSmallSampleNum() + ",";
 					} else {
 						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
 					}
 				}
-				String ss = smallSampleNums.substring(0, smallSampleNums.length()-1);
+				String ss = smallSampleNums.substring(0, smallSampleNums.length() - 1);
 				return ss;
 			}
 		} catch (Exception e) {
@@ -212,7 +217,7 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/data")
 	@RequiresPermissions("sample:list")
@@ -222,9 +227,10 @@ public class SampleController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (!StringUtils.isEmpty(params)) {
 				// 参数处理
-				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
 			}
-			PagerModel<Sample> pg = sampleService.findPaginated(map);		
+			PagerModel<Sample> pg = sampleService.findPaginated(map);
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());
@@ -235,6 +241,7 @@ public class SampleController {
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/dataMobile")
 	@RequiresPermissions("sample:list")
@@ -244,9 +251,10 @@ public class SampleController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			if (!StringUtils.isEmpty(params)) {
 				// 参数处理
-				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
 			}
-			PagerModel<Sample> pg = sampleService.findPaginatedMobile(map);		
+			PagerModel<Sample> pg = sampleService.findPaginatedMobile(map);
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());
@@ -258,13 +266,13 @@ public class SampleController {
 		}
 	}
 
-	//导出小麦总表
+	// 导出小麦总表
 	@ResponseBody
 	@RequestMapping(value = "/ExeclPOI")
 	@RequiresPermissions("sample:reportXMorYM")
-	public String ExeclPOI(HttpServletResponse response,String ids,String title) {
-		try {			
-			sampleService.ExeclPOI(response,ids,title);
+	public String ExeclPOI(HttpServletResponse response, String ids, String title) {
+		try {
+			sampleService.ExeclPOI(response, ids, title);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -272,14 +280,14 @@ public class SampleController {
 		}
 	}
 
-	//导出玉米总表
+	// 导出玉米总表
 	@RequestMapping("/Export/POI")
 	@ResponseBody
 	@RequiresPermissions("sample:reportXMorYM")
-	public  String Export(HttpServletResponse response,String ids,String title){
+	public String Export(HttpServletResponse response, String ids, String title) {
 		try {
-			//返回结果
-			sampleService.Export(response,ids,title);
+			// 返回结果
+			sampleService.Export(response, ids, title);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -289,11 +297,10 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/findSamplesByTask")
-	//@RequiresPermissions("sample:findSamplesByTask")
-	public List<Sample> findSamplesByTask(String taskName) {		
+	// @RequiresPermissions("sample:findSamplesByTask")
+	public List<Sample> findSamplesByTask(String taskName) {
 		return sampleService.findSamplesByTask(taskName);
 	}
-	
 
 	@ResponseBody
 	@RequestMapping(value = "/dataWheatReport")
@@ -304,117 +311,111 @@ public class SampleController {
 		for (int i = 0; i < id.length; i++) {
 			WheatExaminingReport w = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
 			List<WheatExaminingReport> wheats = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			for(int j=1;j< wheats.size(); j++) {
+			for (int j = 1; j < wheats.size(); j++) {
 				int newNum = Integer.parseInt(wheats.get(j).getSmallSampleNum().substring(9));
 				w.setQualityGrade(wheats.get(j).getQualityGrade());
 				w.setRealCapacity(wheats.get(j).getRealCapacity());
-				
-				if(newNum == 04) {
+
+				if (newNum == 04) {
 					w.setShuifen_pingjunzhi(wheats.get(j).getShuifen_pingjunzhi());
-				}
-				else if(newNum == 01) {
+				} else if (newNum == 01) {
 					w.setZazhizongliang_1(wheats.get(j).getZazhizongliang_1());
 					w.setKuangwuzhihanliang_pingjunzhi(wheats.get(j).getKuangwuzhihanliang_pingjunzhi());
 					w.setBuwanshanlihanliang_pingjunzhi_1(wheats.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-				}
-				else if(newNum == 05) {
+				} else if (newNum == 05) {
 					w.setYingduzhishu_pingjunzhi(wheats.get(j).getYingduzhishu_pingjunzhi());
 					w.setSezeqiwei_pingjunzhi(wheats.get(j).getSezeqiwei_pingjunzhi());
-				}
-				else if(newNum == 06) {
+				} else if (newNum == 06) {
 					w.setPingjunzhiganmianjinzhiliang(wheats.get(j).getPingjunzhiganmianjinzhiliang());
-				    w.setShimianjin_pingjunzhi(wheats.get(j).getShimianjin_pingjunzhi());
-				}
-				else if(newNum == 07) {
+					w.setShimianjin_pingjunzhi(wheats.get(j).getShimianjin_pingjunzhi());
+				} else if (newNum == 07) {
 					w.setPinchangpingfenzhi(wheats.get(j).getPinchangpingfenzhi());
 				}
 			}
- 			ws.add(w);
+			ws.add(w);
 		}
 		return ws;
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "/dataCornReport")
-	//@RequiresPermissions("sample:dataCornReport")
+	// @RequiresPermissions("sample:dataCornReport")
 	public List<CornExaminingReport> dataCornReport(String ids) {
 		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
 		String[] id = ids.split(",");
 		for (int i = 0; i < id.length; i++) {
 			CornExaminingReport c = cornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
 			List<CornExaminingReport> corns = cornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			for(int j=1;j < corns.size(); j++) {
+			for (int j = 1; j < corns.size(); j++) {
 				int newNum = Integer.parseInt(corns.get(j).getSmallSampleNum().substring(9));
 				c.setQualityGrade(corns.get(j).getQualityGrade());
 				c.setRealCapacity(corns.get(j).getRealCapacity());
-				if(newNum == 04) {
+				if (newNum == 04) {
 					c.setShuifen_pingjunzhi(corns.get(j).getShuifen_pingjunzhi());
-				}
-				else if(newNum == 02) {
+				} else if (newNum == 02) {
 					c.setZazhizongliang_1(corns.get(j).getZazhizongliang_1());
-				}
-				else if(newNum == 01) {
+				} else if (newNum == 01) {
 					c.setBuwanshanlihanliang_pingjunzhi_1(corns.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-					
-				}
-				else if(newNum == 03) {
+
+				} else if (newNum == 03) {
 					c.setShengmeilihanliang_pingjunzhi(corns.get(j).getShengmeilihanliang_pingjunzhi());
-				}
-				else if(newNum == 05) {
+				} else if (newNum == 05) {
 					c.setSezeqiwei_pingjunzhi(corns.get(j).getSezeqiwei_pingjunzhi());
-				}
-				else if(newNum == 06) {
+				} else if (newNum == 06) {
 					c.setZhifangsuanzhi_pingjunzhi(corns.get(j).getZhifangsuanzhi_pingjunzhi());
-				}
-				else if(newNum == 07) {
+				} else if (newNum == 07) {
 					c.setPinchangpingfenzhi(corns.get(j).getPinchangpingfenzhi());
 				}
 			}
- 			cs.add(c);
+			cs.add(c);
 		}
 		return cs;
 	}
-	
+
 	/**
 	 * 导出小麦质量
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportXMzhiliang")
 	@RequiresPermissions("sample:ExportXMorYMzhiliang")
-	public String ExportXMzhiliang(HttpServletResponse response,String ids,String title){
+	public String ExportXMzhiliang(HttpServletResponse response, String ids, String title) {
 		try {
-			//返回结果
-			sampleService.ExportXMzhiliang(response,ids,title);
+			// 返回结果
+			sampleService.ExportXMzhiliang(response, ids, title);
 			return "{ \"success\" : true }";
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return "{ \"success\" : false }";
 		}
 	}
+
 	/**
 	 * 导出玉米质量
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/ExportYMzhiliang")
 	@RequiresPermissions("sample:ExportXMorYMzhiliang")
-	public String ExportYMzhiliang(HttpServletResponse response,String ids,String title){
+	public String ExportYMzhiliang(HttpServletResponse response, String ids, String title) {
 		try {
-			//返回结果
-			sampleService.ExportYMzhiliang(response,ids,title);
+			// 返回结果
+			sampleService.ExportYMzhiliang(response, ids, title);
 			return "{ \"success\" : true }";
-		}catch (Exception e) {
+		} catch (Exception e) {
 			return "{ \"success\" : false }";
 		}
 	}
 
-	
-	
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
-	public Sample findAllCereals() {
-		return sampleService.findAllCereals();
+	public String findAllCereals() {
+			Sample sample = sampleService.findAllCereals();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("XMNumber", sample.getXMNumber());
+			map.put("YMNumber", sample.getYMNumber());
+			map.put("SYYNumber", sample.getSYYNumber());
+			return JSONUtils.toJSONString(map);
 	}
 
 }
-
