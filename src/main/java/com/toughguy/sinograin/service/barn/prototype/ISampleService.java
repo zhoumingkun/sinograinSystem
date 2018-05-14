@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.toughguy.sinograin.dto.NumberDTO;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.prototype.IGenericService;
@@ -59,6 +58,6 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
-	public NumberDTO findAllCereals();
+	public Sample findAllCereals();
 	
 }

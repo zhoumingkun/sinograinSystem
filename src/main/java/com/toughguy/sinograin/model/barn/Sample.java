@@ -45,6 +45,9 @@ public class Sample extends AbstractModel{
 	private int srId;			//安全报告id （页面）
 	private int libraryId;		//被查库id（前台）
 	private int pLibraryId;		//被查库id（前台）
+	private String XMNumber;		//小麦库存总量（前台）
+	private String YMNumber;		//玉米库存总量（前台）
+	private String SYYNumber;		//食用油库存总量（前台）
 	
 	public String getFormName() {
 		return formName;
@@ -237,6 +240,26 @@ public class Sample extends AbstractModel{
 	}
 	public void setpLibraryName(String pLibraryName) {
 		this.pLibraryName = pLibraryName;
+	}
+	
+	
+	public String getXMNumber() {
+		return XMNumber;
+	}
+	public void setXMNumber(String xMNumber) {
+		XMNumber = xMNumber;
+	}
+	public String getYMNumber() {
+		return YMNumber;
+	}
+	public void setYMNumber(String yMNumber) {
+		YMNumber = yMNumber;
+	}
+	public String getSYYNumber() {
+		return SYYNumber;
+	}
+	public void setSYYNumber(String sYYNumber) {
+		SYYNumber = sYYNumber;
 	}
 	@Override
 	public String toString(){
