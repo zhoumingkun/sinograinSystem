@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.dto.NumberDTO;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Register;
@@ -406,5 +407,27 @@ public class SampleController {
 	}
 
 	
+	
+	/**
+	 * 查询平台所有小麦玉米食用油库存总量
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getAllCereals")
+	public NumberDTO findAllCereals(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			sampleService.findAllCereals(map);
+			return sampleService.findAllCereals(map);
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
 }
 
