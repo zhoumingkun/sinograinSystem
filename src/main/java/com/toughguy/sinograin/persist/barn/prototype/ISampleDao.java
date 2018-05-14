@@ -39,5 +39,5 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
-	public NumberDTO findAllCereals(Map<String, Object> params);
+	public NumberDTO findAllCereals();
 }

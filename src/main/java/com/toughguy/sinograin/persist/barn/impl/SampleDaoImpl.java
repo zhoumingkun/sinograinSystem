@@ -59,9 +59,9 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findSamplesByTask", taskName);
 	}
 	@Override
-	public NumberDTO findAllCereals(Map<String, Object> params) {
+	public NumberDTO findAllCereals() {
 		// TODO Auto-generated method stub
-		return  sqlSessionTemplate.selectOne(typeNameSpace + ".findAllCereals", params);
+		return  sqlSessionTemplate.selectOne(typeNameSpace + ".findAllCereals");
 	}
 	
 }
