@@ -413,20 +413,8 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
-	public NumberDTO findAllCereals(String params) {
-		try {
-			ObjectMapper om = new ObjectMapper();
-			Map<String, Object> map = new HashMap<String, Object>();
-			if (!StringUtils.isEmpty(params)) {
-				// 参数处理
-				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
-			}
-			sampleService.findAllCereals(map);
-			return sampleService.findAllCereals(map);
-		} catch (Exception e) {
-			return null;
-		}
-
+	public NumberDTO findAllCereals() {
+		return sampleService.findAllCereals();
 	}
 
 }

@@ -122,7 +122,7 @@
 	</select>
 	
 	<!-- 查询平台所有小麦玉米食用油库存总量  -->
-	<select id="findAllCereals" resultType="NumberDTO" parameterType="Map" >
+	<select id="findAllCereals" resultType="NumberDTO"  >
 		SELECT SUM(amount) XMNumber,
 		(SELECT SUM(amount)from barn_sample where sort = '玉米')  YMNumber,
 		(SELECT SUM(amount) from barn_sample where sort = '食用油')  SYYNumber 

@@ -1148,9 +1148,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	}
 
 	@Override
-	public NumberDTO findAllCereals(Map<String, Object> params) {
+	public NumberDTO findAllCereals() {
 		// TODO Auto-generated method stub
-		return ((ISampleDao)dao).findAllCereals(params);
+		return ((ISampleDao)dao).findAllCereals();
 	}
 }
 
