@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toughguy.sinograin.dto.NumberDTO;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Register;
@@ -413,7 +412,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
-	public NumberDTO findAllCereals() {
+	public Sample findAllCereals() {
 		return sampleService.findAllCereals();
 	}
 
