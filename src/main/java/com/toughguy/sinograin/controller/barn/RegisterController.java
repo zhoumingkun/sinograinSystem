@@ -227,6 +227,7 @@ public class RegisterController {
 				}
 			}
 			register.setFormName(reg.getFormName());
+			System.out.println(register);
 			registerService.update(register);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
