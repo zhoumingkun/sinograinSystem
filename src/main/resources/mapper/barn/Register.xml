@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Register">
 
 	<insert id="save" parameterType="Register" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_register (guid, createTime,updateTime,formName,regState,libraryId) 
-		values (#{guid}, #{createTime},#{updateTime},#{formName},#{regState},#{libraryId})
+		insert into barn_register (guid, createTime,updateTime,formName,regState,libraryId,reason) 
+		values (#{guid}, #{createTime},#{updateTime},#{formName},#{regState},#{libraryId},#{reason})
 	</insert>
 	
 	
@@ -57,6 +57,7 @@
 			<if test="formName != null and formName != ''">formName = #{formName},</if>
 			<if test="regState != null and regState != ''">regState = #{regState},</if>
 			<if test="libraryId != null and libraryId != ''">libraryId = #{libraryId},</if>
+			<if test="reason != null">reason = #{reason},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}

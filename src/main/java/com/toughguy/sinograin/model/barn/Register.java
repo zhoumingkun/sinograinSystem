@@ -17,6 +17,7 @@ public class Register extends AbstractModel {
 	private String formName; 	//表格名称
 	private int regState; 		//状态  （-1 待审核、1 未同意、2 已同意 、3 草稿）
 	private int libraryId;		//库id
+	private String reason;		//不同意原因
 	
 	private String libraryName;	//库名(页面)
 	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
@@ -53,6 +54,14 @@ public class Register extends AbstractModel {
 	}
 	public void setRegCreateTime(Date regCreateTime) {
 		this.regCreateTime = regCreateTime;
+	}
+	
+	
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 	@Override
 	public String toString(){
