@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -42,6 +43,12 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 			// 创建一个webbook，对应一个Excel文件            
 			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 			//对应Excel文件中的sheet，0代表第一个             
+
+			HSSFSheet sheet = null;
+			HSSFPrintSetup ps = sheet.getPrintSetup();
+	          ps.setLandscape(true); //打印方向，true:横向，false:纵向
+			//设置横向打印
+//			sheet.getPrintSetup().setLandscape(true);
 			
 //			List<SafetyReport> ss = safetyReportService.find(ids);
 			for(int j=0; j<ids.length; j++) {
