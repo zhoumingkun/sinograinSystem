@@ -46,9 +46,9 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 
 			HSSFSheet sheet = null;
 			HSSFPrintSetup ps = sheet.getPrintSetup();
-	          ps.setLandscape(true); //打印方向，true:横向，false:纵向
+//	          ps.setLandscape(true); //打印方向，true:横向，false:纵向
 			//设置横向打印
-//			sheet.getPrintSetup().setLandscape(true);
+			sheet.getPrintSetup().setLandscape(true);
 			
 //			List<SafetyReport> ss = safetyReportService.find(ids);
 			for(int j=0; j<ids.length; j++) {
