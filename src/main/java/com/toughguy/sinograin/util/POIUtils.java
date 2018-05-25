@@ -230,31 +230,16 @@ public class POIUtils {
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
 				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
 				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
-				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
-				style.setAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中  
-				style.setAlignment(HSSFCellStyle.VERTICAL_BOTTOM);//垂直底部  
-				style.setAlignment(HSSFCellStyle.VERTICAL_TOP);//垂直顶部 
-				
 	            HSSFDataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
 				return style;
 			}
-			
 			public HSSFCellStyle Style4(HSSFWorkbook wb) {
 				HSSFCellStyle style = wb.createCellStyle();
-				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
-				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
-				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
-				style.setAlignment(HSSFCellStyle.VERTICAL_CENTER);//垂直居中  
-				style.setAlignment(HSSFCellStyle.VERTICAL_BOTTOM);//垂直底部  
-				style.setAlignment(HSSFCellStyle.VERTICAL_TOP);//垂直顶部 
-				
 	            HSSFDataFormat format2 = wb.createDataFormat();
-	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留一位小数
+	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
 				return style;
 			}
 			/**
