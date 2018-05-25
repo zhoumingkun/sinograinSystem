@@ -22,6 +22,7 @@ import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IManuscriptService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
+import com.toughguy.sinograin.util.POIUtils;
 
 @Service
 public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Integer> implements IManuscriptService{
@@ -34,7 +35,9 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 String qualityGrade = null;  	//质量等级
 		 String putWay = null;			//入仓方式
 		 String isMatch = null;			//账实是否相符
-		
+		 
+	        POIUtils utils = new POIUtils();
+			try {
 	        //传入的文件  
 	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿(模板).xls");  
 	        //poi包下的类读取excel文件  
@@ -83,9 +86,9 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
             
             HSSFCellStyle cellStyle = workbook.createCellStyle();
             HSSFDataFormat format = workbook.createDataFormat();
-            cellStyle.setDataFormat(format.getFormat("0.00"));//设置单元类型保留两位小数
+            cellStyle.setDataFormat(format.getFormat("0.0"));//设置单元类型保留两位小数
             
-//	        cellStyle.setDataFormat(df.getFormat("#,#0.0"));
+
 	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
 	        
 	        HSSFCell cell = sh.getRow(7).getCell(2);
@@ -116,14 +119,14 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        
 	        HSSFCellStyle cellStyle2 = workbook.createCellStyle();
             HSSFDataFormat format2 = workbook.createDataFormat();
-            cellStyle2.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
+            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留一位小数
             
             HSSFCell cell7 =sh.getRow(19).getCell(4);
             cell7.setCellStyle(cellStyle2);
             cell7.setCellValue(manuscript.getLength());  		//长度
             
             HSSFCell cell8 =sh.getRow(19).getCell(6);
-            cell7.setCellStyle(cellStyle2);
+            cell8.setCellStyle(cellStyle2);
             cell8.setCellValue(manuscript.getWide());  			//宽度
             
             HSSFCell cell9 =sh.getRow(19).getCell(8);
@@ -143,6 +146,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(11).getCell(2).setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
 	        sh.getRow(13).getCell(2).setCellValue(manuscript.getRealVolume());		//真实体积（粮堆实际体积）
 	        sh.getRow(15).getCell(2).setCellValue(manuscript.getRealCapacity());	//粮食容重（g/l）
+	        sh.getRow(16).getCell(2).setCellValue(manuscript.getCorrectioFactor()); //修正后修正系数
 	        sh.getRow(17).getCell(2).setCellValue(manuscript.getAveDensity());		//粮食平均密度（g/l）？
 	        sh.getRow(22).getCell(2).setCellValue(manuscript.getUnQuality());		//测量计算数
 	        sh.getRow(23).getCell(2).setCellValue(manuscript.getLossWater());		//水分减量
@@ -164,6 +168,10 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        //关闭流  
 	        fileInput.close();  
 	        output.close();  
-	}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}  
+
+}
 
 }
