@@ -80,57 +80,54 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        }else {
 	        	putWay = "人工入仓√      机械入仓□";
 	        }
-//	        HSSFCellStyle cellStyle = WorkBook.createCellStyle();
-//            cellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
-//            cell.setCellStyle(cellStyle);
             
-            HSSFCellStyle cellStyle = workbook.createCellStyle();
-            HSSFDataFormat format = workbook.createDataFormat();
-            cellStyle.setDataFormat(format.getFormat("0.0"));//设置单元类型保留两位小数
+//            HSSFCellStyle cellStyle = workbook.createCellStyle();
+//            HSSFDataFormat format = workbook.createDataFormat();
+//            cellStyle.setDataFormat(format.getFormat("0.0"));//设置单元类型保留一位小数
             
 
 	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
 	        
 	        HSSFCell cell = sh.getRow(7).getCell(2);
-	        cell.setCellStyle(cellStyle);
+	        cell.setCellStyle(utils.Style3(workbook));
 	        cell.setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
 	        
 	        HSSFCell cell2 =sh.getRow(7).getCell(7);
-	        cell2.setCellStyle(cellStyle);
+	        cell2.setCellStyle(utils.Style3(workbook));
 	        cell2.setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        
 	        HSSFCell cell3 =sh.getRow(8).getCell(2);
-	        cell3.setCellStyle(cellStyle);
+	        cell3.setCellStyle(utils.Style3(workbook));
 	        cell3.setCellValue(manuscript.getStorageWater());		//水分（入库）
 	        
 	        HSSFCell cell4 =sh.getRow(8).getCell(7);
-	        cell4.setCellStyle(cellStyle);
+	        cell4.setCellStyle(utils.Style3(workbook));
 	        cell4.setCellValue(manuscript.getRealWater());  		//水分 （实际）
 	        
 	        HSSFCell cell5 =sh.getRow(9).getCell(2);
-	        cell5.setCellStyle(cellStyle);
+	        cell5.setCellStyle(utils.Style3(workbook));
 	        cell5.setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
 	        
 	        HSSFCell cell6 =sh.getRow(9).getCell(7);
-	        cell6.setCellStyle(cellStyle);
+	        cell6.setCellStyle(utils.Style3(workbook));
 	        cell6.setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
 	        
 	        sh.getRow(12).getCell(2).setCellValue(manuscript.getDeductVolume());  	//扣除体积
 	        
-	        HSSFCellStyle cellStyle2 = workbook.createCellStyle();
-            HSSFDataFormat format2 = workbook.createDataFormat();
-            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留一位小数
+//	        HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+//            HSSFDataFormat format2 = workbook.createDataFormat();
+//            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
             
             HSSFCell cell7 =sh.getRow(19).getCell(4);
-            cell7.setCellStyle(cellStyle2);
+            cell7.setCellStyle(utils.Style4(workbook));
             cell7.setCellValue(manuscript.getLength());  		//长度
             
             HSSFCell cell8 =sh.getRow(19).getCell(6);
-            cell8.setCellStyle(cellStyle2);
+            cell8.setCellStyle(utils.Style4(workbook));
             cell8.setCellValue(manuscript.getWide());  			//宽度
             
             HSSFCell cell9 =sh.getRow(19).getCell(8);
-            cell9.setCellStyle(cellStyle2);
+            cell9.setCellStyle(utils.Style4(workbook));
             cell9.setCellValue(manuscript.getHigh());  			//高度
             
 	        sh.getRow(24).getCell(2).setCellValue(manuscript.getLossNature());		//保管自然损耗
