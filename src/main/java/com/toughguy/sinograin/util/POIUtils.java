@@ -226,11 +226,8 @@ public class POIUtils {
 			//工作底稿导出样式
 			public HSSFCellStyle Style3(HSSFWorkbook wb) {
 				HSSFCellStyle style = wb.createCellStyle();
-				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
-				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 	            HSSFDataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
 				return style;
@@ -238,6 +235,7 @@ public class POIUtils {
 			public HSSFCellStyle Style4(HSSFWorkbook wb) {
 				HSSFCellStyle style = wb.createCellStyle();
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 	            HSSFDataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
 				return style;
