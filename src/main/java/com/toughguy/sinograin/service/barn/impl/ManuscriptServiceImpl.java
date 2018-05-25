@@ -87,7 +87,9 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
             
 //	        cellStyle.setDataFormat(df.getFormat("#,#0.0"));
 	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
-	        sh.getRow(7).getCell(2).setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
+	        HSSFCell cell = sh.getRow(7).getCell(2);
+	        cell.setCellStyle(cellStyle);
+	        cell.setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        sh.getRow(8).getCell(2).setCellValue(manuscript.getStorageWater());		//水分（入库）
 	        sh.getRow(8).getCell(7).setCellValue(manuscript.getRealWater());  		//水分 （实际）
