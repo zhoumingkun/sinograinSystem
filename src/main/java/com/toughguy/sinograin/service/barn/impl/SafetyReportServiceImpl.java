@@ -44,11 +44,10 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 			//对应Excel文件中的sheet，0代表第一个             
 
-			HSSFSheet sheet = null;
-			HSSFPrintSetup ps = sheet.getPrintSetup();
-//	          ps.setLandscape(true); //打印方向，true:横向，false:纵向
-			//设置横向打印
-			sheet.getPrintSetup().setLandscape(true);
+//			HSSFSheet sheet = workbook.createSheet();
+//	        //打印设置
+//	        HSSFPrintSetup ps = sheet.getPrintSetup();
+//	        ps.setLandscape(false); //打印方向，true:横向，false:纵向
 			
 //			List<SafetyReport> ss = safetyReportService.find(ids);
 			for(int j=0; j<ids.length; j++) {
