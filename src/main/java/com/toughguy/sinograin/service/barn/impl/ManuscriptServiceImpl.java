@@ -7,6 +7,9 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -74,6 +77,15 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        }else {
 	        	putWay = "人工入仓√      机械入仓□";
 	        }
+//	        HSSFCellStyle cellStyle = WorkBook.createCellStyle();
+//            cellStyle.setDataFormat(HSSFDataFormat.getBuiltinFormat("0.00"));
+//            cell.setCellStyle(cellStyle);
+            
+            HSSFCellStyle cellStyle = workbook.createCellStyle();
+            HSSFDataFormat format = workbook.createDataFormat();
+            cellStyle.setDataFormat(format.getFormat("0.00"));//设置单元类型
+            
+//	        cellStyle.setDataFormat(df.getFormat("#,#0.0"));
 	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
 	        sh.getRow(7).getCell(2).setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
