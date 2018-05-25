@@ -83,22 +83,53 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
             
             HSSFCellStyle cellStyle = workbook.createCellStyle();
             HSSFDataFormat format = workbook.createDataFormat();
-            cellStyle.setDataFormat(format.getFormat("0.00"));//设置单元类型
+            cellStyle.setDataFormat(format.getFormat("0.00"));//设置单元类型保留两位小数
             
 //	        cellStyle.setDataFormat(df.getFormat("#,#0.0"));
 	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
+	        
 	        HSSFCell cell = sh.getRow(7).getCell(2);
 	        cell.setCellStyle(cellStyle);
 	        cell.setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
-	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
-	        sh.getRow(8).getCell(2).setCellValue(manuscript.getStorageWater());		//水分（入库）
-	        sh.getRow(8).getCell(7).setCellValue(manuscript.getRealWater());  		//水分 （实际）
-	        sh.getRow(9).getCell(2).setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
-	        sh.getRow(9).getCell(7).setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
+	        
+	        HSSFCell cell2 =sh.getRow(7).getCell(7);
+	        cell2.setCellStyle(cellStyle);
+	        cell2.setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
+	        
+	        HSSFCell cell3 =sh.getRow(8).getCell(2);
+	        cell3.setCellStyle(cellStyle);
+	        cell3.setCellValue(manuscript.getStorageWater());		//水分（入库）
+	        
+	        HSSFCell cell4 =sh.getRow(8).getCell(7);
+	        cell4.setCellStyle(cellStyle);
+	        cell4.setCellValue(manuscript.getRealWater());  		//水分 （实际）
+	        
+	        HSSFCell cell5 =sh.getRow(9).getCell(2);
+	        cell5.setCellStyle(cellStyle);
+	        cell5.setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
+	        
+	        HSSFCell cell6 =sh.getRow(9).getCell(7);
+	        cell6.setCellStyle(cellStyle);
+	        cell6.setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
+	        
 	        sh.getRow(12).getCell(2).setCellValue(manuscript.getDeductVolume());  	//扣除体积
-	        sh.getRow(19).getCell(4).setCellValue(manuscript.getLength());  		//长度
-	        sh.getRow(19).getCell(6).setCellValue(manuscript.getWide());  			//宽度
-	        sh.getRow(19).getCell(8).setCellValue(manuscript.getHigh());  			//高度
+	        
+	        HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+            HSSFDataFormat format2 = workbook.createDataFormat();
+            cellStyle2.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
+            
+            HSSFCell cell7 =sh.getRow(19).getCell(4);
+            cell7.setCellStyle(cellStyle2);
+            cell7.setCellValue(manuscript.getLength());  		//长度
+            
+            HSSFCell cell8 =sh.getRow(19).getCell(6);
+            cell7.setCellStyle(cellStyle2);
+            cell8.setCellValue(manuscript.getWide());  			//宽度
+            
+            HSSFCell cell9 =sh.getRow(19).getCell(8);
+            cell9.setCellStyle(cellStyle2);
+            cell9.setCellValue(manuscript.getHigh());  			//高度
+            
 	        sh.getRow(24).getCell(2).setCellValue(manuscript.getLossNature());		//保管自然损耗
 	        if("是".equals(manuscript.getIsMatch())){
 	        	isMatch = "是√   否□";
