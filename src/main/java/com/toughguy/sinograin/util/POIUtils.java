@@ -222,7 +222,6 @@ public class POIUtils {
 				style.setFont(fon);// 选择需要用到的字体格式
 				return style;
 			}
-			
 			//工作底稿导出样式
 			public HSSFCellStyle Style3(HSSFWorkbook wb) {
 				HSSFCellStyle style = wb.createCellStyle();
@@ -235,6 +234,10 @@ public class POIUtils {
 			}
 			public HSSFCellStyle Style4(HSSFWorkbook wb) {
 				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 11);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
