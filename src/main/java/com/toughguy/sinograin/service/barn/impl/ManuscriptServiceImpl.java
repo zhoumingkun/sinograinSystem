@@ -48,7 +48,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        HSSFSheet sh = workbook.getSheetAt(0);  
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
-	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：" + lib.getpLibraryName()+"直属库有限公司");
+	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
 	        sh.getRow(2).getCell(5).setCellValue("实际查库日 ： "+dateFm.format(manuscript.getRealCheckedTime())); //实际查库日
 	        sh.getRow(3).getCell(1).setCellValue(sample.getPosition()); 	//货位号
 	        sh.getRow(3).getCell(3).setCellValue(sample.getSort()); 		//品种
@@ -88,13 +88,9 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 
 	        sh.getRow(6).getCell(3).setCellValue(putWay);  					//入仓方式
 	        
-	        HSSFCell cell = sh.getRow(7).getCell(2);
-	        cell.setCellStyle(utils.Style3(workbook));
-	        cell.setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
+	        sh.getRow(7).getCell(2).setCellValue(manuscript.getStorageCapacity());  //容重 （入库）
 	        
-	        HSSFCell cell2 =sh.getRow(7).getCell(7);
-	        cell2.setCellStyle(utils.Style3(workbook));
-	        cell2.setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
+	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        
 	        HSSFCell cell3 =sh.getRow(8).getCell(2);
 	        cell3.setCellStyle(utils.Style3(workbook));
@@ -127,7 +123,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
             cell8.setCellValue(manuscript.getWide());  			//宽度
             
             HSSFCell cell9 =sh.getRow(19).getCell(8);
-            cell9.setCellStyle(utils.Style4(workbook));
+            cell9.setCellStyle(utils.Style5(workbook));
             cell9.setCellValue(manuscript.getHigh());  			//高度
             
 	        sh.getRow(24).getCell(2).setCellValue(manuscript.getLossNature());		//保管自然损耗
@@ -140,7 +136,10 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(7).setCellValue(manuscript.getResult());			//不符原因
 	        sh.getRow(27).getCell(2).setCellValue(manuscript.getRemark());			//备注
 	        
-	        sh.getRow(11).getCell(2).setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
+	        HSSFCell cell10 =sh.getRow(11).getCell(2);
+	        cell10.setCellStyle(utils.Style3(workbook));
+	        cell10.setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
+	        
 	        sh.getRow(13).getCell(2).setCellValue(manuscript.getRealVolume());		//真实体积（粮堆实际体积）
 	        sh.getRow(15).getCell(2).setCellValue(manuscript.getRealCapacity());	//粮食容重（g/l）
 	        sh.getRow(16).getCell(2).setCellValue(manuscript.getCorrectioFactor()); //修正后修正系数
@@ -150,7 +149,11 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(25).getCell(2).setCellValue(manuscript.getLoss());			//合计
 	        sh.getRow(26).getCell(2).setCellValue(manuscript.getCheckNum());		//检查计算数
 	        sh.getRow(22).getCell(7).setCellValue(manuscript.getDifference());		//差数
-	        sh.getRow(23).getCell(7).setCellValue(manuscript.getSlip());			//差率
+	        
+	        HSSFCell cell11 =sh.getRow(23).getCell(7);
+	        cell11.setCellStyle(utils.Style3(workbook));
+	        cell11.setCellValue(manuscript.getSlip());			//差率
+	        
 	        sh.getRow(25).getCell(7).setCellValue(Double.parseDouble(sample.getAmount())*1000);	//粮食实际数量（kg）
 	        //将修改后的文件写出到D:\\excel目录下  
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
