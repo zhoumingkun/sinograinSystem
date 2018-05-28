@@ -83,6 +83,7 @@
 			<if test="isMatch != null and isMatch != ''">isMatch = #{isMatch},</if>	
 			<if test="barnType != null and barnType != ''">barnType = #{barnType},</if>
 			<if test="realCheckedTime != null">realCheckedTime = #{realCheckedTime},</if>
+			<if test="slip != null">slip = #{slip},</if>
 		</set>
 		where id = #{id}
 	</update>
