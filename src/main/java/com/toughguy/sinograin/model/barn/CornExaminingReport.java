@@ -15,6 +15,7 @@ public class CornExaminingReport {
 	private String sampleNo;  	//扦样编号
 	private String position ;   //货位号（申请扦样）
 	private String sort;    	//分类(品种)
+	private String originPlace; //产地
 	private String amount;   	//数量
 	private String  gainTime;  	//收获年度(生产年份)
 	private Date storageTime;	//入库时间（样品室）
@@ -41,6 +42,13 @@ public class CornExaminingReport {
 	private String sezeqiwei_pingjunzhi;      //色泽气味平均值
 	private String zhifangsuanzhi_pingjunzhi;  //平均值（mgKOH/100g干基）(脂肪酸值)
 	private String pinchangpingfenzhi;  //品尝评分值
+	private String cdjljiance;  //测定记录检测人
+	private String bwsljiance;  //不完善粒检测人
+	private String fenyangjiance; //不完善粒分样检测人
+	private String sfjiance;  //水分检测人
+	private String zfsjiance;  //脂肪酸检测人
+	private String ympfjiance;    //玉米检测人
+	private String inspectors;    //检测人集合
 	
 	private int sampleId;  //样品id（页面展示）
 	private String smallSampleNum; //小样编号
@@ -80,6 +88,12 @@ public class CornExaminingReport {
 	}
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	public String getOriginPlace() {
+		return originPlace;
+	}
+	public void setOriginPlace(String originPlace) {
+		this.originPlace = originPlace;
 	}
 	public String getAmount() {
 		return amount;
@@ -257,5 +271,48 @@ public class CornExaminingReport {
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
 	}
+	public String getCdjljiance() {
+		return cdjljiance;
+	}
+	public void setCdjljiance(String cdjljiance) {
+		this.cdjljiance = cdjljiance;
+	}
+	public String getBwsljiance() {
+		return bwsljiance;
+	}
+	public void setBwsljiance(String bwsljiance) {
+		this.bwsljiance = bwsljiance;
+	}
+	public String getFenyangjiance() {
+		return fenyangjiance;
+	}
+	public void setFenyangjiance(String fenyangjiance) {
+		this.fenyangjiance = fenyangjiance;
+	}
+	public String getSfjiance() {
+		return sfjiance;
+	}
+	public void setSfjiance(String sfjiance) {
+		this.sfjiance = sfjiance;
+	}
+	public String getZfsjiance() {
+		return zfsjiance;
+	}
+	public void setZfsjiance(String zfsjiance) {
+		this.zfsjiance = zfsjiance;
+	}
+	public String getYmpfjiance() {
+		return ympfjiance;
+	}
+	public void setYmpfjiance(String ympfjiance) {
+		this.ympfjiance = ympfjiance;
+	}
+	public String getInspectors() {
+		return inspectors;
+	}
+	public void setInspectors(String inspectors) {
+		this.inspectors = inspectors;
+	}
+	
 
 }

@@ -4,7 +4,7 @@
 	<!-- 查询基本情况（根据检验编号） -->
 	<select id="findBasicSituation" parameterType="int" resultType="CornExaminingReport">
 	SELECT pbl.libraryName pLibraryName, bl.libraryName, bs.sampleNum, bs.sampleNo,
-	 bs.position, bs.sort, bs.amount, bs.gainTime, bs.storageTime,br.createTime checkApplyTime,
+	 bs.position, bs.sort, bs.amount, bs.gainTime, bs.storageTime,bs.originPlace,br.createTime checkApplyTime,
 	 br.updateTime assignMissionTime, bs.sampleTime, bs.remark, bm.length, bm.wide, bm.high, 
 	 bm.deductVolume, bm.realVolume, bm.realCapacity, bm.correctioFactor, 
 	 bm.aveDensity, bm.unQuality, bm.grainQuality, bm.slip FROM barn_library pbl 
@@ -18,12 +18,14 @@
 	</select>
 	<!-- 查询质量验收情况（根据小样编号） -->
 	<select id="findQualityAcceptance" parameterType="int" resultType="CornExaminingReport">
-		SELECT distinct bt.taskName,bss.smallSampleNum,bm.realCapacity, bm.qualityGrade, bsc.pingjunzhi shuifen_pingjunzhi, 
-		bzbc.zazhizongliang_1, bzbc.buwanshanlihanliang_pingjunzhi_1,
-		bzbc.shengmeilihanliang_pingjunzhi, bcc.sezeqiwei_pingjunzhi,
-		bzc.pingjunzhi zhifangsuanzhi_pingjunzhi, byp.pinchangpingfenzhi,bs.id sampleId,bs.sampleNum
-		FROM barn_sample bs LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
-		LEFT JOIN barn_task bt ON bss.taskId = bt.id
+		SELECT DISTINCT bt.taskName, bss.smallSampleNum, bm.realCapacity, bm.qualityGrade, 
+		bsc.pingjunzhi shuifen_pingjunzhi, bsc.jiance sfjiance, bzbc.zazhizongliang_1, 
+		bzbc.buwanshanlihanliang_pingjunzhi_1, bzbc.shengmeilihanliang_pingjunzhi, 
+		bzbc.buwanshanli_zazhi_jiance bwsljiance, bzbc.fenyangjiance fenyangjiance, 
+		bcc.sezeqiwei_pingjunzhi, bcc.jiance cdjljiance, bzc.pingjunzhi zhifangsuanzhi_pingjunzhi, 
+		bzc.jiance zfsjiance, byp.pinchangpingfenzhi, byp.pinpingyuan ympfjiance, bs.id sampleId, 
+		bs.sampleNum FROM barn_sample bs LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
+		LEFT JOIN barn_task bt ON bss.taskId = bt.id 
 		LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id 
 		LEFT JOIN barn_shuifen_cedingjilu bsc ON bsc.smallSampleId = bss.id 
 		LEFT JOIN barn_zazhi_buwanshanli_cedingjilu bzbc ON bzbc.smallSampleId = bss.id 

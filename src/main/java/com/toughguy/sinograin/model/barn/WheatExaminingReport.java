@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.model.barn;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * 小麦检测报告实体类 （用与页面展示）
@@ -13,6 +14,7 @@ public class WheatExaminingReport {
 	private String libraryName; 	//库点
 	private String sampleNum;	//检测编号
 	private String sampleNo;  	//扦样编号
+	private String originPlace; //产地
 	private String position ;   //货位号（申请扦样）
 	private String sort;    	//分类(品种)
 	private String amount;   	//数量
@@ -43,6 +45,14 @@ public class WheatExaminingReport {
 	private String pingjunzhiganmianjinzhiliang;  //平均值干面筋质量m2（g）
 	private String shimianjin_pingjunzhi;     //湿面筋平均值
 	private String pinchangpingfenzhi;  //品尝评分值
+	private String sfjiance;  //水分检测人
+	private String bwsljiance;   //不完善粒检测人
+	private String fenyangjiance;  //不完善粒的分样检测人
+	private String cdjljiance;   //测定记录表检测人
+	private String mjxsljiance;  //面筋吸水量检测人
+	private String mtpfjiance;   //馒头评分检测人
+	private String inspectors;   //检测人集合
+	
 	
 	private int sampleId;   //样品id（页面展示）
 	private String smallSampleNum; //小样编号
@@ -88,6 +98,13 @@ public class WheatExaminingReport {
 	}
 	public void setAmount(String amount) {
 		this.amount = amount;
+	}
+	
+	public String getOriginPlace() {
+		return originPlace;
+	}
+	public void setOriginPlace(String originPlace) {
+		this.originPlace = originPlace;
 	}
 	public String getGainTime() {
 		return gainTime;
@@ -270,6 +287,49 @@ public class WheatExaminingReport {
 	}
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
+	}
+	public String getSfjiance() {
+		return sfjiance;
+	}
+	public void setSfjiance(String sfjiance) {
+		this.sfjiance = sfjiance;
+	}
+	public String getBwsljiance() {
+		return bwsljiance;
+	}
+	public void setBwsljiance(String bwsljiance) {
+		this.bwsljiance = bwsljiance;
+	}
+	
+	public String getFenyangjiance() {
+		return fenyangjiance;
+	}
+	public void setFenyangjiance(String fenyangjiance) {
+		this.fenyangjiance = fenyangjiance;
+	}
+	public String getCdjljiance() {
+		return cdjljiance;
+	}
+	public void setCdjljiance(String cdjljiance) {
+		this.cdjljiance = cdjljiance;
+	}
+	public String getMjxsljiance() {
+		return mjxsljiance;
+	}
+	public void setMjxsljiance(String mjxsljiance) {
+		this.mjxsljiance = mjxsljiance;
+	}
+	public String getMtpfjiance() {
+		return mtpfjiance;
+	}
+	public void setMtpfjiance(String mtpfjiance) {
+		this.mtpfjiance = mtpfjiance;
+	}
+	public String getInspectors() {
+		return inspectors;
+	}
+	public void setInspectors(String inspectors) {
+		this.inspectors = inspectors;
 	}
 	
 	

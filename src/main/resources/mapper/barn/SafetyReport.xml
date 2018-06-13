@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SafetyReport">
 
 	<insert id="save" parameterType="SafetyReport" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId,isDeal,rummager) 
-		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId},#{isDeal},#{rummager})
+		insert into barn_safety_report (guid, createTime,updateTime,problem,images,sampleId,isDeal,rummager,approver,approveImage) 
+		values (#{guid}, #{createTime},#{updateTime},#{problem},#{images},#{sampleId},#{isDeal},#{rummager},#{approver},#{approveImage})
 	</insert>
 	
 	
@@ -78,6 +78,8 @@
 			<if test="isDeal != null and isDeal != ''">isDeal = #{isDeal},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="rummager != null and rummager != ''">rummager = #{rummager},</if>
+			<if test="approver != null and approver != ''">approver = #{approver},</if>
+			<if test="approveImage != null and approveImage != ''">approveImage = #{approveImage},</if>
 		</set>
 		where id = #{id}
 	</update>

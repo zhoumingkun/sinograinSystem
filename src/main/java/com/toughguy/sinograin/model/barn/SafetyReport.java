@@ -17,6 +17,8 @@ public class SafetyReport extends AbstractModel{
 	private int sampleId;     //样品id
 	private int isDeal;			//是否处理（-1 未解决， 1 已解决）
 	private String rummager;	//检查人
+	private String approver;    //审批通过人
+	private String approveImage; //审批图片
 	
 	private String pLibraryName;	//被查库名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
@@ -73,6 +75,19 @@ public class SafetyReport extends AbstractModel{
 	}
 	public void setpLibraryName(String pLibraryName) {
 		this.pLibraryName = pLibraryName;
+	}
+	
+	public String getApprover() {
+		return approver;
+	}
+	public void setApprover(String approver) {
+		this.approver = approver;
+	}
+	public String getApproveImage() {
+		return approveImage;
+	}
+	public void setApproveImage(String approveImage) {
+		this.approveImage = approveImage;
 	}
 	@Override
 	public String toString(){
