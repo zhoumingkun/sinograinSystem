@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Warehouse;
+import com.toughguy.sinograin.model.barn.WarehouseCounter;
 import com.toughguy.sinograin.pagination.PagerModel;
-import com.toughguy.sinograin.service.barn.prototype.IWarehouseService;
+import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterService;
 
 /**
- * 仓房
+ * 仓房柜
  * @author BOBO
  *
  */
 @Controller
-@RequestMapping("/warehouse")
-public class WarehouseController {
+@RequestMapping("/warehouseCounter")
+public class WarehouseCounterController {
 	@Autowired
-	private IWarehouseService warehouseService;
+	private IWarehouseCounterService warehouseCounterService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
-	public List<Warehouse> getAll(){
-		return warehouseService.findAll();
+	public List<WarehouseCounter> getAll(){
+		return warehouseCounterService.findAll();
 	}
 	
 	@ResponseBody
 	@RequestMapping("/get")
-	public Warehouse get(int id){
-		return warehouseService.find(id);
+	public WarehouseCounter get(int id){
+		return warehouseCounterService.find(id);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
-	public String save(Warehouse warehouse) {
+	public String save(WarehouseCounter warehouseCounter) {
 		try {
-			warehouseService.save(warehouse);
+			warehouseCounterService.save(warehouseCounter);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,7 +56,7 @@ public class WarehouseController {
 	@RequestMapping(value = "/remove")
 	public String remove(int id) {
 		try {
-			warehouseService.delete(id);
+			warehouseCounterService.delete(id);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,17 +66,19 @@ public class WarehouseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
-	public String edit(Warehouse warehouse) {
+	public String remove(WarehouseCounter warehouseCounter) {
 		try {
-			warehouseService.update(warehouse);
+			warehouseCounterService.update(warehouseCounter);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/data")
+	//@RequiresPermissions("SmallSample:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -85,7 +87,7 @@ public class WarehouseController {
 				// 参数处理
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
-			PagerModel<Warehouse> pg = warehouseService.findPaginated(map);
+			PagerModel<WarehouseCounter> pg = warehouseCounterService.findPaginated(map);
 			
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();

@@ -24,9 +24,9 @@
 	
 	<!-- 分页查询交接单  -->
 	<select id="findPaginated" resultType="warehouse" parameterType="Map">
-		select * from barn_warehouse 
+		select * from barn_warehouse bw LEFT JOIN barn_warehouse_counter bwp ON bwp.pId = bw.id
 		<include refid="paramsSQL"/>
-		ORDER BY createTime desc  limit #{offset}, #{limit}
+		ORDER BY bw.id desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">

@@ -7,7 +7,7 @@ import com.toughguy.sinograin.model.AbstractModel;
  * @author BOBO
  *
  */
-public class WarehousePosition extends AbstractModel {
+public class WarehouseCounter extends AbstractModel {
 
 	private static final long serialVersionUID = 2166949566971231212L;
 	private String position;  //柜号
