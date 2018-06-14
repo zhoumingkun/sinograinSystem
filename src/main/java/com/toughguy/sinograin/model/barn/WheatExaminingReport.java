@@ -52,7 +52,12 @@ public class WheatExaminingReport {
 	private String mjxsljiance;  //面筋吸水量检测人
 	private String mtpfjiance;   //馒头评分检测人
 	private String inspectors;   //检测人集合
-	
+	private Date sfriqi;        //水分日期
+	private Date bwslriqi;      //不完善粒日期
+	private Date cdjlriqi;       //测定记录日期
+	private Date mjxslriqi;     //面筋吸水量日期
+	private Date mtpfriqi;       //馒头评分日期
+	private String inspectionTime;  //检测日期
 	
 	private int sampleId;   //样品id（页面展示）
 	private String smallSampleNum; //小样编号
@@ -330,6 +335,42 @@ public class WheatExaminingReport {
 	}
 	public void setInspectors(String inspectors) {
 		this.inspectors = inspectors;
+	}
+	public Date getSfriqi() {
+		return sfriqi;
+	}
+	public void setSfriqi(Date sfriqi) {
+		this.sfriqi = sfriqi;
+	}
+	public Date getBwslriqi() {
+		return bwslriqi;
+	}
+	public void setBwslriqi(Date bwslriqi) {
+		this.bwslriqi = bwslriqi;
+	}
+	public Date getCdjlriqi() {
+		return cdjlriqi;
+	}
+	public void setCdjlriqi(Date cdjlriqi) {
+		this.cdjlriqi = cdjlriqi;
+	}
+	public Date getMjxslriqi() {
+		return mjxslriqi;
+	}
+	public void setMjxslriqi(Date mjxslriqi) {
+		this.mjxslriqi = mjxslriqi;
+	}
+	public Date getMtpfriqi() {
+		return mtpfriqi;
+	}
+	public void setMtpfriqi(Date mtpfriqi) {
+		this.mtpfriqi = mtpfriqi;
+	}
+	public String getInspectionTime() {
+		return inspectionTime;
+	}
+	public void setInspectionTime(String inspectionTime) {
+		this.inspectionTime = inspectionTime;
 	}
 	
 	

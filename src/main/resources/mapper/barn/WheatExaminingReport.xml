@@ -19,11 +19,13 @@
 	<!-- 查询质量验收情况（根据小样编号） -->
 	<select id="findQualityAcceptance" parameterType="int" resultType="WheatExaminingReport">
 		SELECT DISTINCT bt.taskName, bm.qualityGrade, bss.smallSampleNum, bsc.pingjunzhi shuifen_pingjunzhi, 
-		bsc.jiance sfjiance, bzbc.zazhizongliang_1, bzbc.kuangwuzhihanliang_pingjunzhi, bzbc.buwanshanlihanliang_pingjunzhi_1, 
-		bzbc.buwanshanli_zazhi_jiance bwsljiance, bzbc.fenyangjiance fenyangjiance,bcc.yingduzhishu_pingjunzhi, bcc.sezeqiwei_pingjunzhi, bcc.jiance cdjljiance,
-		bmc.pingjunzhiganmianjinzhiliang, bmc.jiance mjxsljiance, bcc.shimianjin_pingjunzhi, bmp.pinchangpingfenzhi, 
-		bmp.pinpingyuan mtpfjiance, bs.id sampleId, bs.sampleNum FROM barn_sample bs 
-		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
+		bsc.jiance sfjiance,bsc.riqi sfriqi, bzbc.zazhizongliang_1, bzbc.kuangwuzhihanliang_pingjunzhi, 
+		bzbc.buwanshanlihanliang_pingjunzhi_1, bzbc.buwanshanli_zazhi_jiance bwsljiance, bzbc.riqi bwslriqi,
+		bzbc.fenyangjiance fenyangjiance,bcc.yingduzhishu_pingjunzhi, bcc.sezeqiwei_pingjunzhi, 
+		bcc.jiance cdjljiance,bcc.riqi cdjlriqi,bmc.pingjunzhiganmianjinzhiliang, bmc.jiance mjxsljiance,
+		bmc.riqi mjxslriqi,bcc.shimianjin_pingjunzhi, bmp.pinchangpingfenzhi, bmp.pinpingyuan mtpfjiance, 
+		bmp.riqi mtpfriqi,bs.id sampleId, bs.sampleNum 
+		FROM barn_sample bs LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bss.taskId = bt.id 
 		LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id 
 		LEFT JOIN barn_shuifen_cedingjilu bsc ON bsc.smallSampleId = bss.id 

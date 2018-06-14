@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.warehouse">
+
+	<insert id="save" parameterType="warehouse" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_warehouse (depot,warehouseUseNumber,warehouseTotal) 
+		values (#{depot},#{warehouseUseNumber},#{warehouseTotal})
+	</insert>
+	<!-- 删除某个测定记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_warehouse where id = #{id}
+	</delete>
+	
+	<!-- 查询某个测定记录 -->
+	<select id="find" parameterType="int" resultType="warehouse">
+		select * from barn_warehouse where id = #{id}
+	</select>
+	
+	<!-- 查询全部测定记录  -->
+	<select id="findAll" resultType="warehouse" parameterType="Map">
+		select * from barn_warehouse
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<select id="findPaginated" resultType="warehouse" parameterType="Map">
+		select * from barn_warehouse 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_warehouse 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某个测定记录  -->
+	<update id="update" parameterType="warehouse">
+		update barn_warehouse
+		<set>
+			<if test="depot != null and depot != ''">depot = #{depot},</if>
+			<if test="warehouseUseNumber != null and warehouseUseNumber != ''">warehouseUseNumber = #{warehouseUseNumber},</if>	
+			<if test="warehouseTotal != null and warehouseTotal != ''">warehouseTotal = #{warehouseTotal},</if>	
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+		    <if test=" depot != null and depot != '' ">
+				and depot like concat(concat('%', #{depot, jdbcType=VARCHAR}),'%') 
+			</if>
+			<if test="warehouseUseNumber != null and warehouseUseNumber != ''">
+				and warehouseUseNumber = #{warehouseUseNumber}
+			</if>
+			<if test="warehouseTotal != null and warehouseTotal != ''">
+				and warehouseTotal = #{warehouseTotal}
+			</if>	
+		</where>
+	</sql>
+	
+</mapper>

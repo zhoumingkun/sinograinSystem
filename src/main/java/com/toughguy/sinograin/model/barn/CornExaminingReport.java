@@ -1,6 +1,6 @@
 package com.toughguy.sinograin.model.barn;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * 玉米检测报告实体类 （用与页面展示）
@@ -49,6 +49,12 @@ public class CornExaminingReport {
 	private String zfsjiance;  //脂肪酸检测人
 	private String ympfjiance;    //玉米检测人
 	private String inspectors;    //检测人集合
+	private Date cdjlriqi;  //测定记录日期
+	private Date bwslriqi;   //不完善粒日期
+	private Date sfriqi;     //水分日期
+	private Date zfsriqi;    //脂肪酸日期
+	private Date ympfriqi;   //玉米评分日期
+	private String inspectionTime; //检测日期
 	
 	private int sampleId;  //样品id（页面展示）
 	private String smallSampleNum; //小样编号
@@ -313,6 +319,43 @@ public class CornExaminingReport {
 	public void setInspectors(String inspectors) {
 		this.inspectors = inspectors;
 	}
+	public Date getCdjlriqi() {
+		return cdjlriqi;
+	}
+	public void setCdjlriqi(Date cdjlriqi) {
+		this.cdjlriqi = cdjlriqi;
+	}
+	public Date getBwslriqi() {
+		return bwslriqi;
+	}
+	public void setBwslriqi(Date bwslriqi) {
+		this.bwslriqi = bwslriqi;
+	}
+	public Date getSfriqi() {
+		return sfriqi;
+	}
+	public void setSfriqi(Date sfriqi) {
+		this.sfriqi = sfriqi;
+	}
+	public Date getZfsriqi() {
+		return zfsriqi;
+	}
+	public void setZfsriqi(Date zfsriqi) {
+		this.zfsriqi = zfsriqi;
+	}
+	public Date getYmpfriqi() {
+		return ympfriqi;
+	}
+	public void setYmpfriqi(Date ympfriqi) {
+		this.ympfriqi = ympfriqi;
+	}
+	public String getInspectionTime() {
+		return inspectionTime;
+	}
+	public void setInspectionTime(String inspectionTime) {
+		this.inspectionTime = inspectionTime;
+	}
+	
 	
 
 }
