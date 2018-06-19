@@ -20,7 +20,6 @@ public class Sample extends AbstractModel{
 	private String sampleNum;	//检测编号
 	private String samplePic;	//扦样编号条形码
 	private String sampleNumPic;//检测编号条形码
-	private String counter;		//柜号
 	private String position ;   //货位号（申请扦样）
 	private String sort;    	//分类(品种)
 	private String originPlace; //产地
@@ -35,8 +34,8 @@ public class Sample extends AbstractModel{
 	private Date storageTime;	//入库时间（样品室）
 	private Date barnTime;		//入仓时间（粮仓）
 	private String checkeds;	//检测项
-	private String depot;	    //仓库号
 	private Date barnTimes;		//入仓时间（粮仓 页面）
+	private int placeId;        //存放位置id
 	
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
@@ -214,25 +213,11 @@ public class Sample extends AbstractModel{
 		this.barnTimes = barnTime;
 	}
 	
-	public String getCounter() {
-		return counter;
-	}
-	public void setCounter(String counter) {
-		this.counter = counter;
-	}
-	
 	public String getCheckeds() {
 		return checkeds;
 	}
 	public void setCheckeds(String checkeds) {
 		this.checkeds = checkeds;
-	}
-	
-	public String getDepot() {
-		return depot;
-	}
-	public void setDepot(String depot) {
-		this.depot = depot;
 	}
 	
 	public String getpLibraryName() {
@@ -260,6 +245,13 @@ public class Sample extends AbstractModel{
 	}
 	public void setSYYNumber(String sYYNumber) {
 		SYYNumber = sYYNumber;
+	}
+	
+	public int getplaceId() {
+		return placeId;
+	}
+	public void setplaceId(int placeId) {
+		this.placeId = placeId;
 	}
 	@Override
 	public String toString(){

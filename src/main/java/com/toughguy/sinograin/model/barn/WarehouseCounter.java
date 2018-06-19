@@ -10,21 +10,20 @@ import com.toughguy.sinograin.model.AbstractModel;
 public class WarehouseCounter extends AbstractModel {
 
 	private static final long serialVersionUID = 2166949566971231212L;
-	private String position;  //柜号
-	private int isStorage;    //是否存储  （1，已存，2未存）
+	private String counter;  //柜号
+	private int pId; //样品室id
 	
-	public String getPosition() {
-		return position;
+	public String getCounter() {
+		return counter;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setCounter(String counter) {
+		this.counter = counter;
 	}
-	public int getIsStorage() {
-		return isStorage;
+	public int getpId() {
+		return pId;
 	}
-	public void setIsStorage(int isStorage) {
-		this.isStorage = isStorage;
+	public void setpId(int pId) {
+		this.pId = pId;
 	}
-	
 	
 }

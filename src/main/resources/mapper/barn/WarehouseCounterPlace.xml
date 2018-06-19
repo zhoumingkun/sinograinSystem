@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.WarehouseCounterPlace">
+
+	<insert id="save" parameterType="WarehouseCounterPlace" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_warehouse_counter (place,isStorage,pId,createTime,updateTime) 
+		values (#{place},#{isStorage},#{pId},#{createTime},#{updateTime})
+	</insert>
+	<!-- 删除某个测定记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_warehouse_counter_place where id = #{id}
+	</delete>
+	
+	<!-- 查询某个测定记录 -->
+	<select id="find" parameterType="int" resultType="WarehouseCounterPlace">
+		select * from barn_warehouse_counter_place where id = #{id}
+	</select>
+	
+	<!-- 查询全部测定记录  -->
+	<select id="findAll" resultType="WarehouseCounterPlace" parameterType="Map">
+		select * from barn_warehouse_counter_place
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 根据placeId查询库房完整位置  -->
+	<select id="findDepotAndCounterByPlaceId" resultType="WarehouseCounterPlace" parameterType="int">
+		select bw.depot,bwc.counter,bwcp.place from barn_warehouse_counter_place bwcp 
+		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		LEFT JOIN barn_warehouse bw on bwc.pId = bw.id
+		where bwcp.id = #{placeId}
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<select id="findPaginated" resultType="WarehouseCounterPlace" parameterType="Map">
+		select * from barn_warehouse_counter_place 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_warehouse_counter_place
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某个测定记录  -->
+	<update id="update" parameterType="WarehouseCounterPlace">
+		update barn_warehouse_counter_place
+		<set>
+			<if test="place != null and place != ''">place = #{place},</if>
+			<if test="isStorage != null and isStorage != ''">isStorage = #{isStorage},</if>	
+			<if test="pId != null and pId != ''">pId = #{pId},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+		    <if test="place != null and place != '' ">
+				and place like concat(concat('%', #{place, jdbcType=VARCHAR}),'%') 
+			</if>
+			<if test="isStorage != null and isStorage != ''">
+				and isStorage = #{isStorage}
+			</if>
+			<if test="pId != null and pId != ''">
+				and pId = #{pId}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

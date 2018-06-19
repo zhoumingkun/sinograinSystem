@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Warehouse">
 
 	<insert id="save" parameterType="warehouse" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_warehouse (depot,warehouseUseNumber,warehouseTotal) 
-		values (#{depot},#{warehouseUseNumber},#{warehouseTotal})
+		insert into barn_warehouse (depot,warehouseUseNumber,warehouseTotal,createTime,updateTime) 
+		values (#{depot},#{warehouseUseNumber},#{warehouseTotal},#{createTime},#{updateTime})
 	</insert>
 	<!-- 删除某个测定记录 -->
 	<delete id="delete" parameterType="int" >
@@ -24,7 +24,7 @@
 	
 	<!-- 分页查询交接单  -->
 	<select id="findPaginated" resultType="warehouse" parameterType="Map">
-		select * from barn_warehouse bw LEFT JOIN barn_warehouse_counter bwp ON bwp.pId = bw.id
+		select bw.*,bwc.counter,bwc.id counterId from barn_warehouse bw LEFT JOIN barn_warehouse_counter bwc ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
 		ORDER BY bw.id desc  limit #{offset}, #{limit}
 	</select>
