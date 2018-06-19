@@ -519,4 +519,22 @@ public class SampleController {
 			return map;
 	}
 
+ 	/**
+	 * 导出样品登记薄
+	 * @param response
+	 * @param sampleNos  扦样编号集
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/ExportRegister")
+	@RequiresPermissions("sample:ExportRegister")
+	public String ExportRegister(HttpServletResponse response, String sampleNos) {
+		try {
+			// 返回结果
+			sampleService.ExportRegister(response, sampleNos);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
 }

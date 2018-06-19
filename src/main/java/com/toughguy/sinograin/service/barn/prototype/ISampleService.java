@@ -59,5 +59,10 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
 	public Sample findAllCereals();
+
+	/**
+	 * 导出样品登记薄
+	 */
+	public void ExportRegister(HttpServletResponse response, String sampleNos);
 	
 }
