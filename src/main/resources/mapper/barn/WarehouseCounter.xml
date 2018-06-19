@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.WarehouseCounter">
+
+	<insert id="save" parameterType="WarehouseCounter" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_warehouse_counter (counter,isStorage,pId) 
+		values (#{counter},#{isStorage},#{pId})
+	</insert>
+	<!-- 删除某个测定记录 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_warehouse_counter where id = #{id}
+	</delete>
+	
+	<!-- 查询某个测定记录 -->
+	<select id="find" parameterType="int" resultType="WarehouseCounter">
+		select * from barn_warehouse_counter where id = #{id}
+	</select>
+	
+	<!-- 查询全部测定记录  -->
+	<select id="findAll" resultType="WarehouseCounter" parameterType="Map">
+		select * from barn_warehouse_counter
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询交接单  -->
+	<select id="findPaginated" resultType="WarehouseCounter" parameterType="Map">
+		select * from barn_warehouse_counter 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_warehouse_counter 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某个测定记录  -->
+	<update id="update" parameterType="WarehouseCounter">
+		update barn_warehouse_counter
+		<set>
+			<if test="counter != null and counter != ''">counter = #{counter},</if>
+			<if test="isStorage != null and isStorage != ''">isStorage = #{isStorage},</if>	
+			<if test="pId != null and pId != ''">pId = #{pId},</if>	
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+		    <if test=" counter != null and counter != '' ">
+				and counter like concat(concat('%', #{counter, jdbcType=VARCHAR}),'%') 
+			</if>
+			<if test="isStorage != null and isStorage != ''">
+				and isStorage = #{isStorage}
+			</if>
+			<if test="pId != null and pId != ''">
+				and pId = #{pId}
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

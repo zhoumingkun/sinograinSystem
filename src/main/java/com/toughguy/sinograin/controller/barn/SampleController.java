@@ -1,7 +1,11 @@
 package com.toughguy.sinograin.controller.barn;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +35,7 @@ import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.util.BarCodeUtil;
+import com.toughguy.sinograin.util.DateUtil;
 import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
@@ -308,30 +313,69 @@ public class SampleController {
 	public List<WheatExaminingReport> dataWheatReport(String ids) {
 		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
 		String[] id = ids.split(",");
+		List<String> inspectors = new ArrayList<String>();
+		List<Date> date = new ArrayList<Date>();
 		for (int i = 0; i < id.length; i++) {
 			WheatExaminingReport w = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
 			List<WheatExaminingReport> wheats = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			for (int j = 1; j < wheats.size(); j++) {
+			for (int j = 0; j < wheats.size(); j++) {
 				int newNum = Integer.parseInt(wheats.get(j).getSmallSampleNum().substring(9));
 				w.setQualityGrade(wheats.get(j).getQualityGrade());
 				w.setRealCapacity(wheats.get(j).getRealCapacity());
 
 				if (newNum == 04) {
 					w.setShuifen_pingjunzhi(wheats.get(j).getShuifen_pingjunzhi());
+					inspectors.add(wheats.get(j).getSfjiance());
+					date.add(wheats.get(j).getSfriqi());
 				} else if (newNum == 01) {
 					w.setZazhizongliang_1(wheats.get(j).getZazhizongliang_1());
 					w.setKuangwuzhihanliang_pingjunzhi(wheats.get(j).getKuangwuzhihanliang_pingjunzhi());
 					w.setBuwanshanlihanliang_pingjunzhi_1(wheats.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					if(wheats.get(j).getBwsljiance() != null && wheats.get(j).getBwsljiance().length() != 0) {
+						inspectors.add(wheats.get(j).getBwsljiance());
+					}
+					if(wheats.get(j).getFenyangjiance() != null && wheats.get(j).getFenyangjiance().length() != 0) {
+						inspectors.add(wheats.get(j).getFenyangjiance());
+					}
+					date.add(wheats.get(j).getBwslriqi());
 				} else if (newNum == 05) {
 					w.setYingduzhishu_pingjunzhi(wheats.get(j).getYingduzhishu_pingjunzhi());
 					w.setSezeqiwei_pingjunzhi(wheats.get(j).getSezeqiwei_pingjunzhi());
+					inspectors.add(wheats.get(j).getCdjljiance());
+					date.add(wheats.get(j).getCdjlriqi());
 				} else if (newNum == 06) {
 					w.setPingjunzhiganmianjinzhiliang(wheats.get(j).getPingjunzhiganmianjinzhiliang());
 					w.setShimianjin_pingjunzhi(wheats.get(j).getShimianjin_pingjunzhi());
+					inspectors.add(wheats.get(j).getMjxsljiance());
+					date.add(wheats.get(j).getMjxslriqi());
 				} else if (newNum == 07) {
 					w.setPinchangpingfenzhi(wheats.get(j).getPinchangpingfenzhi());
+					inspectors.add(wheats.get(j).getMtpfjiance());
+					date.add(wheats.get(j).getMtpfriqi());
 				}
 			}
+			String ins = StringUtils.join(inspectors.toArray(),",");
+			w.setInspectors(ins);
+			Date newDate = null;
+			Calendar c1 = Calendar.getInstance();
+			Calendar c2 = Calendar.getInstance();
+			for(Date d: date) {
+				if(newDate == null) {
+					newDate = d;
+				}
+				c1.setTime(newDate);
+				c2.setTime(d);
+				int result = c1.compareTo(c2);
+				if(result==0) {
+					System.out.println("c1相等c2");
+				} else if(result<0) {
+					newDate = d;
+				} else if(result>0) {
+					System.out.println("c1大于c2");
+				}
+			}
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			w.setInspectionTime(sdf.format(newDate));
 			ws.add(w);
 		}
 		return ws;
@@ -343,31 +387,84 @@ public class SampleController {
 	public List<CornExaminingReport> dataCornReport(String ids) {
 		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
 		String[] id = ids.split(",");
+		List<String> inspectors = new ArrayList<String>();
+		List<Date> date = new ArrayList<Date>();
 		for (int i = 0; i < id.length; i++) {
 			CornExaminingReport c = cornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
 			List<CornExaminingReport> corns = cornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			for (int j = 1; j < corns.size(); j++) {
+			for (int j = 0; j < corns.size(); j++) {
 				int newNum = Integer.parseInt(corns.get(j).getSmallSampleNum().substring(9));
 				c.setQualityGrade(corns.get(j).getQualityGrade());
 				c.setRealCapacity(corns.get(j).getRealCapacity());
 				if (newNum == 04) {
 					c.setShuifen_pingjunzhi(corns.get(j).getShuifen_pingjunzhi());
+					inspectors.add(corns.get(j).getSfjiance());
+					date.add(corns.get(j).getSfriqi());
 				} else if (newNum == 02) {
 					c.setZazhizongliang_1(corns.get(j).getZazhizongliang_1());
+					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
+						inspectors.add(corns.get(j).getBwsljiance());
+					}
+					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
+						inspectors.add(corns.get(j).getFenyangjiance());
+					}
+					date.add(corns.get(j).getBwslriqi());
 				} else if (newNum == 01) {
 					c.setBuwanshanlihanliang_pingjunzhi_1(corns.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-
+					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
+						inspectors.add(corns.get(j).getBwsljiance());
+					}
+					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
+						inspectors.add(corns.get(j).getFenyangjiance());
+					}
+					date.add(corns.get(j).getBwslriqi());
 				} else if (newNum == 03) {
 					c.setShengmeilihanliang_pingjunzhi(corns.get(j).getShengmeilihanliang_pingjunzhi());
+					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
+						inspectors.add(corns.get(j).getBwsljiance());
+					}
+					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
+						inspectors.add(corns.get(j).getFenyangjiance());
+					}
+					date.add(corns.get(j).getBwslriqi());
 				} else if (newNum == 05) {
 					c.setSezeqiwei_pingjunzhi(corns.get(j).getSezeqiwei_pingjunzhi());
+					inspectors.add(corns.get(j).getCdjljiance());
+					date.add(corns.get(j).getCdjlriqi());
 				} else if (newNum == 06) {
 					c.setZhifangsuanzhi_pingjunzhi(corns.get(j).getZhifangsuanzhi_pingjunzhi());
+					inspectors.add(corns.get(j).getZfsjiance());
+					date.add(corns.get(j).getZfsriqi());
 				} else if (newNum == 07) {
 					c.setPinchangpingfenzhi(corns.get(j).getPinchangpingfenzhi());
+					inspectors.add(corns.get(j).getYmpfjiance());
+					date.add(corns.get(j).getYmpfriqi());
 				}
 			}
+			String ins = StringUtils.join(inspectors.toArray(),",");
+			c.setInspectors(ins);
+			Date newDate = null;
+			Calendar c1 = Calendar.getInstance();
+			Calendar c2 = Calendar.getInstance();
+			for(Date d: date) {
+				if(newDate == null) {
+					newDate = d;
+				}
+				c1.setTime(newDate);
+				c2.setTime(d);
+				int result = c1.compareTo(c2);
+				if(result==0) {
+					System.out.println("c1相等c2");
+				} else if(result<0) {
+					newDate = d;
+				} else if(result>0) {
+					System.out.println("c1大于c2");
+				}
+			}
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			c.setInspectionTime(sdf.format(newDate));
 			cs.add(c);
+			
 		}
 		return cs;
 	}
