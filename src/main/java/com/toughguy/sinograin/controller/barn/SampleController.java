@@ -34,6 +34,7 @@ import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
+import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
 import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.DateUtil;
 import com.toughguy.sinograin.util.JsonUtil;
@@ -54,6 +55,8 @@ public class SampleController {
 	private IWheatExaminingReportDao wheatExaminingReportDao;
 	@Autowired
 	private ICornExaminingReportDao cornExaminingReportDao;
+	@Autowired
+	private IWarehouseCounterPlaceService wcps;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -102,6 +105,7 @@ public class SampleController {
 				sample.setSampleNumPic(barFileName);
 				sample.setSampleNum(sampleNum);
 			}
+			wcps.findDepotAndCounterByPlaceId(sample.getplaceId());
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,counter,sampleNumPic,checkeds,depot) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{counter},#{sampleNumPic},#{checkeds},#{depot})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId})
 	</insert>
 	
 	<!--移动端入库  -->
@@ -116,10 +116,9 @@
 			<if test="sampleNum != null and sampleNum != ''">sampleNum = #{sampleNum},</if>
 			<if test="sampleWord != null and sampleWord != ''">sampleWord = #{sampleWord},</if>
 			<if test="samplePic != null and samplePic != ''">samplePic = #{samplePic},</if>
-			<if test="counter != null and counter != ''">counter = #{counter},</if>
 			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
-			<if test="depot != null and depot != ''">depot = #{depot},</if>
+			<if test="placeId != null and placeId != ''">placeId = #{placeId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -146,6 +145,12 @@
 		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bt.id = bss.taskId
 		where taskName = #{taskName}
+	</select>
+	<!--根据样品柜id查询柜中所有样品集 -->
+	<select id="findByCounterId" parameterType="int" resultType="Sample">
+		select * from barn_sample bs LEFT JOIN barn_warehouse_counter_place bwcp 
+		ON bs.placeId = bwcp.id LEFT JOIN barn_warehouse_counter bwc 
+		ON bwcp.pId = bwc.id where bwc.id = #{counterId}
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
@@ -245,9 +250,6 @@
 			</if>
 			<if test=" updateTime != null">
 				and barnTime = #{barnTime}
-			</if>
-			<if test=" depot != null and depot != '' ">
-				and depot = #{depot}
 			</if>
 			<if test=" pId != null and pId != '' ">
 				and r.id = #{pId}
