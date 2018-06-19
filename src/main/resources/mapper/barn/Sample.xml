@@ -146,6 +146,12 @@
 		LEFT JOIN barn_task bt ON bt.id = bss.taskId
 		where taskName = #{taskName}
 	</select>
+	<!--根据样品柜id查询柜中所有样品集 -->
+	<select id="findByCounterId" parameterType="int" resultType="Sample">
+		select * from barn_sample bs LEFT JOIN barn_warehouse_counter_place bwcp 
+		ON bs.placeId = bwcp.id LEFT JOIN barn_warehouse_counter bwc 
+		ON bwcp.pId = bwc.id where bwc.id = #{counterId}
+	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>

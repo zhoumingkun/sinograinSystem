@@ -14,7 +14,8 @@ public class Warehouse extends AbstractModel {
 	private int warehouseUseNumber;//库房使用数
 	private int warehouseTotal;  //库房总数
 	
-	private String position;  //样品柜
+	private String counter;  //样品柜
+	private int counterId;    //样品柜id
 	public String getDepot() {
 		return depot;
 	}
@@ -33,12 +34,17 @@ public class Warehouse extends AbstractModel {
 	public void setWarehouseTotal(int warehouseTotal) {
 		this.warehouseTotal = warehouseTotal;
 	}
-	public String getPosition() {
-		return position;
+	public String getCounter() {
+		return counter;
 	}
-	public void setPosition(String position) {
-		this.position = position;
+	public void setCounter(String counter) {
+		this.counter = counter;
 	}
-	
+	public int getCounterId() {
+		return counterId;
+	}
+	public void setCounterId(int counterId) {
+		this.counterId = counterId;
+	}
 	
 }
