@@ -241,6 +241,9 @@ public class SampleController {
 			}
 			PagerModel<Sample> pg = sampleService.findPaginated(map);
 			// 序列化查询结果为JSON
+			for(Sample p:pg.getData()) {
+				p.setStorage(p.getDepot() + "--" + p.getCounter() + "--" + p.getPlace());
+			}
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());
 			result.put("rows", pg.getData());
@@ -564,6 +567,21 @@ public class SampleController {
 			sampleService.ExportRegister(response, sampleNos);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	/**
+	 * 转移入库柜
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editPlace")
+	public String editPlace(Sample sample) {
+		try {
+			sampleService.update(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
 	}

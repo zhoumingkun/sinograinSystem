@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId,storageState) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId},#{storageState})
 	</insert>
 	
 	<!--移动端入库  -->
@@ -56,11 +56,16 @@
 	
 	<!-- 分页查询扦样 -->
 	<select id="findPaginated" resultType="Sample" parameterType="Map">
-		select s.*,r.formName,l.id libraryId,l.libraryName,l.pLibraryId pLibraryId, m.id mId,sr.id srId ,pbl.libraryName pLibraryName from barn_sample s 
-		left join barn_register r on s.pId = r.id 
-		left join barn_library l on r.libraryId = l.id 
-		LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
-		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id 
+		SELECT s.*, r.formName, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
+		 m.id mId, sr.id srId, pbl.libraryName pLibraryName, bwcp.place, bwc.counter, 
+		 bw.depot FROM barn_sample s LEFT JOIN barn_register r ON s.pId = r.id 
+		 LEFT JOIN barn_library l ON r.libraryId = l.id 
+		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
+		 LEFT JOIN barn_manuscript m ON m.sampleId = s.id 
+		 LEFT JOIN barn_safety_report sr ON sr.sampleId = s.id 
+		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
 		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
@@ -116,6 +121,7 @@
 			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
 			<if test="placeId != null and placeId != ''">placeId = #{placeId},</if>
+			<if test="storageState != null and storageState != ''">storageState = #{storageState},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -250,6 +256,9 @@
 			</if>
 			<if test=" pId != null and pId != '' ">
 				and r.id = #{pId}
+			</if>
+			<if test=" storageState != null and storageState != '' ">
+				and storageState = #{storageState}
 			</if>
 		</where>
 	</sql>

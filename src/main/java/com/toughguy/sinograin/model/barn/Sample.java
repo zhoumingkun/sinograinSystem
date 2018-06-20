@@ -36,6 +36,7 @@ public class Sample extends AbstractModel{
 	private String checkeds;	//检测项
 	private Date barnTimes;		//入仓时间（粮仓 页面）
 	private int placeId;        //存放位置id
+	private int storageState;    //存放状态
 	
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
@@ -259,6 +260,12 @@ public class Sample extends AbstractModel{
 	}
 	
 	
+	public int getStorageState() {
+		return storageState;
+	}
+	public void setStorageState(int storageState) {
+		this.storageState = storageState;
+	}
 	public String getDepot() {
 		return depot;
 	}
