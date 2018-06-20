@@ -531,5 +531,40 @@ public class SampleController {
 		}
 		return ss;
 	}
+	
+	/**
+	 * 移动端入库
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveRuku")
+	public String saveRuku(Sample sample) {
+		try {
+			String sampleNum = SamplingUtil.sampleNum();
+			sample.setSampleNum(sampleNum);
+			sampleService.saveRuku(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 
+ 	/**
+	 * 导出样品登记薄
+	 * @param response
+	 * @param sampleNos  扦样编号集
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/ExportRegister")
+	@RequiresPermissions("sample:ExportRegister")
+	public String ExportRegister(HttpServletResponse response, String sampleNos) {
+		try {
+			// 返回结果
+			sampleService.ExportRegister(response, sampleNos);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
 }

@@ -11,11 +11,8 @@
 	
 	<!--移动端入库  -->
 	<insert id="saveRuku" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,
-	gainTime,sampleNum) 
-		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},
-		#{gainTime},#{sampleNum})
-		<include refid="paramsSQLMobile"/>
+		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum) 
+		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum})
 	</insert>
 	
 	<!-- 删除某个样品 -->
@@ -258,97 +255,51 @@
 	</sql>
 	
 	<!-- 移动端入库设置条件 -->
-		<sql id="paramsSQLRuku">
-		<where>
-			<if test=" sampleNo = null and sampleNo = '' ">
-				and sampleNo = #{sampleNo}
-			</if>
-			<if test=" sampleNo != null and sampleNo != '' ">
-				and sampleNo = #{sampleNo}
-			</if>
-			<if test=" sampleNoLike != null and sampleNoLike != '' ">
-				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" position = null and position = '' ">
-				and position = #{position}
-			</if>
+		<sql id="paramsSQLRuku1">
 			<if test=" position != null and position != '' ">
-				and position = #{position}
-			</if>
-			<if test=" positionLike != null and positionLike != '' ">
-				and position like concat(concat('%', #{positionLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" sort = null and sort = '' ">
-				and sort = #{sort}
+				position,
 			</if>
 			<if test=" sort != null and sort != '' ">
-				and sort = #{sort}
-			</if>
-			<if test=" sortLike != null and sortLike != '' ">
-				and sort like concat(concat('%', #{sortLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" originPlace = null and originPlace = '' ">
-				and originPlace = #{originPlace}
-			</if>
-			<if test=" originPlace != null and originPlace != '' ">
-				and originPlace = #{originPlace}
-			</if>
-			<if test=" originPlaceLike != null and originPlaceLike != '' ">
-				and originPlace like concat(concat('%', #{originPlaceLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" quality = null and quality = '' ">
-				and quality = #{quality}
+				sort,
 			</if>
 			<if test=" quality != null and quality != '' ">
-				and quality = #{quality}
-			</if>
-			<if test=" qualityLike != null and qualityLike != '' ">
-				and quality like concat(concat('%', #{qualityLike, jdbcType=VARCHAR}),'%')
+				quality,
 			</if>
 			<if test=" amount != null and amount != '' ">
-				and amount = #{amount}
+				amount,
 			</if>
-			<if test=" amount = null and amount = '' ">
-				and amount = #{amount}
-			</if>
-			<if test=" amountLike != null and amountLike != '' ">
-				and amount like concat(concat('%', #{amountLike, jdbcType=VARCHAR}),'%')
+			<if test=" originPlace != null and originPlace != '' ">
+				originPlace,
 			</if>
 			<if test=" remark != null and remark != '' ">
-				and remark = #{remark}
-			</if>
-			
-			<if test=" remarkLike != null and remarkLike != '' ">
-				and remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" gainTime != null and gainTime != '' ">
-				and gainTime = #{gainTime}
-			</if>
-			<if test=" gainTimeLike != null and gainTimeLike != '' ">
-				and gainTime like concat(concat('%', #{gainTimeLike, jdbcType=VARCHAR}),'%')
-			</if>
-			
-			<if test=" gainTime = null and gainTime = '' ">
-				and gainTime = #{gainTime}
+				remark,
 			</if>
 			<if test=" gainTime != null and gainTime != '' ">
-				and gainTime = #{gainTime}
+				gainTime,
 			</if>
-			<if test=" gainTimeLike != null and gainTimeLike != '' ">
-				and gainTime like concat(concat('%', #{gainTimeLike, jdbcType=VARCHAR}),'%')
+		</sql>
+		<sql id="paramsSQLRuku2">
+			<if test=" position != null and position != '' ">
+				#{position},
 			</if>
-			<if test=" updateTime != null">
-				and updateTime = #{updateTime}
+			<if test=" sort != null and sort != '' ">
+				#{sort},
 			</if>
-			<if test=" updateTime = null">
-				and updateTime = #{updateTime}
+			<if test=" quality != null and quality != '' ">
+				#{quality},
 			</if>
-		</where>
+			<if test=" amount != null and amount != '' ">
+				#{amount},
+			</if>
+			<if test=" originPlace != null and originPlace != '' ">
+				#{originPlace},
+			</if>
+			<if test=" remark != null and remark != '' ">
+				#{remark},
+			</if>
+			<if test=" gainTime != null and gainTime != '' ">
+				#{gainTime},
+			</if>
 	</sql>
 	<!-- 通用的设置条件的查询SQL语句(移动端) -->
 	<sql id="paramsSQLMobile">

@@ -59,9 +59,12 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
 	public Sample findAllCereals();
-
-
-	public List<Sample> saveRuku(Map<String, Object> params);
+	
+	/**
+	 * 移动端入库
+	 * @param params
+	 */
+	public void saveRuku(Sample sample);
 
 	
 
