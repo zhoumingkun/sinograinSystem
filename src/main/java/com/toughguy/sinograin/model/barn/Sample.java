@@ -47,6 +47,10 @@ public class Sample extends AbstractModel{
 	private String XMNumber;		//小麦库存总量（前台）
 	private String YMNumber;		//玉米库存总量（前台）
 	private String SYYNumber;		//食用油库存总量（前台）
+	private String depot;           //样品室（前台）
+	private String counter;         //样品室柜（前台）
+	private String place;           //样品室柜位置（前台）
+	private String storage;          //样品室具体位置（前台）
 	
 	public String getFormName() {
 		return formName;
@@ -247,11 +251,37 @@ public class Sample extends AbstractModel{
 		SYYNumber = sYYNumber;
 	}
 	
-	public int getplaceId() {
+	public int getPlaceId() {
 		return placeId;
 	}
-	public void setplaceId(int placeId) {
+	public void setPlaceId(int placeId) {
 		this.placeId = placeId;
+	}
+	
+	
+	public String getDepot() {
+		return depot;
+	}
+	public void setDepot(String depot) {
+		this.depot = depot;
+	}
+	public String getCounter() {
+		return counter;
+	}
+	public void setCounter(String counter) {
+		this.counter = counter;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
+	}
+	public String getStorage() {
+		return storage;
+	}
+	public void setStorage(String storage) {
+		this.storage = storage;
 	}
 	@Override
 	public String toString(){
