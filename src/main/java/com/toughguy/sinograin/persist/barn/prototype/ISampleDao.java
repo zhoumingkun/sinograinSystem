@@ -39,4 +39,12 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
 	public Sample findAllCereals();
+	
+	/**
+	 * 根据样品柜id查询所有样品
+	 */
+	public List<Sample> findByCounterId(int counterId);
+
+
+	public List<Sample> saveRuku(Map<String, Object> params);
 }

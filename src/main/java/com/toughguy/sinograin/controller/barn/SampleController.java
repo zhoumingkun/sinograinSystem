@@ -105,7 +105,7 @@ public class SampleController {
 				sample.setSampleNumPic(barFileName);
 				sample.setSampleNum(sampleNum);
 			}
-			wcps.findDepotAndCounterByPlaceId(sample.getplaceId());
+			wcps.findDepotAndCounterByPlaceId(sample.getPlaceId());
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -517,6 +517,19 @@ public class SampleController {
 			map.put("YMNumber", sample.getYMNumber());
 			map.put("SYYNumber", sample.getSYYNumber());
 			return map;
+	}
+	
+	/**
+	 * 根据样品柜id查询所有样品
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getByCounterId")
+	public List<Sample> findByCounterId(int counterId) {
+		List<Sample> ss = sampleService.findByCounterId(counterId);
+		for(Sample s:ss) {
+			s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
+		}
+		return ss;
 	}
 
 }
