@@ -1151,6 +1151,112 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).findAllCereals();
 	}
+
+	@Override
+	public List<Sample> saveRuku(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).saveRuku(params);
+	}
+	
+	
+	/*
+	 *导出样品登记薄
+	 */
+	@Override
+	public void ExportRegister(HttpServletResponse response, String sampleNos) {
+		  FileInputStream fileInput;
+	      POIUtils utils = new POIUtils();
+			try {
+				fileInput = new FileInputStream("upload/base/中央事权粮油样品登记薄.xls");
+				//poi包下的类读取excel文件  
+				POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
+				// 创建一个webbook，对应一个Excel文件            
+				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
+				//对应Excel文件中的sheet，0代表第一个             
+				HSSFSheet sh = workbook.getSheetAt(0);  
+				String[] sampleNo = sampleNos.split(",");
+				for (int i = 0; i < sampleNo.length; i++) {
+					//根据扦样编号查询样品
+					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
+					HSSFRow row = sh.createRow(5+i);
+					row.setHeight((short) 300); // 行高
+					HSSFCell createCell = row.createCell(0);
+					createCell.setCellStyle(utils.Style1(workbook));
+					createCell.setCellValue(sample.getSampleNum()); //检验编号
+					
+					HSSFCell createCell1 = row.createCell(1);
+					createCell1.setCellStyle(utils.Style1(workbook));
+					createCell1.setCellValue(sample.getSampleWord()); //扦样编号(文字)
+					
+					String checkeds = sample.getCheckeds();
+					String[] checked = checkeds.split(",");
+					String str ="";
+					for (int j = 0; j < checked.length; j++) {
+						if(checked[j].equals("1")){
+							str +="不完善粒";
+						}else if(checked[j].equals("2")){
+							str +="杂质";
+						}else if(checked[j].equals("3")){
+							str +="生霉粒";
+						}else if(checked[j].equals("4")){
+							str +="水分";
+						}else if(checked[j].equals("5")){
+							str +="硬度";
+						}else if(checked[j].equals("6")){
+							str +="脂肪酸酯";
+						}else if(checked[j].equals("7")){
+							str +="品尝评分";
+						}else if(checked[j].equals("8")){
+							str +="卫生";
+						}else if(checked[j].equals("9")){
+							str +="加工品质";
+						}
+					}
+					HSSFCell createCell2 = row.createCell(2);
+					createCell2.setCellStyle(utils.Style1(workbook));
+					createCell2.setCellValue(str); 					//检验项目
+					
+					HSSFCell createCell3 = row.createCell(3);
+					createCell3.setCellStyle(utils.Style1(workbook));
+					createCell3.setCellValue(sample.getAutograph()); //扦样人员
+					
+					HSSFCell createCell4 = row.createCell(4);
+					createCell4.setCellStyle(utils.Style1(workbook));
+					createCell4.setCellValue(sample.getSampleTime()); //扦样时间
+					
+					HSSFCell createCell5 = row.createCell(5);
+					createCell5.setCellStyle(utils.Style1(workbook));
+					createCell5.setCellValue(""); 					//工作人员
+					
+					HSSFCell createCell6 = row.createCell(6);
+					createCell6.setCellStyle(utils.Style1(workbook));
+					createCell6.setCellValue(""); 					//工作时间
+					
+					HSSFCell createCell7 = row.createCell(7);
+					createCell7.setCellStyle(utils.Style1(workbook));
+					createCell7.setCellValue(""); 	//存放位置
+					
+					HSSFCell createCell8 = row.createCell(8);
+					createCell8.setCellStyle(utils.Style1(workbook));
+					createCell8.setCellValue(sample.getRemark()); 	//备注
+				}
+				String title = "中央事权粮油样品登记薄";
+				OutputStream output = response.getOutputStream();
+				response.reset();
+				response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+				response.setContentType("application/vnd.ms-excel;charset=utf-8");
+				workbook.write(output);
+				output.flush();  
+		        //将Excel写出        
+		        workbook.write(output);  
+		        //关闭流  
+		        fileInput.close();  
+		        output.close();  
+			} catch (Exception e) {
+				e.printStackTrace();
+			}  
+		
+	}
 }
 
 
