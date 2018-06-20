@@ -70,4 +70,8 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 */
 	public void ExportRegister(HttpServletResponse response, String sampleNos);
 	
+	/**
+	 * 根据样品柜id查询所有样品
+	 */
+	public List<Sample> findByCounterId(int counterId);
 }

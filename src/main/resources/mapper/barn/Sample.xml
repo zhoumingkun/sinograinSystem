@@ -15,7 +15,7 @@
 	gainTime,sampleNum) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},
 		#{gainTime},#{sampleNum})
-		<include refid="paramsRuku"/>
+		<include refid="paramsSQLMobile"/>
 	</insert>
 	
 	<!-- 删除某个样品 -->

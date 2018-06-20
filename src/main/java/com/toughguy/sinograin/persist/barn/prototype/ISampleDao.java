@@ -40,6 +40,11 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 */
 	public Sample findAllCereals();
 
+	/**
+	 * 根据样品柜id查询所有样品
+	 */
+	public List<Sample> findByCounterId(int counterId);
+
 
 	public List<Sample> saveRuku(Map<String, Object> params);
 }
