@@ -570,4 +570,19 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+	
+	/**
+	 * 转移入库柜
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editPlace")
+	public String editPlace(Sample sample) {
+		try {
+			sampleService.update(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 }
