@@ -69,8 +69,9 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCounterId",counterId);
 	}
 	@Override
-	public List<Sample> saveRuku(Map<String, Object> params) {
-		return sqlSessionTemplate.selectList(typeNameSpace + ".saveRuku", params);
+	public void saveRuku(Sample sample) {
+		System.out.println(sample);
+		sqlSessionTemplate.insert(typeNameSpace + ".saveRuku", sample);
 	}
 	
 	

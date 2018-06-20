@@ -45,6 +45,10 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 */
 	public List<Sample> findByCounterId(int counterId);
 
+	/**
+	 * 移动端入库
+	 * @param params
+	 */
 
-	public List<Sample> saveRuku(Map<String, Object> params);
+	public void saveRuku(Sample sample);
 }

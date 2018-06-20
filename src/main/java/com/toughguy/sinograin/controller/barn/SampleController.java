@@ -531,6 +531,23 @@ public class SampleController {
 		}
 		return ss;
 	}
+	
+	/**
+	 * 移动端入库
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveRuku")
+	public String saveRuku(Sample sample) {
+		try {
+			String sampleNum = SamplingUtil.sampleNum();
+			sample.setSampleNum(sampleNum);
+			sampleService.saveRuku(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 
  	/**
 	 * 导出样品登记薄

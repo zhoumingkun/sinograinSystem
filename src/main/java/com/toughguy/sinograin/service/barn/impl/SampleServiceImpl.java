@@ -1166,9 +1166,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 
 
 	@Override
-	public List<Sample> saveRuku(Map<String, Object> params) {
+	public void saveRuku(Sample sample) {
 		// TODO Auto-generated method stub
-		return ((ISampleDao)dao).saveRuku(params);
+		((ISampleDao)dao).saveRuku(sample);
 	}
 
 
