@@ -20,12 +20,14 @@ import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
 import com.toughguy.sinograin.persist.barn.prototype.ISampleDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
 
@@ -41,6 +43,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 
 	@Autowired
 	ICornExaminingReportDao icornExaminingReportDao;
+	
+	@Autowired
+	IWarehouseCounterPlaceService  iWarehouseCounterPlaceService;
 	
 	@Override
 	public PagerModel<Sample> findPaginatedMobile(Map<String, Object> params) {	
@@ -1242,9 +1247,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					createCell6.setCellStyle(utils.Style1(workbook));
 					createCell6.setCellValue(""); 					//工作时间
 					
+					
+					WarehouseCounterPlace warehouseCounterPlace = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sample.getPlaceId());
+					String placeName = "";
+					        placeName = warehouseCounterPlace.getDepot()+warehouseCounterPlace.getCounter()+warehouseCounterPlace.getPlace();
 					HSSFCell createCell7 = row.createCell(7);
 					createCell7.setCellStyle(utils.Style1(workbook));
-					createCell7.setCellValue(""); 	//存放位置
+					createCell7.setCellValue(placeName); 	//存放位置
 					
 					HSSFCell createCell8 = row.createCell(8);
 					createCell8.setCellStyle(utils.Style1(workbook));
