@@ -1152,11 +1152,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findAllCereals();
 	}
 
+
 	@Override
 	public List<Sample> saveRuku(Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).saveRuku(params);
 	}
+
 	
 	
 	/*

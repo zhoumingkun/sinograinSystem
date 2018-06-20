@@ -60,9 +60,8 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 */
 	public Sample findAllCereals();
 
-	public List<Sample> saveRuku(Map<String, Object> params);
 
-	
+	public List<Sample> saveRuku(Map<String, Object> params);
 
 	
 
