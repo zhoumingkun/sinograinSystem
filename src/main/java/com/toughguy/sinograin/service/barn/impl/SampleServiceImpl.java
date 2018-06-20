@@ -1166,13 +1166,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 
 
 	@Override
-	public void saveRuku(Sample sample) {
+	public int saveRuku(Sample sample) {
 		// TODO Auto-generated method stub
-		((ISampleDao)dao).saveRuku(sample);
+		return ((ISampleDao)dao).saveRuku(sample);
 	}
 
 
-	
 	
 	/*
 	 *导出样品登记薄
@@ -1215,14 +1214,18 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							str +="生霉粒";
 						}else if(checked[j].equals("4")){
 							str +="水分";
-						}else if(checked[j].equals("5")){
+						}else if(checked[j].equals("5") && sample.getSort().equals("玉米")){
+							str +="测定记录";
+						}else if(checked[j].equals("5") && sample.getSort().equals("小麦")){
 							str +="硬度";
-						}else if(checked[j].equals("6")){
+						}else if(checked[j].equals("6")  && sample.getSort().equals("玉米")){
 							str +="脂肪酸酯";
+						}else if(checked[j].equals("6")  && sample.getSort().equals("小麦")){
+							str +="面筋吸水";
 						}else if(checked[j].equals("7")){
 							str +="品尝评分";
 						}else if(checked[j].equals("8")){
-							str +="卫生";
+							str +="卫生指标";
 						}else if(checked[j].equals("9")){
 							str +="加工品质";
 						}
@@ -1248,9 +1251,8 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					createCell6.setCellValue(""); 					//工作时间
 					
 					
-					WarehouseCounterPlace warehouseCounterPlace = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sample.getPlaceId());
-					String placeName = "";
-					        placeName = warehouseCounterPlace.getDepot()+warehouseCounterPlace.getCounter()+warehouseCounterPlace.getPlace();
+					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sample.getPlaceId());
+					String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
 					HSSFCell createCell7 = row.createCell(7);
 					createCell7.setCellStyle(utils.Style1(workbook));
 					createCell7.setCellValue(placeName); 	//存放位置

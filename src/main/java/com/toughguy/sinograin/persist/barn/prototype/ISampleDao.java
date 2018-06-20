@@ -50,5 +50,6 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 * @param params
 	 */
 
-	public void saveRuku(Sample sample);
+	public  int saveRuku(Sample sample);
 }
+ 

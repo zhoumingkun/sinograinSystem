@@ -64,7 +64,8 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 移动端入库
 	 * @param params
 	 */
-	public void saveRuku(Sample sample);
+
+	public  int saveRuku(Sample sample);
 
 	
 
