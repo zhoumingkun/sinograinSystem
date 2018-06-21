@@ -563,7 +563,6 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-
 	/**
 	 * 移动端根据检测编号存入（入库签名，存放位置）
 	 */
@@ -639,7 +638,7 @@ public class SampleController {
 			place.setIsStorage(1);
 			place.setId(sample.getPlaceId());
 			wcps.update(place);
-			WarehouseCounter whc = new WarehouseCounter();
+			WarehouseCounter whc = wcs.find(place.getpId());
 			whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() - 1);
 			wcs.update(whc);
 			sampleService.updateDispose(sample);

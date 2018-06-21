@@ -38,6 +38,7 @@ public class Sample extends AbstractModel{
 	private int placeId;        //存放位置id
 	private String dispose;     //处理人
 	private String disposeReason;  //处理理由
+	private int detectionState;    //检测状态
 	
 	private String ids;         //id集
 	private String formName;	//扦样登记表名（页面展示）
@@ -299,6 +300,12 @@ public class Sample extends AbstractModel{
 		this.disposeReason = disposeReason;
 	}
 	
+	public int getDetectionState() {
+		return detectionState;
+	}
+	public void setDetectionState(int detectionState) {
+		this.detectionState = detectionState;
+	}
 	public String getIds() {
 		return ids;
 	}
