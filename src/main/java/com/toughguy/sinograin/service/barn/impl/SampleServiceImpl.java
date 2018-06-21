@@ -1278,4 +1278,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			}  
 		
 	}
+
+	@Override
+	public void updateDispose(Sample sample) {
+		// TODO Auto-generated method stub
+		((ISampleDao)dao).updateDispose(sample);
+	}
 }

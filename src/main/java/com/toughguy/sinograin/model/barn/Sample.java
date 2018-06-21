@@ -26,7 +26,7 @@ public class Sample extends AbstractModel{
 	private String quality;    	//性质
 	private String amount;   	//数量
 	private String remark;  	//备注
-	private int sampleState;    //状态    （-1 未扦样， 1 已扦样 ,2 入库,3 已分小样）
+	private int sampleState;    //状态    （-1 未扦样， 1 已扦样 ,2 入库,3 已分小样,4已处理）
 	private String autograph; 	//签名
 	private String  gainTime;  	//收获年度
 	private Date sampleTime;   	//扦样时间
@@ -36,8 +36,10 @@ public class Sample extends AbstractModel{
 	private String checkeds;	//检测项
 	private Date barnTimes;		//入仓时间（粮仓 页面）
 	private int placeId;        //存放位置id
-	private int storageState;    //存放状态
+	private String dispose;     //处理人
+	private String disposeReason;  //处理理由
 	
+	private String ids;         //id集
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
 	private String pLibraryName;	//被父查库名（页面展示）
@@ -259,13 +261,6 @@ public class Sample extends AbstractModel{
 		this.placeId = placeId;
 	}
 	
-	
-	public int getStorageState() {
-		return storageState;
-	}
-	public void setStorageState(int storageState) {
-		this.storageState = storageState;
-	}
 	public String getDepot() {
 		return depot;
 	}
@@ -289,6 +284,26 @@ public class Sample extends AbstractModel{
 	}
 	public void setStorage(String storage) {
 		this.storage = storage;
+	}
+	
+	public String getDispose() {
+		return dispose;
+	}
+	public void setDispose(String dispose) {
+		this.dispose = dispose;
+	}
+	public String getDisposeReason() {
+		return disposeReason;
+	}
+	public void setDisposeReason(String disposeReason) {
+		this.disposeReason = disposeReason;
+	}
+	
+	public String getIds() {
+		return ids;
+	}
+	public void setIds(String ids) {
+		this.ids = ids;
 	}
 	@Override
 	public String toString(){

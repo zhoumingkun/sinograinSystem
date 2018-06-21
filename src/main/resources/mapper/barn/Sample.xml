@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId,storageState) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId},#{storageState})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId})
 	</insert>
 	
 	<!--移动端入库  -->
@@ -40,10 +40,14 @@
 	
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
-		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,pbl.libraryName pLibraryName from barn_sample s 
+		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,
+		pbl.libraryName pLibraryName,bw.depot,bwc.counter,bwcp.place from barn_sample s 
 		left join barn_register r on s.pId = r.id 
 		left join barn_library l on r.libraryId = l.id
 		left join barn_library pbl on l.pLibraryId = pbl.id
+		LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		where s.id = #{id}
 	</select>
 	
@@ -65,7 +69,7 @@
 		 LEFT JOIN barn_safety_report sr ON sr.sampleId = s.id 
 		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
 		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
-		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
+		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
 		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
@@ -121,11 +125,20 @@
 			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
 			<if test="placeId != null and placeId != ''">placeId = #{placeId},</if>
-			<if test="storageState != null and storageState != ''">storageState = #{storageState},</if>
 		</set>
 		where id = #{id}
 	</update>
-	
+	<!-- 批量处理样品 -->
+	<update id="updateDispose" parameterType="Sample">
+		update barn_sample  
+		<set>
+			<if test="dispose != null and dispose != ''">dispose = #{dispose},</if>
+			<if test="disposeReason != null and disposeReason != ''">disposeReason = #{disposeReason},</if>
+			placeId = 0,
+			sampleState = 4
+		</set>
+		where id in (#{ids})
+	</update>
 	<!--根据扦样编号查询扦样信息 -->
 	<select id="findBySampleNo" parameterType="String" resultType="Sample">
 		select * from barn_sample where sampleNo = #{sampleNo}
