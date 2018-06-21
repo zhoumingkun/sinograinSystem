@@ -68,16 +68,26 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCounterId",counterId);
 	}
-//	@Override
-//	public void saveRuku(Sample sample) {
-//		System.out.println(sample);
-//		sqlSessionTemplate.insert(typeNameSpace + ".saveRuku", sample);
-//	}
+
 	@Override
 	public int saveRuku(Sample sample) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.insert(typeNameSpace + ".saveRuku", sample);
 	}
-	
+	@Override
+	public Sample findBysampleNum(String sampleNum) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBysampleNum");
+	}
+	@Override
+	public void saveRukuXinxi(Sample sample) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update(typeNameSpace + ".saveRukuXinxi", sample);
+	}
+	@Override
+	public void updateDispose(Sample sample) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update(typeNameSpace + ".updateDispose", sample);
+	}
 	
 }

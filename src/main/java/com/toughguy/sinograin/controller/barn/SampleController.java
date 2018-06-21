@@ -27,6 +27,7 @@ import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SmallSample;
+import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
@@ -69,7 +70,9 @@ public class SampleController {
 	@RequestMapping(value = "/get")
 	@RequiresPermissions("sample:getById")
 	public Sample get(int id) {
-		return sampleService.find(id);
+		Sample s = sampleService.find(id);
+		s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());;
+		return s;
 	}
 
 	@ResponseBody
@@ -106,6 +109,10 @@ public class SampleController {
 				sample.setSampleNum(sampleNum);
 			}
 			wcps.findDepotAndCounterByPlaceId(sample.getPlaceId());
+			WarehouseCounterPlace wp = new WarehouseCounterPlace();
+			wp.setId(sample.getPlaceId());
+			wp.setIsStorage(2);
+			wcps.update(wp);
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -551,7 +558,27 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-
+	/**
+	 * 移动端根据检测编号存入（入库签名，存放位置）
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveRukuXinxi")
+	public String saveRukuXinxi(Sample sample) {
+		try {
+			sample.getSampleNum();
+			System.out.println(sample.getSampleNum());
+			Sample sampl = sampleService.findBysampleNum(sample.getSampleNum());	
+			sampl.setAutograph(sample.getAutograph());
+			System.out.println(sample.getAutograph());
+			sampl.setPlaceId(sample.getPlaceId());
+			System.out.println(sample.getPlaceId());
+			sampleService.update(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
  	/**
 	 * 导出样品登记薄
 	 * @param response
@@ -579,6 +606,25 @@ public class SampleController {
 	public String editPlace(Sample sample) {
 		try {
 			sampleService.update(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+
+	/**
+	 * 处理入库柜
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/dispose")
+	public String dispose(Sample sample) {
+		try {
+			sampleService.updateDispose(sample);
+			WarehouseCounterPlace place = new WarehouseCounterPlace();
+			place.setIsStorage(1);
+			place.setId(sample.getPlaceId());
+			wcps.update(place);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

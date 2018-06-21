@@ -1171,7 +1171,16 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).saveRuku(sample);
 	}
 
-
+	@Override
+	public Sample findBysampleNum(String sampleNum) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findBysampleNum(sampleNum);
+	}
+	@Override
+	public void saveRukuXinxi(Sample sample) {
+		// TODO Auto-generated method stub
+		 ((ISampleDao)dao).saveRukuXinxi(sample);
+	}
 	
 	/*
 	 *导出样品登记薄
@@ -1252,11 +1261,16 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					
 					
 					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sample.getPlaceId());
-					String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
-					HSSFCell createCell7 = row.createCell(7);
-					createCell7.setCellStyle(utils.Style1(workbook));
-					createCell7.setCellValue(placeName); 	//存放位置
-					
+					if(w!=null){
+						String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
+						HSSFCell createCell7 = row.createCell(7);
+						createCell7.setCellStyle(utils.Style1(workbook));
+						createCell7.setCellValue(placeName); 	//存放位置
+					}else{
+						HSSFCell createCell7 = row.createCell(7);
+						createCell7.setCellStyle(utils.Style1(workbook));
+						createCell7.setCellValue(""); 	//存放位置
+					}
 					HSSFCell createCell8 = row.createCell(8);
 					createCell8.setCellStyle(utils.Style1(workbook));
 					createCell8.setCellValue(sample.getRemark()); 	//备注
@@ -1277,5 +1291,13 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				e.printStackTrace();
 			}  
 		
+	}
+
+	
+
+	@Override
+	public void updateDispose(Sample sample) {
+		// TODO Auto-generated method stub
+		((ISampleDao)dao).updateDispose(sample);
 	}
 }

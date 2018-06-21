@@ -64,10 +64,13 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 移动端入库
 	 * @param params
 	 */
-
 	public  int saveRuku(Sample sample);
-
-	
+	/**
+	 * 移动端根据检测编号查找
+	 * 
+	 */
+	public Sample findBysampleNum(String sampleNum);
+	public  void saveRukuXinxi(Sample sample);
 
 	/**
 	 * 导出样品登记薄
@@ -78,4 +81,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 根据样品柜id查询所有样品
 	 */
 	public List<Sample> findByCounterId(int counterId);
+	
+	/**
+	 * 处理样品
+	 */
+	public void updateDispose(Sample sample);
 }
