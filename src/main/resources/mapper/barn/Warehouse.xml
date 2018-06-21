@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Warehouse">
 
 	<insert id="save" parameterType="warehouse" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_warehouse (depot,warehouseUseNumber,warehouseTotal,createTime,updateTime) 
-		values (#{depot},#{warehouseUseNumber},#{warehouseTotal},#{createTime},#{updateTime})
+		insert into barn_warehouse (depot,createTime,updateTime) 
+		values (#{depot},#{createTime},#{updateTime})
 	</insert>
 	<!-- 删除某个测定记录 -->
 	<delete id="delete" parameterType="int" >
@@ -39,8 +39,6 @@
 		update barn_warehouse
 		<set>
 			<if test="depot != null and depot != ''">depot = #{depot},</if>
-			<if test="warehouseUseNumber != null and warehouseUseNumber != ''">warehouseUseNumber = #{warehouseUseNumber},</if>	
-			<if test="warehouseTotal != null and warehouseTotal != ''">warehouseTotal = #{warehouseTotal},</if>	
 		</set>
 		where id = #{id}
 	</update>
@@ -51,12 +49,6 @@
 		    <if test=" depot != null and depot != '' ">
 				and depot like concat(concat('%', #{depot, jdbcType=VARCHAR}),'%') 
 			</if>
-			<if test="warehouseUseNumber != null and warehouseUseNumber != ''">
-				and warehouseUseNumber = #{warehouseUseNumber}
-			</if>
-			<if test="warehouseTotal != null and warehouseTotal != ''">
-				and warehouseTotal = #{warehouseTotal}
-			</if>	
 		</where>
 	</sql>
 	
