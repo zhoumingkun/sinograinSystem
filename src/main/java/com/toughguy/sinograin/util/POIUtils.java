@@ -283,4 +283,21 @@ public class POIUtils {
 			  }
 			 }
 			}
+			
+			/** 
+			 * 样品登记薄样式
+			 * @param wb
+			 * @return
+			 */
+			public HSSFCellStyle StyleSamplePlace(HSSFWorkbook wb) {
+				HSSFCellStyle style = Style(wb);
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("黑体");
+				fon.setFontHeightInPoints((short) 13);// 设置字体大小
+				style.setWrapText(true); 
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+				style.setFont(fon);// 选择需要用到的字体格式
+				return style;
+			}
 }
