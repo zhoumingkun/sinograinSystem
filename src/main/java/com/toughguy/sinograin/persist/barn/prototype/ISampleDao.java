@@ -51,4 +51,10 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 */
 
 	public void saveRuku(Sample sample);
+	
+	
+	/**
+	 * 处理样品
+	 */
+	public void updateDispose(Sample sample);
 }

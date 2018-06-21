@@ -73,6 +73,11 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		System.out.println(sample);
 		sqlSessionTemplate.insert(typeNameSpace + ".saveRuku", sample);
 	}
+	@Override
+	public void updateDispose(Sample sample) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.update(typeNameSpace + ".updateDispose", sample);
+	}
 	
 	
 }

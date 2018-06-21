@@ -77,4 +77,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 根据样品柜id查询所有样品
 	 */
 	public List<Sample> findByCounterId(int counterId);
+	
+	/**
+	 * 处理样品
+	 */
+	public void updateDispose(Sample sample);
 }
