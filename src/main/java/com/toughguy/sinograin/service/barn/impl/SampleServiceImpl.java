@@ -1204,18 +1204,18 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					HSSFRow row = sh.createRow(5+i);
 					row.setHeight((short) 600); // 行高
 					HSSFCell createCell = row.createCell(0);
-					createCell.setCellStyle(utils.Style1(workbook));
+					createCell.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell.setCellValue(sample.getSampleNum()); //检验编号
 					
 					HSSFCell createCell1 = row.createCell(1);
-					createCell1.setCellStyle(utils.Style1(workbook));
+					createCell1.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell1.setCellValue(sample.getSampleWord()); //扦样编号(文字)
 					
 					String checkeds = sample.getCheckeds();
 					String str ="";
 					if(checkeds == null){
 						HSSFCell createCell2 = row.createCell(2);
-						createCell2.setCellStyle(utils.Style1(workbook));
+						createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
 						createCell2.setCellValue(str); 					//检验项目
 					}else{
 						String[] checked = checkeds.split(",");
@@ -1245,16 +1245,16 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							}
 						}
 						HSSFCell createCell2 = row.createCell(2);
-						createCell2.setCellStyle(utils.Style1(workbook));
+						createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
 						createCell2.setCellValue(str); 					//检验项目
 					}
 					
 					HSSFCell createCell3 = row.createCell(3);
-					createCell3.setCellStyle(utils.Style1(workbook));
+					createCell3.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell3.setCellValue(sample.getAutograph()); //扦样人员
 					
 					HSSFCell createCell4 = row.createCell(4);
-					createCell4.setCellStyle(utils.Style1(workbook));
+					createCell4.setCellStyle(utils.StyleSamplePlace(workbook));
 					if(sample.getSampleTime() == null ){
 					 createCell4.setCellValue(""); //扦样时间
 					}else{
@@ -1262,27 +1262,27 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					}
 					
 					HSSFCell createCell5 = row.createCell(5);
-					createCell5.setCellStyle(utils.Style1(workbook));
+					createCell5.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell5.setCellValue(""); 					//工作人员
 					
 					HSSFCell createCell6 = row.createCell(6);
-					createCell6.setCellStyle(utils.Style1(workbook));
+					createCell6.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell6.setCellValue(""); 					//工作时间
 					
 					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sample.getPlaceId());
 					if(w == null ){
 						HSSFCell createCell7 = row.createCell(7);
-						createCell7.setCellStyle(utils.Style1(workbook));
+						createCell7.setCellStyle(utils.StyleSamplePlace(workbook));
 						createCell7.setCellValue(""); 	//存放位置
 					}else{
 						String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
 						HSSFCell createCell7 = row.createCell(7);
-						createCell7.setCellStyle(utils.Style1(workbook));
+						createCell7.setCellStyle(utils.StyleSamplePlace(workbook));
 						createCell7.setCellValue(placeName); 	//存放位置
 					}
 					
 					HSSFCell createCell8 = row.createCell(8);
-					createCell8.setCellStyle(utils.Style1(workbook));
+					createCell8.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell8.setCellValue(sample.getRemark()); 	//备注
 				}
 				String title = "中央事权粮油样品登记薄";
