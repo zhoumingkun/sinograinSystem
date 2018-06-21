@@ -89,5 +89,5 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update(typeNameSpace + ".updateDispose", sample);
 	}
-	
+		
 }

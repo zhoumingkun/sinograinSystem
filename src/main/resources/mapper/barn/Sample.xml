@@ -150,7 +150,6 @@
 	<select id="findBySampleNo" parameterType="String" resultType="Sample">
 		select * from barn_sample where sampleNo = #{sampleNo}
 	</select>
-	
 	<!-- 查询平台所有小麦玉米食用油库存总量  -->
 	<select id="findAllCereals" resultType="Sample"  >
 		SELECT SUM(amount) XMNumber,
