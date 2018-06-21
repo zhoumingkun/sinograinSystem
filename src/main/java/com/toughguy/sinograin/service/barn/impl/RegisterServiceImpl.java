@@ -27,6 +27,7 @@ import com.toughguy.sinograin.persist.barn.prototype.IRegisterDao;
 import com.toughguy.sinograin.persist.barn.prototype.ISampleDao;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
+import com.toughguy.sinograin.util.POIUtils;
 
 @Service
 public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> implements IRegisterService {
@@ -46,7 +47,8 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 
 	@Override
 	public void expertExcel(HttpServletResponse response,SamplingDTO dto) throws Exception {
-		
+		   
+           POIUtils utils = new POIUtils();
 	        //传入的文件  
 	        FileInputStream fileInput = new FileInputStream("upload/base/扦样登记表.xls");  
 	        //poi包下的类读取excel文件  
@@ -66,6 +68,10 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	   	 	style.setFont(font);
 	   	 	style.setBorderLeft(HSSFCellStyle.BORDER_THIN);	
 	   	 	style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+	   	    style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+			style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+			style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+			style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 	   	 	style.setWrapText(true);				//自动换行
 	   	 	
 	        SimpleDateFormat dateBarn = new SimpleDateFormat("yyyy.MM");
@@ -117,6 +123,8 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        fileInput.close();  
 	        output.close();  
 	}
+
+
 
 	@Override
 	public void deleteRegisterAndSample(int id) {

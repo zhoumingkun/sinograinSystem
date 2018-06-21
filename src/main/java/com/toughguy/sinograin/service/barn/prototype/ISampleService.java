@@ -69,7 +69,7 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 移动端根据检测编号查找
 	 * 
 	 */
-	public Sample findBysampleNum(String sampleNum);
+	public Sample findBysampleNumMobile(String sampleNum);
 	public  void saveRukuXinxi(Sample sample);
 
 	/**

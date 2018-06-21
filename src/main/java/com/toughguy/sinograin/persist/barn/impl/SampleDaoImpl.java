@@ -75,9 +75,9 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		return sqlSessionTemplate.insert(typeNameSpace + ".saveRuku", sample);
 	}
 	@Override
-	public Sample findBysampleNum(String sampleNum) {
+	public Sample findBysampleNumMobile(String sampleNum) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBysampleNum");
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBysampleNumMobile",sampleNum);
 	}
 	@Override
 	public void saveRukuXinxi(Sample sample) {

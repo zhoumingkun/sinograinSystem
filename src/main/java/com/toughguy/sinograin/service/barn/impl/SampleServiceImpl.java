@@ -76,7 +76,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	}
 	
 	
-	
+	/*
+	 * 导出玉米
+	 * 
+	 */
 	public void Export(HttpServletResponse response,String ids,String title) {
 		//传入的文件  
         FileInputStream fileInput;
@@ -340,8 +343,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				
 				HSSFCell cell17 = row3.createCell(12);
 				cell17.setCellStyle(utils.Style1(workbook));
-				cell17.setCellValue(cornExaminingReport.getSampleTime());
-				
+				if(cornExaminingReport.getSampleTime()==null){
+					cell17.setCellValue("");
+				}else{
+					cell17.setCellValue(cornExaminingReport.getSampleTime());
+				}
 				Region region4 = new Region(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 16);
 				HSSFCell celll = row3.createCell(13);
 				utils.setRegionStyle(sheet, region4, utils.Style1(workbook));
@@ -432,7 +438,52 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					HSSFCell createCell2 = row3.createCell(30);
 					createCell2.setCellStyle(utils.Style1(workbook));
 					createCell2.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
+					
+					
+					HSSFCell cell30 = row3.createCell(31);
+					cell30.setCellStyle(utils.Style1(workbook));
 					if(newNum == 04) {
+						cell30.setCellValue(cornExaminingReport1.get(j).getShuifen_pingjunzhi());
+					}else{cell30.setCellValue("");}
+					
+					HSSFCell cell31 = row3.createCell(32);
+					cell31.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell32 = row3.createCell(33);
+					cell32.setCellStyle(utils.Style1(workbook));
+					if(newNum == 02) {
+						cell31.setCellValue(cornExaminingReport1.get(j).getZazhizongliang_1());
+						cell32.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					}else{
+						cell31.setCellValue("");
+						cell32.setCellValue("");
+					}
+					
+					HSSFCell cell33 = row3.createCell(34);
+					cell33.setCellStyle(utils.Style1(workbook));
+					if(newNum == 03) {
+						cell33.setCellValue(cornExaminingReport1.get(j).getShengmeilihanliang_pingjunzhi());
+					}else{cell33.setCellValue("");}
+					
+					HSSFCell cell34 = row3.createCell(35);
+					cell34.setCellStyle(utils.Style1(workbook));
+					if(newNum == 05) {
+						cell34.setCellValue(cornExaminingReport1.get(j).getSezeqiwei_pingjunzhi());
+					}else{cell34.setCellValue("");} 
+						
+						
+					HSSFCell cell35 = row3.createCell(36);
+					cell35.setCellStyle(utils.Style1(workbook));
+					if(newNum == 06) {
+						cell35.setCellValue(cornExaminingReport1.get(j).getZhifangsuanzhi_pingjunzhi());
+					}else{cell35.setCellValue("");}
+						
+					HSSFCell cell36 = row3.createCell(37);
+					cell36.setCellStyle(utils.Style1(workbook));
+					if(newNum == 07) {
+						cell36.setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
+					}else{cell36.setCellValue("");}
+					/*if(newNum == 04) {
 						HSSFCell cell30 = row3.createCell(31);
 						cell30.setCellStyle(utils.Style1(workbook));
 						cell30.setCellValue(cornExaminingReport1.get(j).getShuifen_pingjunzhi());
@@ -471,7 +522,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						HSSFCell cell36 = row3.createCell(37);
 						cell36.setCellStyle(utils.Style1(workbook));
 						cell36.setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
-					}
+					}*/
 				}
 			}
 			String Sum = "Sum(H10:H" + (id.length + 9) + ")";
@@ -762,7 +813,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				
 				HSSFCell cell14 = row3.createCell(12);
 				cell14.setCellStyle(utils.Style1(workbook));
-				cell14.setCellValue(Wobjiect.getSampleTime());
+				if(Wobjiect.getSampleTime() == null){
+					cell14.setCellValue("");
+				}else{
+					cell14.setCellValue(Wobjiect.getSampleTime());
+				}
 				
 				Region region5 = new Region(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 15);
 				HSSFCell createCell2 = row3.createCell(13);
@@ -843,7 +898,63 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					cell28.setCellStyle(utils.Style1(workbook));
 					cell28.setCellValue(Wobjiect1.get(j).getRealCapacity());
 					
+					
+					HSSFCell cell29 = row3.createCell(30);
+					cell29.setCellStyle(utils.Style1(workbook));
 					if(newNum == 4) {
+						cell29.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
+					}else{cell29.setCellValue("");}
+					
+					HSSFCell cell30 = row3.createCell(31);
+					cell30.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell31 = row3.createCell(32);
+					cell31.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell32 = row3.createCell(33);
+					cell32.setCellStyle(utils.Style1(workbook));
+					if(newNum == 2) {
+						cell30.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
+						cell31.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
+						cell32.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					}else{
+						cell30.setCellValue("");
+						cell31.setCellValue("");
+						cell32.setCellValue("");
+					}
+					
+					HSSFCell cell33 = row3.createCell(34);
+					cell33.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell34 = row3.createCell(35);
+					cell34.setCellStyle(utils.Style1(workbook));
+					if(newNum == 5) {
+						cell33.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
+						cell34.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
+					}else{
+						cell33.setCellValue("");
+						cell34.setCellValue("");
+					}
+					
+					HSSFCell cell35 = row3.createCell(36);
+					cell35.setCellStyle(utils.Style1(workbook));
+				    
+					HSSFCell cell36 = row3.createCell(37);
+					cell36.setCellStyle(utils.Style1(workbook));
+					if(newNum == 6) {
+						cell35.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
+						cell36.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
+					}else{
+						cell35.setCellValue("");
+						cell36.setCellValue("");
+					}
+					
+					HSSFCell cell37 = row3.createCell(38);
+					cell37.setCellStyle(utils.Style1(workbook));
+					if(newNum == 7) {
+						cell37.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
+					}else{cell37.setCellValue("");}
+					/*if(newNum == 4) {
 						HSSFCell cell29 = row3.createCell(30);
 						cell29.setCellStyle(utils.Style1(workbook));
 						cell29.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
@@ -883,7 +994,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						HSSFCell cell37 = row3.createCell(38);
 						cell37.setCellStyle(utils.Style1(workbook));
 						cell37.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
-					}
+					}*/
 				}
 			}
 			String Sum = "Sum(H10:H" + (id.length + 9) + ")";
@@ -958,7 +1069,65 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					cell4.setCellStyle(utils.Style1(workbook));
 					cell4.setCellValue(Wobjiect1.get(j).getRealCapacity());
 					
+					HSSFCell cell5 = row.createCell(4);
+					cell5.setCellStyle(utils.Style1(workbook));
 					if(newNum == 4) {
+						cell5.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
+					}else{cell5.setCellValue("");}
+					
+					HSSFCell cell6 = row.createCell(5);
+					cell6.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell7 = row.createCell(6);
+					cell7.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell8 = row.createCell(7);
+					cell8.setCellStyle(utils.Style1(workbook));
+					if(newNum == 1){
+						cell6.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
+						cell7.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
+						cell8.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+					}else{
+						cell6.setCellValue("");
+						cell7.setCellValue("");
+						cell8.setCellValue("");
+					}
+					
+					HSSFCell cell9 = row.createCell(8);
+					cell9.setCellStyle(utils.Style1(workbook));
+					
+					HSSFCell cell10 = row.createCell(9);
+					cell10.setCellStyle(utils.Style1(workbook));
+					
+					if(newNum == 5) {
+						cell9.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
+						cell10.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
+					}else{
+						cell9.setCellValue("");
+						cell10.setCellValue("");
+					}
+					
+					HSSFCell cell12 = row.createCell(11);
+					cell12.setCellStyle(utils.Style1(workbook));
+				    
+					HSSFCell cell13 = row.createCell(12);
+					cell13.setCellStyle(utils.Style1(workbook));
+					
+					if(newNum == 6) {
+						cell12.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
+						cell13.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
+					}else{
+						cell12.setCellValue("");
+						cell13.setCellValue("");
+					}
+					
+					HSSFCell cell14 = row.createCell(13);
+					cell14.setCellStyle(utils.Style1(workbook));
+					if(newNum == 7) {
+						cell14.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
+					}else{cell14.setCellValue("");}
+					
+					/*if(newNum == 4) {
 						HSSFCell cell5 = row.createCell(4);
 						cell5.setCellStyle(utils.Style1(workbook));
 						cell5.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
@@ -998,7 +1167,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						HSSFCell cell14 = row.createCell(13);
 						cell14.setCellStyle(utils.Style1(workbook));
 						cell14.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
-					}
+					}*/
 					HSSFCell cell11 = row.createCell(10);
 					cell11.setCellStyle(utils.Style1(workbook));
 					cell11.setCellValue("");
@@ -1081,42 +1250,49 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			HSSFCell createCell4 = row.createCell(3);
 			createCell4.setCellStyle(utils.Style1(workbook));
 			createCell4.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
-			if(newNum == 04) {
-				HSSFCell cell1 = row.createCell(4);
-				cell1.setCellStyle(utils.Style1(workbook));
+			
+			HSSFCell cell1 = row.createCell(4);
+			cell1.setCellStyle(utils.Style1(workbook));
+			if(newNum == 04){
 				cell1.setCellValue(cornExaminingReport1.get(j).getShuifen_pingjunzhi());
-			}
-			else if(newNum == 02) {
-				HSSFCell cell2 = row.createCell(5);
-				cell2.setCellStyle(utils.Style1(workbook));
+			}else{cell1.setCellValue("");}
+			
+			HSSFCell cell2 = row.createCell(5);
+			cell2.setCellStyle(utils.Style1(workbook));
+			if(newNum == 02){
 				cell2.setCellValue(cornExaminingReport1.get(j).getZazhizongliang_1());
-			}
-			else if(newNum == 01) {
-				HSSFCell cell3 = row.createCell(6);
-				cell3.setCellStyle(utils.Style1(workbook));
+			}else{cell2.setCellValue("");}
+			
+			HSSFCell cell3 = row.createCell(6);
+			cell3.setCellStyle(utils.Style1(workbook));
+			if(newNum == 01) {
 				cell3.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-				
-			}
-			else if(newNum == 03) {
-				HSSFCell cell4 = row.createCell(7);
-				cell4.setCellStyle(utils.Style1(workbook));
+			}else{cell3.setCellValue("");}
+			
+			HSSFCell cell4 = row.createCell(7);
+			cell4.setCellStyle(utils.Style1(workbook));
+			if(newNum == 03) {
 				cell4.setCellValue(cornExaminingReport1.get(j).getShengmeilihanliang_pingjunzhi());
-			}
-			else if(newNum == 05) {
-				HSSFCell cell5 = row.createCell(8);
-				cell5.setCellStyle(utils.Style1(workbook));
+			}else{cell4.setCellValue("");}
+		
+			HSSFCell cell5 = row.createCell(8);
+			cell5.setCellStyle(utils.Style1(workbook));
+			if(newNum == 05){
 				cell5.setCellValue(cornExaminingReport1.get(j).getSezeqiwei_pingjunzhi());
-			}
-			else if(newNum == 06) {
-				HSSFCell cell6 = row.createCell(10);
-				cell6.setCellStyle(utils.Style1(workbook));
+			}else{cell5.setCellValue("");}
+		
+			HSSFCell cell6 = row.createCell(10);
+			cell6.setCellStyle(utils.Style1(workbook));
+			if(newNum == 06) {
 				cell6.setCellValue(cornExaminingReport1.get(j).getZhifangsuanzhi_pingjunzhi());
-			}
-			else if(newNum == 07) {
-				HSSFCell cell7 = row.createCell(11);
-				cell7.setCellStyle(utils.Style1(workbook));
+			}else{cell6.setCellValue("");}
+			
+			HSSFCell cell7 = row.createCell(11);
+			cell7.setCellStyle(utils.Style1(workbook));
+			if(newNum == 07) {
 				cell7.setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
-			}
+			}else{cell7.setCellValue("");}
+			
 			HSSFCell cell12 = row.createCell(9);
 			cell12.setCellStyle(utils.Style1(workbook));
 			cell12.setCellValue("");
@@ -1172,9 +1348,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	}
 
 	@Override
-	public Sample findBysampleNum(String sampleNum) {
+	public Sample findBysampleNumMobile(String sampleNum) {
 		// TODO Auto-generated method stub
-		return ((ISampleDao)dao).findBysampleNum(sampleNum);
+		return ((ISampleDao)dao).findBysampleNumMobile(sampleNum);
 	}
 	@Override
 	public void saveRukuXinxi(Sample sample) {

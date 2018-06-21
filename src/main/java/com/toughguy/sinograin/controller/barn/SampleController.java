@@ -563,15 +563,7 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-	/**
-	 * 移动端根据存放位置查找
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/getByPlaceId")
-	@RequiresPermissions("getByPlaceId")
-	public WarehouseCounterPlace getByPlaceId(int id) {
-		return wcps.find(id);
-	}
+
 	/**
 	 * 移动端根据检测编号存入（入库签名，存放位置）
 	 */
@@ -579,13 +571,10 @@ public class SampleController {
 	@RequestMapping(value = "/saveRukuXinxi")
 	public String saveRukuXinxi(Sample sample) {
 		try {			
-			sample.getSampleNum();
-//			System.out.println(sample.getSampleNum());
-			Sample sampl = sampleService.findBysampleNum(sample.getSampleNum());	
-			sampl.setAutograph(sample.getAutograph());
-//			System.out.println(sample.getAutograph());
+			Sample sampl = sampleService.findBysampleNumMobile(sample.getSampleNum());	
+			String autograph = sample.getAutograph();
+			sampl.setAutograph(autograph);
 			sampl.setPlaceId(sample.getPlaceId());
-//			System.out.println(sample.getPlaceId());
 			sampleService.update(sampl);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
