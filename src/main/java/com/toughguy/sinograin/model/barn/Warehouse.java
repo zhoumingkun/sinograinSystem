@@ -11,8 +11,6 @@ public class Warehouse extends AbstractModel {
 	private static final long serialVersionUID = 8281532611008796714L;
 	
 	private String depot; //样品室
-	private int warehouseUseNumber;//库房使用数
-	private int warehouseTotal;  //库房总数
 	
 	private String counter;  //样品柜
 	private int counterId;    //样品柜id
@@ -21,18 +19,6 @@ public class Warehouse extends AbstractModel {
 	}
 	public void setDepot(String depot) {
 		this.depot = depot;
-	}
-	public int getWarehouseUseNumber() {
-		return warehouseUseNumber;
-	}
-	public void setWarehouseUseNumber(int warehouseUseNumber) {
-		this.warehouseUseNumber = warehouseUseNumber;
-	}
-	public int getWarehouseTotal() {
-		return warehouseTotal;
-	}
-	public void setWarehouseTotal(int warehouseTotal) {
-		this.warehouseTotal = warehouseTotal;
 	}
 	public String getCounter() {
 		return counter;

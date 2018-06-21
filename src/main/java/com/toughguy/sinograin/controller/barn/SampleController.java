@@ -27,6 +27,8 @@ import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SmallSample;
+import com.toughguy.sinograin.model.barn.Warehouse;
+import com.toughguy.sinograin.model.barn.WarehouseCounter;
 import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
@@ -36,6 +38,7 @@ import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
+import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterService;
 import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.DateUtil;
 import com.toughguy.sinograin.util.JsonUtil;
@@ -58,6 +61,8 @@ public class SampleController {
 	private ICornExaminingReportDao cornExaminingReportDao;
 	@Autowired
 	private IWarehouseCounterPlaceService wcps;
+	@Autowired
+	private IWarehouseCounterService wcs;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -552,13 +557,42 @@ public class SampleController {
 			String sampleNum = SamplingUtil.sampleNum();
 			sample.setSampleNum(sampleNum);
 			sampleService.saveRuku(sample);
+			return sampleNum;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	/**
+	 * 移动端根据存放位置查找
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getByPlaceId")
+	@RequiresPermissions("getByPlaceId")
+	public WarehouseCounterPlace getByPlaceId(int id) {
+		return wcps.find(id);
+	}
+	/**
+	 * 移动端根据检测编号存入（入库签名，存放位置）
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/saveRukuXinxi")
+	public String saveRukuXinxi(Sample sample) {
+		try {			
+			sample.getSampleNum();
+//			System.out.println(sample.getSampleNum());
+			Sample sampl = sampleService.findBysampleNum(sample.getSampleNum());	
+			sampl.setAutograph(sample.getAutograph());
+//			System.out.println(sample.getAutograph());
+			sampl.setPlaceId(sample.getPlaceId());
+//			System.out.println(sample.getPlaceId());
+			sampleService.update(sampl);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
 	}
-
  	/**
 	 * 导出样品登记薄
 	 * @param response
@@ -583,8 +617,20 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/editPlace")
-	public String editPlace(Sample sample) {
+	public String editPlace(Sample sample,int oldPlaceId) {
 		try {
+			WarehouseCounterPlace place = wcps.find(oldPlaceId);
+			place.setIsStorage(1);
+			wcps.update(place);
+			WarehouseCounter whc = wcs.find(place.getpId());
+			whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() - 1);
+			wcs.update(whc);
+			WarehouseCounterPlace place2 = wcps.find(sample.getPlaceId());
+			place2.setIsStorage(2);
+			wcps.update(place2);
+			WarehouseCounter whc2 = wcs.find(place2.getpId());
+			whc2.setWarehouseUseNumber(whc2.getWarehouseUseNumber() + 1);
+			wcs.update(whc2);
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -600,11 +646,14 @@ public class SampleController {
 	@RequestMapping(value = "/dispose")
 	public String dispose(Sample sample) {
 		try {
-			sampleService.updateDispose(sample);
 			WarehouseCounterPlace place = new WarehouseCounterPlace();
 			place.setIsStorage(1);
 			place.setId(sample.getPlaceId());
 			wcps.update(place);
+			WarehouseCounter whc = new WarehouseCounter();
+			whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() - 1);
+			wcs.update(whc);
+			sampleService.updateDispose(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

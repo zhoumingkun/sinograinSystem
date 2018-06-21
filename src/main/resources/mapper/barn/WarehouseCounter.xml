@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.WarehouseCounter">
 
 	<insert id="save" parameterType="WarehouseCounter" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_warehouse_counter (counter,pId,createTime,updateTime) 
-		values (#{counter},#{pId},#{createTime},#{updateTime})
+		insert into barn_warehouse_counter (counter,pId,warehouseUseNumber,warehouseTotal,createTime,updateTime) 
+		values (#{counter},#{pId},#{warehouseUseNumber},#{warehouseTotal},#{createTime},#{updateTime})
 	</insert>
 	<!-- 删除某个测定记录 -->
 	<delete id="delete" parameterType="int" >
@@ -40,6 +40,8 @@
 		<set>
 			<if test="counter != null and counter != ''">counter = #{counter},</if>
 			<if test="pId != null and pId != ''">pId = #{pId},</if>	
+			<if test="warehouseUseNumber != null">warehouseUseNumber = #{warehouseUseNumber},</if>	
+			<if test="warehouseTotal != null and warehouseTotal != ''">warehouseTotal = #{warehouseTotal},</if>	
 		</set>
 		where id = #{id}
 	</update>
@@ -53,6 +55,12 @@
 			<if test="pId != null and pId != ''">
 				and pId = #{pId}
 			</if>
+			<if test="warehouseUseNumber != null and warehouseUseNumber != ''">
+				and warehouseUseNumber = #{warehouseUseNumber}
+			</if>
+			<if test="warehouseTotal != null and warehouseTotal != ''">
+				and warehouseTotal = #{warehouseTotal}
+			</if>	
 		</where>
 	</sql>
 	
