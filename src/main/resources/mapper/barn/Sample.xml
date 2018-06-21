@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId,detectionState) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId},#{detectionState})
 	</insert>
 	
 	<!--移动端入库  -->
@@ -42,7 +42,7 @@
 		select * from barn_sample where sampleNo = #{sampleNo}
 	</select>
 	<!-- 根据检测编号查询样品 (移动端) -->
-	<select id="findBysampleNum" parameterType="String" resultType="Sample">
+	<select id="findBysampleNumMobile" parameterType="String" resultType="Sample">
 		select * from barn_sample where sampleNum = #{sampleNum}
 	</select>
 	<!-- 查询某条样品 -->
@@ -132,6 +132,7 @@
 			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
 			<if test="placeId != null and placeId != ''">placeId = #{placeId},</if>
+			<if test="detectionState != null and detectionState != ''">detectionState = #{detectionState},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -278,6 +279,9 @@
 			</if>
 			<if test=" storageState != null and storageState != '' ">
 				and storageState = #{storageState}
+			</if>
+			<if test=" detectionState != null and detectionState != '' ">
+				and detectionState = #{detectionState}
 			</if>
 		</where>
 	</sql>
