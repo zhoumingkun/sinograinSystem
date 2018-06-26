@@ -27,11 +27,11 @@
 		select bw.*,bwc.counter,bwc.id counterId,bwc.warehouseTotal,bwc.warehouseUseNumber 
 		from barn_warehouse bw LEFT JOIN barn_warehouse_counter bwc ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
-		ORDER BY bw.id desc  limit #{offset}, #{limit}
+		ORDER BY bw.id asc,bwc.id asc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_warehouse 
+		select count(*) from barn_warehouse bw LEFT JOIN barn_warehouse_counter bwc ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
 	</select>
 	

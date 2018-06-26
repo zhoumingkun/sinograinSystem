@@ -76,7 +76,7 @@ public class SampleController {
 	@RequiresPermissions("sample:getById")
 	public Sample get(int id) {
 		Sample s = sampleService.find(id);
-		s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());;
+		s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
 		return s;
 	}
 
@@ -114,10 +114,12 @@ public class SampleController {
 				sample.setSampleNum(sampleNum);
 			}
 			wcps.findDepotAndCounterByPlaceId(sample.getPlaceId());
-			WarehouseCounterPlace wp = new WarehouseCounterPlace();
-			wp.setId(sample.getPlaceId());
+			WarehouseCounterPlace wp =  wcps.find(sample.getPlaceId());
 			wp.setIsStorage(2);
 			wcps.update(wp);
+			WarehouseCounter whc = wcs.find(wp.getpId());
+			whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() + 1);
+			wcs.update(whc);
 			sampleService.update(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -552,15 +554,15 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveRuku")
-	public String saveRuku(Sample sample) {
+	public Sample saveRuku(Sample sample) {
 		try {
 			String sampleNum = SamplingUtil.sampleNum();
 			sample.setSampleNum(sampleNum);
 			sampleService.saveRuku(sample);
-			return sampleNum;
+			return sample;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "{ \"success\" : false }";
+			return null;
 		}
 	}
 	/**
@@ -634,13 +636,19 @@ public class SampleController {
 	@RequestMapping(value = "/dispose")
 	public String dispose(Sample sample) {
 		try {
-			WarehouseCounterPlace place = new WarehouseCounterPlace();
-			place.setIsStorage(1);
-			place.setId(sample.getPlaceId());
-			wcps.update(place);
-			WarehouseCounter whc = wcs.find(place.getpId());
-			whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() - 1);
-			wcs.update(whc);
+			String str_ids = sample.getIds();
+			String[] idss = str_ids.split(",");
+			int[] int_ids = new int[idss.length];
+			for(int i=0;i<idss.length;i++) {
+				int_ids[i] = Integer.parseInt(idss[i]);
+				Sample s = sampleService.find(int_ids[i]);
+				WarehouseCounterPlace place = wcps.find(s.getPlaceId());
+				place.setIsStorage(1);
+				wcps.update(place);
+				WarehouseCounter whc = wcs.find(place.getpId());
+				whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() - 1);
+				wcs.update(whc);
+			}
 			sampleService.updateDispose(sample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {

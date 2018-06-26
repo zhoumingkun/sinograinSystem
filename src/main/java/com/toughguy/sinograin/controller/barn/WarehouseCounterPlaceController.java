@@ -74,6 +74,17 @@ public class WarehouseCounterPlaceController {
 			return "{ \"success\" : false }";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/findPlaces")
+	public List<WarehouseCounterPlace> findPlaces(int counterId) {
+		try {
+			List<WarehouseCounterPlace> ws = warehouseCounterPlaceService.findPlaces(counterId);
+			return ws;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")

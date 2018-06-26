@@ -38,7 +38,8 @@ public class Sample extends AbstractModel{
 	private int placeId;        //存放位置id
 	private String dispose;     //处理人
 	private String disposeReason;  //处理理由
-	private int detectionState;    //检测状态
+	private int detectionState;    //检测状态    1，非检测   2，检测
+	private int otherState;        //判断是否是扦样来的样品      -1，扦样样品      1，非扦样样品
 	
 	private String ids;         //id集
 	private String formName;	//扦样登记表名（页面展示）
@@ -55,6 +56,8 @@ public class Sample extends AbstractModel{
 	private String counter;         //样品室柜（前台）
 	private String place;           //样品室柜位置（前台）
 	private String storage;          //样品室具体位置（前台）
+	private Date dateStart;          //搜索开始时间（前台）
+	private Date dateEnd;            //搜索结束时间（前台）
 	
 	public String getFormName() {
 		return formName;
@@ -311,6 +314,28 @@ public class Sample extends AbstractModel{
 	}
 	public void setIds(String ids) {
 		this.ids = ids;
+	}
+	
+	
+	public int getOtherState() {
+		return otherState;
+	}
+	public void setOtherState(int otherState) {
+		this.otherState = otherState;
+	}
+	
+	
+	public Date getDateStart() {
+		return dateStart;
+	}
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
+	}
+	public Date getDateEnd() {
+		return dateEnd;
+	}
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 	@Override
 	public String toString(){

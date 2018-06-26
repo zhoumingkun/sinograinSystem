@@ -6,17 +6,23 @@
 		insert into barn_warehouse_counter (place,isStorage,pId,createTime,updateTime) 
 		values (#{place},#{isStorage},#{pId},#{createTime},#{updateTime})
 	</insert>
-	<!-- 删除某个测定记录 -->
+	<!-- 删除某个位置 -->
 	<delete id="delete" parameterType="int" >
 		delete from barn_warehouse_counter_place where id = #{id}
 	</delete>
 	
-	<!-- 查询某个测定记录 -->
+	<!-- 查询某个位置 -->
 	<select id="find" parameterType="int" resultType="WarehouseCounterPlace">
 		select * from barn_warehouse_counter_place where id = #{id}
 	</select>
 	
-	<!-- 查询全部测定记录  -->
+	<!-- 根据柜id查询所有空位置 -->
+	<select id="findPlaces" parameterType="int" resultType="WarehouseCounterPlace">
+		select bwcp.* from barn_warehouse_counter_place bwcp LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		where bwcp.isStorage = 1 and bwc.id = #{counterId}
+	</select>
+	
+	<!-- 查询全部位置  -->
 	<select id="findAll" resultType="WarehouseCounterPlace" parameterType="Map">
 		select * from barn_warehouse_counter_place
 		<include refid="paramsSQL"/>
@@ -42,7 +48,7 @@
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 修改某个测定记录  -->
+	<!-- 修改某个位置  -->
 	<update id="update" parameterType="WarehouseCounterPlace">
 		update barn_warehouse_counter_place
 		<set>

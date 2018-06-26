@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.service.barn.prototype;
 
+import java.util.List;
+
 import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.service.prototype.IGenericService;
 
@@ -11,4 +13,11 @@ public interface IWarehouseCounterPlaceService extends IGenericService<Warehouse
 	 * @return
 	 */
 	public WarehouseCounterPlace findDepotAndCounterByPlaceId(int placeId);
+	
+	/**
+	 * 根据counterId查询位置
+	 * @param counterId
+	 * @return
+	 */
+	public List<WarehouseCounterPlace> findPlaces(int counterId);
 }

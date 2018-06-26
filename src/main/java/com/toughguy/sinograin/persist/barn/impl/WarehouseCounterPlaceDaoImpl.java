@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.persist.barn.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.toughguy.sinograin.model.barn.WarehouseCounter;
@@ -14,6 +16,12 @@ public class WarehouseCounterPlaceDaoImpl  extends GenericDaoImpl<WarehouseCount
 	public WarehouseCounterPlace findDepotAndCounterByPlaceId(int placeId) {
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(typeNameSpace + ".findDepotAndCounterByPlaceId", placeId);
+	}
+
+	@Override
+	public List<WarehouseCounterPlace> findPlaces(int counterId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findPlaces", counterId);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,12 @@ public class WarehouseCounterPlaceServiceImpl extends GenericServiceImpl<Warehou
 	public WarehouseCounterPlace findDepotAndCounterByPlaceId(int placeId) {
 		// TODO Auto-generated method stub
 		return wcpDao.findDepotAndCounterByPlaceId(placeId);
+	}
+
+	@Override
+	public List<WarehouseCounterPlace> findPlaces(int counterId) {
+		// TODO Auto-generated method stub
+		return wcpDao.findPlaces(counterId);
 	}
 
 }
