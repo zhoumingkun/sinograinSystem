@@ -18,6 +18,7 @@ public class UserDTO {
 
 	private String permissions; //操作名 拼接字符串
 	private String resourceName;//资源名称 拼接字符串
+	private String roleName;//角色名称
 	
 	private String token;
 	public int getId() {
@@ -66,9 +67,7 @@ public class UserDTO {
 
 	public void setLibraryName(String libraryName) {
 		this.libraryName = libraryName;
-	}
-	
-	
+	}	
 	
 	public String getPermissions() {
 		return permissions;
@@ -76,9 +75,7 @@ public class UserDTO {
 
 	public void setPermissions(String permissions) {
 		this.permissions = permissions;
-	}
-	
-	
+	}	
 
 	public String getResourceName() {
 		return resourceName;
@@ -87,8 +84,6 @@ public class UserDTO {
 	public void setResourceName(String resourceName) {
 		this.resourceName = resourceName;
 	}
-	
-	
 
 	public String getToken() {
 		return token;
@@ -99,6 +94,14 @@ public class UserDTO {
 	}
 
 	
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
 	@Override
 	public String toString() {
 		return JsonUtil.objectToJson(this);

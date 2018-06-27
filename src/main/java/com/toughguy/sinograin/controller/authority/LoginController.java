@@ -1,9 +1,12 @@
 
 package com.toughguy.sinograin.controller.authority;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,9 +29,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.code.kaptcha.Constants;
 import com.toughguy.sinograin.dto.UserDTO;
 import com.toughguy.sinograin.model.authority.Operation;
+import com.toughguy.sinograin.model.authority.Role;
 import com.toughguy.sinograin.model.authority.User;
 import com.toughguy.sinograin.persist.authority.prototype.IOperationDao;
 import com.toughguy.sinograin.persist.authority.prototype.IResourceDao;
+import com.toughguy.sinograin.persist.authority.prototype.IRoleDao;
 import com.toughguy.sinograin.persist.authority.prototype.IUserDao;
 import com.toughguy.sinograin.util.JsonUtil;
 
@@ -68,6 +73,9 @@ public class LoginController {
 	
 	@Autowired
 	private IResourceDao resourceDao;
+	
+	@Autowired
+	private IRoleDao roleDao;
 
 	private String userPass;
 	
@@ -117,17 +125,30 @@ public class LoginController {
         }
 		
 		User u = userDao.findUserInfoByUserName(user.getUserName());
+		Role role = roleDao.findByUserId(u.getId());
 		UserDTO ut = new UserDTO();
 		List<Operation> list = operationDao.findByUserId(u.getId());
 		String name = "";          //用户拥有的操作名称
-		String resourceName ="";   //用户拥有的资源名称
+		String ResourceName ="";   
 		for (Operation operation : list) {
 			String permission = operation.getPermission();
 			name += permission+",";
 			int resourceId = operation.getResourceId();
 			String reName = resourceDao.find(resourceId).getResourceName();
-			resourceName += reName+",";
+			ResourceName += reName+",";
 		}
+		//去重
+		String [] stringArr= ResourceName.substring(0, ResourceName.length()-1).split(",");;
+		Set set = new HashSet();
+		for (int i = 0; i < stringArr.length; i++) {
+			set.add(stringArr[i]);
+		}
+		stringArr = (String[]) set.toArray(new String[0]);
+		String resourceName = ""; //用户拥有的资源名称
+		for (int i = 0; i < stringArr.length; i++) {
+			resourceName +=stringArr[i]+",";
+		}
+        ut.setRoleName(role.getDisplayName());
 		ut.setPermissions(name.substring(0, name.length()-1));
 		ut.setResourceName(resourceName.substring(0, resourceName.length()-1));
 		ut.setToken(session.getId());
