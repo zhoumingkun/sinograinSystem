@@ -607,6 +607,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/editPlace")
+	@RequiresPermissions("sample:editPlace")
 	public String editPlace(Sample sample,int oldPlaceId) {
 		try {
 			WarehouseCounterPlace place = wcps.find(oldPlaceId);
@@ -634,6 +635,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/dispose")
+	@RequiresPermissions("sample:dispose")
 	public String dispose(Sample sample) {
 		try {
 			String str_ids = sample.getIds();
