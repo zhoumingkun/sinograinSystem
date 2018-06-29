@@ -354,10 +354,14 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				sheet.addMergedRegion(region4);
 				celll.setCellStyle(utils.Style1(workbook));
 				celll.setCellValue("");
-				
+		//		
 				HSSFCell cell18 = row3.createCell(17);
 				cell18.setCellStyle(utils.Style1(workbook));
-				cell18.setCellValue(cornExaminingReport.getRemark());//
+				if(cornExaminingReport.getRemark()==null){
+					cell18.setCellValue("");
+				}else{
+					cell18.setCellValue(cornExaminingReport.getRemark());
+				}
 				
 				HSSFCell cell19 = row3.createCell(18);
 				cell19.setCellStyle(utils.Style1(workbook));
@@ -825,10 +829,14 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				sheet.addMergedRegion(region5);
 				createCell2.setCellStyle(utils.Style1(workbook));
 				createCell2.setCellValue("");
-				
+			//
 				HSSFCell cell15 = row3.createCell(16);
 				cell15.setCellStyle(utils.Style1(workbook));
-				cell15.setCellValue(Wobjiect.getRemark());
+				if(Wobjiect.getRemark()==null){
+					cell15.setCellValue("");
+				}else{
+					cell15.setCellValue(Wobjiect.getRemark());
+				}
 				
 				HSSFCell cell16 = row3.createCell(17);
 				cell16.setCellStyle(utils.Style1(workbook));
