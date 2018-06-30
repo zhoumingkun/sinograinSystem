@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId,detectionState,otherState) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId},#{detectionState},#{otherState})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId})
 	</insert>
 	
 	<!--移动端入库  -->
@@ -184,7 +184,7 @@
 			</if>
 			<if test=" sampleNum != null and sampleNum != '' ">
 				and sampleNum = #{sampleNum}
-			</if>
+			</if> 
 			<if test=" sampleNoLike != null and sampleNoLike != '' ">
 				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>

@@ -80,8 +80,8 @@ public class ShiroConfig {
     }
     
     
-  //自定义sessionManager  
-    @Bean  
+  //自定义sessionManager   
+    @Bean
     public SessionManager sessionManager() {  
         MySessionManager mySessionManager = new MySessionManager();  
         mySessionManager.setGlobalSessionTimeout(-1000);
