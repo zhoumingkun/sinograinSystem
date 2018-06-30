@@ -56,6 +56,9 @@
 			<if test="userId != null and userId != ''">userId = #{userId},</if>
 			<if test="sampleAdmin != null and sampleAdmin != ''">sampleAdmin = #{sampleAdmin},</if>
 			<if test="receiptor != null and receiptor != ''">receiptor = #{receiptor},</if>
+			<if test="returnPerson != null and returnPerson != ''">returnPerson = #{returnPerson},</if>
+			<if test="returnTime != null and returnTime != ''">returnTime = #{returnTime},</if>
+			<if test="returnState != null and returnState != ''">returnState = #{returnState},</if>
 		</set>
 		where id = #{id}
 	</update>
