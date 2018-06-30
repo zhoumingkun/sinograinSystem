@@ -84,6 +84,7 @@ public class ShiroConfig {
     @Bean  
     public SessionManager sessionManager() {  
         MySessionManager mySessionManager = new MySessionManager();  
+        mySessionManager.setGlobalSessionTimeout(-1000);
         return mySessionManager;  
     }  
 }

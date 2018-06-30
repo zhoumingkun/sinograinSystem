@@ -182,6 +182,9 @@
 			<if test=" sampleNo != null and sampleNo != '' ">
 				and sampleNo = #{sampleNo}
 			</if>
+			<if test=" sampleNum != null and sampleNum != '' ">
+				and sampleNum = #{sampleNum}
+			</if>
 			<if test=" sampleNoLike != null and sampleNoLike != '' ">
 				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>
