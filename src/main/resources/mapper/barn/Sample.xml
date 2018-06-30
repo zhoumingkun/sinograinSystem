@@ -184,7 +184,7 @@
 			</if>
 			<if test=" sampleNum != null and sampleNum != '' ">
 				and sampleNum = #{sampleNum}
-			</if>
+			</if> 
 			<if test=" sampleNoLike != null and sampleNoLike != '' ">
 				and sampleNo like concat(concat('%', #{sampleNoLike, jdbcType=VARCHAR}),'%')
 			</if>
