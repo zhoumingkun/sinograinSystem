@@ -26,7 +26,7 @@ public class Sample extends AbstractModel{
 	private String quality;    	//性质
 	private String amount;   	//数量
 	private String remark;  	//备注
-	private int sampleState;    //状态    （-1 未扦样， 1 已扦样 ,2 入库,3 已分小样,4已处理）
+	private int sampleState;    //状态    （-1 未扦样， 1 已扦样 ,2 入库,3 已分小样,4已处理,5归还）
 	private String autograph; 	//签名
 	private String  gainTime;  	//收获年度
 	private Date sampleTime;   	//扦样时间

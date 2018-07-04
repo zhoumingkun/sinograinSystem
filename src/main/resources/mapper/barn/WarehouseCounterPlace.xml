@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.WarehouseCounterPlace">
 
 	<insert id="save" parameterType="WarehouseCounterPlace" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_warehouse_counter (place,isStorage,pId,createTime,updateTime) 
-		values (#{place},#{isStorage},#{pId},#{createTime},#{updateTime})
+		insert into barn_warehouse_counter_place (place,pId,createTime,updateTime) 
+		values (#{place},#{pId},#{createTime},#{updateTime})
 	</insert>
 	<!-- 删除某个位置 -->
 	<delete id="delete" parameterType="int" >

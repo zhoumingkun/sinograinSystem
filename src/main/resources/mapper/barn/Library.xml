@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Library">
 
 	<insert id="save" parameterType="Library" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_library (guid, createTime,updateTime,libraryName,libraryState,pLibraryId) 
-		values (#{guid}, #{createTime},#{updateTime},#{libraryName},#{libraryState},#{pLibraryId})
+		insert into barn_library (guid, createTime,updateTime,libraryName,pLibraryId) 
+		values (#{guid}, #{createTime},#{updateTime},#{libraryName},#{pLibraryId})
 	</insert>
 	
 	

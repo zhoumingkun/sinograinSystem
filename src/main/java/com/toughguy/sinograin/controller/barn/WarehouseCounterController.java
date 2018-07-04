@@ -14,7 +14,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Warehouse;
 import com.toughguy.sinograin.model.barn.WarehouseCounter;
+import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterService;
 
 /**
@@ -27,6 +29,8 @@ import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterService;
 public class WarehouseCounterController {
 	@Autowired
 	private IWarehouseCounterService warehouseCounterService;
+	@Autowired
+	private IWarehouseCounterPlaceService warehouseCounterPlaceService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -45,6 +49,16 @@ public class WarehouseCounterController {
 	public String save(WarehouseCounter warehouseCounter) {
 		try {
 			warehouseCounterService.save(warehouseCounter);
+			WarehouseCounter whc = warehouseCounterService.findByCounter(warehouseCounter.getCounter());
+			int warehouseTotal = whc.getWarehouseTotal();
+			for(int i=1;i<=warehouseTotal;i++) {
+				System.out.println(warehouseTotal+"_________________________");
+				WarehouseCounterPlace whcp = new WarehouseCounterPlace();
+				whcp.setPlace(i);
+				whcp.setpId(whc.getId());
+				System.out.println(whcp);
+				warehouseCounterPlaceService.save(whcp);
+			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

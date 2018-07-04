@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Handover;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 
 @Controller
 @RequestMapping("/handover")
@@ -26,6 +28,8 @@ public class HandoverController {
 	private IHandoverService handoverService;
 	@Autowired
 	private IBarnService barnService;
+	@Autowired
+	private ISampleService sampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -101,6 +105,26 @@ public class HandoverController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getBySampleNum")
+	public Handover getBySampleNum(String sampleNum) {
+		try {
+			List<Handover> handovers = handoverService.findAll();
+			for(Handover h:handovers) {
+				String[] hs = h.getSampleNums().split(",");
+				for(int i=0;i<hs.length;i++) {
+					if(sampleNum.equals(hs[i])) {
+						return h;
+					}
+				}
+			}
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 	

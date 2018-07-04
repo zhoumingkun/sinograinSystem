@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.WarehouseCounter">
 
 	<insert id="save" parameterType="WarehouseCounter" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_warehouse_counter (counter,pId,warehouseUseNumber,warehouseTotal,createTime,updateTime) 
-		values (#{counter},#{pId},#{warehouseUseNumber},#{warehouseTotal},#{createTime},#{updateTime})
+		insert into barn_warehouse_counter (counter,pId,warehouseTotal,createTime,updateTime,type) 
+		values (#{counter},#{pId},#{warehouseTotal},#{createTime},#{updateTime},#{type})
 	</insert>
 	<!-- 删除某个测定记录 -->
 	<delete id="delete" parameterType="int" >
@@ -14,6 +14,11 @@
 	<!-- 查询某个测定记录 -->
 	<select id="find" parameterType="int" resultType="WarehouseCounter">
 		select * from barn_warehouse_counter where id = #{id}
+	</select>
+	
+	<!-- 根据柜号查询柜 -->
+	<select id="findByCounter" parameterType="String" resultType="WarehouseCounter">
+		select * from barn_warehouse_counter where counter = #{counter}
 	</select>
 	
 	<!-- 查询全部测定记录  -->
@@ -42,6 +47,7 @@
 			<if test="pId != null and pId != ''">pId = #{pId},</if>	
 			<if test="warehouseUseNumber != null">warehouseUseNumber = #{warehouseUseNumber},</if>	
 			<if test="warehouseTotal != null and warehouseTotal != ''">warehouseTotal = #{warehouseTotal},</if>	
+			<if test="type != null and type != ''">type = #{type},</if>	
 		</set>
 		where id = #{id}
 	</update>
@@ -60,6 +66,9 @@
 			</if>
 			<if test="warehouseTotal != null and warehouseTotal != ''">
 				and warehouseTotal = #{warehouseTotal}
+			</if>	
+			<if test="type != null and type != ''">
+				and type = #{type}
 			</if>	
 		</where>
 	</sql>

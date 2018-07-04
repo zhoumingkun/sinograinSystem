@@ -8,4 +8,10 @@ import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
 @Repository
 public class WarehouseCounterDaoImpl  extends GenericDaoImpl<WarehouseCounter, Integer> implements IWarehouseCounterDao{
 
+	@Override
+	public WarehouseCounter findByCounter(String counter) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCounter", counter);
+	}
+
 }

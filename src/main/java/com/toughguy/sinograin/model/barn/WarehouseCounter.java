@@ -14,6 +14,7 @@ public class WarehouseCounter extends AbstractModel {
 	private int pId; //样品室id
 	private int warehouseUseNumber;//库房使用数
 	private int warehouseTotal;  //库房总数
+	private int type; //类型 1，柜子   2，架子
 	
 	public String getCounter() {
 		return counter;
@@ -38,6 +39,12 @@ public class WarehouseCounter extends AbstractModel {
 	}
 	public void setWarehouseTotal(int warehouseTotal) {
 		this.warehouseTotal = warehouseTotal;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	
 }
