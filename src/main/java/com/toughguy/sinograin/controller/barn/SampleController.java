@@ -24,6 +24,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
+import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
@@ -36,6 +37,7 @@ import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
+import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
@@ -66,6 +68,8 @@ public class SampleController {
 	private IWarehouseCounterPlaceService wcps;
 	@Autowired
 	private IWarehouseCounterService wcs;
+	@Autowired
+	private ILibraryService libraryService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -553,17 +557,18 @@ public class SampleController {
 	}
 	
 	/**
-	 * 移动端入库
+	 * 非正常流程扦来的样品
+	 */
+	/**
+	 * @param register
+	 * @param sample
+	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveRuku")
 	public Sample saveRuku(Register register,Sample sample) {
 		try {
-
-			if(register.getRegState() == 2) {
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("pId", register.getId());
-				List<Sample> s = sampleService.findAll(params);
+			if(sample.getOtherState() == 1) {  
                 String sort=sample.getSort();
 					if("小麦".equals(sample.getSort())){
 						sort = "01";
@@ -574,9 +579,10 @@ public class SampleController {
 					}else {
 						sort = "04";
 					}
-			String LibraryId = String.format("%03d", register.getLibraryId());
+			Library library = libraryService.find(register.getLibraryId());
+			String PlibraryId = String.format("%03d", library.getpLibraryId());
 			Map<String,Object > map = new  HashMap<String,Object>();
-			map.put("prefix", 60+LibraryId+sort);
+			map.put("prefix", 60+PlibraryId+sort);
 			SampleNo no = noService.findAll(map).get(0);
 			int num = 0;
 			if(no.getNum()%1000 == 999){
@@ -584,12 +590,13 @@ public class SampleController {
 			}else{
 				num = no.getNum()+1;
 			}
-			String SampleNo = SamplingUtil.sampleNo(register.getLibraryId(), sort,num%1000);
+			String SampleNo = SamplingUtil.sampleNo(library.getpLibraryId(), sort,num%1000);  //扦样编号
 			sample.setSampleNo(SampleNo);
-		}
-			String sampleNum = SamplingUtil.sampleNum();
+			sample.setSampleState(1);   // 非正常流程 扦样状态默认为已扦样
+			String sampleNum = SamplingUtil.sampleNum();  //检验编号
 			sample.setSampleNum(sampleNum);
 			sampleService.saveRuku(sample);
+			}
 			return sample;
 		} catch (Exception e) {
 			e.printStackTrace();
