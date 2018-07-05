@@ -26,6 +26,7 @@ import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Warehouse;
 import com.toughguy.sinograin.model.barn.WarehouseCounter;
@@ -35,6 +36,7 @@ import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
@@ -48,7 +50,8 @@ import com.toughguy.sinograin.util.UploadUtil;
 @Controller
 @RequestMapping(value = "/sample")
 public class SampleController {
-
+	@Autowired
+	private ISampleNoService noService;
 	@Autowired
 	private ISampleService sampleService;
 	@Autowired
@@ -554,8 +557,36 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveRuku")
-	public Sample saveRuku(Sample sample) {
+	public Sample saveRuku(Register register,Sample sample) {
 		try {
+
+			if(register.getRegState() == 2) {
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("pId", register.getId());
+				List<Sample> s = sampleService.findAll(params);
+                String sort=sample.getSort();
+					if("小麦".equals(sample.getSort())){
+						sort = "01";
+					}else if("玉米".equals(sample.getSort())){
+						sort = "02";
+					}else if("食用油".equals(sample.getSort())){
+						sort = "03";
+					}else {
+						sort = "04";
+					}
+			String LibraryId = String.format("%03d", register.getLibraryId());
+			Map<String,Object > map = new  HashMap<String,Object>();
+			map.put("prefix", 60+LibraryId+sort);
+			SampleNo no = noService.findAll(map).get(0);
+			int num = 0;
+			if(no.getNum()%1000 == 999){
+				num = no.getNum()+2;
+			}else{
+				num = no.getNum()+1;
+			}
+			String SampleNo = SamplingUtil.sampleNo(register.getLibraryId(), sort,num%1000);
+			sample.setSampleNo(SampleNo);
+		}
 			String sampleNum = SamplingUtil.sampleNum();
 			sample.setSampleNum(sampleNum);
 			sampleService.saveRuku(sample);

@@ -191,7 +191,20 @@
 			<if test="pLibraryId != null and pLibraryId != '' ">
 				and l.pLibraryId = #{pLibraryId}
 			</if>
-			<if test="ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != ''">
+			<if test="ruSampleState != null and ruSampleState != '' and fenSampleState != null and fenSampleState != '' and chuliSampleState != null and chuliSampleState != ''">
+				<choose>
+					<when test="sampleWordOrsampleNumOrsampleNoLike != null and sampleWordOrsampleNumOrsampleNoLike != ''">
+						and (((sampleWord like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%')) 
+						and sampleState = #{ruSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%')) 
+						and sampleState = #{fenSampleState}) or ((sampleWord like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumOrsampleNoLike, jdbcType=VARCHAR}),'%'))
+						and sampleState = #{chuliSampleState}))
+					</when>
+					<otherwise>
+						and (sampleState = #{ruSampleState} or sampleState = #{fenSampleState} or sampleState = #{chuliSampleState})
+					</otherwise>
+				</choose>
+			</if>
+			<if test="ruKuSampleState != null and ruKuSampleState != '' and fenxiaoyangSampleState != null and fenxiaoyangSampleState != '' ">
 				<choose>
 					<when test="sampleWordOrsampleNumLike != null and sampleWordOrsampleNumLike != ''">
 						and (((sampleWord like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleWordOrsampleNumLike, jdbcType=VARCHAR}),'%')) 
@@ -203,6 +216,7 @@
 					</otherwise>
 				</choose>
 			</if>
+			
 			<if test=" position != null and position != '' ">
 				and position = #{position}
 			</if>
@@ -277,6 +291,9 @@
 			</if>
 			<if test=" storageTime != null">
 				and storageTime = #{storageTime}
+			</if>
+			<if test=" storageTimeLike != null ">
+				and storageTime like concat(concat('%', #{storageTimeLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" updateTime != null">
 				and barnTime = #{barnTime}
