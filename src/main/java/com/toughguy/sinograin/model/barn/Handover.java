@@ -87,7 +87,7 @@ public class Handover extends AbstractModel{
 	public void setReturnPerson(String returnPerson) {
 		this.returnPerson = returnPerson;
 	}
-	@JsonFormat(pattern="yyyy-MM",timezone="GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getReturnTime() {
 		return returnTime;
 	}

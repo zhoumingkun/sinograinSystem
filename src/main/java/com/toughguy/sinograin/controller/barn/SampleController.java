@@ -558,11 +558,8 @@ public class SampleController {
 	
 	/**
 	 * 非正常流程扦来的样品
-	 */
-	/**
-	 * @param register
-	 * @param sample
-	 * @return
+	 * @param sample register
+	 * @return sample
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveRuku")
