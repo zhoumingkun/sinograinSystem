@@ -49,9 +49,9 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		sqlSessionTemplate.delete(typeNameSpace + ".deleteByPId", pId);
 	}
 	@Override
-	public Sample findBySampleNum(String sampleNo) {
+	public Sample findBySampleNum(String sampleNum) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBySampleNum", sampleNo);
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBySampleNum", sampleNum);
 	}
 	@Override
 	public List<Sample> findSamplesByTask(String taskName) {

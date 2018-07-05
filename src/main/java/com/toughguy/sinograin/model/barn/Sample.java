@@ -26,7 +26,7 @@ public class Sample extends AbstractModel{
 	private String quality;    	//性质
 	private String amount;   	//数量
 	private String remark;  	//备注
-	private int sampleState;    //状态    （-1 未扦样， 1 已扦样 ,2 入库,3 已分小样,4已处理,5归还）
+	private int sampleState;    //状态    （-1 未扦样， 1 已扦样 ,2 入库,3 已分小样,4已处理）
 	private String autograph; 	//签名
 	private String  gainTime;  	//收获年度
 	private Date sampleTime;   	//扦样时间
@@ -38,7 +38,7 @@ public class Sample extends AbstractModel{
 	private int placeId;        //存放位置id
 	private String dispose;     //处理人
 	private String disposeReason;  //处理理由
-	private int detectionState;    //检测状态    1，非检测   2，检测
+	private int detectionState;    //检测状态    1，未检测   2，检测
 	private int otherState;        //判断是否是扦样来的样品      -1，扦样样品      1，非扦样样品
 	
 	private String ids;         //id集

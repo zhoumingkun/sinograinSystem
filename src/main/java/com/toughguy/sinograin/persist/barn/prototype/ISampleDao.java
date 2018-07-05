@@ -23,7 +23,7 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	/**
 	 * 根据检验编号查询样品id
 	 * */
-	public Sample findBySampleNum(String sampleNo);
+	public Sample findBySampleNum(String sampleNum);
 	
 	/**
 	 * 根据PId删除样品

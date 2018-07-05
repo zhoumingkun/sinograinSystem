@@ -39,7 +39,11 @@
 	
 	<!-- 根据样品编号查询样品id  -->
 	<select id="findBySampleNum" parameterType="String" resultType="Sample">
-		select * from barn_sample where sampleNo = #{sampleNo}
+		select bs.*,bwcp.place,bwc.counter,bw.depot from barn_sample bs 
+		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
+		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
+		where bs.sampleNum = #{sampleNum}
 	</select>
 	<!-- 根据检测编号查询样品 (移动端) -->
 	<select id="findBysampleNumMobile" parameterType="String" resultType="Sample">

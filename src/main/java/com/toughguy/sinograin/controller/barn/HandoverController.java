@@ -1,5 +1,8 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +22,7 @@ import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.util.DateUtil;
 
 @Controller
 @RequestMapping("/handover")
@@ -43,6 +47,22 @@ public class HandoverController {
 	@RequiresPermissions("handover:getById")
 	public Handover get(int id){
 		return handoverService.find(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getStorage")
+	@RequiresPermissions("handover:getById")
+	public Handover getStorage(int id){
+		Handover h = handoverService.find(id);
+		List<Sample> ss = new ArrayList<Sample>();
+		String[] sampleNums = h.getSampleNums().split(",");
+		for(int i=0;i<sampleNums.length;i++) {
+			Sample s = sampleService.findBySampleNum(sampleNums[i]);
+			s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
+			ss.add(s);
+		}
+		h.setSamples(ss);
+		return h;
 	}
 	
 	@ResponseBody
@@ -78,6 +98,25 @@ public class HandoverController {
 			barnService.dealCheck(handover,1,null);
 			int id = handover.getId();
 			return "{ \"success\" : true ,\"id\":"+ id +" }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/huiGui")
+	public String huiGui(Handover handover) {
+		try {
+			handover.setReturnTime(DateUtil.now());
+			handoverService.update(handover);
+			String[] sampleNums = handover.getSampleNums().split(",");
+			for(int i=0;i<sampleNums.length;i++) {
+				Sample s = sampleService.findBySampleNum(sampleNums[i]);
+				s.setDetectionState(2);
+				sampleService.update(s);
+			}
+			return "{ \"success\" : true}";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
