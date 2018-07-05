@@ -297,7 +297,7 @@
 				and storageTime = #{storageTime}
 			</if>
 			<if test=" storageTimeLike != null ">
-				and storageTime like concat(concat('%', #{storageTimeLike, jdbcType=VARCHAR}),'%')
+				and year(storageTime)=#{storageTime}
 			</if>
 			<if test=" updateTime != null">
 				and barnTime = #{barnTime}
