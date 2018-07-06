@@ -96,11 +96,18 @@
 			<if test=" nameLike != null and nameLike != '' ">
 				and name like concat(concat('%', #{nameLike, jdbcType=VARCHAR}),'%')
 			</if>
+			<if test=" nameLikeOrId != null and nameLikeOrId != '' ">
+				and name like concat(concat('%', #{nameLikeOrId, jdbcType=VARCHAR}),'%')
+				or id = #{nameLikeOrId}
+			</if>
 			<if test=" remark != null and remark != '' ">
 				and remark = #{ remark }
 			</if>
 			<if test=" userId != null and userId != '' ">
 				and userId = #{ userId }
+			</if>
+			<if test=" returnState != null and returnState != '' ">
+				and returnState = #{ returnState }
 			</if>
 		</where>
 	</sql>
