@@ -1370,7 +1370,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 *导出样品登记薄
 	 */
 	@Override
-	public void ExportRegister(HttpServletResponse response, String sampleNos) {
+	public void ExportRegister(HttpServletResponse response, String storageTime) {
 		  FileInputStream fileInput;
 	      POIUtils utils = new POIUtils();
 			try {
@@ -1381,10 +1381,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 				//对应Excel文件中的sheet，0代表第一个             
 				HSSFSheet sh = workbook.getSheetAt(0);  
-				String[] sampleNo = sampleNos.split(",");
-				for (int i = 0; i < sampleNo.length; i++) {
+//				String[] storageTime = storageTimes.split(",");
+				for (int i = 0; i < storageTime.length(); i++) {
 					//根据扦样编号查询样品
-					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
+					Sample sample = ((ISampleDao)dao).findBystorageTime(storageTime);
 					HSSFRow row = sh.createRow(5+i);
 					row.setHeight((short) 600); // 行高
 					HSSFCell createCell = row.createCell(0);
@@ -1492,4 +1492,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		// TODO Auto-generated method stub
 		((ISampleDao)dao).updateDispose(sample);
 	}
+
+	@Override
+	public List<Sample> findBystorageTime(String storageTime) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findBystorageTime(storageTime);
+	}
+
+	
 }
