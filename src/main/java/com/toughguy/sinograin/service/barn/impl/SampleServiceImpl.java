@@ -1381,10 +1381,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 				//对应Excel文件中的sheet，0代表第一个             
 				HSSFSheet sh = workbook.getSheetAt(0);  
-//				String[] storageTime = storageTimes.split(",");
-				for (int i = 0; i < storageTime.length(); i++) {
+				String[] sampleNo = sampleNos.split(",");
+				for (int i = 0; i < sampleNo.length; i++) {
 					//根据扦样编号查询样品
-					Sample sample = ((ISampleDao)dao).findBystorageTime(storageTime);
+					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
 					HSSFRow row = sh.createRow(5+i);
 					row.setHeight((short) 600); // 行高
 					HSSFCell createCell = row.createCell(0);
