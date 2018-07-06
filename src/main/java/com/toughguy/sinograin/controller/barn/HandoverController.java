@@ -105,8 +105,8 @@ public class HandoverController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/huiGui")
-	public String huiGui(Handover handover) {
+	@RequestMapping(value = "/guiHuan")
+	public String guiHuan(Handover handover) {
 		try {
 			handover.setReturnTime(DateUtil.now());
 			handoverService.update(handover);

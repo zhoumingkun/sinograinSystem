@@ -24,7 +24,7 @@ public class Handover extends AbstractModel{
 	private String receiptor;           //领取人
 	private String returnPerson;         //归还人
 	private Date returnTime;             //归还日期
-	private int returnState;             //归还状态
+	private int returnState;             //归还状态 -1未归还  1已归还
 	
 	private List<Sample> samples;        //样品集（页面展示）
 	
