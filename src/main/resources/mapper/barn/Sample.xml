@@ -220,6 +220,20 @@
 					</otherwise>
 				</choose>
 			</if>
+			<if test="ruSampleState != null and ruSampleState != '' and fenSampleState != null and fenSampleState != '' and chuliSampleState != null and chuliSampleState != '' and storageTimeLike != null">
+				<choose>
+					<when test="sampleYearOrsampleNoLike != null and sampleYearOrsampleNoLike != ''">
+						and (((sampleWord like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%')) 
+						and sampleState = #{ruSampleState}) or ((sampleWord like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%')) 
+						and sampleState = #{fenSampleState}) or ((sampleWord like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%'))
+						and sampleState = #{chuliSampleState}) or ((sampleWord like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNo like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%') or sampleNum like concat(concat('%', #{sampleYearOrsampleNoLike, jdbcType=VARCHAR}),'%'))
+						and year(storageTime)=#{storageTime})
+					</when>
+					<otherwise>
+						and (sampleState = #{ruSampleState} or sampleState = #{fenSampleState} or sampleState = #{chuliSampleState} or storageTime=#{storageTimeLike})
+					</otherwise>
+				</choose>
+			</if>
 			
 			<if test=" position != null and position != '' ">
 				and position = #{position}
