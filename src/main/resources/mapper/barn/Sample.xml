@@ -154,7 +154,11 @@
 	</update>
 	<!--根据扦样编号查询扦样信息 -->
 	<select id="findBySampleNo" parameterType="String" resultType="Sample">
-		select * from barn_sample where sampleNo = #{sampleNo}
+	    select * from barn_sample where sampleNo = #{sampleNo}
+	</select>
+	<!--根据storageTime查询导出样品登记簿-->
+	<select id="findBystorageTime" parameterType="String" resultType="Sample">
+		select * from barn_sample where year(storageTime) =#{storageTime}
 	</select>
 	<!-- 查询平台所有小麦玉米食用油库存总量  -->
 	<select id="findAllCereals" resultType="Sample"  >
