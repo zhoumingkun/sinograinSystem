@@ -627,10 +627,10 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/ExportRegister")
 	@RequiresPermissions("sample:ExportRegister")
-	public String ExportRegister(HttpServletResponse response, String sampleNos) {
+	public String ExportRegister(HttpServletResponse response, String storageTime) {
 		try {
 			// 返回结果
-			sampleService.ExportRegister(response, sampleNos);
+			sampleService.ExportRegister(response, storageTime);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			return "{ \"success\" : false }";

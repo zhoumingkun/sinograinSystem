@@ -89,5 +89,12 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		// TODO Auto-generated method stub
 		sqlSessionTemplate.update(typeNameSpace + ".updateDispose", sample);
 	}
+	@Override
+	public List<Sample> findBystorageTime(String storageTime) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findBystorageTime", storageTime);
+	}
+	
+	
 		
 }

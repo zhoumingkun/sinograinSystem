@@ -40,7 +40,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	
 	@Autowired
 	IWheatExaminingReportDao wheatExaminingReportDao;
-
+	
+	@Autowired
+	ISampleDao  sampleDao;
+	
 	@Autowired
 	ICornExaminingReportDao icornExaminingReportDao;
 	
@@ -1381,21 +1384,22 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 				//对应Excel文件中的sheet，0代表第一个             
 				HSSFSheet sh = workbook.getSheetAt(0);  
-				String[] sampleNo = sampleNos.split(",");
-				for (int i = 0; i < sampleNo.length; i++) {
+//				String[] sampleNo = storageTime.split(",");
+				List<Sample> sampleReport = sampleDao.findBystorageTime(storageTime);
+				for (int i = 0; i < sampleReport.size(); i++) {
 					//根据扦样编号查询样品
-					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
+//					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
 					HSSFRow row = sh.createRow(5+i);
 					row.setHeight((short) 600); // 行高
 					HSSFCell createCell = row.createCell(0);
 					createCell.setCellStyle(utils.StyleSamplePlace(workbook));
-					createCell.setCellValue(sample.getSampleNum()); //检验编号
+					createCell.setCellValue(sampleReport.get(i).getSampleNum()); //检验编号
 					
 					HSSFCell createCell1 = row.createCell(1);
 					createCell1.setCellStyle(utils.StyleSamplePlace(workbook));
-					createCell1.setCellValue(sample.getSampleWord()); //扦样编号(文字)
+					createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
 					
-					String checkeds = sample.getCheckeds();
+					String checkeds = sampleReport.get(i).getCheckeds();
 					String str ="";
 					if(checkeds == null){
 						HSSFCell createCell2 = row.createCell(2);
@@ -1405,27 +1409,27 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						String[] checked = checkeds.split(",");
 						for (int j = 0; j < checked.length; j++) {
 							if(checked[j].equals("1")){
-								str +="不完善粒";
+								str +="不完善粒、";
 							}else if(checked[j].equals("2")){
-								str +="杂质";
+								str +="杂质、";
 							}else if(checked[j].equals("3")){
-								str +="生霉粒";
+								str +="生霉粒、";
 							}else if(checked[j].equals("4")){
-								str +="水分";
-							}else if(checked[j].equals("5") && sample.getSort().equals("玉米")){
-								str +="测定记录";
-							}else if(checked[j].equals("5") && sample.getSort().equals("小麦")){
-								str +="硬度";
-							}else if(checked[j].equals("6")  && sample.getSort().equals("玉米")){
-								str +="脂肪酸酯";
-							}else if(checked[j].equals("6")  && sample.getSort().equals("小麦")){
-								str +="面筋吸水";
+								str +="水分、";
+							}else if(checked[j].equals("5") && sampleReport.get(i).getSort().equals("玉米")){
+								str +="硬度、";
+							}else if(checked[j].equals("5") && sampleReport.get(i).getSort().equals("小麦")){
+								str +="硬度、";
+							}else if(checked[j].equals("6")  && sampleReport.get(i).getSort().equals("玉米")){
+								str +="脂肪酸酯、";
+							}else if(checked[j].equals("6")  && sampleReport.get(i).getSort().equals("小麦")){
+								str +="面筋吸水量、";
 							}else if(checked[j].equals("7")){
-								str +="品尝评分";
+								str +="品尝评分、";
 							}else if(checked[j].equals("8")){
-								str +="卫生指标";
+								str +="卫生指标、";
 							}else if(checked[j].equals("9")){
-								str +="加工品质";
+								str +="加工品质、";
 							}
 						}
 						HSSFCell createCell2 = row.createCell(2);
@@ -1435,14 +1439,14 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					
 					HSSFCell createCell3 = row.createCell(3);
 					createCell3.setCellStyle(utils.StyleSamplePlace(workbook));
-					createCell3.setCellValue(sample.getAutograph()); //扦样人员
+					createCell3.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
 					
 					HSSFCell createCell4 = row.createCell(4);
 					createCell4.setCellStyle(utils.StyleSamplePlace(workbook));
-					if(sample.getSampleTime() == null ){
+					if(sampleReport.get(i).getSampleTime() == null ){
 					 createCell4.setCellValue(""); //扦样时间
 					}else{
-					 createCell4.setCellValue(sample.getSampleTime()); //扦样时间
+					 createCell4.setCellValue(sampleReport.get(i).getSampleTime()); //扦样时间
 					}
 					
 					HSSFCell createCell5 = row.createCell(5);
@@ -1453,7 +1457,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					createCell6.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell6.setCellValue(""); 					//工作时间
 					
-					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sample.getPlaceId());
+					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sampleReport.get(i).getPlaceId());
 					if(w == null ){
 						HSSFCell createCell7 = row.createCell(7);
 						createCell7.setCellStyle(utils.StyleSamplePlace(workbook));
@@ -1467,7 +1471,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					
 					HSSFCell createCell8 = row.createCell(8);
 					createCell8.setCellStyle(utils.StyleSamplePlace(workbook));
-					createCell8.setCellValue(sample.getRemark()); 	//备注
+					createCell8.setCellValue(sampleReport.get(i).getRemark()); 	//备注
 				}
 				String title = "中央事权粮油样品登记薄";
 				OutputStream output = response.getOutputStream();

@@ -67,5 +67,9 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	 * 处理样品
 	 */
 	public void updateDispose(Sample sample);
+	/**
+	 * 根据storageTime查询导出样品登记簿
+	 */
+	public List<Sample> findBystorageTime(String storageTime);
 }
  
