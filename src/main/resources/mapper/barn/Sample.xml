@@ -11,8 +11,8 @@
 	
 	<!--移动端入库  -->
 	<insert id="saveRuku" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum,otherState) 
-		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum},#{otherState})
+		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum,otherState,sampleNo) 
+		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum},#{otherState},#{sampleNo})
 	</insert>
 	<!--移动端（存入库签名，存放位置）  -->
 	<insert id="saveRukuXinxi" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
@@ -180,9 +180,15 @@
 	</select>
 	<!--根据样品柜id查询柜中所有样品集 -->
 	<select id="findByCounterId" parameterType="int" resultType="Sample">
-		select bs.*,bwcp.place,bwc.counter,bw.depot from barn_sample bs LEFT JOIN barn_warehouse_counter_place bwcp 
-		ON bs.placeId = bwcp.id LEFT JOIN barn_warehouse_counter bwc 
-		ON bwcp.pId = bwc.id LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id where bwc.id = #{counterId}
+		SELECT bs.*, bwcp.place, bwc.counter, bw.depot, bl.libraryName, 
+		pbl.libraryName pLibraryName FROM barn_sample bs 
+		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
+		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id 
+		LEFT JOIN barn_register br ON bs.pId = br.id 
+		LEFT JOIN barn_library bl ON br.libraryId = bl.id 
+		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.pLibraryId
+		where bwc.id = #{counterId}
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
@@ -270,6 +276,9 @@
 			</if>
 			<if test=" sampleState != null and sampleState != '' ">
 				and sampleState = #{sampleState}
+			</if>
+			<if test=" noSampleState != null and noSampleState != '' ">
+				and sampleState != #{noSampleState}
 			</if>
 			<if test=" sampleStateLike != null and sampleStateLike != '' ">
 				and sampleState like concat(concat('%', #{sampleStateLike, jdbcType=VARCHAR}),'%')

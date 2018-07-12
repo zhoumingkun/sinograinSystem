@@ -50,6 +50,18 @@
 		    <if test=" depot != null and depot != '' ">
 				and depot like concat(concat('%', #{depot, jdbcType=VARCHAR}),'%') 
 			</if>
+		    <if test=" counter != null and counter != '' ">
+				and counter like concat(concat('%', #{counter, jdbcType=VARCHAR}),'%') 
+			</if>
+		    <if test=" warehouseState != null and warehouseState == '空闲' ">
+				and (bwc.warehouseUseNumber / bwc.warehouseTotal &lt; 0.4)
+			</if>
+		    <if test=" warehouseState != null and warehouseState == '未满' ">
+				and (bwc.warehouseUseNumber / bwc.warehouseTotal &gt; 0.4) and (bwc.warehouseUseNumber / bwc.warehouseTotal &lt; 1)
+			</if>
+		    <if test=" warehouseState != null and warehouseState == '已满' ">
+				and (bwc.warehouseUseNumber / bwc.warehouseTotal = 1)
+			</if>
 		</where>
 	</sql>
 	

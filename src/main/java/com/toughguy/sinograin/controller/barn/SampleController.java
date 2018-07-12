@@ -1,7 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SamplingDTO;
@@ -29,7 +27,6 @@ import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.model.barn.SmallSample;
-import com.toughguy.sinograin.model.barn.Warehouse;
 import com.toughguy.sinograin.model.barn.WarehouseCounter;
 import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
@@ -44,7 +41,6 @@ import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterService;
 import com.toughguy.sinograin.util.BarCodeUtil;
-import com.toughguy.sinograin.util.DateUtil;
 import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
@@ -119,6 +115,7 @@ public class SampleController {
 				BarCodeUtil.generateFile(sampleNum, path + "/" + barFileName);
 				sample.setSampleNumPic(barFileName);
 				sample.setSampleNum(sampleNum);
+				sample.setSampleState(2);
 			}
 			wcps.findDepotAndCounterByPlaceId(sample.getPlaceId());
 			WarehouseCounterPlace wp =  wcps.find(sample.getPlaceId());
@@ -576,23 +573,26 @@ public class SampleController {
 					}else {
 						sort = "04";
 					}
-			Library library = libraryService.find(register.getLibraryId());
-			String PlibraryId = String.format("%03d", library.getpLibraryId());
-			Map<String,Object > map = new  HashMap<String,Object>();
-			map.put("prefix", 60+PlibraryId+sort);
-			SampleNo no = noService.findAll(map).get(0);
-			int num = 0;
-			if(no.getNum()%1000 == 999){
-				num = no.getNum()+2;
-			}else{
-				num = no.getNum()+1;
-			}
-			String SampleNo = SamplingUtil.sampleNo(library.getpLibraryId(), sort,num%1000);  //扦样编号
-			sample.setSampleNo(SampleNo);
-			sample.setSampleState(1);   // 非正常流程 扦样状态默认为已扦样
-			String sampleNum = SamplingUtil.sampleNum();  //检验编号
-			sample.setSampleNum(sampleNum);
-			sampleService.saveRuku(sample);
+				Library library = libraryService.find(sample.getLibraryId());
+				String PlibraryId = String.format("%03d", library.getpLibraryId());
+				Map<String,Object > map = new  HashMap<String,Object>();
+				map.put("prefix", 60+PlibraryId+sort);
+				SampleNo no = noService.findAll(map).get(0);
+				int num = 0;
+				if(no.getNum()%1000 == 999){
+					num = no.getNum()+2;
+				}else{
+					num = no.getNum()+1;
+				}
+				no.setNum(num);
+				noService.update(no);
+				String SampleNo = SamplingUtil.sampleNo(library.getpLibraryId(), sort,num%1000);  //扦样编号
+				System.out.println(SampleNo + "sampleNo");
+				sample.setSampleNo(SampleNo);
+				String sampleNum = SamplingUtil.sampleNum();  //检验编号
+				sample.setSampleNum(sampleNum);
+				sample.setSampleState(2);   // 非正常流程 扦样状态默认为已入库
+				sampleService.saveRuku(sample);
 			}
 			return sample;
 		} catch (Exception e) {
@@ -601,17 +601,43 @@ public class SampleController {
 		}
 	}
 	/**
-	 * 移动端根据检测编号存入（入库签名，存放位置）
+	 * 正常入库
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/saveRukuXinxi")
 	public String saveRukuXinxi(Sample sample) {
 		try {			
-			Sample sampl = sampleService.findBysampleNumMobile(sample.getSampleNum());	
-			String autograph = sample.getAutograph();
-			sampl.setAutograph(autograph);
-			sampl.setPlaceId(sample.getPlaceId());
-			sampleService.update(sampl);
+			//1，生成检验编号与二维码
+			Sample newSample = sampleService.find(sample.getId());
+			String sampleNum = SamplingUtil.sampleNum();
+			// 生成二维码
+			String path = UploadUtil.getAbsolutePath("barcode");
+			File f = new File(path); // 无路径则创建
+			if (!f.exists()) {
+				f.mkdirs();
+			}
+			String barFileName = BarCodeUtil.rename("png");
+			BarCodeUtil.generateFile(sampleNum, path + "/" + barFileName);
+			//2，修改检验编号，二维码路径，状态，库房管理员
+			newSample.setSampleNumPic(barFileName);
+			newSample.setSampleNum(sampleNum);
+			newSample.setSampleState(2);  //状态为已入库
+			newSample.setAutograph(sample.getAutograph());
+			//3，根据前台传来的柜位置id查出位置，将其状态改为已存放
+			WarehouseCounterPlace wp =  wcps.find(sample.getPlaceId());
+			wp.setIsStorage(2);
+			wcps.update(wp);
+			//4，根据柜位置查出柜id，将库房使用数+1
+			WarehouseCounter whc = wcs.find(wp.getpId());
+			whc.setWarehouseUseNumber(whc.getWarehouseUseNumber() + 1);
+			wcs.update(whc);
+			//5，修改样品中存放位置的id
+			newSample.setPlaceId(sample.getPlaceId());
+			//6，修改入库时间为当前时间
+			Date d = new Date();
+			newSample.setStorageTime(new java.sql.Date(d.getTime()));
+			System.out.println(newSample.getStorageTime());
+			sampleService.update(newSample);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -687,6 +713,62 @@ public class SampleController {
 				wcs.update(whc);
 			}
 			sampleService.updateDispose(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	/**
+	 * 移动端扦样
+	 * @param sample
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/standSample")
+	public String standSample(Sample sample) {
+		try {
+			Sample s = sampleService.find(sample.getId());
+			Date d = new Date();
+			s.setSampleTime(new java.sql.Date(d.getTime()));
+			//扦样编号的生成
+			int libraryId = s.getLibraryId();
+			Library l = libraryService.find(libraryId);
+			String PlibraryId = String.format("%03d", l.getpLibraryId());
+			 String sort=s.getSort();
+				if("小麦".equals(s.getSort())){
+					sort = "01";
+				}else if("玉米".equals(s.getSort())){
+					sort = "02";
+				}else if("食用油".equals(s.getSort())){
+					sort = "03";
+				}else {
+					sort = "04";
+				}
+			Map<String,Object > map = new  HashMap<String,Object>();
+			map.put("prefix", 60+PlibraryId+sort);
+			SampleNo no = noService.findAll(map).get(0);
+			int num = 0;
+			if(no.getNum()%1000 == 999){
+				num = no.getNum()+2;
+			}else{
+				num = no.getNum()+1;
+			}
+			no.setNum(num);
+			noService.update(no);
+			String sampleNo = SamplingUtil.sampleNo(l.getpLibraryId(), sort,num%1000);  //扦样编号
+			s.setSampleNo(sampleNo);
+			String path = UploadUtil.getAbsolutePath("barcode");
+			File f = new File(path); // 无路径则创建
+			if (!f.exists()) {
+				f.mkdirs();
+			}
+			String barFileName = BarCodeUtil.rename("png");
+			BarCodeUtil.generateFile(sampleNo, path + "/" + barFileName);
+			s.setSamplePic(barFileName);
+			s.setSampleState(1);
+			sampleService.update(s);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
