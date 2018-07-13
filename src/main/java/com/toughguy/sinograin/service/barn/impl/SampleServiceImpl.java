@@ -1346,9 +1346,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 
 
 	@Override
-	public List<Sample> findByCounterId(int counterId) {
+	public List<Sample> findByCounterId(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		return ((ISampleDao)dao).findByCounterId(counterId);
+		return ((ISampleDao)dao).findByCounterId(params);
 	}
 
 
