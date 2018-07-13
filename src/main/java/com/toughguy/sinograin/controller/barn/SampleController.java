@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.controller.barn;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
@@ -545,12 +548,25 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getByCounterId")
-	public List<Sample> findByCounterId(int counterId) {
-		List<Sample> ss = sampleService.findByCounterId(counterId);
-		for(Sample s:ss) {
-			s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
+	public List<Sample> findByCounterId(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
+			}
+			List<Sample> ss = sampleService.findByCounterId(map);
+			for(Sample s:ss) {
+				s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
+			}
+			return ss;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return ss;
+		return null;
 	}
 	
 	/**
@@ -767,9 +783,12 @@ public class SampleController {
 			String barFileName = BarCodeUtil.rename("png");
 			BarCodeUtil.generateFile(sampleNo, path + "/" + barFileName);
 			s.setSamplePic(barFileName);
+			String pLibraryName = libraryService.find(l.getpLibraryId()).getLibraryName();
+			String sampleWord = pLibraryName + "-" + s.getSort() + "-" + String.format("%03d", num%1000);
+			s.setSampleWord(sampleWord);
 			s.setSampleState(1);
 			sampleService.update(s);
-			return "{ \"success\" : true }";
+			return "{ \"success\" : true ,\"sampleNo\":"+ sampleNo +"}";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";

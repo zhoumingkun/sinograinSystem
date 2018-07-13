@@ -43,7 +43,7 @@ public interface ISampleDao extends IGenericDao<Sample, Integer>{
 	/**
 	 * 根据样品柜id查询所有样品
 	 */
-	public List<Sample> findByCounterId(int counterId);
+	public List<Sample> findByCounterId(Map<String, Object> params);
 
 	/**
 	 * 移动端入库

@@ -80,7 +80,7 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	/**
 	 * 根据样品柜id查询所有样品
 	 */
-	public List<Sample> findByCounterId(int counterId);
+	public List<Sample> findByCounterId(Map<String, Object> params);
 	
 	/**
 	 * 处理样品

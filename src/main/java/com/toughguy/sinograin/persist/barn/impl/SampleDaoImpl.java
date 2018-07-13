@@ -64,9 +64,9 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		return  sqlSessionTemplate.selectOne(typeNameSpace + ".findAllCereals");
 	}
 	@Override
-	public List<Sample> findByCounterId(int counterId) {
+	public List<Sample> findByCounterId(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCounterId",counterId);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCounterId",params);
 	}
 
 	@Override
