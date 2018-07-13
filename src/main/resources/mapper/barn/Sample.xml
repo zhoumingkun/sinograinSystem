@@ -187,7 +187,7 @@
 		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id 
 		LEFT JOIN barn_register br ON bs.pId = br.id 
 		LEFT JOIN barn_library bl ON br.libraryId = bl.id 
-		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.pLibraryId
+		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.id
 		where bwc.id = #{counterId}
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->

@@ -767,9 +767,12 @@ public class SampleController {
 			String barFileName = BarCodeUtil.rename("png");
 			BarCodeUtil.generateFile(sampleNo, path + "/" + barFileName);
 			s.setSamplePic(barFileName);
+			String pLibraryName = libraryService.find(l.getpLibraryId()).getLibraryName();
+			String sampleWord = pLibraryName + "-" + s.getSort() + "-" + String.format("%03d", num%1000);
+			s.setSampleWord(sampleWord);
 			s.setSampleState(1);
 			sampleService.update(s);
-			return "{ \"success\" : true }";
+			return "{ \"success\" : true ,\"sampleNo\":"+ sampleNo +"}";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
