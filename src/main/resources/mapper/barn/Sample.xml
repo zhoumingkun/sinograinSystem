@@ -179,16 +179,16 @@
 		where taskName = #{taskName}
 	</select>
 	<!--根据样品柜id查询柜中所有样品集 -->
-	<select id="findByCounterId" parameterType="int" resultType="Sample">
-		SELECT bs.*, bwcp.place, bwc.counter, bw.depot, bl.libraryName, 
-		pbl.libraryName pLibraryName FROM barn_sample bs 
-		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
+	<select id="findByCounterId" parameterType="Map" resultType="Sample">
+		SELECT s.*, bwcp.place, bwc.counter, bw.depot, bl.libraryName, 
+		pbl.libraryName pLibraryName FROM barn_sample s 
+		LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
 		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id 
-		LEFT JOIN barn_register br ON bs.pId = br.id 
+		LEFT JOIN barn_register br ON s.pId = br.id 
 		LEFT JOIN barn_library bl ON br.libraryId = bl.id 
-		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.pLibraryId
-		where bwc.id = #{counterId}
+		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.id
+		<include refid="paramsSQL"/>
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
@@ -332,6 +332,9 @@
 			</if>
 			<if test=" dateEnd != null and dateEnd != '' ">
 				and  storageTime &lt;= #{dateEnd}
+			</if>
+			<if test=" counterId != null and counterId != '' ">
+				and bwc.id = #{counterId}
 			</if>
 		</where>
 	</sql>
