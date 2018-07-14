@@ -18,6 +18,7 @@ public class Register extends AbstractModel {
 	private int regState; 		//状态  （-1 待审核、1 未同意、2 已同意 、3 草稿）
 	private int libraryId;		//库id
 	private String reason;		//不同意原因
+	private int type;           //类型 （-1正常钎样   1非钎样入库）
 	
 	private String libraryName;	//库名(页面)
 	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
@@ -41,6 +42,14 @@ public class Register extends AbstractModel {
 	}
 	public void setRegState(int regState) {
 		this.regState = regState;
+	}
+	
+	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
 	}
 	public int getLibraryId() {
 		return libraryId;
