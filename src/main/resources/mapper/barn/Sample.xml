@@ -11,8 +11,8 @@
 	
 	<!--移动端入库  -->
 	<insert id="saveRuku" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum,otherState,sampleNo) 
-		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum},#{otherState},#{sampleNo})
+		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum,otherState,sampleNo,temporaryLibraryId) 
+		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum},#{otherState},#{sampleNo},#{temporaryLibraryId})
 	</insert>
 	<!--移动端（存入库签名，存放位置）  -->
 	<insert id="saveRukuXinxi" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
@@ -84,6 +84,19 @@
 		<include refid="paramsSQL"/>
 		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
+	<!-- 分页查询临时扦样 -->
+	<select id="findTemporaryPaginated" resultType="Sample" parameterType="Map">
+		SELECT s.*, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
+		 pbl.libraryName pLibraryName, bwcp.place, bwc.counter, 
+		 bw.depot FROM barn_sample s 
+		 LEFT JOIN barn_library l ON s.temporaryLibraryId = l.id 
+		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
+		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
+		<include refid="paramsSQL"/>
+		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
+	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
 		select count(distinct s.id) from barn_sample s 
@@ -91,6 +104,15 @@
 		left join barn_library l on r.libraryId = l.id 
 		LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
 		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id 
+		<include refid="paramsSQL"/>
+	</select>
+	<select id="getTemporaryTotalOfItems" parameterType="Map" resultType="int">
+		select count(distinct s.id) FROM barn_sample s 
+		 LEFT JOIN barn_library l ON s.temporaryLibraryId = l.id 
+		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
+		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
 	</select>
 	

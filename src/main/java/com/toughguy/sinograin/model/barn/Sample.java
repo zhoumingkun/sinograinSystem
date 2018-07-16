@@ -40,6 +40,7 @@ public class Sample extends AbstractModel{
 	private String disposeReason;  //处理理由
 	private int detectionState;    //检测状态    1，未检测   2，检测
 	private int otherState;        //判断是否是扦样来的样品      -1，扦样样品      1，非扦样样品
+	private int temporaryLibraryId; //临时样品记录该样品属于的库点
 	
 	private String ids;         //id集
 	private String formName;	//扦样登记表名（页面展示）
@@ -325,6 +326,12 @@ public class Sample extends AbstractModel{
 	}
 	
 	
+	public int getTemporaryLibraryId() {
+		return temporaryLibraryId;
+	}
+	public void setTemporaryLibraryId(int temporaryLibraryId) {
+		this.temporaryLibraryId = temporaryLibraryId;
+	}
 	public Date getDateStart() {
 		return dateStart;
 	}

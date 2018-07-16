@@ -94,7 +94,25 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findBystorageTime", storageTime);
 	}
-	
-	
-		
+	@Override
+	public PagerModel<Sample> findTemporaryPaginated(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		// -- 1. 不管传或者不传参数都会追加至少两个分页参数
+				if (params == null)
+					params = new HashMap<String, Object>();
+				params.put("offset", SystemContext.getOffset());
+				params.put("limit", SystemContext.getPageSize());
+				PagerModel<Sample> pm = new PagerModel<Sample>();
+				int total = getTotalNumOfItems(params);
+				List<Sample> entitys = sqlSessionTemplate.selectList(typeNameSpace + ".findTemporaryPaginated", params);
+				pm.setTotal(total);
+				pm.setData(entitys);
+				return pm;
+	}
+	// -- 获取总的条目数 (分页查询中使用)
+	private int getTotalNumOfItems(Map<String, Object> params) {
+		int count = (Integer) sqlSessionTemplate.selectOne(typeNameSpace + ".getTemporaryTotalOfItems", params);
+		return count;
+	}
+
 }

@@ -274,6 +274,38 @@ public class SampleController {
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
 	}
+	
+	/**
+	 * 分页查询临时钎样
+	 * @param params
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/temporaryData")
+	@RequiresPermissions("sample:list")
+	public String temporaryData(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
+			}
+			PagerModel<Sample> pg = sampleService.findTemporaryPaginated(map);
+			// 序列化查询结果为JSON
+			for(Sample p:pg.getData()) {
+				p.setStorage(p.getDepot() + "--" + p.getCounter() + "--" + p.getPlace());
+			}
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("total", pg.getTotal());
+			result.put("rows", pg.getData());
+			return om.writeValueAsString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/dataMobile")
@@ -608,6 +640,7 @@ public class SampleController {
 				String sampleNum = SamplingUtil.sampleNum();  //检验编号
 				sample.setSampleNum(sampleNum);
 				sample.setSampleState(2);   // 非正常流程 扦样状态默认为已入库
+				sample.setTemporaryLibraryId(sample.getLibraryId());
 				sampleService.saveRuku(sample);
 			}
 			return sample;

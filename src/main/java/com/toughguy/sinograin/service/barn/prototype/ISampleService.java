@@ -91,4 +91,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 根据storageTime查询导出样品登记簿
 	 */
 	public List<Sample> findBystorageTime(String storageTime);
+	
+	/**
+	 * 分页查询临时钎样
+	 */
+	public PagerModel<Sample> findTemporaryPaginated(Map<String, Object> params);
 }

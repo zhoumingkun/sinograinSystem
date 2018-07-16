@@ -1503,5 +1503,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findBystorageTime(storageTime);
 	}
 
+	@Override
+	public PagerModel<Sample> findTemporaryPaginated(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findTemporaryPaginated(params);
+	}
+
 	
 }

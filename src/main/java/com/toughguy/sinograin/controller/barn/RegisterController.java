@@ -28,6 +28,7 @@ import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.util.BarCodeUtil;
+import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
 
@@ -239,9 +240,14 @@ public class RegisterController {
 	@ResponseBody
 	@RequestMapping(value = "/save")
 	@RequiresPermissions("register:save")
-	public String saveSample(Register register) {
+	public String saveSample(Register register,String sample) {
 		try {
+			List<Sample> samples = JsonUtil.jsonToList(sample, Sample.class);
 			registerService.save(register);
+			for(Sample s:samples) {
+				s.setpId(register.getId());
+				sampleService.update(s);
+			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
