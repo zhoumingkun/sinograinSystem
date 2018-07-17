@@ -95,6 +95,20 @@ public class LoginController {
 	public String indexPage(){
 		return "/index";
 	}
+	
+	/**
+     * 未登录，shiro应重定向到登录界面，此处返回未登录状态信息由前端控制跳转页面
+     * @return
+     */
+    @RequestMapping(value = "/unauth")
+    @ResponseBody
+    public Object unauth() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("code", "1000000");
+        map.put("msg", "未登录");
+        return map;
+    }
+    
 	/**
 	 * 登录
 	 * @param user
