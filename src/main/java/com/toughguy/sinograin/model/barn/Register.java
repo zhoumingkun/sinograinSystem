@@ -22,6 +22,8 @@ public class Register extends AbstractModel {
 	
 	private String libraryName;	//库名(页面)
 	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
+	private Date dateStart;          //搜索开始时间（前台）
+	private Date dateEnd;            //搜索结束时间（前台）
 	
 	
 	public String getLibraryName() {
@@ -71,6 +73,18 @@ public class Register extends AbstractModel {
 	}
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	public Date getDateStart() {
+		return dateStart;
+	}
+	public void setDateStart(Date dateStart) {
+		this.dateStart = dateStart;
+	}
+	public Date getDateEnd() {
+		return dateEnd;
+	}
+	public void setDateEnd(Date dateEnd) {
+		this.dateEnd = dateEnd;
 	}
 	@Override
 	public String toString(){

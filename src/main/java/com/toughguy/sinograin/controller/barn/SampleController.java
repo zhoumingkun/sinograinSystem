@@ -779,6 +779,7 @@ public class SampleController {
 	public String standSample(Sample sample) {
 		try {
 			Sample s = sampleService.find(sample.getId());
+			System.out.println(s);
 			Date d = new Date();
 			s.setSampleTime(new java.sql.Date(d.getTime()));
 			//扦样编号的生成

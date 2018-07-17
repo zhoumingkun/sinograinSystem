@@ -95,6 +95,12 @@
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}
 			</if>
+			<if test=" dateStart != null and dateStart != '' ">
+				and br.createTime &gt;= #{dateStart}
+			</if>
+			<if test=" dateEnd != null and dateEnd != '' ">
+				and br.createTime &lt;= #{dateEnd}
+			</if>
 		</where>
 	</sql>
 	
