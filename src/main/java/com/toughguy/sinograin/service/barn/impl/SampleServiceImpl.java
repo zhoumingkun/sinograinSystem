@@ -1508,6 +1508,14 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).findTemporaryPaginated(params);
 	}
+	/**
+	 * 临时扦样列表（导出按brainTime）
+	 */
+	@Override
+	public List<Sample> findAllExport(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findAllExport(map);
+	}
 
 	
 }

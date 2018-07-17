@@ -96,4 +96,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 分页查询临时钎样
 	 */
 	public PagerModel<Sample> findTemporaryPaginated(Map<String, Object> params);
+
+	/**
+	 * 临时扦样列表（导出按brainTime）
+	 */
+	public List<Sample> findAllExport(Map<String, Object> map);
 }

@@ -150,6 +150,10 @@ public class RegisterController {
 				return "{ \"success\" : false }";
 			}
 	}*/
+	/**
+	 * 导出正常扦样登记表(非正常)
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/exportExcel")
 	@RequiresPermissions("register:export")
@@ -158,7 +162,7 @@ public class RegisterController {
 			Register reg = registerService.find(pId);
 			Map<String,Object> map = new HashMap<>();
 			map.put("pId",pId);
-			List<Sample> sampleList = sampleService.findAll(map);
+			List<Sample> sampleList = sampleService.findAllExport(map);
 			SamplingDTO dto = new SamplingDTO();
 			dto.setRegister(reg);
 			dto.setList(sampleList);
@@ -169,6 +173,7 @@ public class RegisterController {
 			return "{ \"success\" : false }";
 		}
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/edit")
 	@RequiresPermissions("register:edit")

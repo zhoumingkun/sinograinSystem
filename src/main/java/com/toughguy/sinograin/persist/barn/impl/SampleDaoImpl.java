@@ -114,5 +114,13 @@ public class SampleDaoImpl extends GenericDaoImpl<Sample, Integer> implements IS
 		int count = (Integer) sqlSessionTemplate.selectOne(typeNameSpace + ".getTemporaryTotalOfItems", params);
 		return count;
 	}
+	/**
+	 * 临时扦样列表（导出按brainTime）
+	 */
+	@Override
+	public List<Sample> findAllExport(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findAllExport", map);
+	}
 
 }

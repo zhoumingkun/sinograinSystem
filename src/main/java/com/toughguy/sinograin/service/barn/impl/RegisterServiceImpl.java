@@ -74,6 +74,7 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 			style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 	   	 	style.setWrapText(true);				//自动换行
 	   	 	
+	   	 	sh.getRow(0).getCell(0).setCellValue(dto.getRegister().getFormName());
 	        SimpleDateFormat dateBarn = new SimpleDateFormat("yyyy.MM");
 	        SimpleDateFormat dateSample = new SimpleDateFormat("yyyy.MM.dd");
 	        int pId = libraryDao.find(dto.getRegister().getLibraryId()).getpLibraryId();
@@ -123,13 +124,12 @@ public class RegisterServiceImpl extends GenericServiceImpl<Register, Integer> i
 	        fileInput.close();  
 	        output.close();  
 	}
-
-
-
 	@Override
 	public void deleteRegisterAndSample(int id) {
 		// TODO Auto-generated method stub
 		registerDao.delete(id);
 		sampleDao.deleteByPId(id);
 	}
+
+	
 }
