@@ -19,7 +19,9 @@ public class Register extends AbstractModel {
 	private int libraryId;		//库id
 	private String reason;		//不同意原因
 	private int type;           //类型 （-1正常钎样   1非钎样入库）
+	private int tableUser;      //新建表的用户 
 	
+	private String  proposer;    //申请人（前台）
 	private String libraryName;	//库名(页面)
 	private Date regCreateTime; 	//扦样登记表创建时间最新（页面）
 	private Date dateStart;          //搜索开始时间（前台）
@@ -52,6 +54,21 @@ public class Register extends AbstractModel {
 	}
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	
+	public int getTableUser() {
+		return tableUser;
+	}
+	public void setTableUser(int tableUser) {
+		this.tableUser = tableUser;
+	}
+	
+	public String getProposer() {
+		return proposer;
+	}
+	public void setProposer(String proposer) {
+		this.proposer = proposer;
 	}
 	public int getLibraryId() {
 		return libraryId;
