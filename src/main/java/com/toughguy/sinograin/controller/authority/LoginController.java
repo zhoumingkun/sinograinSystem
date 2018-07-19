@@ -130,7 +130,6 @@ public class LoginController {
 	    try{
 	    	Subject currentUser = SecurityUtils.getSubject();
 	    	UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPass());
-	    	System.out.println(new DefaultPasswordService().encryptPassword(user.getUserPass()));
 	    	currentUser.login(token);
 	    } catch ( UnknownAccountException e ) {
 	    	return "{ \"success\" : false ,\"code\":\"您输入的用户名或密码不正确,请重新输入\" }";

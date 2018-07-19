@@ -43,77 +43,89 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				//第二行数据内容
 				HSSFRow row2 = sh.createRow(2);
 				HSSFCell createCell2 = row2.createCell(0);
-				createCell.setCellValue("编号:"+handover);   //------------------
+				if(handover.getId() >10){
+					createCell2.setCellValue("编号:"+handover.getId());
+				}else{
+					createCell2.setCellValue("编号:0"+handover.getId());   //------------------
+				}
 				
 				//第二行数据内容
 				HSSFRow row3 = sh.createRow(3);
 				HSSFCell createCell3 = row3.createCell(0);
+				createCell3.setCellValue("检验项目");
+				
+				HSSFCell create = row3.createCell(1);
 				String[] split = handover.getCheckeds().split(",");
 				String checked ="";
 				for (int i = 0; i < split.length; i++) {
 					if("1".equals(split[i])){
-						checked += "";
+						checked += "不完善粒,";
 					}else if("2".equals(split[i])){
-						checked += "";
+						checked += "杂质,";
 					}else if("3".equals(split[i])){
-						checked += "";
+						checked += "生霉粒,";
 					}else if("4".equals(split[i])){
-						checked += "";
+						checked += "水分,";
 					}else if("5".equals(split[i])){
-						checked += "";
+						checked += "硬度,";
 					}else if("6".equals(split[i])){
-						checked += "";
+						checked += "脂肪酸酯(面筋吸水量),";
 					}else if("7".equals(split[i])){
-						checked += "";
+						checked += "品尝评分,";
+					}else if("8".equals(split[i])){
+						checked += "卫生,";
+					}else if("9".equals(split[i])){
+						checked += "加工品质,";
 					}
 				}
-				createCell3.setCellValue(checked);
+				create.setCellValue(checked.substring(0,checked.length()-1));
 				
 				//存储循环数据
 				String[] sampleNums = handover.getSampleNums().split(",");
-				double ceil = Math.ceil(sampleNums.length/4);
+				//向上取整
+				double ceil = Math.ceil(sampleNums.length/4.0);
 				int number = (int)ceil;
-				for (int j = 1; j < number; j++) {
-						HSSFRow row5 = sh.createRow(4+j);
+				for (int j = 0; j < number; j++) {
+						HSSFRow row5 = sh.createRow(5+j);
 						HSSFCell createCell5 = row5.createCell(0);
-						createCell5.setCellValue(1+(j-1)*4); //序号
+						createCell5.setCellValue(1+(j)*4); //序号
 						HSSFCell createCell6 = row5.createCell(1);
-						if(1+(j-1)*4 > sampleNums.length){
-							createCell6.setCellValue("");
+						if(1+(j)*4-1 < sampleNums.length){
+							createCell6.setCellValue("监"+sampleNums[1+(j)*4-1]);  //编号
 						}else{
-							createCell6.setCellValue(sampleNums[1+(j-1)*4-1]);  //编号
+							createCell6.setCellValue("");
 						}
 						
 			    		HSSFCell createCell7 = row5.createCell(2);
-						createCell7.setCellValue(2+(j-1)*4); //序号
+						createCell7.setCellValue(2+(j)*4); //序号
 						HSSFCell createCell8 = row5.createCell(3);
-						if(2+(j-1)*4 > sampleNums.length){
-							createCell6.setCellValue("");
+						if(2+(j)*4-1 < sampleNums.length){
+							createCell8.setCellValue("监"+sampleNums[2+(j)*4-1]);  //编号
 						}else{
-						    createCell8.setCellValue(sampleNums[2+(j-1)*4-1]);  //编号
+							createCell8.setCellValue("");
 						}
 						
 						HSSFCell createCell9 = row5.createCell(4);
-						createCell9.setCellValue(3+(j-1)*4); //序号
+						createCell9.setCellValue(3+(j)*4); //序号
 						HSSFCell createCell10 = row5.createCell(5);
-						if(3+(j-1)*4 > sampleNums.length){
-							createCell6.setCellValue("");
+						if(3+(j)*4-1 < sampleNums.length){
+							createCell10.setCellValue("监"+sampleNums[3+(j)*4-1]);  //编号
 						}else{
-						    createCell10.setCellValue(sampleNums[3+(j-1)*4-1]);  //编号
+							createCell10.setCellValue("");
 						}
 						
 						HSSFCell createCell11 = row5.createCell(6);
-						createCell11.setCellValue(4+(j-1)*4); //序号
+						createCell11.setCellValue(4+(j)*4); //序号
 						HSSFCell createCell12 = row5.createCell(7);
-						if(4+(j-1)*4 > sampleNums.length){
-							createCell6.setCellValue("");
+						if(4+(j)*4-1 < sampleNums.length){
+							createCell12.setCellValue("监"+sampleNums[4+(j)*4-1]);  //编号
 						}else{
-						    createCell12.setCellValue(sampleNums[4+(j-1)*4-1]);  //编号
+							createCell12.setCellValue("");
 						}
 				}
 				
 				HSSFRow rowCell = sh.createRow(5+number);
-				Region region = new Region(5+number, (short) 5, 5+number, (short) 6);
+				Region region = new Region(5+number, (short) 5, 5+number, (short) 7);
 				
 				HSSFCell createCell4 = rowCell.createCell(0);
 				createCell4.setCellValue("领取人");
@@ -136,27 +148,27 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				HSSFRow createRow = sh.createRow(6+number);
 				
-				Region regio = new Region(6+number, (short) 4, 6+number, (short) 6);
+				Region regio = new Region(6+number, (short) 4, 6+number, (short) 7);
 				
-				createRow.createCell(0);
-				createCell4.setCellValue("领取日期");
+				HSSFCell createCell10 = createRow.createCell(0);
+				createCell10.setCellValue("领取日期");
 				
-				createRow.createCell(1);
-				createCell5.setCellValue("");
+				HSSFCell createCell11 = createRow.createCell(1);
+				createCell11.setCellValue("");
 				
-				createRow.createCell(2);
-				createCell6.setCellValue("归还日期");
+				HSSFCell createCell12 = createRow.createCell(2);
+				createCell12.setCellValue("归还日期");
 				
-				 createRow.createCell(3);
-				createCell7.setCellValue("");
+				HSSFCell createCell13 = createRow.createCell(3);
+				createCell13.setCellValue("");
 				
-				createRow.createCell(4);
-				createCell8.setCellValue("样品管理员："+handover+"时间：");
+				HSSFCell createCell14 = createRow.createCell(4);
+				createCell14.setCellValue("样品管理员："+"时间：");
 				
 			
 				OutputStream output = response.getOutputStream();
 				response.reset();
-				response.setHeader("Content-disposition", "attachment; filename="+new Date()+".xls");
+				response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xls");
 				response.setContentType("application/vnd.ms-excel;charset=utf-8");
 				workbook.write(output);
 				output.flush();  
