@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -164,6 +166,24 @@ public class HandoverController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	
+	
+	/**
+	 *  导出样品领取交接单
+	 * @param id
+	 * @return String
+	 */
+	public String expotHandover(int id,HttpServletResponse response){
+		try {
+			Handover handover = handoverService.find(id);
+			handoverService.expotHandover(response,handover);
+			return "{ \"success\" : true}";
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "{ \"success\" : false}";
 		}
 	}
 	
