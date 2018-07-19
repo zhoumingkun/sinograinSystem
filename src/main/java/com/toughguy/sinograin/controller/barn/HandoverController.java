@@ -176,6 +176,8 @@ public class HandoverController {
 	 * @param id
 	 * @return String
 	 */
+	@ResponseBody
+	@RequestMapping(value = "/expotHandover")
 	public String expotHandover(int id,HttpServletResponse response){
 		try {
 			Handover handover = handoverService.find(id);
