@@ -268,6 +268,37 @@ public class POIUtils {
 				return style;
 			}
 			/**
+			* 导出样品交接单样式
+			*/
+			public HSSFCellStyle Style6(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 11);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
+			public HSSFCellStyle Style7(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 11);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_RIGHT);//居右
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
+			/**
 			* 设置单元格边框（解决合并单元格显示部分边框问题）
 			* @param sheet 
 			* @param region
