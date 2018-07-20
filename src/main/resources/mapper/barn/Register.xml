@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Register">
 
 	<insert id="save" parameterType="Register" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_register (guid, createTime,updateTime,formName,regState,libraryId,reason,type,tableUser) 
-		values (#{guid}, #{createTime},#{updateTime},#{formName},#{regState},#{libraryId},#{reason},#{type},#{tableUser})
+		insert into barn_register (guid, createTime,updateTime,formName,regState,libraryId,reason,type,tableUserId) 
+		values (#{guid}, #{createTime},#{updateTime},#{formName},#{regState},#{libraryId},#{reason},#{type},#{tableUserId})
 	</insert>
 	
 	
@@ -40,7 +40,7 @@
 	<!-- 分页查询扦样表 -->
 	<select id="findPaginated" resultType="Register" parameterType="Map">
 		SELECT br.*, ( SELECT max(bs.sampleTime) AS time FROM barn_sample bs WHERE bs.pId = br.id ) regCreateTime ,u.userName as proposer
-		FROM barn_register br LEFT JOIN barn_library bl ON br.libraryId = bl.id LEFT JOIN auth_user u ON br.tableUser = u.id
+		FROM barn_register br LEFT JOIN barn_library bl ON br.libraryId = bl.id LEFT JOIN auth_user u ON br.tableUserId = u.id
 		<include refid="paramsSQL"/>
 		ORDER BY br.createTime desc  limit #{offset}, #{limit}
 	</select>
@@ -60,7 +60,7 @@
 			<if test="reason != null">reason = #{reason},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 			<if test="type != null and type != ''">type = #{type},</if>
-			<if test="tableUser != null and tableUser != ''">tableUser = #{tableUser},</if>
+			<if test="tableUserId != null and tableUserId != ''">tableUserId = #{tableUserId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -93,8 +93,8 @@
 			<if test=" type != null and type != '' ">
 				and type = #{type}
 			</if>
-			<if test=" tableUser != null and tableUser != '' ">
-				and br.tableUser = #{tableUser}
+			<if test=" tableUserId != null and tableUserId != '' ">
+				and br.tableUserId = #{tableUserId}
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}

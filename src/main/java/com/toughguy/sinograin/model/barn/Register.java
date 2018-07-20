@@ -19,7 +19,7 @@ public class Register extends AbstractModel {
 	private int libraryId;		//库id
 	private String reason;		//不同意原因
 	private int type;           //类型 （-1正常钎样   1非钎样入库）
-	private int tableUser;      //新建表的用户 
+	private int tableUserId;      //新建表的用户id 
 	
 	private String  proposer;    //申请人（前台）
 	private String libraryName;	//库名(页面)
@@ -57,13 +57,12 @@ public class Register extends AbstractModel {
 	}
 	
 	
-	public int getTableUser() {
-		return tableUser;
+	public int getTableUserId() {
+		return tableUserId;
 	}
-	public void setTableUser(int tableUser) {
-		this.tableUser = tableUser;
+	public void setTableUserId(int tableUserId) {
+		this.tableUserId = tableUserId;
 	}
-	
 	public String getProposer() {
 		return proposer;
 	}
