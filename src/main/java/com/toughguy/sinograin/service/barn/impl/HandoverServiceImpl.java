@@ -2,6 +2,7 @@ package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
@@ -38,11 +39,19 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				//第一行数据内容
 				HSSFRow row = sh.createRow(1);
+				Region region1 = new Region(1, (short) 0, 1, (short) 7);
 				HSSFCell createCell = row.createCell(0);
+				utils.setRegionStyle(sh, region1, utils.Style6(workbook));
+				sh.addMergedRegion(region1);
+//				createCell.setCellStyle(utils.Style6(workbook));
 				createCell.setCellValue(handover.getName());
 				//第二行数据内容
 				HSSFRow row2 = sh.createRow(2);
+				Region region2 = new Region(2, (short) 0, 2, (short) 7);
 				HSSFCell createCell2 = row2.createCell(0);
+				utils.setRegionStyle(sh, region2, utils.Style7(workbook));
+				sh.addMergedRegion(region2);
+//				createCell2.setCellStyle(utils.Style7(workbook));
 				if(handover.getId() >10){
 					createCell2.setCellValue("编号:"+handover.getId());
 				}else{
@@ -51,10 +60,16 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				//第二行数据内容
 				HSSFRow row3 = sh.createRow(3);
+				
 				HSSFCell createCell3 = row3.createCell(0);
+				createCell3.setCellStyle(utils.Style6(workbook));
 				createCell3.setCellValue("检验项目");
 				
 				HSSFCell create = row3.createCell(1);
+				Region region3 = new Region(3, (short) 1, 3, (short) 7);
+				utils.setRegionStyle(sh, region3, utils.Style6(workbook));
+				sh.addMergedRegion(region3);
+//				create.setCellStyle(utils.Style6(workbook));
 				String[] split = handover.getCheckeds().split(",");
 				String checked ="";
 				for (int i = 0; i < split.length; i++) {
@@ -88,8 +103,10 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				for (int j = 0; j < number; j++) {
 						HSSFRow row5 = sh.createRow(5+j);
 						HSSFCell createCell5 = row5.createCell(0);
+						createCell5.setCellStyle(utils.Style6(workbook));
 						createCell5.setCellValue(1+(j)*4); //序号
 						HSSFCell createCell6 = row5.createCell(1);
+						createCell6.setCellStyle(utils.Style6(workbook));
 						if(1+(j)*4-1 < sampleNums.length){
 							createCell6.setCellValue("监"+sampleNums[1+(j)*4-1]);  //编号
 						}else{
@@ -97,8 +114,10 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 						}
 						
 			    		HSSFCell createCell7 = row5.createCell(2);
+			    		createCell7.setCellStyle(utils.Style6(workbook));
 						createCell7.setCellValue(2+(j)*4); //序号
 						HSSFCell createCell8 = row5.createCell(3);
+						createCell8.setCellStyle(utils.Style6(workbook));
 						if(2+(j)*4-1 < sampleNums.length){
 							createCell8.setCellValue("监"+sampleNums[2+(j)*4-1]);  //编号
 						}else{
@@ -106,8 +125,10 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 						}
 						
 						HSSFCell createCell9 = row5.createCell(4);
+						createCell9.setCellStyle(utils.Style6(workbook));
 						createCell9.setCellValue(3+(j)*4); //序号
 						HSSFCell createCell10 = row5.createCell(5);
+						createCell10.setCellStyle(utils.Style6(workbook));
 						if(3+(j)*4-1 < sampleNums.length){
 							createCell10.setCellValue("监"+sampleNums[3+(j)*4-1]);  //编号
 						}else{
@@ -115,8 +136,10 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 						}
 						
 						HSSFCell createCell11 = row5.createCell(6);
+						createCell11.setCellStyle(utils.Style6(workbook));
 						createCell11.setCellValue(4+(j)*4); //序号
 						HSSFCell createCell12 = row5.createCell(7);
+						createCell12.setCellStyle(utils.Style6(workbook));
 						if(4+(j)*4-1 < sampleNums.length){
 							createCell12.setCellValue("监"+sampleNums[4+(j)*4-1]);  //编号
 						}else{
@@ -128,42 +151,58 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				Region region = new Region(5+number, (short) 5, 5+number, (short) 7);
 				
 				HSSFCell createCell4 = rowCell.createCell(0);
+				createCell4.setCellStyle(utils.Style6(workbook));
 				createCell4.setCellValue("领取人");
 				
 				HSSFCell createCell5 = rowCell.createCell(1);
+				createCell5.setCellStyle(utils.Style6(workbook));
 				createCell5.setCellValue("");
 				
 				HSSFCell createCell6 = rowCell.createCell(2);
+				createCell6.setCellStyle(utils.Style6(workbook));
 				createCell6.setCellValue("归还人");
 				
 				HSSFCell createCell7 = rowCell.createCell(3);
+				createCell7.setCellStyle(utils.Style6(workbook));
 				createCell7.setCellValue("");
 				
 				HSSFCell createCell8 = rowCell.createCell(4);
+				createCell8.setCellStyle(utils.Style6(workbook));
 				createCell8.setCellValue("备注");
 				
 				HSSFCell createCell9 = rowCell.createCell(5);
+				utils.setRegionStyle(sh, region, utils.Style6(workbook));
+				sh.addMergedRegion(region);
+//				createCell9.setCellStyle(utils.Style6(workbook));
 				createCell9.setCellValue(handover.getRemark());
 				
 				
 				HSSFRow createRow = sh.createRow(6+number);
-				
 				Region regio = new Region(6+number, (short) 4, 6+number, (short) 7);
 				
 				HSSFCell createCell10 = createRow.createCell(0);
+				createCell10.setCellStyle(utils.Style6(workbook));
 				createCell10.setCellValue("领取日期");
 				
 				HSSFCell createCell11 = createRow.createCell(1);
+				createCell11.setCellStyle(utils.Style6(workbook));
 				createCell11.setCellValue("");
 				
 				HSSFCell createCell12 = createRow.createCell(2);
+				createCell12.setCellStyle(utils.Style6(workbook));
 				createCell12.setCellValue("归还日期");
 				
 				HSSFCell createCell13 = createRow.createCell(3);
+				createCell13.setCellStyle(utils.Style6(workbook));
 				createCell13.setCellValue("");
 				
 				HSSFCell createCell14 = createRow.createCell(4);
-				createCell14.setCellValue("样品管理员："+"时间：");
+//				createCell14.setCellStyle(utils.Style6(workbook));
+				utils.setRegionStyle(sh, regio, utils.Style6(workbook));
+				sh.addMergedRegion(regio);
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式
+				String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
+				createCell14.setCellValue("样品管理员："+handover.getSampleAdmin()+"     "+"时间："+date);
 				
 			
 				OutputStream output = response.getOutputStream();
