@@ -30,7 +30,6 @@ public class BuwanshanliDTO {
 	private String beizhu_1;                          //备注1
 	private String beizhu_2;                          //备注2
 	
-	private List<BuwanshanliDTO> list = new ArrayList<BuwanshanliDTO>();
 
 	public int getSampleNum() {
 		return sampleNum;
@@ -224,16 +223,5 @@ public class BuwanshanliDTO {
 		this.beizhu_2 = beizhu_2;
 	}
 
-	public List<BuwanshanliDTO> getList() {
-		return list;
-	}
-
-	public void setList(List<BuwanshanliDTO> list) {
-		this.list = list;
-	}
-	
-	
-	
-	
 
 }

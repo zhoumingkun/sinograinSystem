@@ -16,7 +16,6 @@ public class ZhifangsuanzhiDTO {
 	private String beizhu_1;                 //备注1
 	private String beizhu_2;                 //备注2
 	
-	private List<ZhifangsuanzhiDTO> list = new ArrayList<ZhifangsuanzhiDTO>();
 	
 	public int getSampleNum() {
 		return sampleNum;
@@ -78,13 +77,5 @@ public class ZhifangsuanzhiDTO {
 	public void setBeizhu_2(String beizhu_2) {
 		this.beizhu_2 = beizhu_2;
 	}
-	public List<ZhifangsuanzhiDTO> getList() {
-		return list;
-	}
-	public void setList(List<ZhifangsuanzhiDTO> list) {
-		this.list = list;
-	}
-	
-	
 
 }
