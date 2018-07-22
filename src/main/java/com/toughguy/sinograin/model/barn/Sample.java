@@ -11,6 +11,10 @@ import com.toughguy.sinograin.util.JsonUtil;
  * 扦样实体类
  * 
  */
+/**
+ * @author BOBO
+ *
+ */
 public class Sample extends AbstractModel{
 
 	private static final long serialVersionUID = -3867394433717405144L;
@@ -33,7 +37,6 @@ public class Sample extends AbstractModel{
 	private int pId;          	//扦样登记表id
 	private Date storageTime;	//入库时间（样品室）
 	private Date barnTime;		//入仓时间（粮仓）
-	private String checkeds;	//检测项
 	private Date barnTimes;		//入仓时间（粮仓 页面）
 	private int placeId;        //存放位置id
 	private String dispose;     //处理人
@@ -41,7 +44,9 @@ public class Sample extends AbstractModel{
 	private int detectionState;    //检测状态    1，未检测   2，检测
 	private int otherState;        //判断是否是扦样来的样品      -1，扦样样品      1，非扦样样品
 	private int temporaryLibraryId; //临时样品记录该样品属于的库点
+	private int taskId; //任务id
 	
+	private String checkeds;	//检测项
 	private String ids;         //id集
 	private String formName;	//扦样登记表名（页面展示）
 	private String libraryName;	//被查库名（页面展示）
@@ -317,7 +322,12 @@ public class Sample extends AbstractModel{
 		this.ids = ids;
 	}
 	
-	
+	public int getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(int taskId) {
+		this.taskId = taskId;
+	}
 	public int getOtherState() {
 		return otherState;
 	}
@@ -344,6 +354,7 @@ public class Sample extends AbstractModel{
 	public void setDateEnd(Date dateEnd) {
 		this.dateEnd = dateEnd;
 	}
+	
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

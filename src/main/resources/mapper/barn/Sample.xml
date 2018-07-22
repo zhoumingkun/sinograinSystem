@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_sample (guid, createTime,updateTime,sampleNo,position,sort,originPlace,quality,amount,remark,sampleState,
-		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,checkeds,placeId) 
+		autograph,gainTime,pId,sampleTime,sampleNum,samplePic,sampleWord,storageTime,barnTime,sampleNumPic,placeId) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleNo},#{position},#{sort},#{originPlace},#{quality},#{amount},#{remark},#{sampleState},
-		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{checkeds},#{placeId})
+		#{autograph},#{gainTime},#{pId},#{sampleTime},#{sampleNum},#{samplePic},#{sampleWord},#{storageTime},#{barnTime},#{sampleNumPic},#{placeId})
 	</insert>
 	
 	<!--移动端入库  -->
@@ -51,73 +51,73 @@
 	</select>
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
-		select s.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,
-		pbl.libraryName pLibraryName,bw.depot,bwc.counter,bwcp.place from barn_sample s 
-		left join barn_register r on s.pId = r.id 
+		select bs.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,
+		pbl.libraryName pLibraryName,bw.depot,bwc.counter,bwcp.place from barn_sample bs 
+		left join barn_register r on bs.pId = r.id 
 		left join barn_library l on r.libraryId = l.id
 		left join barn_library pbl on l.pLibraryId = pbl.id
-		LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
-		where s.id = #{id}
+		where bs.id = #{id}
 	</select>
 	
 	<!-- 查询全部样品 -->
 	<select id="findAll" resultType="Sample" parameterType="Map">
-		select s.*,r.formName,l.libraryName from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
+		select bs.*,r.formName,l.libraryName from barn_sample bs left join barn_register r on bs.pId = r.id left join barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
 		ORDER BY sampleNo, createTime desc 
 	</select>
 	
 	<!-- 查询全部样品(非正常扦样导出) -->
 	<select id="findAllExport" resultType="Sample" parameterType="Map">
-		select s.*,r.formName,l.libraryName from barn_sample s left join barn_register r on s.pId = r.id left join barn_library l on r.libraryId = l.id
+		select bs.*,r.formName,l.libraryName from barn_sample bs left join barn_register r on bs.pId = r.id left join barn_library l on r.libraryId = l.id
 		<include refid="paramsSQL"/>
 		ORDER BY  barnTime desc 
 	</select>
 	
 	<!-- 分页查询扦样 -->
 	<select id="findPaginated" resultType="Sample" parameterType="Map">
-		SELECT s.*, r.formName, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
+		SELECT bs.*, r.formName, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
 		 m.id mId, sr.id srId, pbl.libraryName pLibraryName, bwcp.place, bwc.counter, 
-		 bw.depot FROM barn_sample s LEFT JOIN barn_register r ON s.pId = r.id 
+		 bw.depot FROM barn_sample bs LEFT JOIN barn_register r ON bs.pId = r.id 
 		 LEFT JOIN barn_library l ON r.libraryId = l.id 
 		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
-		 LEFT JOIN barn_manuscript m ON m.sampleId = s.id 
-		 LEFT JOIN barn_safety_report sr ON sr.sampleId = s.id 
-		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		 LEFT JOIN barn_manuscript m ON m.sampleId = bs.id 
+		 LEFT JOIN barn_safety_report sr ON sr.sampleId = bs.id 
+		 LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
-		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
+		group by bs.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
 	<!-- 分页查询临时扦样 -->
 	<select id="findTemporaryPaginated" resultType="Sample" parameterType="Map">
-		SELECT s.*, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
+		SELECT bs.*, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
 		 pbl.libraryName pLibraryName, bwcp.place, bwc.counter, 
-		 bw.depot FROM barn_sample s 
-		 LEFT JOIN barn_library l ON s.temporaryLibraryId = l.id 
+		 bw.depot FROM barn_sample bs 
+		 LEFT JOIN barn_library l ON bs.temporaryLibraryId = l.id 
 		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
-		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		 LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
-		group by s.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
+		group by bs.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(distinct s.id) from barn_sample s 
-		left join barn_register r on s.pId = r.id 
+		select count(distinct bs.id) from barn_sample bs 
+		left join barn_register r on bs.pId = r.id 
 		left join barn_library l on r.libraryId = l.id 
 		LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
-		left join barn_manuscript m on m.sampleId = s.id left join barn_safety_report sr on sr.sampleId = s.id 
+		left join barn_manuscript m on m.sampleId = bs.id left join barn_safety_report sr on sr.sampleId = bs.id 
 		<include refid="paramsSQL"/>
 	</select>
 	<select id="getTemporaryTotalOfItems" parameterType="Map" resultType="int">
-		select count(distinct s.id) FROM barn_sample s 
-		 LEFT JOIN barn_library l ON s.temporaryLibraryId = l.id 
+		select count(distinct bs.id) FROM barn_sample bs 
+		 LEFT JOIN barn_library l ON bs.temporaryLibraryId = l.id 
 		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
-		 LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		 LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
@@ -125,8 +125,8 @@
 	
 	<!-- 分页查询扦样（移动端） -->
 	<select id="findPaginatedMobile" resultType="Sample" parameterType="Map">
-		SELECT s.*,r.formName formName,l.libraryName libraryName,l.pLibraryId pLibraryId,pbl.libraryName pLibraryName FROM barn_sample s
-			LEFT JOIN barn_register r ON s.pId = r.id
+		SELECT bs.*,r.formName formName,l.libraryName libraryName,l.pLibraryId pLibraryId,pbl.libraryName pLibraryName FROM barn_sample bs
+			LEFT JOIN barn_register r ON bs.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
 			LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id
 		<include refid="paramsSQLMobile"/>
@@ -134,8 +134,8 @@
 	</select>
 	<!-- 分页查询扦样z总数（移动端） -->
 	<select id="getTotalOfItemsMobile" parameterType="Map" resultType="int">
-		SELECT count(*) FROM barn_sample s
-			LEFT JOIN barn_register r ON s.pId = r.id
+		SELECT count(*) FROM barn_sample bs
+			LEFT JOIN barn_register r ON bs.pId = r.id
 			LEFT JOIN barn_library l ON l.id = r.libraryId
 			LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id
 		<include refid="paramsSQLMobile"/>
@@ -162,11 +162,11 @@
 			<if test="sampleNum != null and sampleNum != ''">sampleNum = #{sampleNum},</if>
 			<if test="sampleWord != null and sampleWord != ''">sampleWord = #{sampleWord},</if>
 			<if test="samplePic != null and samplePic != ''">samplePic = #{samplePic},</if>
-			<if test="checkeds != null">checkeds = #{checkeds},</if>
 			<if test="sampleNumPic != null and sampleNumPic != ''">sampleNumPic = #{sampleNumPic},</if>
 			<if test="placeId != null and placeId != ''">placeId = #{placeId},</if>
 			<if test="detectionState != null and detectionState != ''">detectionState = #{detectionState},</if>
 			<if test="otherState != null and otherState != ''">otherState = #{otherState},</if>
+			<if test="taskId != null and taskId != ''">taskId = #{taskId},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -209,15 +209,20 @@
 	</select>
 	<!--根据样品柜id查询柜中所有样品集 -->
 	<select id="findByCounterId" parameterType="Map" resultType="Sample">
-		SELECT s.*, bwcp.place, bwc.counter, bw.depot, bl.libraryName, 
-		pbl.libraryName pLibraryName FROM barn_sample s 
-		LEFT JOIN barn_warehouse_counter_place bwcp ON s.placeId = bwcp.id 
+		SELECT bs.*, bwcp.place, bwc.counter, bw.depot, bl.libraryName, 
+		pbl.libraryName pLibraryName FROM barn_sample bs 
+		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id 
-		LEFT JOIN barn_register br ON s.pId = br.id 
+		LEFT JOIN barn_register br ON bs.pId = br.id 
 		LEFT JOIN barn_library bl ON br.libraryId = bl.id 
 		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.id
 		<include refid="paramsSQL"/>
+	</select>
+	<!--根据任务id所有样品集（其中包括检验项目） -->
+	<select id="findByTaskId" parameterType="int" resultType="Sample">
+		select bs.*,bh.checkeds from barn_sample bs LEFT JOIN barn_handover bh ON bh.sampleIds = bs.id 
+		where bs.taskId = #{taskId}
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
@@ -298,10 +303,10 @@
 				and amount like concat(concat('%', #{amountLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" remark != null and remark != '' ">
-				and s.remark = #{remark}
+				and bs.remark = #{remark}
 			</if>
 			<if test=" remarkLike != null and remarkLike != '' ">
-				and s.remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
+				and bs.remark like concat(concat('%', #{remarkLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" sampleState != null and sampleState != '' ">
 				and sampleState = #{sampleState}
@@ -365,6 +370,9 @@
 			<if test=" counterId != null and counterId != '' ">
 				and bwc.id = #{counterId}
 			</if>
+			<if test=" taskId != null and taskId != '' ">
+				and bs.taskId = #{taskId}
+			</if>
 		</where>
 	</sql>
 	
@@ -425,10 +433,10 @@
 				and sampleNum = #{sampleNum}
 			</if>
 			<if test=" pId != null and pId != '' ">
-				and s.pId = #{pId}
+				and bs.pId = #{pId}
 			</if>
 			<if test="sampleState != null and sampleState != '' ">
-				and s.sampleState = #{sampleState}
+				and bs.sampleState = #{sampleState}
 			</if>
 			<if test="regState != null and regState != '' ">
 				and r.regState = #{regState}

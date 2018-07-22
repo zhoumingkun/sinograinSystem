@@ -1517,5 +1517,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		return ((ISampleDao)dao).findAllExport(map);
 	}
 
+	@Override
+	public List<Sample> findByTaskId(int taskId) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findByTaskId(taskId);
+	}
+
 	
 }

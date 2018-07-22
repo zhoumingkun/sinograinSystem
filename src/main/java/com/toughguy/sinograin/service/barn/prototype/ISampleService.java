@@ -101,4 +101,9 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 临时扦样列表（导出按brainTime）
 	 */
 	public List<Sample> findAllExport(Map<String, Object> map);
+	
+	/**
+	 * 根据任务id所有样品集（其中包括检验项目）
+	 */
+	public List<Sample> findByTaskId(int taskId);
 }

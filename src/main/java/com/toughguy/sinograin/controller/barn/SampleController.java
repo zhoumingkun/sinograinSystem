@@ -828,4 +828,37 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+	
+	/**
+	 * 将样品放入任务中
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/putIntoTask")
+	public String putIntoTask(Sample sample) {
+		System.out.println(sample.getIds());
+		System.out.println(sample.getTaskId());
+		try {
+			String str_ids = sample.getIds();
+			String[] idss = str_ids.split(",");
+			int[] int_ids = new int[idss.length];
+			for(int i=0;i<idss.length;i++) {
+				int_ids[i] = Integer.parseInt(idss[i]);
+				Sample s = sampleService.find(int_ids[i]);
+				s.setTaskId(sample.getTaskId());
+				sampleService.update(s);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getByTaskId")
+	public List<Sample> getByTaskId(int taskId) {
+		return sampleService.findByTaskId(taskId);
+	}
 }
