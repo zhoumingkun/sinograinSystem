@@ -5,24 +5,14 @@ import java.util.List;
 
 public class ZhifangsuanzhiDTO {
 	
-	private int sampleNum;                   //样品编号
 	private String shiyangzhiliang;          //试样质量（g）
 	private String shiyangshuifen;           //试样水分（%）
 	private String koh_rongyeyongliang_1;    //KOH溶液用量（ml）
 	private String koh_rongyenongdu;         //KOH溶液浓度（mol/L）
 	private String kongbai;                  //空白（ml）
 	private String zhifangsuanzhi;           //脂肪酸值
-	private String pingjunzhi;               //平均值
-	private String beizhu_1;                 //备注1
-	private String beizhu_2;                 //备注2
 	
 	
-	public int getSampleNum() {
-		return sampleNum;
-	}
-	public void setSampleNum(int sampleNum) {
-		this.sampleNum = sampleNum;
-	}
 	public String getShiyangzhiliang() {
 		return shiyangzhiliang;
 	}
@@ -59,23 +49,4 @@ public class ZhifangsuanzhiDTO {
 	public void setZhifangsuanzhi(String zhifangsuanzhi) {
 		this.zhifangsuanzhi = zhifangsuanzhi;
 	}
-	public String getPingjunzhi() {
-		return pingjunzhi;
-	}
-	public void setPingjunzhi(String pingjunzhi) {
-		this.pingjunzhi = pingjunzhi;
-	}
-	public String getBeizhu_1() {
-		return beizhu_1;
-	}
-	public void setBeizhu_1(String beizhu_1) {
-		this.beizhu_1 = beizhu_1;
-	}
-	public String getBeizhu_2() {
-		return beizhu_2;
-	}
-	public void setBeizhu_2(String beizhu_2) {
-		this.beizhu_2 = beizhu_2;
-	}
-
 }
