@@ -97,7 +97,16 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 						checked += "重金属(铅、镉、汞、砷),";
 					}
 				}
-				create.setCellValue(checked.substring(0,checked.length()-1));
+				
+				String substring = checked.substring(0,checked.length()-1);
+				substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+				substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+				substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标)", "质量指标全项目");
+				substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+				substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+				substring = substring.replace("真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "食品卫生指标全项目");
+				
+				create.setCellValue(substring);
 				
 				//存储循环数据
 				String[] sampleNums = handover.getSampleNums().split(",");

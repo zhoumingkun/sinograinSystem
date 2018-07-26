@@ -30,7 +30,10 @@
 		select * from barn_handover
 		<include refid="paramsSQL"/>
 	</select>
-	
+	<!-- 根据检测编号查询  -->
+	<select id="findsampleNums" resultType="Handover" parameterType="String">
+		select * from barn_handover h WHERE h.sampleNums like concat(concat('%', #{sampleNums, jdbcType=VARCHAR}),'%')
+	</select>
 	<!-- 分页查询交接单  -->
 	<select id="findPaginated" resultType="Handover" parameterType="Map">
 		select * from barn_handover 

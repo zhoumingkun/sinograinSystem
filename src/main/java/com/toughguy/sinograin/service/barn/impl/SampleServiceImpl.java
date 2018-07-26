@@ -19,11 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
+import com.toughguy.sinograin.model.barn.Handover;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
+import com.toughguy.sinograin.persist.barn.prototype.IHandoverDao;
 import com.toughguy.sinograin.persist.barn.prototype.ISampleDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
@@ -43,6 +45,9 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	
 	@Autowired
 	ISampleDao  sampleDao;
+	
+	@Autowired
+	IHandoverDao  handoverDao;
 	
 	@Autowired
 	ICornExaminingReportDao icornExaminingReportDao;
@@ -1399,7 +1404,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					createCell1.setCellStyle(utils.StyleSamplePlace(workbook));
 					createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
 					
-					String checkeds = sampleReport.get(i).getCheckeds();
+					String sampleNum = sampleReport.get(i).getSampleNum();
+				    Handover handover = handoverDao.findsampleNums(sampleNum);
+				    String checkeds = handover.getCheckeds();
+				    System.out.println(checkeds);
 					String str ="";
 					if(checkeds == null){
 						HSSFCell createCell2 = row.createCell(2);
@@ -1454,10 +1462,22 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							}else if("11".equals(checked[j])){
 								str += "重金属(铅、镉、汞、砷),";
 							}
+							
 						}
+						
+						String substring = str.substring(0,str.length()-1);
+						substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+						substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+						substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标)", "质量指标全项目");
+						substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+						substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+						substring = substring.replace("真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "食品卫生指标全项目");
+						
+						
 						HSSFCell createCell2 = row.createCell(2);
 						createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
-						createCell2.setCellValue(str.substring(0,str.length()-1));//检验项目
+						createCell2.setCellValue(substring);//检验项目
+						
 					}
 					
 					HSSFCell createCell3 = row.createCell(3);
