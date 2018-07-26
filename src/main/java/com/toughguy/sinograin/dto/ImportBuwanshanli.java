@@ -2,6 +2,11 @@ package com.toughguy.sinograin.dto;
 
 import java.util.List;
 
+/**
+ * 导入不完善粒
+ * @author Administrator
+ *
+ */
 public class ImportBuwanshanli {
 	
 	private String sampleNum;         //样品编号

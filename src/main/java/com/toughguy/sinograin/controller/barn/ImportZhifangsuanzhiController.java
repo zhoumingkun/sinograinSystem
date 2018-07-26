@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +23,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.toughguy.sinograin.dto.BuwanshanliDTO;
 import com.toughguy.sinograin.dto.ImportBuwanshanli;
+import com.toughguy.sinograin.dto.ImportMianjinxishui;
+import com.toughguy.sinograin.dto.ImportShuifen;
 import com.toughguy.sinograin.dto.ImportZhifangsuanzhi;
 import com.toughguy.sinograin.dto.ZhifangsuanzhiDTO;
-import com.toughguy.sinograin.util.ImportExcelUtil;
 import com.toughguy.sinograin.util.ImportUtil;
 
 @Controller
@@ -210,5 +212,79 @@ public class ImportZhifangsuanzhiController {
             e.printStackTrace();
            return null;
         }
-    }		
+    }	
+    
+    
+    /**
+     * 导入面筋吸水
+     * @param muiltRequest
+     * @param req
+     * @return List<ImportMianjinxishui>
+     */
+    @ResponseBody
+	@RequestMapping(value = "/importExcelMJXS", method = RequestMethod.POST)
+    public List<ImportMianjinxishui> importMianjinxishui(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
+    	try {
+	    	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
+			// 中的name="file"，而不是真正的文件名）
+			MultipartFile file = muiltRequest.getFile(fileName); // 得到该文件	
+			
+			//读取Excel文件
+			Workbook wb;
+				wb = util.read(file);
+			
+	        Sheet sheet = wb.getSheetAt(0);    //获得第一个表单  
+	        
+	        //System.out.println("总行数:"+sheet.getLastRowNum());
+	        
+	        List<CellRangeAddress> cras = util.getCombineCell(sheet);
+	        //isMergedRegion(Sheet sheet,int row ,int column);判断是不是合并单元格\
+	        int count = sheet.getLastRowNum()+1;//总行数
+	    	
+	        List<ImportMianjinxishui> irs = new ArrayList<>();
+	        
+	        return null;
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    		return null;
+    	}
+    }
+    
+    
+    /**
+     * 导入水分
+     * @param muiltRequest
+     * @param req
+     * @return List<ImportShuifen>
+     */
+    @ResponseBody
+	@RequestMapping(value = "/importExcelSF", method = RequestMethod.POST)
+    public List<ImportShuifen> importShuifen(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
+    	try {
+	    	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
+			// 中的name="file"，而不是真正的文件名）
+			MultipartFile file = muiltRequest.getFile(fileName); // 得到该文件	
+			
+			//读取Excel文件
+			Workbook wb;
+				wb = util.read(file);
+			
+	        Sheet sheet = wb.getSheetAt(0);    //获得第一个表单  
+	        
+	        //System.out.println("总行数:"+sheet.getLastRowNum());
+	        
+	        List<CellRangeAddress> cras = util.getCombineCell(sheet);
+	        //isMergedRegion(Sheet sheet,int row ,int column);判断是不是合并单元格\
+	        int count = sheet.getLastRowNum()+1;//总行数
+	    	
+	        List<ImportShuifen> irs = new ArrayList<>();
+	        
+	        return null;
+    	} catch (IOException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    		return null;
+    	}
+    }
 }
