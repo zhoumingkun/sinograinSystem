@@ -80,7 +80,7 @@
 	<select id="findPaginated" resultType="Sample" parameterType="Map">
 		SELECT bs.*, r.formName, l.id libraryId, l.libraryName, l.pLibraryId pLibraryId,
 		 m.id mId, sr.id srId, pbl.libraryName pLibraryName, bwcp.place, bwc.counter, 
-		 bw.depot FROM barn_sample bs LEFT JOIN barn_register r ON bs.pId = r.id 
+		 bw.depot, bh.checkeds FROM barn_sample bs LEFT JOIN barn_register r ON bs.pId = r.id 
 		 LEFT JOIN barn_library l ON r.libraryId = l.id 
 		 LEFT JOIN barn_library pbl ON l.pLibraryId = pbl.id 
 		 LEFT JOIN barn_manuscript m ON m.sampleId = bs.id 
@@ -88,6 +88,7 @@
 		 LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		 LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
+		 LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
 		<include refid="paramsSQL"/>
 		group by bs.id ORDER BY sampleNo,createTime desc  limit #{offset}, #{limit}
 	</select>
