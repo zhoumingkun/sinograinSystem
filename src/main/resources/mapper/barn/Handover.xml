@@ -38,7 +38,6 @@
 	<select id="findSampleByCheckPoint" resultType="Sample" parameterType="int">
 		select distinct bs.* from barn_handover bh LEFT JOIN barn_sample bs ON bh.sampleIds = bs.id where FIND_IN_SET(#{checkPoint},bh.checkeds) 
 	</select>
-	
 	<!-- 分页查询交接单  -->
 	<select id="findPaginated" resultType="Handover" parameterType="Map">
 		select * from barn_handover 
