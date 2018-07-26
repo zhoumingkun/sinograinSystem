@@ -85,7 +85,7 @@
 				and regState like concat(concat('%', #{regStateLike, jdbcType=VARCHAR}),'%')
 			</if>
 			<if test=" libraryId != null and libraryId != '' ">
-				and libraryId = #{libraryId}
+				and bl.id = #{libraryId}
 			</if>
 			<if test=" pLibraryId != null and pLibraryId != '' ">
 				and bl.pLibraryId = #{pLibraryId}

@@ -188,5 +188,11 @@ public class HandoverController {
 			return "{ \"success\" : false}";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/getSampleByCheckPoint")
+	public List<Sample> getSampleByCheckPoint(int checkPoint){
+		return handoverService.findSampleByCheckPoint(checkPoint);
+			
+	}
 	
 }

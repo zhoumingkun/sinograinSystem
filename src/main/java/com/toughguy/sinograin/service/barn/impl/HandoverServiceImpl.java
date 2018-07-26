@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +17,8 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.Handover;
+import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.persist.barn.prototype.IHandoverDao;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
@@ -74,26 +77,39 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				String checked ="";
 				for (int i = 0; i < split.length; i++) {
 					if("1".equals(split[i])){
-						checked += "不完善粒,";
+						checked += "容重,";
 					}else if("2".equals(split[i])){
-						checked += "杂质,";
-					}else if("3".equals(split[i])){
-						checked += "生霉粒,";
-					}else if("4".equals(split[i])){
 						checked += "水分,";
+					}else if("3".equals(split[i])){
+						checked += "杂质(矿物质),";
+					}else if("4".equals(split[i])){
+						checked += "不完善粒(生霉粒),";
 					}else if("5".equals(split[i])){
-						checked += "硬度,";
+						checked += "色泽气味(质量指标),";
 					}else if("6".equals(split[i])){
-						checked += "脂肪酸酯(面筋吸水量),";
+						checked += "面筋吸水量,";
 					}else if("7".equals(split[i])){
-						checked += "品尝评分,";
+						checked += "脂肪酸值,";
 					}else if("8".equals(split[i])){
-						checked += "卫生,";
+						checked += "品尝评分值,";
 					}else if("9".equals(split[i])){
-						checked += "加工品质,";
+						checked += "色泽气味(储存品质指标),";
+					}else if("10".equals(split[i])){
+						checked += "真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),";
+					}else if("11".equals(split[i])){
+						checked += "重金属(铅、镉、汞、砷),";
 					}
 				}
-				create.setCellValue(checked.substring(0,checked.length()-1));
+				
+				String substring = checked.substring(0,checked.length()-1);
+				substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+				substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+				substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标)", "质量指标全项目");
+				substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+				substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+				substring = substring.replace("真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "食品卫生指标全项目");
+				
+				create.setCellValue(substring);
 				
 				//存储循环数据
 				String[] sampleNums = handover.getSampleNums().split(",");
@@ -220,6 +236,12 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				// TODO: handle exception
 				e.printStackTrace();
 			}
+	}
+
+	@Override
+	public List<Sample> findSampleByCheckPoint(int checkPoint) {
+		// TODO Auto-generated method stub
+		return ((IHandoverDao)dao).findSampleByCheckPoint(checkPoint);
 	}
 	
 }
