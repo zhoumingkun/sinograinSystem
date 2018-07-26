@@ -28,8 +28,8 @@ import com.toughguy.sinograin.util.ImportUtil;
 @RequestMapping("/import")
 public class ImportZhifangsuanzhiController {
 
-    @Autowired
-    ImportUtil util;
+//    @Autowired
+//    ImportUtil util;
     
 //    private static int totalRows = 0;// 总行数
 //    private static int totalCells = 0;// 总列数
@@ -126,6 +126,7 @@ public class ImportZhifangsuanzhiController {
 	public List<ImportZhifangsuanzhi> importZhifangsuanzhi(MultipartHttpServletRequest muiltRequest, HttpServletRequest req) {
 		int rowIndex = 0;    	//行数
     	int columnIndex = 0; 	//列数
+    	ImportUtil util = new ImportUtil();
         try {
         	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
 			// 中的name="file"，而不是真正的文件名）
