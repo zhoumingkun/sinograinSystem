@@ -41,15 +41,15 @@ public class ImportUtil {
         throws IOException
     {
         
-        String fileName = file.getName();
-        String type = fileName.substring(fileName.lastIndexOf(".")+1);
+//        String fileName = file.getName();
+//        String type = fileName.substring(fileName.lastIndexOf(".")+1);
         InputStream inputStream = file.getInputStream();
-        if ("xls".equals(type))
-        {
+//        if ("xls".equals(type))
+//        {
             wb = new HSSFWorkbook(inputStream);
-        }else{
-        	wb = new XSSFWorkbook(inputStream);
-        }
+//        }else{
+//        	wb = new XSSFWorkbook(inputStream);
+//        }
         
         return wb;
     }
