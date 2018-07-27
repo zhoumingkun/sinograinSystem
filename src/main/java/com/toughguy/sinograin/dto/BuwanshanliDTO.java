@@ -13,6 +13,8 @@ public class BuwanshanliDTO {
 	private String xiaozazhiliang;                    //小杂质量（g）
 	private String xiaoza_cedingzhi;                  //小杂%测定值
 	private String zazhizongliang_cedingzhi;          //杂质总量%测定值
+	private String yizhongliang;                      //异种粮（g）
+	private String yizhongliang_cedingzhi;             //异种粮（g）测定值
 	private String buwanshanli;                       //不完善粒（g）
 	private String buwanshanli_cedingzhi;             //不完善粒%测定值
 	private String shengmeili;                        //生霉粒(g)
@@ -20,6 +22,18 @@ public class BuwanshanliDTO {
 	private String rongzhong_cedingzhi;               //容重测定值
 	public String getShiyanghao() {
 		return shiyanghao;
+	}
+	public String getYizhongliang() {
+		return yizhongliang;
+	}
+	public void setYizhongliang(String yizhongliang) {
+		this.yizhongliang = yizhongliang;
+	}
+	public String getYizhongliang_cedingzhi() {
+		return yizhongliang_cedingzhi;
+	}
+	public void setYizhongliang_cedingzhi(String yizhongliang_cedingzhi) {
+		this.yizhongliang_cedingzhi = yizhongliang_cedingzhi;
 	}
 	public void setShiyanghao(String shiyanghao) {
 		this.shiyanghao = shiyanghao;

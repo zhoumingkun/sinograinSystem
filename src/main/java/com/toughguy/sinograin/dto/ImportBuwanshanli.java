@@ -13,9 +13,16 @@ public class ImportBuwanshanli {
 	private String daza_pingjunzhi;                   //大杂%平均值
 	private String xiaoza_pingjunzhi;                 //小杂%平均值
 	private String zazhizongliang__pingjunzhi;        //杂质总量%平均值
+	private String yizhongliang_pingjunzhi;            //异种粮（g）平均值
 	private String buwanshanli_pingjunzhi;            //不完善粒%平均值
 	private String shengmeili_pingjunzhi;             //生霉粒(g)平均值
 	private String seze_qiwei;                        //色泽、气味
+	public String getYizhongliang_pingjunzhi() {
+		return yizhongliang_pingjunzhi;
+	}
+	public void setYizhongliang_pingjunzhi(String yizhongliang_pingjunzhi) {
+		this.yizhongliang_pingjunzhi = yizhongliang_pingjunzhi;
+	}
 	private String rongzhong_pingjunzhi;              //容重平均值
 	private String jianceren;                         //检测人
 	private String beizhu_1;                          //备注1

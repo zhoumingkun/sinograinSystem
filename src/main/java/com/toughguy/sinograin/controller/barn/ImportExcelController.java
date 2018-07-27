@@ -31,7 +31,7 @@ import com.toughguy.sinograin.util.ImportUtil;
 
 @Controller
 @RequestMapping("/import")
-public class ImportZhifangsuanzhiController {
+public class ImportExcelController {
 
     
 	 private static int rowIndex = 0;    	//行数
@@ -140,7 +140,7 @@ public class ImportZhifangsuanzhiController {
             int count = sheet.getLastRowNum()+1;//总行数
            
             List<ImportBuwanshanli> irs = new ArrayList<>();
-            for(int i = 2; i < count;i++){
+            for(int i = 3; i < count;i++){
             	rowIndex = i;
             	Row row = sheet.getRow(i);
             	ImportBuwanshanli ir = new ImportBuwanshanli();
@@ -148,13 +148,14 @@ public class ImportZhifangsuanzhiController {
             	ir.setDaza_pingjunzhi(util.getCellValue(row.getCell(5)));
             	ir.setXiaoza_pingjunzhi(util.getCellValue(row.getCell(9)));
             	ir.setZazhizongliang__pingjunzhi(util.getCellValue(row.getCell(11)));
-            	ir.setBuwanshanli_pingjunzhi(util.getCellValue(row.getCell(14)));
-            	ir.setShengmeili_pingjunzhi(util.getCellValue(row.getCell(17)));
-            	ir.setSeze_qiwei(util.getCellValue(row.getCell(18)));
-            	ir.setRongzhong_pingjunzhi(util.getCellValue(row.getCell(20)));
-            	ir.setJianceren(util.getCellValue(row.getCell(21)));
-            	ir.setBeizhu_1(util.getCellValue(row.getCell(22)));
-            	ir.setBeizhu_2(util.getCellValue(row.getCell(23)));
+            	ir.setYizhongliang_pingjunzhi(util.getCellValue(row.getCell(14)));
+            	ir.setBuwanshanli_pingjunzhi(util.getCellValue(row.getCell(17)));
+            	ir.setShengmeili_pingjunzhi(util.getCellValue(row.getCell(20)));
+            	ir.setSeze_qiwei(util.getCellValue(row.getCell(21)));
+            	ir.setRongzhong_pingjunzhi(util.getCellValue(row.getCell(23)));
+            	ir.setJianceren(util.getCellValue(row.getCell(24)));
+            	ir.setBeizhu_1(util.getCellValue(row.getCell(25)));
+            	ir.setBeizhu_2(util.getCellValue(row.getCell(26)));
             	
             	
             	List<BuwanshanliDTO> items = new ArrayList<>();
@@ -173,11 +174,13 @@ public class ImportZhifangsuanzhiController {
         				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
         				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));
         				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));
-        				item.setBuwanshanli(util.getCellValue(row.getCell(12)));
-        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(13)));
-        				item.setShengmeili(util.getCellValue(row.getCell(15)));
-        				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(16)));
-        				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(19)));
+        				item.setYizhongliang(util.getCellValue(row.getCell(12)));
+        				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(13)));
+        				item.setBuwanshanli(util.getCellValue(row.getCell(15)));
+        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(16)));
+        				item.setShengmeili(util.getCellValue(row.getCell(18)));
+        				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(19)));
+        				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
         				
         				items.add(item);
         			}
@@ -194,11 +197,13 @@ public class ImportZhifangsuanzhiController {
     				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
     				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));
     				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));
-    				item.setBuwanshanli(util.getCellValue(row.getCell(12)));
-    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(13)));
-    				item.setShengmeili(util.getCellValue(row.getCell(15)));
-    				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(16)));
-    				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(19)));
+    				item.setYizhongliang(util.getCellValue(row.getCell(12)));
+    				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(13)));
+    				item.setBuwanshanli(util.getCellValue(row.getCell(15)));
+    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(16)));
+    				item.setShengmeili(util.getCellValue(row.getCell(18)));
+    				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(19)));
+    				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
     				
     				items.add(item);
             	}
