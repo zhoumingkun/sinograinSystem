@@ -3,7 +3,7 @@ package com.toughguy.sinograin.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuwanshanliDTO {
+public class BuwanshanliYM_DTO {
 	
 	private String shiyanghao;                           //试样号
 	private String dayangzhiliang;                    //大样质量（g）

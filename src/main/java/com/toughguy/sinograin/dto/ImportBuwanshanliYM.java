@@ -3,31 +3,26 @@ package com.toughguy.sinograin.dto;
 import java.util.List;
 
 /**
- * 导入不完善粒
+ * 导入不完善粒(玉米)
  * @author Administrator
  *
  */
-public class ImportBuwanshanli {
+public class ImportBuwanshanliYM {
 	
 	private String sampleNum;         //样品编号
 	private String daza_pingjunzhi;                   //大杂%平均值
 	private String xiaoza_pingjunzhi;                 //小杂%平均值
-	private String zazhizongliang__pingjunzhi;        //杂质总量%平均值
+	private String zazhizongliang_pingjunzhi;        //杂质总量%平均值
 	private String yizhongliang_pingjunzhi;            //异种粮（g）平均值
 	private String buwanshanli_pingjunzhi;            //不完善粒%平均值
 	private String shengmeili_pingjunzhi;             //生霉粒(g)平均值
 	private String seze_qiwei;                        //色泽、气味
-	public String getYizhongliang_pingjunzhi() {
-		return yizhongliang_pingjunzhi;
-	}
-	public void setYizhongliang_pingjunzhi(String yizhongliang_pingjunzhi) {
-		this.yizhongliang_pingjunzhi = yizhongliang_pingjunzhi;
-	}
 	private String rongzhong_pingjunzhi;              //容重平均值
 	private String jianceren;                         //检测人
 	private String beizhu_1;                          //备注1
 	private String beizhu_2;                          //备注2
-	private List<BuwanshanliDTO> items;
+	private List<BuwanshanliYM_DTO> items;
+	
 	public String getSampleNum() {
 		return sampleNum;
 	}
@@ -46,11 +41,12 @@ public class ImportBuwanshanli {
 	public void setXiaoza_pingjunzhi(String xiaoza_pingjunzhi) {
 		this.xiaoza_pingjunzhi = xiaoza_pingjunzhi;
 	}
-	public String getZazhizongliang__pingjunzhi() {
-		return zazhizongliang__pingjunzhi;
+	
+	public String getZazhizongliang_pingjunzhi() {
+		return zazhizongliang_pingjunzhi;
 	}
-	public void setZazhizongliang__pingjunzhi(String zazhizongliang__pingjunzhi) {
-		this.zazhizongliang__pingjunzhi = zazhizongliang__pingjunzhi;
+	public void setZazhizongliang_pingjunzhi(String zazhizongliang_pingjunzhi) {
+		this.zazhizongliang_pingjunzhi = zazhizongliang_pingjunzhi;
 	}
 	public String getBuwanshanli_pingjunzhi() {
 		return buwanshanli_pingjunzhi;
@@ -94,11 +90,18 @@ public class ImportBuwanshanli {
 	public void setBeizhu_2(String beizhu_2) {
 		this.beizhu_2 = beizhu_2;
 	}
-	public List<BuwanshanliDTO> getItems() {
+	public List<BuwanshanliYM_DTO> getItems() {
 		return items;
 	}
-	public void setItems(List<BuwanshanliDTO> items) {
+	public void setItems(List<BuwanshanliYM_DTO> items) {
 		this.items = items;
 	}
+	public String getYizhongliang_pingjunzhi() {
+		return yizhongliang_pingjunzhi;
+	}
+	public void setYizhongliang_pingjunzhi(String yizhongliang_pingjunzhi) {
+		this.yizhongliang_pingjunzhi = yizhongliang_pingjunzhi;
+	}
+	
 	
 }

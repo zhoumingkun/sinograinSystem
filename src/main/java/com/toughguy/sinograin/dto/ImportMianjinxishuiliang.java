@@ -2,33 +2,31 @@ package com.toughguy.sinograin.dto;
 
 import java.util.List;
 
-public class ImportShuifen {
-	
+public class ImportMianjinxishuiliang {
     private String sampleNum;         //样品编号
-    
-	private List<ShuifenDTO> items;
 	
-	private String pingjunzhi;     //平均值
+	private List<MianjinxishuiliangDTO> items;
+	
+	private String pingjunzhi_ganmianjinzhiliang;     //平均值干面筋质量（g）
 	private String beizhu_1;       //备注1
 	private String beizhu_2;       //备注2
-	
 	public String getSampleNum() {
 		return sampleNum;
 	}
 	public void setSampleNum(String sampleNum) {
 		this.sampleNum = sampleNum;
 	}
-	public List<ShuifenDTO> getItems() {
+	public List<MianjinxishuiliangDTO> getItems() {
 		return items;
 	}
-	public void setItems(List<ShuifenDTO> items) {
+	public void setItems(List<MianjinxishuiliangDTO> items) {
 		this.items = items;
 	}
-	public String getPingjunzhi() {
-		return pingjunzhi;
+	public String getPingjunzhi_ganmianjinzhiliang() {
+		return pingjunzhi_ganmianjinzhiliang;
 	}
-	public void setPingjunzhi(String pingjunzhi) {
-		this.pingjunzhi = pingjunzhi;
+	public void setPingjunzhi_ganmianjinzhiliang(String pingjunzhi_ganmianjinzhiliang) {
+		this.pingjunzhi_ganmianjinzhiliang = pingjunzhi_ganmianjinzhiliang;
 	}
 	public String getBeizhu_1() {
 		return beizhu_1;
@@ -43,6 +41,6 @@ public class ImportShuifen {
 		this.beizhu_2 = beizhu_2;
 	}
 	
-
+	
 
 }
