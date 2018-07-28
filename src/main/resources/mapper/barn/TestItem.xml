@@ -4,7 +4,7 @@
 
 	<insert id="save" parameterType="TestItem" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_test_item (guid, createTime,updateTime,testItem,sampleId,result,principal) 
-		values (#{guid}, #{createTime},#{updateTime},#{testItem},#{sampleId}#{result},#{principal})
+		values (#{guid}, #{createTime},#{updateTime},#{testItem},#{sampleId},#{result},#{principal})
 	</insert>
 	
 	<!-- 删除某个检测数据 -->

@@ -66,7 +66,7 @@ public class TestItemController {
 			for(TestItem t:list) {
 				testItemService.save(t);
 			}
-			return "{ \"success\" : false }";
+			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
