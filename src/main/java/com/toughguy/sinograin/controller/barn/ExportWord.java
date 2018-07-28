@@ -19,6 +19,11 @@ import com.toughguy.sinograin.dto.XMPresentation;
 import com.toughguy.sinograin.dto.YMPresentation;
 import com.toughguy.sinograin.util.XwpfTUtil;
 
+/**
+ * 导出word 检验报告
+ * @author YAO
+ *
+ */
 @Controller
 @RequestMapping("/export")
 public class ExportWord {
@@ -105,7 +110,7 @@ public class ExportWord {
             OutputStream os = response.getOutputStream();  
        
             response.setContentType("application/vnd.ms-excel");  
-            response.setHeader("Content-disposition","attachment;filename=小麦检验报告.docx");  
+            response.setHeader("Content-disposition","attachment;filename="+new String( "小麦检验报告".getBytes("gb2312"), "ISO8859-1" )+".docx");  
       
             doc.write(os);  
       
@@ -192,7 +197,7 @@ public class ExportWord {
             OutputStream os = response.getOutputStream();  
       
             response.setContentType("application/vnd.ms-excel");  
-            response.setHeader("Content-disposition","attachment;filename=玉米检验报告.docx");  
+            response.setHeader("Content-disposition","attachment;filename="+new String( "玉米检验报告".getBytes("gb2312"), "ISO8859-1" )+".docx");  
       
             doc.write(os);  
       
