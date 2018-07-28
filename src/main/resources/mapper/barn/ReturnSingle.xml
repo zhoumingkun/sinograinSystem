@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.ReturnSingle">
+
+	<insert id="save" parameterType="ReturnSingle" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_return_single (guid, createTime,updateTime,returnPerson,sampleIds,returnSampleNumber) 
+		values (#{guid}, #{createTime},#{updateTime},#{returnPerson},#{sampleIds},#{returnSampleNumber})
+	</insert>
+	
+	<!-- 删除某个归还单 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_return_single where id = #{id}
+	</delete>
+	
+	<!-- 查询某个归还单  -->
+	<select id="find" parameterType="int" resultType="ReturnSingle">
+		select * from barn_return_single where id = #{id}
+	</select>
+	
+	<!-- 查询全部归还单  -->
+	<select id="findAll" resultType="ReturnSingle" parameterType="Map">
+		select * from barn_return_single
+		<include refid="paramsSQL"/>
+	</select>
+	<!-- 分页查询归还单  -->
+	<select id="findPaginated" resultType="ReturnSingle" parameterType="Map">
+		select * from barn_return_single 
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_return_single 
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条归还单  -->
+	<update id="update" parameterType="ReturnSingle">
+		update barn_return_single
+		<set>
+			<if test="returnPerson != null and returnPerson != ''">returnPerson = #{returnPerson},</if>
+			<if test="sampleIds != null and sampleIds != ''">sampleIds = #{sampleIds},</if>
+			<if test="returnState != null and returnState != ''">returnState = #{returnState},</if>
+			<if test="returnTime != null">returnTime = #{returnTime},</if>
+			<if test="returnSampleNumber != null and returnSampleNumber != ''">returnSampleNumber = #{returnSampleNumber},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>	
+		</set>
+		where id = #{id}
+	</update>
+	<!-- 修改某条归还单（包含sampleIds为空的情况）  -->
+	<update id="updateSampleIdsOfNull" parameterType="ReturnSingle">
+		update barn_return_single
+		<set>
+			<if test="returnPerson != null and returnPerson != ''">returnPerson = #{returnPerson},</if>
+			sampleIds = #{sampleIds},
+			<if test="returnState != null and returnState != ''">returnState = #{returnState},</if>
+			<if test="returnTime != null">returnTime = #{returnTime},</if>
+			<if test="returnSampleNumber != null and returnSampleNumber != ''">returnSampleNumber = #{returnSampleNumber},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" returnPerson != null and returnPerson != '' ">
+				and returnPerson = #{ returnPerson }
+			</if>
+			<if test=" id != null and id != '' ">
+				and id = #{ id }
+			</if>
+			<if test=" returnState != null and returnState != '' ">
+				and returnState = #{ returnState }
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

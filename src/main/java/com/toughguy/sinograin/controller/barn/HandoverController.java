@@ -106,24 +106,24 @@ public class HandoverController {
 		}
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/guiHuan")
-	public String guiHuan(Handover handover) {
-		try {
-			handover.setReturnTime(DateUtil.now());
-			handoverService.update(handover);
-			String[] sampleNums = handover.getSampleNums().split(",");
-			for(int i=0;i<sampleNums.length;i++) {
-				Sample s = sampleService.findBySampleNum(sampleNums[i]);
-				s.setDetectionState(2);
-				sampleService.update(s);
-			}
-			return "{ \"success\" : true}";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"success\" : false }";
-		}
-	}
+//	@ResponseBody
+//	@RequestMapping(value = "/guiHuan")
+//	public String guiHuan(Handover handover) {
+//		try {
+//			handover.setReturnTime(DateUtil.now());
+//			handoverService.update(handover);
+//			String[] sampleNums = handover.getSampleNums().split(",");
+//			for(int i=0;i<sampleNums.length;i++) {
+//				Sample s = sampleService.findBySampleNum(sampleNums[i]);
+//				s.setDetectionState(2);
+//				sampleService.update(s);
+//			}
+//			return "{ \"success\" : true}";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "{ \"success\" : false }";
+//		}
+//	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")
@@ -137,7 +137,6 @@ public class HandoverController {
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
 			PagerModel<Handover> pg = handoverService.findPaginated(map);
-			
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());

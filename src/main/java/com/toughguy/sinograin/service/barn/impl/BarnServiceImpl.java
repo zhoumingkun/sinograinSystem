@@ -88,16 +88,17 @@ public class BarnServiceImpl implements IBarnService {
 		List<String> checkList =  new ArrayList<String>(Arrays.asList(checkeds)); 
 		for(String id :ids){
 			sample = sampleService.find(Integer.parseInt(id));
-			if(StringUtils.isEmpty(sample.getCheckeds())){
-				sample.setCheckeds(StringUtils.join(checkeds,","));
-			}else{
-				String [] oldCheckeds = sample.getCheckeds().split(",");
-				List<String> oldCheckList =  new ArrayList<String>(Arrays.asList(oldCheckeds));
-				checkList.removeAll(oldCheckList); 		// 移除所有一致检测项
-				oldCheckList.addAll(checkList); 		//将剩余检测项放入集合
-//				StringUtils.join(oldCheckList,",");
-				sample.setCheckeds(StringUtils.join(oldCheckList,","));
-				}
+//			if(StringUtils.isEmpty(sample.getCheckeds())){
+//				sample.setCheckeds(StringUtils.join(checkeds,","));
+//			}else{
+//				String [] oldCheckeds = sample.getCheckeds().split(",");
+//				List<String> oldCheckList =  new ArrayList<String>(Arrays.asList(oldCheckeds));
+//				checkList.removeAll(oldCheckList); 		// 移除所有一致检测项
+//				oldCheckList.addAll(checkList); 		//将剩余检测项放入集合
+////				StringUtils.join(oldCheckList,",");
+//				sample.setCheckeds(StringUtils.join(oldCheckList,","));
+//				}
+			sample.setSampleState(3);
 			sampleService.update(sample);
 			}
 		}

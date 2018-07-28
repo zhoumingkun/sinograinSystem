@@ -205,7 +205,7 @@
 		LEFT JOIN barn_register r ON r.libraryId = l.id 
 		LEFT JOIN barn_sample bs ON bs.pId = r.id 
 		LEFT JOIN barn_small_sample bss ON bss.sampleId = bs.id 
-		LEFT JOIN barn_task bt ON bt.id = bss.taskId
+		LEFT JOIN barn_task bt ON bt.id = bs.taskId
 		where taskName = #{taskName}
 	</select>
 	<!--根据样品柜id查询柜中所有样品集 -->

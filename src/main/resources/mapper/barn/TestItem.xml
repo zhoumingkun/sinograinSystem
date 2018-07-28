@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.toughguy.sinograin.model.barn.TestItem">
+
+	<insert id="save" parameterType="TestItem" keyProperty="id" useGeneratedKeys="true">
+		insert into barn_test_item (guid, createTime,updateTime,testItem,sampleId,result,principal) 
+		values (#{guid}, #{createTime},#{updateTime},#{testItem},#{sampleId}#{result},#{principal})
+	</insert>
+	
+	<!-- 删除某个检测数据 -->
+	<delete id="delete" parameterType="int" >
+		delete from barn_test_item where id = #{id}
+	</delete>
+	
+	<!-- 查询某个检测数据  -->
+	<select id="find" parameterType="int" resultType="TestItem">
+		select * from barn_test_item where id = #{id}
+	</select>
+	
+	<!-- 查询全部检测数据  -->
+	<select id="findAll" resultType="TestItem" parameterType="Map">
+		select * from barn_test_item
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 根据样品差检测结果  -->
+	<select id="findResult" resultType="TestItem" parameterType="int">
+		select bti.*,bs.sampleNum from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 分页查询检测数据  -->
+	<select id="findPaginated" resultType="TestItem" parameterType="Map">
+		select bti.*,bs.sampleNum,bh.checkeds from barn_test_item bti 
+		LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
+		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) GROUP BY bs.`sampleNum`
+		<include refid="paramsSQL"/>
+		ORDER BY createTime desc  limit #{offset}, #{limit}
+	</select>
+	
+	<select id="getTotalOfItems" parameterType="Map" resultType="int">
+		select count(*) from barn_test_item bti 
+		LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
+		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) GROUP BY bs.`sampleNum`
+		<include refid="paramsSQL"/>
+	</select>
+	
+	<!-- 修改某条检测数据  -->
+	<update id="update" parameterType="TestItem">
+		update barn_test_item
+		<set>
+			<if test="testItem != null and testItem != ''">testItem = #{testItem},</if>
+			<if test="sampleId != null and sampleId != ''">sampleId = #{sampleId},</if>
+			<if test="result != null and result != ''">result = #{result},</if>
+			<if test="principal != null and principal != ''">principal = #{principal},</if>
+			<if test="updateTime != null ">updateTime = #{updateTime},</if>	
+		</set>
+		where id = #{id}
+	</update>
+	<!-- 通用的设置条件的查询SQL语句 -->
+	<sql id="paramsSQL">
+		<where>
+			<if test=" testItem != null and testItem != '' ">
+				and testItem = #{ testItem }
+			</if>
+			<if test=" sampleId != null and sampleId != '' ">
+				and sampleId = #{ sampleId }
+			</if>
+			<if test=" result != null and result != '' ">
+				and result = #{ result }
+			</if>
+			<if test=" principal != null and principal != '' ">
+				and principal = #{ principal }
+			</if>
+		</where>
+	</sql>
+	
+</mapper>

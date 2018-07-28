@@ -22,9 +22,6 @@ public class Handover extends AbstractModel{
 	private int userId;                //管理员id
 	private String sampleAdmin;        //样品管理员
 	private String receiptor;           //领取人
-	private String returnPerson;         //归还人
-	private Date returnTime;             //归还日期
-	private int returnState;             //归还状态 -1未归还  1已归还
 	
 	private List<Sample> samples;        //样品集（页面展示）
 	
@@ -81,26 +78,6 @@ public class Handover extends AbstractModel{
 		this.receiptor = receiptor;
 	}
 	
-	public String getReturnPerson() {
-		return returnPerson;
-	}
-	public void setReturnPerson(String returnPerson) {
-		this.returnPerson = returnPerson;
-	}
-	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
-	public Date getReturnTime() {
-		return returnTime;
-	}
-	public void setReturnTime(Date returnTime) {
-		this.returnTime = returnTime;
-	}
-	
-	public int getReturnState() {
-		return returnState;
-	}
-	public void setReturnState(int returnState) {
-		this.returnState = returnState;
-	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
