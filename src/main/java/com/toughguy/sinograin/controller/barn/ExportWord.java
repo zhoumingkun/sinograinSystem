@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.controller.barn;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
@@ -7,6 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hwpf.HWPFDocument;
+import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +28,11 @@ public class ExportWord {
      * POI小麦检验报告导出word
      * @throws Exception
      */
-    @RequestMapping(value="exportWordXM")
+     @RequestMapping(value="exportWordXM")
      public void exportWordXM(HttpServletResponse response,XMPresentation presentation) throws Exception {  
-          
             Map<String, Object> params = new HashMap<String, Object>();  
-      
-            params.put("${bianhao}", presentation.getBianhao());
+            params.put("${bianhao_1}", presentation.getBianhao_1());
+            params.put("${bianhao_2}", presentation.getBianhao_2());
             params.put("${sort}", presentation.getSort());  
             params.put("${sampleNum}",presentation.getSampleNum());  
             params.put("${cunchudanwei}", presentation.getCunchudanwei());  
@@ -84,15 +87,15 @@ public class ExportWord {
             params.put("${sezeqiwei_qingdubuyicun}",  presentation.getSezeqiwei_qingdubuyicun());  
             params.put("${sezeqiwei_zhongdubuyicun}",  presentation.getSezeqiwei_zhongdubuyicun());  
             params.put("${sezeqiwei_jianyanjieguo}",  presentation.getSezeqiwei_jianyanjieguo());  
-            params.put("${jieguopanding}",  presentation.getJieguopanding());  
+            params.put("${jieguopanding}",  presentation.getJieguopanding());
             
             XwpfTUtil xwpfTUtil = new XwpfTUtil();  
       
             XWPFDocument doc;  
             String fileNameInResource = "upload/base/小麦检验报告.docx";
             InputStream is;  
-            /*is = new FileInputStream(filePath);*/  
-            is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
+            is = new FileInputStream(fileNameInResource); 
+//            is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
             
             doc = new XWPFDocument(is);  
             
@@ -111,10 +114,9 @@ public class ExportWord {
       
             os.flush();  
             os.close();  
-        }  
-    
-    
-    
+        }
+
+	
     /**
      * POI玉米检验报告导出word
      * @throws Exception
@@ -124,7 +126,8 @@ public class ExportWord {
           
             Map<String, Object> params = new HashMap<String, Object>();  
       
-            params.put("${bianhao}", presentation.getBianhao()); 
+            params.put("${bianhao_1}", presentation.getBianhao_1());
+            params.put("${bianhao_2}", presentation.getBianhao_2()); 
             params.put("${sort}", presentation.getSort());  
             params.put("${sampleNum}",presentation.getSampleNum());  
             params.put("${cunchudanwei}", presentation.getCunchudanwei());  
@@ -178,8 +181,8 @@ public class ExportWord {
             XWPFDocument doc;  
             String fileNameInResource = "upload/base/玉米检验报告.docx";
             InputStream is;  
-            /*is = new FileInputStream(filePath);*/  
-            is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
+            is = new FileInputStream(fileNameInResource);  
+//            is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
             
             doc = new XWPFDocument(is);  
             

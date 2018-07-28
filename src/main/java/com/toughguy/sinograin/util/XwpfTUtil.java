@@ -8,8 +8,6 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
-import org.junit.Test;  
-
 import java.io.*;  
 import java.util.HashMap;  
 import java.util.Iterator;  

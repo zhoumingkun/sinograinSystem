@@ -7,7 +7,8 @@ package com.toughguy.sinograin.dto;
  */
 public class XMPresentation {
 
-	private String bianhao;         //编号
+	private String bianhao_1;         //编号1
+	private String bianhao_2;         //编号2
 	private String sort;         	//产品名称（种类）
 	private String sampleNum;    	//检验编号
 	private String cunchudanwei; 	//储存单位
@@ -64,11 +65,17 @@ public class XMPresentation {
 	private String  sezeqiwei_jianyanjieguo;  //色泽气味—检验结果
 	private String  jieguopanding;  		  //结果判定
 	
-	public String getBianhao() {
-		return bianhao;
+	public String getBianhao_1() {
+		return bianhao_1;
 	}
-	public void setBianhao(String bianhao) {
-		this.bianhao = bianhao;
+	public void setBianhao_1(String bianhao_1) {
+		this.bianhao_1 = bianhao_1;
+	}
+	public String getBianhao_2() {
+		return bianhao_2;
+	}
+	public void setBianhao_2(String bianhao_2) {
+		this.bianhao_2 = bianhao_2;
 	}
 	public String getSort() {
 		return sort;
