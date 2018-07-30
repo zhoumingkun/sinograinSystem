@@ -118,4 +118,27 @@ public class TestItemController {
 			return "{ \"total\" : 0, \"rows\" : [] }";
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getSampleBySortAndTestItem")
+//	@RequiresPermissions("testItem:getSampleBySortAndTestItem")
+	public List<Sample> getSampleBySortAndTestItem(TestItem testItem) {
+		List<Sample> sampleAll = testItemService.getAllSampleBySortAndTestItem();
+		List<Sample> samples = testItemService.getSampleBySortAndTestItem(testItem);
+		int id1 = 0;
+		int id2 = 0;
+		if(samples.size()>0) {
+			for(Sample s:samples) {
+				id2 = s.getId();
+				for(int i=0;i<sampleAll.size();i++) {
+					id1 = sampleAll.get(i).getId();
+					if(id1 == id2) {
+						sampleAll.remove(i);
+					}
+				}
+			}
+		}
+		return sampleAll;
+		
+	}
 }
