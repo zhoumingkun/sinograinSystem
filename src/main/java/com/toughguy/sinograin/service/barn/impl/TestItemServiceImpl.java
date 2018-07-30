@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.persist.barn.prototype.ITestItemDao;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
@@ -16,6 +17,17 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 	public List<TestItem> findResult(int sampleId) {
 		// TODO Auto-generated method stub
 		return ((ITestItemDao)dao).findResult(sampleId);
+	}
+
+	@Override
+	public List<Sample> getSampleBySortAndTestItem(TestItem testItem) {
+		// TODO Auto-generated method stub
+		return ((ITestItemDao)dao).getSampleBySortAndTestItem(testItem);
+	}
+	@Override
+	public List<Sample> getAllSampleBySortAndTestItem() {
+		// TODO Auto-generated method stub
+		return ((ITestItemDao)dao).getAllSampleBySortAndTestItem();
 	}
 	
 }

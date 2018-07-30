@@ -64,6 +64,7 @@ public class Sample extends AbstractModel{
 	private String storage;          //样品室具体位置（前台）
 	private Date dateStart;          //搜索开始时间（前台）
 	private Date dateEnd;            //搜索结束时间（前台）
+	private String taskName;      //任务名(页面展示)
 	
 	public String getFormName() {
 		return formName;
@@ -355,6 +356,12 @@ public class Sample extends AbstractModel{
 		this.dateEnd = dateEnd;
 	}
 	
+	public String getTaskName() {
+		return taskName;
+	}
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
