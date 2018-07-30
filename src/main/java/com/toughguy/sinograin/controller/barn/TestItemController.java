@@ -145,13 +145,13 @@ public class TestItemController {
 	}
 	
 	/**
-	 *  导出样品领取交接单
+	 *  导出样品确认单
 	 * @param id
 	 * @return String
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/expotHandover")
-	public String expotexpotTestItem(HttpServletResponse response,int sampleId,TestItem testItem) {
+	@RequestMapping(value = "/expotTestItem")
+	public String expotexpotTestItem(HttpServletResponse response,int sampleId) {
 		try {
 			// 返回结果
 			testItemService.expotexpotTestItem(response,sampleId);
