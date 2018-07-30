@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -140,5 +142,23 @@ public class TestItemController {
 		}
 		return sampleAll;
 		
+	}
+	
+	/**
+	 *  导出样品领取交接单
+	 * @param id
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/expotHandover")
+	public String expotexpotTestItem(HttpServletResponse response,int sampleId,TestItem testItem) {
+		try {
+			// 返回结果
+			testItemService.expotexpotTestItem(response,sampleId);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
 	}
 }

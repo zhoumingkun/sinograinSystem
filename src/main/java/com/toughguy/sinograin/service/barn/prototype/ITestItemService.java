@@ -2,6 +2,8 @@ package com.toughguy.sinograin.service.barn.prototype;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.service.prototype.IGenericService;
@@ -28,4 +30,8 @@ public interface ITestItemService extends IGenericService<TestItem, Integer> {
 	 * @return
 	 */
 	public List<Sample> getAllSampleBySortAndTestItem();
+	/**
+	 * 导出样品确认单
+	 */
+	public	void expotexpotTestItem(HttpServletResponse response,int sampleId);
 }
