@@ -25,23 +25,22 @@
 	
 	<!-- 根据样品差检测结果  -->
 	<select id="findResult" resultType="TestItem" parameterType="int">
-		select bti.*,bs.sampleNum from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id
-		<include refid="paramsSQL"/>
+		select bti.*,bs.sampleNum from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
+		where bti.sampleId = #{sampleId}
 	</select>
 	
 	<!-- 分页查询检测数据  -->
 	<select id="findPaginated" resultType="TestItem" parameterType="Map">
 		select bti.*,bs.sampleNum,bh.checkeds from barn_test_item bti 
-		LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
+		LEFT JOIN barn_sample bs ON bs.id = bti.sampleId 
 		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) GROUP BY bs.`sampleNum`
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
-		select count(*) from barn_test_item bti 
-		LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
-		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) GROUP BY bs.`sampleNum`
+		select COUNT(DISTINCT bti.sampleId) as counts from barn_test_item bti 
+		LEFT JOIN barn_sample bs ON bti.sampleId = bs.id
 		<include refid="paramsSQL"/>
 	</select>
 	
@@ -59,20 +58,6 @@
 	</update>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
-		<where>
-			<if test=" testItem != null and testItem != '' ">
-				and testItem = #{ testItem }
-			</if>
-			<if test=" sampleId != null and sampleId != '' ">
-				and sampleId = #{ sampleId }
-			</if>
-			<if test=" result != null and result != '' ">
-				and result = #{ result }
-			</if>
-			<if test=" principal != null and principal != '' ">
-				and principal = #{ principal }
-			</if>
-		</where>
 	</sql>
 	
 </mapper>

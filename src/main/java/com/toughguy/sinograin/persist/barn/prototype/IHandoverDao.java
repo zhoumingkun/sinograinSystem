@@ -19,4 +19,10 @@ public interface IHandoverDao extends IGenericDao<Handover, Integer>  {
 	 * @return
 	 */
 	public List<Sample> findSampleByCheckPoint(int checkPoint);
+	/**
+	 * 根据样品id查询检验项目
+	 * @param checkPoint
+	 * @return
+	 */
+	public Handover findCheckedBySampleId(int sampleId);
 }

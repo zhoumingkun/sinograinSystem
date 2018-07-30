@@ -24,4 +24,11 @@ public class HandoverDaoImpl extends GenericDaoImpl<Handover, Integer> implement
 		return sqlSessionTemplate.selectOne(typeNameSpace + ".findsampleNums", sampleNums);
 	}
 
+
+	@Override
+	public Handover findCheckedBySampleId(int sampleId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findCheckedBySampleId",sampleId);
+	}
+
 }

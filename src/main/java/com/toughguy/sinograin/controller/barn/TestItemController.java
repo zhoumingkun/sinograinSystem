@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
 
 import net.sf.json.JSONArray;
@@ -28,6 +31,10 @@ public class TestItemController {
 	
 	@Autowired
 	private ITestItemService testItemService;
+	@Autowired
+	private IHandoverService handoverService;
+	@Autowired
+	private ISampleService sampleService;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -64,6 +71,21 @@ public class TestItemController {
 			JSONArray json = JSONArray.fromObject(params);
 			list = json.toList(json, TestItem.class);
 			for(TestItem t:list) {
+				System.out.println(t);
+				//根据样品id查出所有检测项目实体
+				List<TestItem> testItems = testItemService.findResult(t.getSampleId());
+				String testItemStr1 = null;
+				for(TestItem testItem:testItems) {
+					
+					testItemStr1 += testItem.getTestItem() + ",";
+				}
+				String testItemStr2 = testItemStr1.substring(0, testItemStr1.length()-1);
+				String checkeds = handoverService.findCheckedBySampleId(t.getSampleId()).getCheckeds();
+				if(checkeds.equals(testItemStr2)) {
+					Sample s = sampleService.find(t.getSampleId());
+					s.setDetectionState(2);
+					sampleService.update(s);
+				}
 				testItemService.save(t);
 			}
 			return "{ \"success\" : true }";

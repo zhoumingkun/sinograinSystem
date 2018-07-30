@@ -243,5 +243,11 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 		// TODO Auto-generated method stub
 		return ((IHandoverDao)dao).findSampleByCheckPoint(checkPoint);
 	}
+
+	@Override
+	public Handover findCheckedBySampleId(int sampleId) {
+		// TODO Auto-generated method stub
+		return ((IHandoverDao)dao).findCheckedBySampleId(sampleId);
+	}
 	
 }

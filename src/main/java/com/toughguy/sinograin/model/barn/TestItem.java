@@ -31,6 +31,7 @@ public class TestItem extends AbstractModel{
 	public void setTestItem(Double testItem) {
 		this.testItem = testItem;
 	}
+	
 	public int getSampleId() {
 		return sampleId;
 	}
