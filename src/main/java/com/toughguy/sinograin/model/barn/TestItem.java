@@ -24,6 +24,7 @@ public class TestItem extends AbstractModel{
 	
 	private String sampleNum;    //样品检测编号(页面展示)
 	private String checkeds;	 //检测项集(页面展示)
+	private String sort;         //品种(页面展示)
 	
 	public Double getTestItem() {
 		return testItem;
@@ -64,6 +65,12 @@ public class TestItem extends AbstractModel{
 	}
 	public void setCheckeds(String checkeds) {
 		this.checkeds = checkeds;
+	}
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 	@Override
 	public String toString() {
