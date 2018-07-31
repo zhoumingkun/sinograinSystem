@@ -348,4 +348,5 @@ public class POIUtils {
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
 				return style;
 			}
+			
 }
