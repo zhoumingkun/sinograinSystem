@@ -81,12 +81,14 @@ public class TestItemController {
 					
 					testItemStr1 += testItem.getTestItem() + ",";
 				}
-				String testItemStr2 = testItemStr1.substring(0, testItemStr1.length()-1);
-				String checkeds = handoverService.findCheckedBySampleId(t.getSampleId()).getCheckeds();
-				if(checkeds.equals(testItemStr2)) {
-					Sample s = sampleService.find(t.getSampleId());
-					s.setDetectionState(2);
-					sampleService.update(s);
+				if(testItemStr1 != null || "".equals(testItemStr1)) {
+					String testItemStr2 = testItemStr1.substring(0, testItemStr1.length()-1);
+					String checkeds = handoverService.findCheckedBySampleId(t.getSampleId()).getCheckeds();
+					if(checkeds.equals(testItemStr2)) {
+						Sample s = sampleService.find(t.getSampleId());
+						s.setDetectionState(2);
+						sampleService.update(s);
+					}
 				}
 				testItemService.save(t);
 			}
@@ -125,7 +127,7 @@ public class TestItemController {
 	@RequestMapping(value = "/getSampleBySortAndTestItem")
 //	@RequiresPermissions("testItem:getSampleBySortAndTestItem")
 	public List<Sample> getSampleBySortAndTestItem(TestItem testItem) {
-		List<Sample> sampleAll = testItemService.getAllSampleBySortAndTestItem();
+		List<Sample> sampleAll = testItemService.getAllSampleBySortAndTestItem(testItem);
 		List<Sample> samples = testItemService.getSampleBySortAndTestItem(testItem);
 		int id1 = 0;
 		int id2 = 0;
@@ -150,7 +152,7 @@ public class TestItemController {
 	 * @return String
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/expotTestItem")
+	@RequestMapping(value = "/expotHandover")
 	public String expotexpotTestItem(HttpServletResponse response,int sampleId) {
 		try {
 			// 返回结果
@@ -160,5 +162,11 @@ public class TestItemController {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getResult")
+	public List<TestItem> findResult(int sampleId) {
+		return testItemService.findResult(sampleId);
 	}
 }
