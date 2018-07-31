@@ -331,4 +331,21 @@ public class POIUtils {
 				style.setFont(fon);// 选择需要用到的字体格式
 				return style;
 			}
+			/**
+			* 导出样品确认单样式
+			*/
+			public HSSFCellStyle Style8(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 11);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_LEFT);//居左
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
+				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
 }

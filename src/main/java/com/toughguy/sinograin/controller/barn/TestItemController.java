@@ -150,7 +150,7 @@ public class TestItemController {
 	 * @return String
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/expotTestItem")
+	@RequestMapping(value = "/expotHandover")
 	public String expotexpotTestItem(HttpServletResponse response,int sampleId) {
 		try {
 			// 返回结果
