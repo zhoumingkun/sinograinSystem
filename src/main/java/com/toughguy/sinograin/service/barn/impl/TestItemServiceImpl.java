@@ -38,9 +38,9 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 		return ((ITestItemDao)dao).getSampleBySortAndTestItem(testItem);
 	}
 	@Override
-	public List<Sample> getAllSampleBySortAndTestItem() {
+	public List<Sample> getAllSampleBySortAndTestItem(TestItem testItem) {
 		// TODO Auto-generated method stub
-		return ((ITestItemDao)dao).getAllSampleBySortAndTestItem();
+		return ((ITestItemDao)dao).getAllSampleBySortAndTestItem(testItem);
 	}
 	//样品确认单导出
   	@Override
