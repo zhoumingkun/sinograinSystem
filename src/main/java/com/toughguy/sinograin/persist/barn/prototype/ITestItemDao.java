@@ -28,5 +28,5 @@ public interface ITestItemDao extends IGenericDao<TestItem, Integer>  {
 	 * 根据品种和检验项目查询全部的样品集
 	 * @return
 	 */
-	public List<Sample> getAllSampleBySortAndTestItem();
+	public List<Sample> getAllSampleBySortAndTestItem(TestItem testItem);
 }

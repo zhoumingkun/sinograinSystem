@@ -28,4 +28,10 @@ public class WarehouseCounterPlaceServiceImpl extends GenericServiceImpl<Warehou
 		return wcpDao.findPlaces(counterId);
 	}
 
+	@Override
+	public List<WarehouseCounterPlace> findPlacesByCounter(String counter) {
+		// TODO Auto-generated method stub
+		return wcpDao.findPlacesByCounter(counter);
+	}
+
 }

@@ -21,6 +21,11 @@
 		select bwcp.* from barn_warehouse_counter_place bwcp LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		where bwcp.isStorage = 1 and bwc.id = #{counterId}
 	</select>
+	<!-- 根据柜名查询所有空位置 -->
+	<select id="findPlacesByCounter" parameterType="String" resultType="WarehouseCounterPlace">
+		select bwcp.* from barn_warehouse_counter_place bwcp LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
+		where bwcp.isStorage = 1 and bwc.counter = #{counter}
+	</select>
 	
 	<!-- 查询全部位置  -->
 	<select id="findAll" resultType="WarehouseCounterPlace" parameterType="Map">

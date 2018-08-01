@@ -85,6 +85,17 @@ public class WarehouseCounterPlaceController {
 			return null;
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/findPlacesByCounter")
+	public List<WarehouseCounterPlace> findPlacesByCounter(String counter) {
+		try {
+			List<WarehouseCounterPlace> ws = warehouseCounterPlaceService.findPlacesByCounter(counter);
+			return ws;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/data")

@@ -25,9 +25,9 @@ public class TestItemDaoImpl extends GenericDaoImpl<TestItem, Integer> implement
 		return sqlSessionTemplate.selectList(typeNameSpace + ".getSampleBySortAndTestItem",testItem);
 	}
 	@Override
-	public List<Sample> getAllSampleBySortAndTestItem() {
+	public List<Sample> getAllSampleBySortAndTestItem(TestItem testItem) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList(typeNameSpace + ".getAllSampleBySortAndTestItem");
+		return sqlSessionTemplate.selectList(typeNameSpace + ".getAllSampleBySortAndTestItem",testItem);
 	}
 
 }

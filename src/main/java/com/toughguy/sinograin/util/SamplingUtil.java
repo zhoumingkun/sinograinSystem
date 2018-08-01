@@ -34,10 +34,11 @@ public class SamplingUtil {
 		return libraryName + "-" + sort + "-" + lib;
 	}
 	
-	public static String sampleNum () throws Exception{
+	public static String sampleNum (String sort) throws Exception{
 		 //SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
 		// String year = sdf.format(new Date());
 		 int flag = 1 ;
+		 String sortInt = null;
 		 Calendar date = Calendar.getInstance();
 	     String year = String.valueOf(date.get(Calendar.YEAR));
 		 //String year = "2019";
@@ -65,7 +66,14 @@ public class SamplingUtil {
 			prop.store(out,  null);
 			fileInput.close();  
 	        out.close();
-		return  year + lib;
+	        if(sort.equals("小麦")) {
+	        	sortInt = "01";
+	        } else if(sort.equals("玉米")){
+	        	sortInt = "02";
+	        } else if(sort.equals("食用油")) {
+	        	sortInt = "03";
+	        }
+		return  year + sortInt + lib;
 	}
 	
 	public static List<String> smallSampleNums(Sample sample){

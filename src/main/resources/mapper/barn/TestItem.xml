@@ -25,7 +25,7 @@
 	
 	<!-- 根据样品差检测结果  -->
 	<select id="findResult" resultType="TestItem" parameterType="int">
-		select bti.*,bs.sampleNum from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
+		select bti.*,bs.sampleNum,bh.checkeds,bs.sort from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id  LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
 		where bti.sampleId = #{sampleId}
 	</select>
 	
@@ -60,13 +60,14 @@
 	<select id="getSampleBySortAndTestItem" parameterType="TestItem" resultType="Sample">
 		SELECT bs.*,bt.taskName FROM barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bs.taskId = bt.id 
-		WHERE bs.sort = #{sort} and FLOOR(bti.testItem) = #{testItem}
+		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
+		WHERE FLOOR(bti.testItem) =  FLOOR(#{testItem})
 	</select>
 	<!-- 根据品种和检验项目查询全部的样品集 -->
-	<select id="getAllSampleBySortAndTestItem" resultType="Sample">
-		SELECT DISTINCT bs.*,bt.taskName FROM barn_test_item bti 
-		LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
-		LEFT JOIN barn_task bt ON bs.taskId = bt.id 
+	<select id="getAllSampleBySortAndTestItem" parameterType="TestItem" resultType="Sample">
+		SELECT DISTINCT bs.*, bt.taskName FROM barn_sample bs LEFT JOIN barn_task bt ON bs.taskId = bt.id 
+		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id, bh.sampleIds) 
+		WHERE bs.sort = #{sort} AND FIND_IN_SET(FLOOR(#{testItem}), bh.checkeds)
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">

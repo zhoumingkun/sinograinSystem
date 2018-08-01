@@ -107,7 +107,7 @@ public class SampleController {
 			Sample sample1 = sampleService.find(sample.getId());
 			sample.setPosition(sample1.getPosition());
 			if (sample.getSampleState() == 2) {
-				String sampleNum = SamplingUtil.sampleNum();
+				String sampleNum = SamplingUtil.sampleNum(sample1.getSort());
 				// 生成二维码
 				String path = UploadUtil.getAbsolutePath("barcode");
 				File f = new File(path); // 无路径则创建
@@ -637,7 +637,7 @@ public class SampleController {
 				String SampleNo = SamplingUtil.sampleNo(library.getpLibraryId(), sort,num%1000);  //扦样编号
 				System.out.println(SampleNo + "sampleNo");
 				sample.setSampleNo(SampleNo);
-				String sampleNum = SamplingUtil.sampleNum();  //检验编号
+				String sampleNum = SamplingUtil.sampleNum(sample.getSort());  //检验编号
 				sample.setSampleNum(sampleNum);
 				sample.setSampleState(2);   // 非正常流程 扦样状态默认为已入库
 				sample.setTemporaryLibraryId(sample.getLibraryId());
@@ -658,7 +658,7 @@ public class SampleController {
 		try {			
 			//1，生成检验编号与二维码
 			Sample newSample = sampleService.find(sample.getId());
-			String sampleNum = SamplingUtil.sampleNum();
+			String sampleNum = SamplingUtil.sampleNum(newSample.getSort());
 			// 生成二维码
 			String path = UploadUtil.getAbsolutePath("barcode");
 			File f = new File(path); // 无路径则创建

@@ -19,4 +19,10 @@ public interface IWarehouseCounterPlaceDao extends IGenericDao<WarehouseCounterP
 	 * @return
 	 */
 	public List<WarehouseCounterPlace> findPlaces(int counterId);
+	/**
+	 * 根据counter查询存放位置
+	 * @param counterId
+	 * @return
+	 */
+	public List<WarehouseCounterPlace> findPlacesByCounter(String counter);
 }

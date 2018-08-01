@@ -20,4 +20,10 @@ public interface IWarehouseCounterPlaceService extends IGenericService<Warehouse
 	 * @return
 	 */
 	public List<WarehouseCounterPlace> findPlaces(int counterId);
+	/**
+	 * 根据counter查询位置
+	 * @param counter
+	 * @return
+	 */
+	public List<WarehouseCounterPlace> findPlacesByCounter(String counter);
 }

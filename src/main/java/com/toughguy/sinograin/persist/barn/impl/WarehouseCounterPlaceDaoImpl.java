@@ -24,4 +24,10 @@ public class WarehouseCounterPlaceDaoImpl  extends GenericDaoImpl<WarehouseCount
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findPlaces", counterId);
 	}
 
+	@Override
+	public List<WarehouseCounterPlace> findPlacesByCounter(String counter) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findPlacesByCounter", counter);
+	}
+
 }
