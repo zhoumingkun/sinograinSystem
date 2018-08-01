@@ -52,7 +52,8 @@
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
 		select bs.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,
-		pbl.libraryName pLibraryName,bw.depot,bwc.counter,bwcp.place from barn_sample bs 
+		pbl.libraryName pLibraryName,bw.depot,bwc.counter,bwcp.place,bh.checkeds from barn_sample bs 
+		left join barn_handover bh on FIND_IN_SET(bs.id,bh.sampleIds)
 		left join barn_register r on bs.pId = r.id 
 		left join barn_library l on r.libraryId = l.id
 		left join barn_library pbl on l.pLibraryId = pbl.id
@@ -123,7 +124,6 @@
 		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		<include refid="paramsSQL"/>
 	</select>
-	
 	<!-- 分页查询扦样（移动端） -->
 	<select id="findPaginatedMobile" resultType="Sample" parameterType="Map">
 		SELECT bs.*,r.formName formName,l.libraryName libraryName,l.pLibraryId pLibraryId,pbl.libraryName pLibraryName FROM barn_sample bs
