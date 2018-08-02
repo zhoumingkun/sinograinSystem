@@ -488,11 +488,11 @@ public class ImportExcelController {
      * 导入扦样登记表
      * @param muiltRequest
      * @param req
-     * @return
+     * @return     (int)cell.getNumericCellValue()
      */
     @ResponseBody
 	@RequestMapping(value = "/importExcelRegister", method = RequestMethod.POST)
-    public List<ImportRegister> importExcelRegister(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
+    public List<RegisterDTO> importExcelRegister(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
         try {
         	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
 			// 中的name="file"，而不是真正的文件名）
@@ -508,94 +508,90 @@ public class ImportExcelController {
             List<CellRangeAddress> cras = util.getCombineCell(sheet);
             //isMergedRegion(Sheet sheet,int row ,int column);判断是不是合并单元格\
             int count = sheet.getLastRowNum()+1;//总行数
-           
-            
-            List<ImportRegister> irs = new ArrayList<>();
+           	
+            List<RegisterDTO> irs = new ArrayList<>();
             for(int i = 3; i < count;i++){
             	rowIndex = i;
             	Row row = sheet.getRow(i);
-            	ImportRegister ir = new ImportRegister();
-
+            	RegisterDTO ir = new RegisterDTO();
+            	ir.setId(util.getCellValue(row.getCell(0)));
+            	ir.setSampleNo(util.getCellValue(row.getCell(1)));
+            	ir.setLibraryName(util.getCellValue(row.getCell(2)));
+            	ir.setPosition(util.getCellValue(row.getCell(3)));
+            	ir.setSort(util.getCellValue(row.getCell(4)));
+            	ir.setQuality(util.getCellValue(row.getCell(5)));
+            	ir.setAmount(util.getCellValue(row.getCell(6)));
+            	ir.setOriginPlace(util.getCellValue(row.getCell(7)));
+            	ir.setGainTime(util.getCellValue(row.getCell(8)));
+            	ir.setBarnTime(util.getCellValue(row.getCell(9)));
+            	ir.setAutograph(util.getCellValue(row.getCell(10)));
+            	ir.setPeitongrenSign(util.getCellValue(row.getCell(11)));
+            	ir.setSampleTime(util.getCellValue(row.getCell(12)));
+            	ir.setRemark(util.getCellValue(row.getCell(13)));
             	
-            	
-//            List<RegisterDTO> irs = new ArrayList<>();
-//            for(int i = 3; i < count;i++){
-//            	rowIndex = i;
-//            	Row row = sheet.getRow(i);
-//            	RegisterDTO ir = new RegisterDTO();
-//            	ir.setId(util.getCellValue(row.getCell(0)));
-//            	ir.setSampleNo(util.getCellValue(row.getCell(5)));
-//            	ir.setLibraryName(util.getCellValue(row.getCell(9)));
-//            	ir.setPosition(util.getCellValue(row.getCell(11)));
-//            	ir.setSort(util.getCellValue(row.getCell(14)));
-//            	ir.setQuality(util.getCellValue(row.getCell(17)));
-//            	ir.setAmount(util.getCellValue(row.getCell(20)));
-//            	ir.setOriginPlace(util.getCellValue(row.getCell(21)));
-//            	ir.setGainTime(util.getCellValue(row.getCell(23)));
-//            	ir.setBarnTime(util.getCellValue(row.getCell(24)));
-//            	ir.setAutograph(util.getCellValue(row.getCell(25)));
-//            	ir.setPeitongrenSign(util.getCellValue(row.getCell(26)));
-//            	ir.setSampleTime(util.getCellValue(row.getCell(27)));
-//            	ir.setRemark(util.getCellValue(row.getCell(27)));
-            	
-            	
-            	List<RegisterDTO> items = new ArrayList<>();
-            	if(util.isMergedRegion(sheet,i,0)){
-            		int lastRow = util.getRowNum(cras,sheet.getRow(i).getCell(0),sheet);
-        			
-        			for(;i<=lastRow;i++){
-        				row = sheet.getRow(i);
-        				RegisterDTO item = new RegisterDTO();
-        			
-        				item.setId(util.getCellValue(row.getCell(0)));
-        				item.setSampleNo(util.getCellValue(row.getCell(1)));
-        				item.setLibraryName(util.getCellValue(row.getCell(2)));
-        				item.setPosition(util.getCellValue(row.getCell(3)));
-        				item.setSort(util.getCellValue(row.getCell(4)));
-        				item.setQuality(util.getCellValue(row.getCell(5)));
-        				item.setAmount(util.getCellValue(row.getCell(6)));
-        				item.setOriginPlace(util.getCellValue(row.getCell(7)));
-        				item.setGainTime(util.getCellValue(row.getCell(8)));
-        				item.setBarnTime(util.getCellValue(row.getCell(9)));
-        				item.setAutograph(util.getCellValue(row.getCell(10)));
-        				item.setPeitongrenSign(util.getCellValue(row.getCell(11)));
-        				item.setSampleTime(util.getCellValue(row.getCell(12)));
-        				item.setRemark(util.getCellValue(row.getCell(13)));
-        				
-        				items.add(item);
-        			}
-        			i--;
-            	}else{
-        			row = sheet.getRow(i);
-        			RegisterDTO item = new RegisterDTO();
-        			
-        			item.setId(util.getCellValue(row.getCell(0)));
-    				item.setSampleNo(util.getCellValue(row.getCell(1)));
-    				item.setLibraryName(util.getCellValue(row.getCell(2)));
-    				item.setPosition(util.getCellValue(row.getCell(3)));
-    				item.setSort(util.getCellValue(row.getCell(4)));
-    				item.setQuality(util.getCellValue(row.getCell(5)));
-    				item.setAmount(util.getCellValue(row.getCell(6)));
-    				item.setOriginPlace(util.getCellValue(row.getCell(7)));
-    				item.setGainTime(util.getCellValue(row.getCell(8)));
-    				item.setBarnTime(util.getCellValue(row.getCell(9)));
-    				item.setAutograph(util.getCellValue(row.getCell(10)));
-    				item.setPeitongrenSign(util.getCellValue(row.getCell(11)));
-    				item.setSampleTime(util.getCellValue(row.getCell(12)));
-    				item.setRemark(util.getCellValue(row.getCell(13)));
-    				
-    				
-    				items.add(item);
-            	}
-            	ir.setItems(items);
             	irs.add(ir);
-            	
             }
-           
            return irs;
         } catch (Exception e) {  
             e.printStackTrace();
            return null;
         }
+        
     }	
+//方法二
+//    List<RegisterDTO> items = new ArrayList<>();
+//    for(int i = 3; i < count;i++){
+//    	rowIndex = i;
+//    	Row row = sheet.getRow(i);
+//    	RegisterDTO ir = new RegisterDTO();
+//    	
+//    	if(util.isMergedRegion(sheet,i,0)){
+//    		int lastRow = util.getRowNum(cras,sheet.getRow(i).getCell(0),sheet);
+//			
+//			for(;i<=lastRow;i++){
+//				row = sheet.getRow(i);
+//				RegisterDTO item = new RegisterDTO();
+//			
+//				item.setId(util.getCellValue(row.getCell(0)));
+//				item.setSampleNo(util.getCellValue(row.getCell(1)));
+//				item.setLibraryName(util.getCellValue(row.getCell(2)));
+//				item.setPosition(util.getCellValue(row.getCell(3)));
+//				item.setSort(util.getCellValue(row.getCell(4)));
+//				item.setQuality(util.getCellValue(row.getCell(5)));
+//				item.setAmount(util.getCellValue(row.getCell(6)));
+//				item.setOriginPlace(util.getCellValue(row.getCell(7)));
+//				item.setGainTime(util.getCellValue(row.getCell(8)));
+//				item.setBarnTime(util.getCellValue(row.getCell(9)));
+//				item.setAutograph(util.getCellValue(row.getCell(10)));
+//				item.setPeitongrenSign(util.getCellValue(row.getCell(11)));
+//				item.setSampleTime(util.getCellValue(row.getCell(12)));
+//				item.setRemark(util.getCellValue(row.getCell(13)));
+//				
+//				items.add(item);
+//			}
+//			i--;
+//    	}else{
+//			row = sheet.getRow(i);
+//			RegisterDTO item = new RegisterDTO();
+//			
+//			item.setId(util.getCellValue(row.getCell(0)));
+//			item.setSampleNo(util.getCellValue(row.getCell(1)));
+//			item.setLibraryName(util.getCellValue(row.getCell(2)));
+//			item.setPosition(util.getCellValue(row.getCell(3)));
+//			item.setSort(util.getCellValue(row.getCell(4)));
+//			item.setQuality(util.getCellValue(row.getCell(5)));
+//			item.setAmount(util.getCellValue(row.getCell(6)));
+//			item.setOriginPlace(util.getCellValue(row.getCell(7)));
+//			item.setGainTime(util.getCellValue(row.getCell(8)));
+//			item.setBarnTime(util.getCellValue(row.getCell(9)));
+//			item.setAutograph(util.getCellValue(row.getCell(10)));
+//			item.setPeitongrenSign(util.getCellValue(row.getCell(11)));
+//			item.setSampleTime(util.getCellValue(row.getCell(12)));
+//			item.setRemark(util.getCellValue(row.getCell(13)));
+//
+//			items.add(item);
+//    	}         	
+//    }
+//   return items;
+//}
 }
