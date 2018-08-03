@@ -32,7 +32,7 @@
 	</select>
 	<!-- 根据检测编号查询  -->
 	<select id="findsampleNums" resultType="Handover" parameterType="String">
-		select * from barn_handover h WHERE h.sampleNums like concat(concat('%', #{sampleNums, jdbcType=VARCHAR}),'%')
+		select * from barn_handover bh WHERE FIND_IN_SET(#{sampleNums},bh.sampleNums) 
 	</select>
 	<!-- 根据检验项目查询样品 -->
 	<select id="findSampleByCheckPoint" resultType="Sample" parameterType="int">

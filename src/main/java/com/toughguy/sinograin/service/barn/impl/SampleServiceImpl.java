@@ -1406,79 +1406,56 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					
 					String sampleNum = sampleReport.get(i).getSampleNum();
 				    Handover handover = handoverDao.findsampleNums(sampleNum);
-				    String checkeds = handover.getCheckeds();
-				    System.out.println(checkeds);
-					String str ="";
-					if(checkeds == null){
-						HSSFCell createCell2 = row.createCell(2);
-						createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
-						createCell2.setCellValue(str); 					//检验项目
-					}else{
-						String[] checked = checkeds.split(",");
-						for (int j = 0; j < checked.length; j++) {
-//							if(checked[j].equals("1")){
-//								str +="不完善粒、";
-//							}else if(checked[j].equals("2")){
-//								str +="杂质、";
-//							}else if(checked[j].equals("3")){
-//								str +="生霉粒、";
-//							}else if(checked[j].equals("4")){
-//								str +="水分、";
-//							}else if(checked[j].equals("5") && sampleReport.get(i).getSort().equals("玉米")){
-//								str +="硬度、";
-//							}else if(checked[j].equals("5") && sampleReport.get(i).getSort().equals("小麦")){
-//								str +="硬度、";
-//							}else if(checked[j].equals("6")  && sampleReport.get(i).getSort().equals("玉米")){
-//								str +="脂肪酸酯、";
-//							}else if(checked[j].equals("6")  && sampleReport.get(i).getSort().equals("小麦")){
-//								str +="面筋吸水量、";
-//							}else if(checked[j].equals("7")){
-//								str +="品尝评分、";
-//							}else if(checked[j].equals("8")){
-//								str +="卫生指标、";
-//							}else if(checked[j].equals("9")){
-//								str +="加工品质、";
-//							}
-							if("1".equals(checked[j])){
-								str += "容重,";
-							}else if("2".equals(checked[j])){
-								str += "水分,";
-							}else if("3".equals(checked[j])){
-								str += "杂质(矿物质),";
-							}else if("4".equals(checked[j])){
-								str += "不完善粒(生霉粒),";
-							}else if("5".equals(checked[j])){
-								str += "色泽气味(质量指标),";
-							}else if("6".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
-								str += "面筋吸水量,";
-							}else if("7".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
-								str += "脂肪酸值,";
-							}else if("8".equals(checked[j])){
-								str += "品尝评分值,";
-							}else if("9".equals(checked[j])){
-								str += "色泽气味(储存品质指标),";
-							}else if("10".equals(checked[j])){
-								str += "真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),";
-							}else if("11".equals(checked[j])){
-								str += "重金属(铅、镉、汞、砷),";
-							}
-							
-						}
-						
-						String substring = str.substring(0,str.length()-1);
-						substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
-						substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
-						substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标)", "质量指标全项目");
-						substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
-						substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
-						substring = substring.replace("真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "食品卫生指标全项目");
-						
-						
-						HSSFCell createCell2 = row.createCell(2);
-						createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
-						createCell2.setCellValue(substring);//检验项目
-						
-					}
+				    if(handover == null || "".equals(handover)) {
+				    	HSSFCell createCell2 = row.createCell(2);
+			    		createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
+			    		createCell2.setCellValue("");
+				    } else {
+				    	String checkeds = handover.getCheckeds();
+				    	System.out.println(checkeds);
+				    	String str ="";
+			    		String[] checked = checkeds.split(",");
+			    		for (int j = 0; j < checked.length; j++) {
+			    			if("1".equals(checked[j])){
+			    				str += "容重,";
+			    			}else if("2".equals(checked[j])){
+			    				str += "水分,";
+			    			}else if("3".equals(checked[j])){
+			    				str += "杂质(矿物质),";
+			    			}else if("4".equals(checked[j])){
+			    				str += "不完善粒(生霉粒),";
+			    			}else if("5".equals(checked[j])){
+			    				str += "色泽气味(质量指标),";
+			    			}else if("6".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+			    				str += "面筋吸水量,";
+			    			}else if("7".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
+			    				str += "脂肪酸值,";
+			    			}else if("8".equals(checked[j])){
+			    				str += "品尝评分值,";
+			    			}else if("9".equals(checked[j])){
+			    				str += "色泽气味(储存品质指标),";
+			    			}else if("10".equals(checked[j])){
+			    				str += "真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),";
+			    			}else if("11".equals(checked[j])){
+			    				str += "重金属(铅、镉、汞、砷),";
+			    			}
+			    			
+			    		}
+			    		
+			    		String substring = str.substring(0,str.length()-1);
+			    		substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+			    		substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
+			    		substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标)", "质量指标全项目");
+			    		substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+			    		substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+			    		substring = substring.replace("真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "食品卫生指标全项目");
+			    		
+			    		
+			    		HSSFCell createCell2 = row.createCell(2);
+			    		createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
+			    		createCell2.setCellValue(substring);//检验项目
+			    		
+			    	}
 					
 					HSSFCell createCell3 = row.createCell(3);
 					createCell3.setCellStyle(utils.StyleSamplePlace(workbook));
