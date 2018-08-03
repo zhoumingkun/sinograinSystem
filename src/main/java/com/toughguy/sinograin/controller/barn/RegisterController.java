@@ -180,58 +180,6 @@ public class RegisterController {
 	public String edit(Register register) {
 		try {
 			Register reg = registerService.find(register.getId());
-			Library lib = libraryService.find(reg.getLibraryId());
-			if(register.getRegState() == 2) {
-				Map<String, Object> params = new HashMap<String, Object>();
-				params.put("pId", register.getId());
-				List<Sample> s = sampleService.findAll(params);
-				for(Sample sample:s) {
-					String sort = "00";
-					if("小麦".equals(sample.getSort())){
-						sort = "01";
-					}else if("玉米".equals(sample.getSort())){
-						sort = "02";
-					}else if("食用油".equals(sample.getSort())){
-						sort = "03";
-					}else {
-						sort = "04";
-					}
-					String name = String.format("%03d", lib.getpLibraryId());	
-					Map<String,Object > map = new  HashMap<String,Object>();
-					map.put("prefix", 60+name+sort);
-					SampleNo no = noService.findAll(map).get(0);
-					int num = 0;
-					if(no.getNum()%1000 == 999){
-						num = no.getNum()+2;
-					}else{
-						num = no.getNum()+1;
-					}
-					String newSampleNo = SamplingUtil.sampleNo(lib.getpLibraryId(), sort,num%1000);
-					String sampleWork = SamplingUtil.sampleWork(lib.getpLibraryName(), sample.getSort(),num%1000);
-					no.setNum(num);
-					noService.update(no);
-					sample.setSampleNo(newSampleNo);
-					sample.setSampleWord(sampleWork);
-					//生成二维码
-					String path = UploadUtil.getAbsolutePath("barcode");
-					File f = new File(path);  //无路径则创建 
-					if(!f.exists()){
-						f.mkdirs();
-					}
-					String barFileName = BarCodeUtil.rename("png");
-					BarCodeUtil.generateFile(newSampleNo, path + "/"+ barFileName);
-					/*String vpath = UploadUtil.getAbsolutePath("vbarcode");
-					File vf = new File(vpath);  //无路径则创建 
-					if(!vf.exists()){
-						vf.mkdirs();
-					}
-					BufferedImage src = ImageIO.read(new File(path + "/"+ barFileName)); 
-					BufferedImage des = BarCodeUtil.Rotate(src, 90);
-					ImageIO.write(des, "jpg", new File(vpath + "/"+ barFileName));*/
-					sample.setSamplePic(barFileName);
-					sampleService.update(sample);
-				}
-			}
 			register.setFormName(reg.getFormName());
 			System.out.println(register);
 			registerService.update(register);

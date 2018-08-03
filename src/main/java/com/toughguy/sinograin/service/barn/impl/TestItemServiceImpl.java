@@ -127,7 +127,7 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				HSSFCell createCell2 = row3.createCell(0);
 				createCell2.setCellStyle(utils.Style6(workbook));
 				if((b)*3 < checkedsWord3.length){
-					createCell2.setCellValue(checkedsWord3[(b)*3]);  //检验项目
+					createCell2.setCellValue(checkedsWord3[(b)*3]); //检验项目
 					for(int i=1;i<=result.size();i++) {
 						double testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
@@ -176,11 +176,18 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 							createCell3.setCellValue(result.get(i-1).getResult());
 							HSSFCell createCell4 = row3.createCell(2);
 							createCell4.setCellStyle(utils.Style6(workbook));
-							createCell4.setCellValue(result.get(i-1).getPrincipal());
+							createCell4.setCellValue(result.get(i-1).getPrincipal());	
+						}else {
+							HSSFCell createCell3 = row3.createCell(1);
+							createCell3.setCellStyle(utils.Style6(workbook));
+							createCell3.setCellValue("");
+							HSSFCell createCell4 = row3.createCell(2);
+							createCell4.setCellStyle(utils.Style6(workbook));
+							createCell4.setCellValue("");
 						}
 					}
 
-				}else{
+				}else {
 					createCell2.setCellValue("");
 				}
 				HSSFCell createCell6 = row3.createCell(3);
@@ -236,6 +243,13 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 							HSSFCell createCell4 = row3.createCell(5);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
+						} else {
+							HSSFCell createCell3 = row3.createCell(4);
+							createCell3.setCellStyle(utils.Style6(workbook));
+							createCell3.setCellValue("");
+							HSSFCell createCell4 = row3.createCell(5);
+							createCell4.setCellStyle(utils.Style6(workbook));
+							createCell4.setCellValue("");
 						}
 					}
 				}else{
@@ -294,6 +308,13 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 							HSSFCell createCell4 = row3.createCell(8);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
+						} else {
+							HSSFCell createCell3 = row3.createCell(7);
+							createCell3.setCellStyle(utils.Style6(workbook));
+							createCell3.setCellValue("");
+							HSSFCell createCell4 = row3.createCell(8);
+							createCell4.setCellStyle(utils.Style6(workbook));
+							createCell4.setCellValue("");
 						}
 					}
 				}else{

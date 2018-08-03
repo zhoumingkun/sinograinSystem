@@ -687,7 +687,7 @@ public class SampleController {
 			newSample.setStorageTime(new java.sql.Date(d.getTime()));
 			System.out.println(newSample.getStorageTime());
 			sampleService.update(newSample);
-			return "{ \"success\" : true }";
+			return "{ \"success\" : true,\"sampleNum\":"+ newSample.getSampleNum() +" }";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{ \"success\" : false }";
