@@ -239,4 +239,40 @@ public class DownloadController{
 		}
 }
 	
+	/**
+     * POI扦样登记表模板下载
+     * @throws Exception
+     */
+	@RequestMapping(value="downloadTemplateRegister")
+    public void downloadTemplateRegister(HttpServletResponse response) throws Exception {
+	 FileInputStream fileInput;
+     POIUtils utils = new POIUtils();
+     
+	try {
+			fileInput = new FileInputStream("upload/base/扦样登记表.xls");
+			//poi包下的类读取excel文件  
+			POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
+			// 创建一个webbook，对应一个Excel文件            
+			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
+			//对应Excel文件中的sheet，0代表第一个             
+			HSSFSheet sh = workbook.getSheetAt(0);
+			
+			String title = "扦样登记表模板";
+			OutputStream output = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+			response.setContentType("application/vnd.ms-excel;charset=utf-8");
+			workbook.write(output);
+			output.flush();  
+	        //将Excel写出        
+	        workbook.write(output);  
+	        //关闭流  
+	        fileInput.close();  
+	        output.close();  
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+}
+	
 }
