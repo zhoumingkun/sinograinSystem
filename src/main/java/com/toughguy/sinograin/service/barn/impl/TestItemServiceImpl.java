@@ -128,6 +128,7 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				createCell2.setCellStyle(utils.Style6(workbook));
 				if((b)*3 < checkedsWord3.length){
 					createCell2.setCellValue(checkedsWord3[(b)*3]); //检验项目
+					Boolean isValue = false;
 					for(int i=1;i<=result.size();i++) {
 						double testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
@@ -171,19 +172,25 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
   							testItem4 += "重金属(砷)";
   						}
 						if(checkedsWord3[(b)*3].equals(testItem4)) {
+							System.out.println(result.get(i-1).getResult());
 							HSSFCell createCell3 = row3.createCell(1);
 							createCell3.setCellStyle(utils.Style6(workbook));
 							createCell3.setCellValue(result.get(i-1).getResult());
 							HSSFCell createCell4 = row3.createCell(2);
 							createCell4.setCellStyle(utils.Style6(workbook));
-							createCell4.setCellValue(result.get(i-1).getPrincipal());	
+							createCell4.setCellValue(result.get(i-1).getPrincipal());
+							isValue = true;
 						}else {
-							HSSFCell createCell3 = row3.createCell(1);
-							createCell3.setCellStyle(utils.Style6(workbook));
-							createCell3.setCellValue("");
-							HSSFCell createCell4 = row3.createCell(2);
-							createCell4.setCellStyle(utils.Style6(workbook));
-							createCell4.setCellValue("");
+							if(isValue == false) {
+								HSSFCell createCell3 = row3.createCell(1);
+								createCell3.setCellStyle(utils.Style6(workbook));
+								createCell3.setCellValue("");
+								HSSFCell createCell4 = row3.createCell(2);
+								createCell4.setCellStyle(utils.Style6(workbook));
+								createCell4.setCellValue("");
+							} else {
+								
+							}
 						}
 					}
 
@@ -194,6 +201,7 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				createCell6.setCellStyle(utils.Style6(workbook));
 				if(1+(b)*3 < checkedsWord3.length){
 					createCell6.setCellValue(checkedsWord3[1+(b)*3]);  //检验项目
+					boolean isValue = false;
 					for(int i=1;i<=result.size();i++) {
 						double testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
@@ -243,13 +251,18 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 							HSSFCell createCell4 = row3.createCell(5);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
+							isValue = true;
 						} else {
-							HSSFCell createCell3 = row3.createCell(4);
-							createCell3.setCellStyle(utils.Style6(workbook));
-							createCell3.setCellValue("");
-							HSSFCell createCell4 = row3.createCell(5);
-							createCell4.setCellStyle(utils.Style6(workbook));
-							createCell4.setCellValue("");
+							if(isValue == false) {
+								HSSFCell createCell3 = row3.createCell(4);
+								createCell3.setCellStyle(utils.Style6(workbook));
+								createCell3.setCellValue("");
+								HSSFCell createCell4 = row3.createCell(5);
+								createCell4.setCellStyle(utils.Style6(workbook));
+								createCell4.setCellValue("");
+							} else {
+								
+							}
 						}
 					}
 				}else{
@@ -259,6 +272,7 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				createCell9.setCellStyle(utils.Style6(workbook));
 				if(2+(b)*3 < checkedsWord3.length){
 					createCell9.setCellValue(checkedsWord3[2+(b)*3]);  //检验项目
+					boolean isValue = false;
 					for(int i=1;i<=result.size();i++) {
 						double testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
@@ -308,13 +322,18 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 							HSSFCell createCell4 = row3.createCell(8);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
+							isValue = true;
 						} else {
-							HSSFCell createCell3 = row3.createCell(7);
-							createCell3.setCellStyle(utils.Style6(workbook));
-							createCell3.setCellValue("");
-							HSSFCell createCell4 = row3.createCell(8);
-							createCell4.setCellStyle(utils.Style6(workbook));
-							createCell4.setCellValue("");
+							if(isValue == false) {
+								HSSFCell createCell3 = row3.createCell(7);
+								createCell3.setCellStyle(utils.Style6(workbook));
+								createCell3.setCellValue("");
+								HSSFCell createCell4 = row3.createCell(8);
+								createCell4.setCellStyle(utils.Style6(workbook));
+								createCell4.setCellValue("");
+							} else {
+								
+							}
 						}
 					}
 				}else{

@@ -86,7 +86,7 @@
 	
 	<!--根据用户ID查询对应的角色 -->
 	<select id="findByUserId" parameterType="int" resultType="Role">
-		select * FROM auth_role WHERE id=(select roleId from auth_user_role WHERE userId = #{id});
+		select * FROM auth_role WHERE id=any(select roleId from auth_user_role WHERE userId = #{id})
 	</select>
 	
 	<!-- 根据角色id查询角色和操作的对应关系 -->

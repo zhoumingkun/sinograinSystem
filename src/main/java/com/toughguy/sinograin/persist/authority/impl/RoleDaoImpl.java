@@ -98,9 +98,10 @@ public class RoleDaoImpl extends GenericDaoImpl<Role, Integer> implements IRoleD
 	}
 
 	@Override
-	public Role findByUserId(int id) {
+	public List<Role> findByUserId(int id) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByUserId",id);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByUserId",id);
+		
 	}
 
 }

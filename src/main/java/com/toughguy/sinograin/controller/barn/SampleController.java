@@ -821,6 +821,7 @@ public class SampleController {
 			String sampleWord = pLibraryName + "-" + s.getSort() + "-" + String.format("%03d", num%1000);
 			s.setSampleWord(sampleWord);
 			s.setSampleState(1);
+			s.setAutograph(sample.getAutograph());
 			sampleService.update(s);
 			return "{ \"success\" : true ,\"sampleNo\":"+ sampleNo +"}";
 		} catch (Exception e) {

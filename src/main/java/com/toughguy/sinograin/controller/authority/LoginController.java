@@ -138,7 +138,12 @@ public class LoginController {
         }
 		
 		User u = userDao.findUserInfoByUserName(user.getUserName());
-		Role role = roleDao.findByUserId(u.getId());
+		List<Role> roles = roleDao.findByUserId(u.getId());
+		String roleDisplayName = "";
+		for(Role role:roles) {
+			roleDisplayName += role.getDisplayName() + ",";
+		}
+		String newRoleDisplayName = roleDisplayName.substring(0, roleDisplayName.length()-1);
 		UserDTO ut = new UserDTO();
 		List<Operation> list = operationDao.findByUserId(u.getId());
 		String name = "";          //用户拥有的操作名称
@@ -161,7 +166,7 @@ public class LoginController {
 		for (int i = 0; i < stringArr.length; i++) {
 			resourceName +=stringArr[i]+",";
 		}
-        ut.setRoleName(role.getDisplayName());
+        ut.setRoleName(newRoleDisplayName);
 		ut.setPermissions(name.substring(0, name.length()-1));
 		ut.setResourceName(resourceName.substring(0, resourceName.length()-1));
 		ut.setToken(session.getId());
