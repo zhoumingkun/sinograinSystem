@@ -625,6 +625,8 @@ public class SampleController {
 				String PlibraryId = String.format("%03d", library.getpLibraryId());
 				Map<String,Object > map = new  HashMap<String,Object>();
 				map.put("prefix", 60+PlibraryId+sort);
+				System.out.println(PlibraryId);
+				System.out.println(sort);
 				SampleNo no = noService.findAll(map).get(0);
 				int num = 0;
 				if(no.getNum()%1000 == 999){
@@ -637,8 +639,8 @@ public class SampleController {
 				String SampleNo = SamplingUtil.sampleNo(library.getpLibraryId(), sort,num%1000);  //扦样编号
 				System.out.println(SampleNo + "sampleNo");
 				sample.setSampleNo(SampleNo);
-				String sampleNum = SamplingUtil.sampleNum(sample.getSort());  //检验编号
-				sample.setSampleNum(sampleNum);
+//				String sampleNum = SamplingUtil.sampleNum(sample.getSort());  //检验编号
+//				sample.setSampleNum(sampleNum);
 				sample.setSampleState(2);   // 非正常流程 扦样状态默认为已入库
 				sample.setTemporaryLibraryId(sample.getLibraryId());
 				sampleService.saveRuku(sample);

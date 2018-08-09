@@ -222,7 +222,7 @@
 	</select>
 	<!--根据任务id所有样品集（其中包括检验项目） -->
 	<select id="findByTaskId" parameterType="int" resultType="Sample">
-		select bs.*,bh.checkeds from barn_sample bs LEFT JOIN barn_handover bh ON bh.sampleIds = bs.id 
+		select bs.*,bh.checkeds from barn_sample bs LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) 
 		where bs.taskId = #{taskId}
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
