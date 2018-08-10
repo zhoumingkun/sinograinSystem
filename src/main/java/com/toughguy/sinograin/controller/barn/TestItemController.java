@@ -73,8 +73,11 @@ public class TestItemController {
 			JSONArray json = JSONArray.fromObject(params);
 			list = json.toList(json, TestItem.class);
 			for(TestItem t:list) {
-				System.out.println(t);
 				//根据样品id查出所有检测项目实体
+				if(t.getSampleId() == 0) {
+					Sample sample = sampleService.findBySampleNum(t.getSampleNum());
+					t.setSampleId(sample.getId());
+				}
 				List<TestItem> testItems = testItemService.findResult(t.getSampleId());
 				String testItemStr1 = null;
 				for(TestItem testItem:testItems) {
@@ -111,6 +114,34 @@ public class TestItemController {
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
 			}
 			PagerModel<TestItem> pg = testItemService.findPaginated(map);
+			
+			// 序列化查询结果为JSON
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("total", pg.getTotal());
+			result.put("rows", pg.getData());
+			return om.writeValueAsString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
+	}
+	/**
+	 * 确认单列表获取（包括状态）
+	 * @param params
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findTestItem")
+//	@RequiresPermissions("testItem:list")
+	public String findTestItem(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+			}
+			PagerModel<TestItem> pg = testItemService.findTestItem(map);
 			
 			// 序列化查询结果为JSON
 			Map<String, Object> result = new HashMap<String, Object>();

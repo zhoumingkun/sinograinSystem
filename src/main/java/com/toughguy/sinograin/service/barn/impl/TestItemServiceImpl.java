@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,18 +22,24 @@ import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
+import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ILibraryDao;
 import com.toughguy.sinograin.persist.barn.prototype.ITestItemDao;
+import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
+
+import junit.framework.Test;
 
 @Service
 public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> implements ITestItemService {
 
 	@Autowired
 	private ISampleService sampleService;
+	@Autowired
+	private IReturnSingleService returnSingleService;
 	@Override
 	public List<TestItem> findResult(int sampleId) {
 		// TODO Auto-generated method stub
@@ -355,6 +363,39 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public PagerModel<TestItem> findTestItem(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		
+		PagerModel<TestItem> pts = dao.findPaginated(params);
+		for(TestItem pt:pts.getData()) {
+			String checkeds = sampleService.find(pt.getSampleId()).getCheckeds();
+			Map<String, Object> p = new HashMap<String, Object>();
+			p.put("sampleId", pt.getSampleId());
+			List<TestItem> ts = dao.findAll(p);
+			String testItems = "";
+			for(TestItem t:ts) {
+				Double d = t.getTestItem();
+				int i = (int) Math.floor(d);
+				testItems += i + ",";
+			}
+			String newTestItems = testItems.substring(0, testItems.length()-1);
+			if(checkeds.equals(newTestItems)) {
+				int returnState = returnSingleService.findBySampleId(pt.getSampleId()).getReturnState();
+				if(returnState == 1) {
+					//2为已归还
+					pt.setState(2);
+				} else {
+					//1，应归还
+					pt.setState(1);
+				}
+			} else {
+				pt.setState(-1);
+			}
+		}
+		return pts;
 	}
 }
 

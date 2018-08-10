@@ -15,5 +15,11 @@ public class ReturnSingleServiceImpl extends GenericServiceImpl<ReturnSingle, In
 		// TODO Auto-generated method stub
 		((IReturnSingleDao)dao).updateSampleIdsOfNull(returnSingle);
 	}
+
+	@Override
+	public ReturnSingle findBySampleId(int sampleId) {
+		// TODO Auto-generated method stub
+		return ((IReturnSingleDao)dao).findBySampleId(sampleId);
+	}
 	
 }

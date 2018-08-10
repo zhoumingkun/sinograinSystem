@@ -1,11 +1,13 @@
 package com.toughguy.sinograin.service.barn.prototype;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
+import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.prototype.IGenericService;
 
 /**
@@ -34,4 +36,9 @@ public interface ITestItemService extends IGenericService<TestItem, Integer> {
 	 * 导出样品确认单
 	 */
 	public	void expotexpotTestItem(HttpServletResponse response,int sampleId);
+	/**
+	 * 确认单列表获取（包括状态）
+	 */
+	public PagerModel<TestItem> findTestItem(Map<String, Object> params);
+	
 }

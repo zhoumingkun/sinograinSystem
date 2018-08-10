@@ -25,7 +25,7 @@
 	
 	<!-- 根据样品差检测结果  -->
 	<select id="findResult" resultType="TestItem" parameterType="int">
-		select bti.*,bs.sampleNum,bh.checkeds,bs.sort from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id  LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
+		select bti.*,bs.sampleNum,bs.sampleNumPic,bh.checkeds,bs.sort from barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id  LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
 		where bti.sampleId = #{sampleId}
 	</select>
 	
