@@ -37,6 +37,8 @@ public class TestItemController {
 	private IHandoverService handoverService;
 	@Autowired
 	private ISampleService sampleService;
+	@Autowired
+	private ExportWord exportWord;
 	
 	@ResponseBody
 	@RequestMapping("/getAll")
@@ -199,5 +201,22 @@ public class TestItemController {
 	@RequestMapping(value = "/getResult")
 	public List<TestItem> findResult(int sampleId) {
 		return testItemService.findResult(sampleId);
+	}
+	/**
+	 * 将确认单导出word
+	 * @param sampleId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/exportWordTestItem")
+	public String exportWordTestItem(HttpServletResponse response,int sampleId) {
+		try {
+			// 返回结果
+			exportWord.exportWordTestItem(response, sampleId);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
 	}
 }
