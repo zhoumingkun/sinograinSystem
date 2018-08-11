@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -12,23 +14,35 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.toughguy.sinograin.dto.XMPresentation;
 import com.toughguy.sinograin.dto.YMPresentation;
+import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.model.barn.Sample;
+import com.toughguy.sinograin.model.barn.TestItem;
+import com.toughguy.sinograin.persist.barn.prototype.ITestItemDao;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
+import com.toughguy.sinograin.util.POIUtils;
+import com.toughguy.sinograin.util.UploadUtil;
+import com.toughguy.sinograin.util.WordUtils;
 import com.toughguy.sinograin.util.XwpfTUtil;
 
 /**
  * 导出word 检验报告
- * @author YAO
+ * @author 
  *
  */
 @Controller
 @RequestMapping("/export")
 public class ExportWord {
 
-	
+	@Autowired
+	private ISampleService sampleService;
 	/**
      * POI小麦检验报告导出word
      * @throws Exception
@@ -207,4 +221,78 @@ public class ExportWord {
             os.flush();  
             os.close();  
         }  
+    
+    /**
+     * POI样品确认单导出word
+     * @throws Exception
+     */
+     @RequestMapping(value="exportWordTestItem")
+     public void exportWordTestItem(HttpServletResponse response,int sampleId) throws Exception {  
+            Map<String, Object> params = new HashMap<String, Object>();  
+            Sample sample = sampleService.find(sampleId);
+            params.put("${sampleNum}", "监" + sample.getSampleNum());
+            List<TestItem> ts = testItemService.findResult(sampleId);
+            for(int i=0; i<ts.size(); i++) {
+            	String testItemWord = null;
+            	if(1.0 == ts.get(i).getTestItem()) {
+					testItemWord = "容重";
+				}else if(2.0 == ts.get(i).getTestItem()){
+					testItemWord = "水分";
+				}else if(3.1 == ts.get(i).getTestItem()){
+					testItemWord = "杂质";
+				}else if(3.2 == ts.get(i).getTestItem()){
+					testItemWord = "矿物质";
+				}else if(4.1 == ts.get(i).getTestItem()){
+					testItemWord = "不完善粒";
+				}else if(4.2 == ts.get(i).getTestItem()){
+					testItemWord = "生霉粒";
+				}else if(5 == ts.get(i).getTestItem()){
+					testItemWord = "色泽气味(质量指标)";
+				}else if(6 == ts.get(i).getTestItem()){
+					testItemWord = "面筋吸水量";
+				}else if(7 == ts.get(i).getTestItem()){
+					testItemWord = "脂肪酸值";
+				}else if(8 == ts.get(i).getTestItem()){
+					testItemWord = "品尝评分值";
+				}else if(9 == ts.get(i).getTestItem()){
+					testItemWord = "色泽气味(储存品质指标)";
+				}else if(10.1 == ts.get(i).getTestItem()){
+					testItemWord = "真菌毒素(黄曲霉毒素B1)";
+				}else if(10.2 == ts.get(i).getTestItem()){
+					testItemWord = "真菌毒素(脱氧雪腐)";
+				}else if(10.3 == ts.get(i).getTestItem()){
+					testItemWord = "真菌毒素(镰刀菌烯醇)";
+				}else if(10.4 == ts.get(i).getTestItem()){
+					testItemWord = "真菌毒素(玉米赤霉烯酮)";
+				}else if(11.1 == ts.get(i).getTestItem()){
+					testItemWord = "重金属(铅)";
+				}else if(11.2 == ts.get(i).getTestItem()){
+					testItemWord = "重金属(镉)";
+				}else if(11.3 == ts.get(i).getTestItem()){
+					testItemWord = "重金属(汞)";
+				}else if(11.4 == ts.get(i).getTestItem()){
+					testItemWord = "重金属(砷)";
+				}
+            	params.put("${checked" + (i+1) + "}", testItemWord);
+            	params.put("${result" + (i+1) + "}", ts.get(i).getResult());
+            	params.put("${principal" + (i+1) + "}", ts.get(i).getPrincipal());
+            }
+            try {
+				Map<String, Object> sampleNumPic = new HashMap<String, Object>();
+				sampleNumPic.put("width", 189);
+				sampleNumPic.put("height", 119);
+				sampleNumPic.put("type", "png");
+				sampleNumPic.put("content", WordUtils.inputStream2ByteArray(new FileInputStream(UploadUtil.getAbsolutePath("barcode") + "/" + sample.getSampleNumPic()), true));
+				params.put("${sampleNumPic}", sampleNumPic);
+				WordUtils wordutil = new WordUtils();
+				List<String[]> testList = new ArrayList<String[]>();
+				String path = "upload/base/样品确认单.docx";
+				String fileName= new String("样品确认单.docx".getBytes("UTF-8"),"iso-8859-1");    //生成word文件的文件名
+				wordutil.getWord(path, params, testList, fileName, response);
+            } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+        }
 }
