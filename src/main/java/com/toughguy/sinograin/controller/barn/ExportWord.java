@@ -21,14 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.toughguy.sinograin.dto.XMPresentation;
 import com.toughguy.sinograin.dto.YMPresentation;
 import com.toughguy.sinograin.model.barn.Sample;
-<<<<<<< HEAD
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
-import com.toughguy.sinograin.model.barn.Sample;
-=======
->>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.persist.barn.prototype.ITestItemDao;
-import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
 import com.toughguy.sinograin.util.POIUtils;
 import com.toughguy.sinograin.util.UploadUtil;
@@ -43,13 +38,8 @@ import com.toughguy.sinograin.util.XwpfTUtil;
 @Controller
 @RequestMapping("/export")
 public class ExportWord {
-<<<<<<< HEAD
-
-=======
-	
 	@Autowired
 	private ITestItemService testItemService;
->>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend
 	@Autowired
 	private ISampleService sampleService;
 	/**
