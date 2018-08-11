@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,9 @@ import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.persist.barn.prototype.ITestItemDao;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
+import com.toughguy.sinograin.util.POIUtils;
+import com.toughguy.sinograin.util.UploadUtil;
+import com.toughguy.sinograin.util.WordUtils;
 import com.toughguy.sinograin.util.XwpfTUtil;
 
 /**
@@ -273,31 +277,22 @@ public class ExportWord {
             	params.put("${result" + (i+1) + "}", ts.get(i).getResult());
             	params.put("${principal" + (i+1) + "}", ts.get(i).getPrincipal());
             }
+            try {
+				Map<String, Object> sampleNumPic = new HashMap<String, Object>();
+				sampleNumPic.put("width", 189);
+				sampleNumPic.put("height", 119);
+				sampleNumPic.put("type", "png");
+				sampleNumPic.put("content", WordUtils.inputStream2ByteArray(new FileInputStream(UploadUtil.getAbsolutePath("barcode") + "/" + sample.getSampleNumPic()), true));
+				params.put("${sampleNumPic}", sampleNumPic);
+				WordUtils wordutil = new WordUtils();
+				List<String[]> testList = new ArrayList<String[]>();
+				String path = "upload/base/样品确认单.docx";
+				String fileName= new String("样品确认单.docx".getBytes("UTF-8"),"iso-8859-1");    //生成word文件的文件名
+				wordutil.getWord(path, params, testList, fileName, response);
+            } catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             
-            XwpfTUtil xwpfTUtil = new XwpfTUtil();  
-      
-            XWPFDocument doc;  
-            String fileNameInResource = "upload/base/样品确认单.docx";
-            InputStream is;  
-            is = new FileInputStream(fileNameInResource); 
-//            is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
-            
-            doc = new XWPFDocument(is);  
-            
-            xwpfTUtil.replaceInPara(doc, params);  
-            //替换表格里面的变量  
-            xwpfTUtil.replaceInTable(doc, params);  
-            OutputStream os = response.getOutputStream();  
-       
-            response.setContentType("application/vnd.ms-excel");  
-            response.setHeader("Content-disposition","attachment;filename="+new String( "样品确认单".getBytes("gb2312"), "ISO8859-1" )+".docx");  
-      
-            doc.write(os);  
-      
-            xwpfTUtil.close(os);  
-            xwpfTUtil.close(is);  
-      
-            os.flush();  
-            os.close();  
         }
 }
