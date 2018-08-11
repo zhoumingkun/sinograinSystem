@@ -59,7 +59,10 @@
 		</set>
 		where id = #{id}
 	</update>
-	
+	<!-- 查询某个样品对应的归还单-->
+	<select id="findBySampleId" resultType="ReturnSingle" parameterType="int">
+		SELECT * from barn_return_single brs LEFT JOIN barn_sample bs ON FIND_IN_SET(bs.id,brs.sampleIds) where bs.id = #{sampleId}
+	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
 		<where>

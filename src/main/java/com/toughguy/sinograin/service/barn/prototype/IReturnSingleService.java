@@ -8,4 +8,9 @@ public interface IReturnSingleService extends IGenericService<ReturnSingle, Inte
 	 * 修改归还单（包含sampleIds为空）
 	 */
 	public void updateSampleIdsOfNull(ReturnSingle returnSingle);
+	
+	/**
+	 * 查询某个样品对应的归还单
+	 */
+	public ReturnSingle findBySampleId(int sampleId);
 }

@@ -16,4 +16,10 @@ public class ReturnSingleDaoImpl extends GenericDaoImpl<ReturnSingle, Integer> i
 		sqlSessionTemplate.update(typeNameSpace + ".updateSampleIdsOfNull",returnSingle);
 	}
 
+	@Override
+	public ReturnSingle findBySampleId(int sampleId) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findBySampleId",sampleId);
+	}
+
 }

@@ -25,6 +25,8 @@ public class TestItem extends AbstractModel{
 	private String sampleNum;    //样品检测编号(页面展示)
 	private String checkeds;	 //检测项集(页面展示)
 	private String sort;         //品种(页面展示)
+	private String sampleNumPic;//检测编号条形码
+	private int state;       //确认单状态   -1未归还   1应归还    2已归还
 	
 	public Double getTestItem() {
 		return testItem;
@@ -71,6 +73,20 @@ public class TestItem extends AbstractModel{
 	}
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+	
+	public String getSampleNumPic() {
+		return sampleNumPic;
+	}
+	public void setSampleNumPic(String sampleNumPic) {
+		this.sampleNumPic = sampleNumPic;
+	}
+	
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
 	}
 	@Override
 	public String toString() {
