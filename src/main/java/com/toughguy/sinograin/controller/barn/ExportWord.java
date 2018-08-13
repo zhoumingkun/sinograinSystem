@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,68 +49,10 @@ public class ExportWord {
      * @throws Exception
      */
      @RequestMapping(value="exportWordXM")
-     public void exportWordXM(HttpServletResponse response,XMPresentation presentation) throws Exception {  
-            Map<String, Object> params = new HashMap<String, Object>();  
-            params.put("${bianhao_1}", presentation.getBianhao_1());
-            params.put("${bianhao_2}", presentation.getBianhao_2());
-            params.put("${sort}", presentation.getSort());  
-            params.put("${sampleNum}",presentation.getSampleNum());  
-            params.put("${cunchudanwei}", presentation.getCunchudanwei());  
-            params.put("${counter}",  presentation.getCounter());  
-            params.put("${shengchanniandu}",  presentation.getShengchanniandu());  
-            params.put("${quality}",  presentation.getQuality());  
-            params.put("${daibiaoshuliang}",  presentation.getDaibiaoshuliang());  
-            params.put("${sampleCount}",  presentation.getSampleCount());  
-            params.put("${yangpinmiaoshu}",  presentation.getYangpinmiaoshu());  
-            params.put("${yangpinzhuangtai}", presentation.getYangpinzhuangtai());  
-            params.put("${qianyangren}",  presentation.getQianyangren());  
-            params.put("${sampleTime}",  presentation.getSampleTime());  
-            params.put("${qianyangyiju}",  presentation.getQianyangyiju());  
-            params.put("${jianyanmudi}",  presentation.getJianyanmudi());  
-            params.put("${jianyanshijian}",  presentation.getJianyanshijian());  
-            params.put("${jianyanyiju}",  presentation.getJianyanyiju()); 
-            params.put("${jianyanxiangmu}",  presentation.getJianyanxiangmu());  
-            params.put("${Jianyanjielun}",  presentation.getJianyanjielun());  
-            params.put("${beizhu}",  presentation.getBeizhu());  
-            params.put("${rongzhongbiaozhunyaoqiu}",  presentation.getRongzhongbiaozhunyaoqiu());  
-            params.put("${rongzhongjiancejieguo}",  presentation.getRongzhongjiancejieguo());  
-            params.put("${rongzhongdanxiangpingjia}",  presentation.getRongzhongdanxiangpingjia());  
-            params.put("${buwanshanlibiaozhunyaoqiu}",  presentation.getBuwanshanlibiaozhunyaoqiu());  
-            params.put("${buwanshanlijiancejieguo}",  presentation.getBuwanshanlijiancejieguo());  
-            params.put("${buwanshanlidanxiangpingjia}",  presentation.getBuwanshanlidanxiangpingjia());  
-            params.put("${zazhizongliangbiaozhunyaoqiu}",  presentation.getZazhizongliangbiaozhunyaoqiu());  
-            params.put("${zazhizongliangjiancejieguo}",  presentation.getZazhizongliangjiancejieguo());  
-            params.put("${zazhizongliangdanxiangpingjia}",  presentation.getZazhizongliangdanxiangpingjia());  
-            params.put("${zazhikuangwuzhibiaozhunyaoqiu}",  presentation.getZazhikuangwuzhibiaozhunyaoqiu());  
-            params.put("${zazhikuangwuzhijiancejieguo}",  presentation.getZazhikuangwuzhijiancejieguo());  
-            params.put("${zazhikuangwuzhidanxiangpingjia}",  presentation.getZazhikuangwuzhidanxiangpingjia());  
-            params.put("${shuifenbiaozhunyaoqiu}",  presentation.getShuifenbiaozhunyaoqiu());  
-            params.put("${shuifenjiancejieguo}",  presentation.getShuifenjiancejieguo());  
-            params.put("${shuifendanxiangpingjia}",  presentation.getShuifendanxiangpingjia());  
-            params.put("${yingduzhishu_1_biaozhunyaoqiu}",  presentation.getYingduzhishu_1_biaozhunyaoqiu());  
-            params.put("${yingduzhishu_2_biaozhunyaoqiu}",  presentation.getYingduzhishu_2_biaozhunyaoqiu());  
-            params.put("${yingduzhishu_3_biaozhunyaoqiu}",  presentation.getYingduzhishu_3_biaozhunyaoqiu());  
-            params.put("${yingduzhishujiancejieguo}",  presentation.getYingduzhishujiancejieguo());  
-            params.put("${yingduzhishudanxiangpingjia}",  presentation.getYingduzhishudanxiangpingjia());  
-            params.put("${sezeqiweibiaozhunyaoqiu}",  presentation.getSezeqiweibiaozhunyaoqiu());  
-            params.put("${sezeqiweijiancejieguo}",  presentation.getSezeqiweijiancejieguo());  
-            params.put("${sezeqiweidanxiangpingjia}",  presentation.getSezeqiweidanxiangpingjia());  
-            params.put("${mianjinxishui_yicun}",  presentation.getMianjinxishui_yicun());  
-            params.put("${mianjinxishui_qingdubuyicun}",  presentation.getMianjinxishui_qingdubuyicun());  
-            params.put("${mianjinxishui_zhongdubuyicun}",  presentation.getMianjinxishui_zhongdubuyicun());  
-            params.put("${mianjinxishui_jianyanjieguo}",  presentation.getMianjinxishui_jianyanjieguo());  
-            params.put("${pinchangpinfen_yicun}",  presentation.getPinchangpingfen_yicun());  
-            params.put("${pinchangpinfen_qingdubuyicun}",  presentation.getPinchangpingfen_qingdubuyicun());  
-            params.put("${pinchangpinfen_zhongdubuyicun}",  presentation.getPinchangpingfen_zhongdubuyicun());  
-            params.put("${pinchangpinfen_jianyanjieguo}",  presentation.getPinchangpingfen_jianyanjieguo());  
-            params.put("${sezeqiwei_yicun}",  presentation.getSezeqiwei_yicun());  
-            params.put("${sezeqiwei_qingdubuyicun}",  presentation.getSezeqiwei_qingdubuyicun());  
-            params.put("${sezeqiwei_zhongdubuyicun}",  presentation.getSezeqiwei_zhongdubuyicun());  
-            params.put("${sezeqiwei_jianyanjieguo}",  presentation.getSezeqiwei_jianyanjieguo());  
-            params.put("${jieguopanding}",  presentation.getJieguopanding());
-            
+     public void exportWordXM(HttpServletResponse response,int sampleId) throws Exception {
+    	 	Map<String, Object> params = replace(sampleId);
             XwpfTUtil xwpfTUtil = new XwpfTUtil();  
-      
+            
             XWPFDocument doc;  
             String fileNameInResource = "upload/base/小麦检验报告.docx";
             InputStream is;  
@@ -140,61 +84,10 @@ public class ExportWord {
      * @throws Exception
      */
     @RequestMapping(value="exportWordYM")
-     public void exportWordYM(HttpServletResponse response,YMPresentation presentation) throws Exception {  
-          
-            Map<String, Object> params = new HashMap<String, Object>();  
-      
-            params.put("${bianhao_1}", presentation.getBianhao_1());
-            params.put("${bianhao_2}", presentation.getBianhao_2()); 
-            params.put("${sort}", presentation.getSort());  
-            params.put("${sampleNum}",presentation.getSampleNum());  
-            params.put("${cunchudanwei}", presentation.getCunchudanwei());  
-            params.put("${counter}",  presentation.getCounter());  
-            params.put("${shengchanniandu}",  presentation.getShengchanniandu());  
-            params.put("${quality}",  presentation.getQuality());  
-            params.put("${daibiaoshuliang}",  presentation.getDaibiaoshuliang());  
-            params.put("${sampleCount}",  presentation.getSampleCount());  
-            params.put("${yangpinmiaoshu}",  presentation.getYangpinmiaoshu());  
-            params.put("${yangpinzhuangtai}", presentation.getYangpinzhuangtai());  
-            params.put("${qianyangren}",  presentation.getQianyangren());  
-            params.put("${sampleTime}",  presentation.getSampleTime());  
-            params.put("${qianyangyiju}",  presentation.getQianyangyiju());  
-            params.put("${jianyanmudi}",  presentation.getJianyanmudi());  
-            params.put("${jianyanshijian}",  presentation.getJianyanshijian());  
-            params.put("${jianyanyiju}",  presentation.getJianyanyiju()); 
-            params.put("${jianyanxiangmu}",  presentation.getJianyanxiangmu());  
-            params.put("${Jianyanjielun}",  presentation.getJianyanjielun());  
-            params.put("${beizhu}",  presentation.getBeizhu());  
-            params.put("${rongzhongbiaozhunyaoqiu}",  presentation.getRongzhongbiaozhunyaoqiu());  
-            params.put("${rongzhongjiancejieguo}",  presentation.getRongzhongjiancejieguo());  
-            params.put("${rongzhongdanxiangpingjia}",  presentation.getRongzhongdanxiangpingjia());  
-            params.put("${buwanshanlizongliangbiaozhunyaoqiu}",  presentation.getBuwanshanlizongliangbiaozhunyaoqiu());  
-            params.put("${buwanshanlizongliangjiancejieguo}",  presentation.getBuwanshanlizongliangjiancejieguo());  
-            params.put("${buwanshanlizongliangdanxiangpingjia}",  presentation.getBuwanshanlizongliangdanxiangpingjia());  
-            params.put("${buwanshanlishengmeilibiaozhunyaoqiu}",  presentation.getBuwanshanlishengmeilibiaozhunyaoqiu());  
-            params.put("${buwanshanlishengmeilijiancejieguo}",  presentation.getBuwanshanlishengmeilijiancejieguo());  
-            params.put("${buwanshanlishengmeilidanxiangpingjia}",  presentation.getBuwanshanlishengmeilidanxiangpingjia());  
-            params.put("${zazhibiaozhunyaoqiu}",  presentation.getZazhibiaozhunyaoqiu());  
-            params.put("${zazhijiancejieguo}",  presentation.getZazhijiancejieguo());  
-            params.put("${zazhidanxiangpingjia}",  presentation.getZazhidanxiangpingjia());  
-            params.put("${shuifenbiaozhunyaoqiu}",  presentation.getShuifenbiaozhunyaoqiu());  
-            params.put("${shuifenjiancejieguo}",  presentation.getShuifenjiancejieguo());  
-            params.put("${shuifendanxiangpingjia}",  presentation.getShuifendanxiangpingjia());  
-            params.put("${zhifangsuanzhi_yicun}",  presentation.getZhifangsuanzhi_yicun());  
-            params.put("${zhifangsuanzhi_qingdubuyicun}",  presentation.getZhifangsuanzhi_qingdubuyicun());  
-            params.put("${zhifangsuanzhi_zhongdubuyicun}",  presentation.getZhifangsuanzhi_zhongdubuyicun());  
-            params.put("${zhifangsuanzhi_jianyanjieguo}",  presentation.getZhifangsuanzhi_jianyanjieguo());  
-            params.put("${pinchangpinfen_yicun}",  presentation.getPinchangpingfen_yicun());  
-            params.put("${pinchangpinfen_qingdubuyicun}",  presentation.getPinchangpingfen_qingdubuyicun());  
-            params.put("${pinchangpinfen_zhongdubuyicun}",  presentation.getPinchangpingfen_zhongdubuyicun());  
-            params.put("${pinchangpinfen_jianyanjieguo}",  presentation.getPinchangpingfen_jianyanjieguo());  
-            params.put("${sezeqiwei_yicun}",  presentation.getSezeqiwei_yicun());  
-            params.put("${sezeqiwei_qingdubuyicun}",  presentation.getSezeqiwei_qingdubuyicun());  
-            params.put("${sezeqiwei_zhongdubuyicun}",  presentation.getSezeqiwei_zhongdubuyicun());  
-            params.put("${sezeqiwei_jianyanjieguo}",  presentation.getSezeqiwei_jianyanjieguo());  
-            params.put("${jieguopanding}",  presentation.getJieguopanding());  
-            
-            XwpfTUtil xwpfTUtil = new XwpfTUtil();  
+     public void exportWordYM(HttpServletResponse response,int sampleId) throws Exception {  
+    		
+    		Map<String, Object> params = replace(sampleId);
+    		XwpfTUtil xwpfTUtil = new XwpfTUtil();  
       
             XWPFDocument doc;  
             String fileNameInResource = "upload/base/玉米检验报告.docx";
@@ -294,4 +187,278 @@ public class ExportWord {
 			}
             
         }
+     /**
+      * 导出word小麦检测报告替换文字方法
+      * @param sampleId
+      */
+     private Map<String, Object> replace(int sampleId) {
+    	 Map<String, Object> params = new HashMap<String, Object>();  
+         Sample sample = sampleService.find(sampleId);
+         boolean isFuhe = false;
+         params.put("${sampleNum}", sample.getSampleNum());
+         params.put("${pLibraryName}",sample.getpLibraryName());  
+         params.put("${sort}", sample.getSort());  
+         params.put("${libraryName}", sample.getLibraryName());  
+         params.put("${position}",  sample.getPosition());  
+         params.put("${gainTime}",  sample.getGainTime());  
+         params.put("${quality}",  sample.getQuality());  
+         params.put("${amount}",  sample.getAmount());  
+         params.put("${autograph}", sample.getAutograph());  
+         params.put("${sampleTime}", sample.getSampleTime());  
+         params.put("${remark}", sample.getRemark()); 
+         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+         params.put("${newDate}", sdf.format(new Date()));  
+         String checkedWords = "";
+         String[] checkeds = sample.getCheckeds().split(",");
+         for(int i=0;i<checkeds.length;i++) {
+         	if("1".equals(checkeds[i])){
+         		checkedWords += "容重,";
+				}else if("2".equals(checkeds[i])){
+					checkedWords += "水分,";
+				}else if("3".equals(checkeds[i])){
+					checkedWords += "杂质,矿物质,";
+				}else if("4".equals(checkeds[i])){
+					checkedWords += "不完善粒,生霉粒,";
+				}else if("5".equals(checkeds[i])){
+					checkedWords += "色泽气味(质量指标),";
+				}else if("6".equals(checkeds[i])){
+					checkedWords += "面筋吸水量,";
+				}else if("7".equals(checkeds[i])){
+					checkedWords += "脂肪酸值,";
+				}else if("8".equals(checkeds[i])){
+					checkedWords += "品尝评分值,";
+				}else if("9".equals(checkeds[i])){
+					checkedWords += "色泽气味(储存品质指标),";
+				}else if("10".equals(checkeds[i])){
+					checkedWords += "真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐),真菌毒素(镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),";
+				}else if("11".equals(checkeds[i])){
+					checkedWords += "重金属(铅),重金属(镉),重金属(汞),重金属(砷),";
+				}
+         }
+         params.put("${checkeds}", checkedWords); 
+    	 List<TestItem> testItems = testItemService.findResult(sampleId);
+    	 if(sample.getSort() == "小麦") {
+    		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
+    		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
+    		 for(TestItem t:testItems) {
+    	         	if(t.getTestItem() == 1.0) {
+    	         		params.put("${rongzhongjiancejieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result >= 750) {
+    	         			params.put("${rongzhongdanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${rongzhongdanxiangpingjia}", "不达标"); 
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 2.0) {
+    	         		params.put("${shuifenjiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 12.5) {
+    	         			params.put("${shuifendanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${shuifendanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 3.1) {
+    	         		params.put("${zazhizongliangjiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 1.0) {
+    	         			params.put("${zazhizongliangdanxiangpingjia}", "达标");  
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${zazhizongliangdanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 3.2) {
+    	         		params.put("${zazhikuangwuzhijiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 0.5) {
+    	         			params.put("${zazhikuangwuzhidanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${zazhikuangwuzhidanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 4.1) {
+    	         		params.put("${buwanshanlijiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 8.0) {
+    	         			params.put("${buwanshanlidanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${buwanshanlidanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 5.0) {
+    	         		params.put("${sezeqiweijiancejieguo1}", t.getResult());  
+    	         		if(t.getResult().equals("正常")) {
+    	         			params.put("${sezeqiweidanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${sezeqiweidanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 6.0) {
+    	         		params.put("${mianjinxishuijianyanjieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result >= 180) {
+    	         			jieguopanding1 = 1;
+    	         		} else if(result < 180){
+    	         			jieguopanding1 = 2;
+    	         		} else {
+    	         			jieguopanding1 = 3;
+    	         		}
+    	         	} else if(t.getTestItem() == 8.0) {
+    	         		params.put("${pinchangpinfenjianyanjieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result >= 70) {
+    	         			jieguopanding2 = 1;
+    	         		} else if(result >= 60 && result < 70){
+    	         			jieguopanding2 = 2;
+    	         		} else if(result <60) {
+    	         			jieguopanding2 = 3;
+    	         		}
+    	         	} else if(t.getTestItem() == 5.0) {
+    	         		params.put("${sezeqiweijiancejieguo2}", t.getResult());  
+    	         	}
+    	         	
+    	         	if(jieguopanding1 < jieguopanding2) {
+    	         		if(jieguopanding2 == 2) {
+    	         			params.put("${jieguopanding}", "轻度不宜存");
+    	         			isFuhe = false;
+    	         		} else if(jieguopanding2 == 3) {
+    	         			params.put("${jieguopanding}", "重度不宜存");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(jieguopanding1 > jieguopanding2) {
+    	         		if(jieguopanding1 == 2) {
+    	         			params.put("${jieguopanding}", "轻度不宜存");
+    	         			isFuhe = false;
+    	         		} else if(jieguopanding1 == 3) {
+    	         			params.put("${jieguopanding}", "重度不宜存");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else {
+    	         		params.put("${jieguopanding}", "宜存");
+    	         		isFuhe = true;
+    	         	}
+    	         }
+    	 } else if(sample.getSort() == "玉米") {
+    		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
+    		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
+    		 for(TestItem t:testItems) {
+    	         	if(t.getTestItem() == 1.0) {
+    	         		params.put("${rongzhongjiancejieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result >= 650) {
+    	         			params.put("${rongzhongdanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${rongzhongdanxiangpingjia}", "不达标"); 
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 2.0) {
+    	         		params.put("${shuifenjiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 14.0) {
+    	         			params.put("${shuifendanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${shuifendanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 3.1) {
+    	         		params.put("${zazhijiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 1.0) {
+    	         			params.put("${zazhidanxiangpingjia}", "达标");  
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${zazhidanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 4.1) {
+    	         		params.put("${buwanshanlizongliangjiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 8.0) {
+    	         			params.put("${buwanshanlizongliangdanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${buwanshanlizongliangdanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 4.2) {
+    	         		params.put("${buwanshanlishengmeilijiancejieguo}", t.getResult());  
+    	         		Double result = Double.parseDouble(t.getResult());
+    	         		if(result <= 2.0) {
+    	         			params.put("${buwanshanlishengmeilidanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${buwanshanlishengmeilidanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 5.0) {
+    	         		params.put("${sezeqiweijianchejieguo1}", t.getResult());  
+    	         		if(t.getResult().equals("正常")) {
+    	         			params.put("${sezeqiweidanxiangpingjia}", "达标");
+    	         			isFuhe = true;
+    	         		} else {
+    	         			params.put("${sezeqiweidanxiangpingjia}", "不达标");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(t.getTestItem() == 7.0) {
+    	         		params.put("${zhifangsuanzhijianyanjieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result <= 65) {
+    	         			jieguopanding1 = 1;
+    	         		} else if(result <= 78){
+    	         			jieguopanding1 = 2;
+    	         		} else if(result > 78){
+    	         			jieguopanding1 = 3;
+    	         		}
+    	         	} else if(t.getTestItem() == 8.0) {
+    	         		params.put("${pinchangpinfenjianyanjieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result >= 70) {
+    	         			jieguopanding2 = 1;
+    	         		} else if(result >= 60){
+    	         			jieguopanding2 = 2;
+    	         		} else if(result <60) {
+    	         			jieguopanding2 = 3;
+    	         		}
+    	         	} else if(t.getTestItem() == 5.0) {
+    	         		params.put("${sezeqiweijianchejieguo2}", t.getResult());  
+    	         	}
+    	         	
+    	         	if(jieguopanding1 < jieguopanding2) {
+    	         		if(jieguopanding2 == 2) {
+    	         			params.put("${jieguopanding}", "轻度不宜存");
+    	         			isFuhe = false;
+    	         		} else if(jieguopanding2 == 3) {
+    	         			params.put("${jieguopanding}", "重度不宜存");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else if(jieguopanding1 > jieguopanding2) {
+    	         		if(jieguopanding1 == 2) {
+    	         			params.put("${jieguopanding}", "轻度不宜存");
+    	         			isFuhe = false;
+    	         		} else if(jieguopanding1 == 3) {
+    	         			params.put("${jieguopanding}", "重度不宜存");
+    	         			isFuhe = false;
+    	         		}
+    	         	} else {
+    	         		params.put("${jieguopanding}", "宜存");
+    	         		isFuhe = true;
+    	         	}
+    	         }
+    	 }
+         if(isFuhe) {
+        	 params.put("${isFuhe}", "符合");
+         } else {
+        	 params.put("${isFuhe}", "不符合");
+         }
+         return params;
+     }
 }
