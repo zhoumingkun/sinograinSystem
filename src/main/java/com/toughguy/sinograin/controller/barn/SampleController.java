@@ -872,4 +872,12 @@ public class SampleController {
 	public List<Sample> findByDetectionState(int detectionState) {
 		return sampleService.findByDetectionState(detectionState);
 	}
+	/**
+	 * 根据检测编号搜索
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findBysampleNumMobile")
+	public Sample findBysampleNumMobile(String sampleNum) {
+		return sampleService.findBysampleNumMobile(sampleNum);
+	}
 }
