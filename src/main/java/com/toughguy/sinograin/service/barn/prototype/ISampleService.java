@@ -106,4 +106,8 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 根据任务id所有样品集（其中包括检验项目）
 	 */
 	public List<Sample> findByTaskId(int taskId);
+	/**
+	 * 根据检测状态查询检验编号
+	 */
+	public List<Sample> findByDetectionState(int detectionState);
 }

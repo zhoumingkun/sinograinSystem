@@ -864,4 +864,12 @@ public class SampleController {
 	public List<Sample> getByTaskId(int taskId) {
 		return sampleService.findByTaskId(taskId);
 	}
+	/**
+	 * 根据检测状态查询检测编号
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findByDetectionState")
+	public List<Sample> findByDetectionState(int detectionState) {
+		return sampleService.findByDetectionState(detectionState);
+	}
 }

@@ -3,6 +3,7 @@ package com.toughguy.sinograin.service.barn.impl;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -1391,6 +1392,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				HSSFSheet sh = workbook.getSheetAt(0);  
 //				String[] sampleNo = storageTime.split(",");
 				List<Sample> sampleReport = sampleDao.findBystorageTime(storageTime);
+				SimpleDateFormat dateSample = new SimpleDateFormat("yyyy-MM-dd");
 				for (int i = 0; i < sampleReport.size(); i++) {
 					//根据扦样编号查询样品
 //					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
@@ -1466,7 +1468,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					if(sampleReport.get(i).getSampleTime() == null ){
 					 createCell4.setCellValue(""); //扦样时间
 					}else{
-					 createCell4.setCellValue(sampleReport.get(i).getSampleTime()); //扦样时间
+					 createCell4.setCellValue(dateSample.format(sampleReport.get(i).getSampleTime())); //扦样时间
 					}
 					
 					HSSFCell createCell5 = row.createCell(5);
@@ -1541,6 +1543,12 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	public List<Sample> findByTaskId(int taskId) {
 		// TODO Auto-generated method stub
 		return ((ISampleDao)dao).findByTaskId(taskId);
+	}
+
+	@Override
+	public List<Sample> findByDetectionState(int detectionState) {
+		// TODO Auto-generated method stub
+		return ((ISampleDao)dao).findByDetectionState(detectionState);
 	}
 
 	

@@ -49,6 +49,10 @@
 	<select id="findBysampleNumMobile" parameterType="String" resultType="Sample">
 		select * from barn_sample where sampleNum = #{sampleNum}
 	</select>
+	<!-- 根据检测状态差检测编号 -->
+	<select id="findByDetectionState" parameterType="int" resultType="Sample">
+		select * from barn_sample where detectionState = #{detectionState}
+	</select>
 	<!-- 查询某条样品 -->
 	<select id="find" parameterType="int" resultType="Sample">
 		select bs.*,r.formName,l.libraryName,l.pLibraryId pLibraryId,l.id libraryId,
