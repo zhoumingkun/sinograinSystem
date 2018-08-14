@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Handover;
+import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
+import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
@@ -34,6 +36,8 @@ public class BarnServiceImpl implements IBarnService {
 	private IHandoverService handoverService;
 	@Autowired
 	private ISmallSampleService smallSampleService;
+	@Autowired
+	private ILibraryService libraryService;
 	
 	@Override
 	public void saveSampleAndRegister(SamplingDTO sampleDTO) {	
@@ -152,6 +156,43 @@ public class BarnServiceImpl implements IBarnService {
 			sample.setSampleState(3);
 			sampleService.update(sample);
 		}	
+	}
+
+	/**
+	 * 临时保存扦样表和样品方法
+	 */
+	@Override
+	public void temporarySaveSampleAndRegister(SamplingDTO sampleDTO) {
+		// TODO Auto-generated method stub
+		//状态未做处理在controller层存入状态
+		registerService.save(sampleDTO.getRegister());
+		int rId = sampleDTO.getRegister().getId();
+		for(Sample s : sampleDTO.getList()){
+			s.setpId(rId);
+			s.setSampleState(1);
+			String sampleWord = s.getSampleWord();
+			String[] sampleWords = sampleWord.split("-");
+			int libraryId = 0;
+			String sortNum = null;
+			Library l = libraryService.findByLibraryName(sampleWords[0]);
+			libraryId = l.getId();
+			if(sampleWords[1].equals("小麦")) {
+				sortNum = "01";
+			} else if(sampleWords[1].equals("玉米")) {
+				sortNum = "02";
+			}
+			String sampleNo = "60" + String.format("%03d", libraryId) + sortNum + sampleWords[2];
+			s.setSampleNo(sampleNo);
+			String path = UploadUtil.getAbsolutePath("barcode");
+			File f = new File(path); // 无路径则创建
+			if (!f.exists()) {
+				f.mkdirs();
+			}
+			String barFileName = BarCodeUtil.rename("png");
+			BarCodeUtil.generateFile(sampleNo, path + "/" + barFileName);
+			s.setSamplePic(barFileName);
+			sampleService.save(s);
+		}
 	}
 	
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class RegisterDTO {
 	
 	private String id;                                //序号
-	private String sampleNo;                          //扦样编号
+	private String sampleWord;                          //扦样编号(文字)
 	private String libraryName;                       //被查库点
 	private String position;                          //货物号
 	private String sort;                              //品种
@@ -25,11 +25,12 @@ public class RegisterDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getSampleNo() {
-		return sampleNo;
+	
+	public String getSampleWord() {
+		return sampleWord;
 	}
-	public void setSampleNo(String sampleNo) {
-		this.sampleNo = sampleNo;
+	public void setSampleWord(String sampleWord) {
+		this.sampleWord = sampleWord;
 	}
 	public String getLibraryName() {
 		return libraryName;

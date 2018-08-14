@@ -16,4 +16,10 @@ public interface ILibraryDao extends IGenericDao<Library, Integer>  {
 	 * @return 库集合
 	 */
 	public List<Library> findByParams(Map<String, Object> params);
+	/**
+	 * 临时查询之根据库名查询库
+	 * @param libraryName
+	 * @return 库
+	 */
+	public Library findByLibraryName(String libraryName);
 }

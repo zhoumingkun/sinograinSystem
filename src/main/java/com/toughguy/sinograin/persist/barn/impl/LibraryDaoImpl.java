@@ -23,4 +23,10 @@ public class LibraryDaoImpl extends GenericDaoImpl<Library, Integer> implements 
 		return sqlSessionTemplate.selectList(typeNameSpace + ".findByParams",params);
 	}
 
+	@Override
+	public Library findByLibraryName(String libraryName) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByLibraryName",libraryName);
+	}
+
 }

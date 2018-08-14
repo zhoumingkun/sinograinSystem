@@ -25,5 +25,10 @@ public class LibraryServiceImpl extends GenericServiceImpl<Library, Integer> imp
 		// TODO Auto-generated method stub
 		return dao.findByParams(params);
 	}
+	@Override
+	public Library findByLibraryName(String libraryName) {
+		// TODO Auto-generated method stub
+		return dao.findByLibraryName(libraryName);
+	}
 
 }
