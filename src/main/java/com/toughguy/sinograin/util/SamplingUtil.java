@@ -41,8 +41,8 @@ public class SamplingUtil {
 		 String sortInt = null;
 		 Calendar date = Calendar.getInstance();
 	     String year = String.valueOf(date.get(Calendar.YEAR));
-		 //String year = "2019";
-	     FileInputStream fileInput = new FileInputStream("C:/java/sinograin/grain.properties");
+		 //String year = "2019";C:/Users/Administrator/git/sinograin_backend/src/main/resources/config
+	     FileInputStream fileInput = new FileInputStream("C:/Users/Administrator/git/sinograin_backend/src/main/resources/config/grain.properties");
 	     Properties prop = new Properties(); 
 	     prop.load(fileInput);
 	     //判断该字段文件中是否存在
@@ -61,7 +61,7 @@ public class SamplingUtil {
 	        }
 	    	String s = prop.getProperty("grain."+year).trim();
 	     String lib = String.format("%04d", Integer.parseInt(s));
-	     OutputStream out = new FileOutputStream("C:/java/sinograin/grain.properties");  
+	     OutputStream out = new FileOutputStream("C:/Users/Administrator/git/sinograin_backend/src/main/resources/config/grain.properties");  
 			prop.setProperty("grain."+year, (Integer.parseInt(s) + 1)+"");
 			prop.store(out,  null);
 			fileInput.close();  
