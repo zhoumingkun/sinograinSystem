@@ -514,7 +514,7 @@ public class ImportExcelController {
             	Row row = sheet.getRow(i);
             	RegisterDTO ir = new RegisterDTO();
             	ir.setId(util.getCellValue(row.getCell(0)));
-            	ir.setSampleNo(util.getCellValue(row.getCell(1)));
+            	ir.setSampleWord(util.getCellValue(row.getCell(1)));
             	ir.setLibraryName(util.getCellValue(row.getCell(2)));
             	ir.setPosition(util.getCellValue(row.getCell(3)));
             	ir.setSort(util.getCellValue(row.getCell(4)));
