@@ -30,5 +30,11 @@ public interface IBarnService {
 	 * sample  样品实体
 	 * */
 	public void saveSmallSample(Sample sample,int taskId);
+	
+	/**
+	 * 临时保存扦样表及表数据
+	 * 
+	 * */
+	public void temporarySaveSampleAndRegister(SamplingDTO sampleDTO);
 
 }

@@ -79,7 +79,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/get")
-	@RequiresPermissions("sample:getById")
+//	@RequiresPermissions("sample:getById")
 	public Sample get(int id) {
 		Sample s = sampleService.find(id);
 		s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
@@ -195,6 +195,22 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+	@ResponseBody
+	@RequestMapping(value = "/temporarySaveAll")
+	@RequiresPermissions("sample:saveAll")
+	public String temporarySaveAll(Register register, String sample) {
+		try {
+			SamplingDTO samplingDTO = new SamplingDTO();
+			List<Sample> list = JsonUtil.jsonToList(sample, Sample.class);
+			samplingDTO.setRegister(register);
+			samplingDTO.setList(list);
+			barnService.temporarySaveSampleAndRegister(samplingDTO);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/split")
@@ -250,7 +266,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/data")
-	@RequiresPermissions("sample:list")
+//	@RequiresPermissions("sample:list")
 	public String data(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();
@@ -309,7 +325,7 @@ public class SampleController {
 
 	@ResponseBody
 	@RequestMapping(value = "/dataMobile")
-	@RequiresPermissions("sample:list")
+//	@RequiresPermissions("sample:list")
 	public String dataMobile(String params) {
 		try {
 			ObjectMapper om = new ObjectMapper();

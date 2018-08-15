@@ -75,6 +75,15 @@
 			<if test=" returnState != null and returnState != '' ">
 				and returnState = #{ returnState }
 			</if>
+			<if test=" dateStart != null and dateStart != '' ">
+				and  returnTime &gt;= #{dateStart}
+			</if>
+			<if test=" dateEnd != null and dateEnd != '' ">
+				and  returnTime &lt;= #{dateEnd}
+			</if>
+			<if test=" idAndReturnPerson != null and idAndReturnPerson != '' ">
+				and (id = #{ idAndReturnPerson } or returnPerson = #{idAndReturnPerson})
+			</if>
 		</where>
 	</sql>
 	

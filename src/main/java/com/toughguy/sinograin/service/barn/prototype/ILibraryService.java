@@ -12,4 +12,6 @@ public interface ILibraryService extends IGenericService<Library, Integer> {
 	public List<Library> findFirst(Map<String, Object> params);
 	
 	public List<Library> findByParams(Map<String, Object> params);
+
+	public Library findByLibraryName(String libraryName);
 }
