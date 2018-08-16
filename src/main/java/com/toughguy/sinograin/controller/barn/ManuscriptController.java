@@ -119,15 +119,62 @@ public class ManuscriptController {
 			return "{ \"success\" : false }";
 		}
 	}
-	
+	/**
+	 * 导出工作底稿(长方体)
+	 * */
 	@ResponseBody
-	@RequestMapping(value = "/exportExcel")
+	@RequestMapping(value = "/exportExcelCFT")
 	@RequiresPermissions("manuscript:export")
-	public String exprotExcel(HttpServletResponse response,int id) {
+	public String exportExcelCFT(HttpServletResponse response,int id) {
 		try {
 			Manuscript manuscript = manuscriptService.find(id);
 			Sample sample = sampleService.find(manuscript.getSampleId());
-			manuscriptService.expertExcel(response,sample,manuscript);
+			manuscriptService.exportExcelCFT(response,sample,manuscript);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/exportExcelYZT")
+	@RequiresPermissions("manuscript:export")
+	public String exportExcelYZT(HttpServletResponse response,int id) {
+		try {
+			Manuscript manuscript = manuscriptService.find(id);
+			Sample sample = sampleService.find(manuscript.getSampleId());
+			manuscriptService.exportExcelYZT(response,sample,manuscript);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/exportExcelCFJZT")
+	@RequiresPermissions("manuscript:export")
+	public String exportExcelCFJZT(HttpServletResponse response,int id) {
+		try {
+			Manuscript manuscript = manuscriptService.find(id);
+			Sample sample = sampleService.find(manuscript.getSampleId());
+			manuscriptService.exportExcelCFJZT(response,sample,manuscript);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/exportExcelQT")
+	@RequiresPermissions("manuscript:export")
+	public String exportExcelQT(HttpServletResponse response,int id) {
+		try {
+			Manuscript manuscript = manuscriptService.find(id);
+			Sample sample = sampleService.find(manuscript.getSampleId());
+			manuscriptService.exportExcelQT(response,sample,manuscript);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();

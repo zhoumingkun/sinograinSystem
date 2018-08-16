@@ -14,6 +14,13 @@ public class Manuscript extends AbstractModel {
 	
 	private static final long serialVersionUID = -197840779923600921L;
 	
+	private double topS;        	//上底面积
+	private double bottomS;        	//下底面积
+	private double diameter;        //直径
+	private double length_2;        //长度2
+	private double high_2;			//高度2
+	private String shape;           //形状
+	
 	private double length;        	//长度
 	private double wide;			//宽度
 	private double high;			//高度	
@@ -52,6 +59,45 @@ public class Manuscript extends AbstractModel {
 	
 	private double loss;          	//合计损耗（页面）
 	
+	
+	
+	public String getShape() {
+		return shape;
+	}
+	public void setShape(String shape) {
+		this.shape = shape;
+	}
+	public double getTopS() {
+		return topS;
+	}
+	public void setTopS(double topS) {
+		this.topS = topS;
+	}
+	public double getBottomS() {
+		return bottomS;
+	}
+	public void setBottomS(double bottomS) {
+		this.bottomS = bottomS;
+	}
+	public double getDiameter() {
+		return diameter;
+	}
+	public void setDiameter(double diameter) {
+		this.diameter = diameter;
+	}
+	public double getLength_2() {
+		return length_2;
+	}
+	public void setLength_2(double length_2) {
+		this.length_2 = length_2;
+	}
+	
+	public double getHigh_2() {
+		return high_2;
+	}
+	public void setHigh_2(double high_2) {
+		this.high_2 = high_2;
+	}
 	public double getLength() {
 		return length;
 	}

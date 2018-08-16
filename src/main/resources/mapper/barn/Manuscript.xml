@@ -4,9 +4,9 @@
 
 	<insert id="save" parameterType="Manuscript" keyProperty="id" useGeneratedKeys="true">
 		insert into barn_manuscript (guid, createTime,updateTime,sampleId,length,wide,high,deductVolume,grainQuality,storageCapacity,realCapacity,aveDensity,unQuality,leader,rummager,custodian,remark,
-		correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay,lossWater,lossNature,checkNum,difference,slip,result,measuredVolume,realVolume,barnType,realCheckedTime,isMatch) 
+		correctioFactor,storageImpurity,storageWater,realImpurity,realWater,storge,qualityGrade,putWay,lossWater,lossNature,checkNum,difference,slip,result,measuredVolume,realVolume,barnType,realCheckedTime,isMatch,topS,bottomS,diameter,length_2,high_2,shape) 
 		values (#{guid}, #{createTime},#{updateTime},#{sampleId},#{length},#{wide},#{high},#{deductVolume},#{grainQuality},#{storageCapacity},#{realCapacity},#{aveDensity},#{unQuality},#{leader},#{rummager},#{custodian},#{remark},
-		#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay},#{lossWater},#{lossNature},#{checkNum},#{difference},#{slip},#{result},#{measuredVolume},#{realVolume},#{barnType},#{realCheckedTime},#{isMatch})
+		#{correctioFactor},#{storageImpurity},#{storageWater},#{realImpurity},#{realWater},#{storge},#{qualityGrade},#{putWay},#{lossWater},#{lossNature},#{checkNum},#{difference},#{slip},#{result},#{measuredVolume},#{realVolume},#{barnType},#{realCheckedTime},#{isMatch},#{topS},#{bottomS},#{diameter},#{length_2},#{high_2},#{shape})
 	</insert>
 	
 	
@@ -84,6 +84,12 @@
 			<if test="barnType != null and barnType != ''">barnType = #{barnType},</if>
 			<if test="realCheckedTime != null">realCheckedTime = #{realCheckedTime},</if>
 			<if test="slip != null">slip = #{slip},</if>
+			<if test="topS != null and topS != ''">topS = #{topS},</if>
+			<if test="bottomS != null and bottomS != ''">bottomS = #{bottomS},</if>
+			<if test="diameter != null and diameter != ''">diameter = #{diameter},</if>
+			<if test="length_2 != null and length_2 != ''">length_2 = #{length_2},</if>
+			<if test="high_2 != null and high_2 != ''">high_2 = #{high_2},</if>
+			<if test="shape != null and shape != ''">shape = #{shape},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -148,6 +154,42 @@
 				and createTime between #{startTime} and #{endTime}
 			</if>
 			
+			<if test=" topS != null and topS != '' ">
+				and topS = #{topS}
+			</if>
+			<if test=" topSLike != null and topSLike != '' ">
+				and topS like concat(concat('%', #{topSLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" bottomS != null and bottomS != '' ">
+				and bottomS = #{bottomS}
+			</if>
+			<if test=" bottomSLike != null and bottomSLike != '' ">
+				and bottomS like concat(concat('%', #{bottomSLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" diameter != null and diameter != '' ">
+				and diameter = #{diameter}
+			</if>
+			<if test=" diameterLike != null and diameterLike != '' ">
+				and diameter like concat(concat('%', #{diameterLike, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" length_2 != null and length_2 != '' ">
+				and length_2 = #{length_2}
+			</if>
+			<if test=" length_2Like != null and length_2Like != '' ">
+				and length_2 like concat(concat('%', #{length_2Like, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" wide_2 != null and wide_2 != '' ">
+				and wide_2 = #{wide_2}
+			</if>
+			<if test=" high_2Like != null and high_2Like != '' ">
+				and high_2 like concat(concat('%', #{high_2Like, jdbcType=VARCHAR}),'%')
+			</if>
+			<if test=" shape != null and shape != '' ">
+				and shape = #{shape}
+			</if>
+			<if test=" shapeLike != null and shapeLike != '' ">
+				and shape like concat(concat('%', #{shapeLike, jdbcType=VARCHAR}),'%')
+			</if>
 		</where>
 	</sql>
 	
