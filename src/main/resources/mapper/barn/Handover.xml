@@ -22,7 +22,9 @@
 	
 	<!-- 查询某个交接单  -->
 	<select id="find" parameterType="int" resultType="Handover">
-		select * from barn_handover where id = #{id}
+		select DISTINCT bs.sort,bh.* from barn_handover bh 
+		LEFT JOIN barn_sample bs ON FIND_IN_SET(bs.id,bh.sampleIds) where bh.id = #{id} ORDER BY bs.createTime desc
+	
 	</select>
 	
 	<!-- 查询全部交接单  -->
@@ -40,11 +42,11 @@
 	</select>
 	<!-- 根据样品id查询检验项目 -->
 	<select id="findCheckedBySampleId" resultType="Handover" parameterType="int">
-		select * from barn_handover bh LEFT JOIN barn_sample bs ON bh.sampleIds = bs.id where FIND_IN_SET(#{sampleId},bh.sampleIds) 
+		select * from barn_handover bh LEFT JOIN barn_sample bs ON bh.sampleIds = bs.id where FIND_IN_SET(#{sampleId},bh.sampleIds) ORDER BY bh.createTime desc LIMIT 1
 	</select>
 	<!-- 分页查询交接单  -->
 	<select id="findPaginated" resultType="Handover" parameterType="Map">
-		select * from barn_handover 
+		select DISTINCT bs.sort,bh.* from barn_handover bh LEFT JOIN barn_sample bs ON FIND_IN_SET(bs.id,bh.sampleIds)
 		<include refid="paramsSQL"/>
 		ORDER BY createTime desc  limit #{offset}, #{limit}
 	</select>

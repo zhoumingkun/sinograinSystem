@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.ReturnSingle">
 
 	<insert id="save" parameterType="ReturnSingle" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_return_single (guid, createTime,updateTime,returnPerson,sampleIds,returnSampleNumber) 
-		values (#{guid}, #{createTime},#{updateTime},#{returnPerson},#{sampleIds},#{returnSampleNumber})
+		insert into barn_return_single (guid, createTime,updateTime,returnPerson,sampleIds,returnSampleNumber,initiator) 
+		values (#{guid}, #{createTime},#{updateTime},#{returnPerson},#{sampleIds},#{returnSampleNumber},#{initiator})
 	</insert>
 	
 	<!-- 删除某个归还单 -->
@@ -39,6 +39,7 @@
 		update barn_return_single
 		<set>
 			<if test="returnPerson != null and returnPerson != ''">returnPerson = #{returnPerson},</if>
+			<if test="initiator != null and initiator != ''">initiator = #{initiator},</if>
 			<if test="sampleIds != null and sampleIds != ''">sampleIds = #{sampleIds},</if>
 			<if test="returnState != null and returnState != ''">returnState = #{returnState},</if>
 			<if test="returnTime != null">returnTime = #{returnTime},</if>
@@ -52,6 +53,7 @@
 		update barn_return_single
 		<set>
 			<if test="returnPerson != null and returnPerson != ''">returnPerson = #{returnPerson},</if>
+			<if test="initiator != null and initiator != ''">initiator = #{initiator},</if>
 			sampleIds = #{sampleIds},
 			<if test="returnState != null and returnState != ''">returnState = #{returnState},</if>
 			<if test="returnTime != null">returnTime = #{returnTime},</if>

@@ -24,6 +24,7 @@ public class ReturnSingle  extends AbstractModel{
 	private int returnState;             //归还状态 -1未归还    1已归还
 	private Date returnTime;              //归还时间
 	private int returnSampleNumber;      //归还样品数量
+	private String initiator;            //发起人
 	
 	private List<Sample> samples;               //样品集
 	
@@ -72,6 +73,14 @@ public class ReturnSingle  extends AbstractModel{
 
 	public void setSamples(List<Sample> samples) {
 		this.samples = samples;
+	}
+
+	public String getInitiator() {
+		return initiator;
+	}
+
+	public void setInitiator(String initiator) {
+		this.initiator = initiator;
 	}
 
 	

@@ -61,16 +61,21 @@
 		SELECT bs.*,bt.taskName FROM barn_test_item bti LEFT JOIN barn_sample bs ON bti.sampleId = bs.id 
 		LEFT JOIN barn_task bt ON bs.taskId = bt.id 
 		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
-		WHERE FLOOR(bti.testItem) =  FLOOR(#{testItem})
+		WHERE bti.testItem = #{testItem} and bs.sort = #{sort} and bt.taskName = #{taskName}
 	</select>
 	<!-- 根据品种和检验项目查询全部的样品集 -->
 	<select id="getAllSampleBySortAndTestItem" parameterType="TestItem" resultType="Sample">
-		SELECT DISTINCT bs.*, bt.taskName FROM barn_sample bs LEFT JOIN barn_task bt ON bs.taskId = bt.id 
+		SELECT DISTINCT bs.*,bt.taskName FROM barn_sample bs LEFT JOIN barn_task bt ON bs.taskId = bt.id 
 		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id, bh.sampleIds) 
-		WHERE bs.sort = #{sort} AND FIND_IN_SET(FLOOR(#{testItem}), bh.checkeds)
+		WHERE bs.sort = #{sort} AND FIND_IN_SET(#{testItem}, bh.checkeds) and bt.taskName = #{taskName}
 	</select>
 	<!-- 通用的设置条件的查询SQL语句 -->
 	<sql id="paramsSQL">
+		<where>
+			<if test=" sampleId != null and sampleId != '' ">
+				and sampleId = #{sampleId}
+			</if>
+		</where>
 	</sql>
 	
 </mapper>

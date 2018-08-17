@@ -24,6 +24,7 @@ public class Handover extends AbstractModel{
 	private String receiptor;           //领取人
 	
 	private List<Sample> samples;        //样品集（页面展示）
+	private String sort;                    //样品品种
 	
 	public String getSampleIds() {
 		return sampleIds;
@@ -78,6 +79,12 @@ public class Handover extends AbstractModel{
 		this.receiptor = receiptor;
 	}
 	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

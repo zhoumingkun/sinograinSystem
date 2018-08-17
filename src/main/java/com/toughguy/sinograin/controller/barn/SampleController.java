@@ -27,6 +27,7 @@ import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Register;
+import com.toughguy.sinograin.model.barn.ReturnSingle;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.model.barn.SmallSample;
@@ -38,6 +39,7 @@ import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
+import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
@@ -69,6 +71,8 @@ public class SampleController {
 	private IWarehouseCounterService wcs;
 	@Autowired
 	private ILibraryService libraryService;
+	@Autowired
+	private IReturnSingleService returnSingleService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -895,5 +899,34 @@ public class SampleController {
 	@RequestMapping(value = "/findBysampleNumMobile")
 	public Sample findBysampleNumMobile(String sampleNum) {
 		return sampleService.findBysampleNumMobile(sampleNum);
+	}
+	/**
+	 * 归还单专用方法
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findReturnSingle")
+	public List<Sample> findReturnSingle(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
+			}
+			PagerModel<Sample> pg = sampleService.findPaginated(map);
+			List<Sample> samples = new ArrayList<Sample>();
+			for(Sample s : pg.getData()) {
+				ReturnSingle rs = returnSingleService.findBySampleId(s.getId());
+				if(rs == null || "".equals(rs)) {
+					samples.add(s);
+				}
+			}
+			return samples;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

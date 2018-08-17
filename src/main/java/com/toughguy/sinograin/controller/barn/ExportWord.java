@@ -126,43 +126,43 @@ public class ExportWord {
             List<TestItem> ts = testItemService.findResult(sampleId);
             for(int i=0; i<ts.size(); i++) {
             	String testItemWord = null;
-            	if(1.0 == ts.get(i).getTestItem()) {
+            	if(1 == ts.get(i).getTestItem()) {
 					testItemWord = "容重";
-				}else if(2.0 == ts.get(i).getTestItem()){
+				}else if(2 == ts.get(i).getTestItem()){
 					testItemWord = "水分";
-				}else if(3.1 == ts.get(i).getTestItem()){
+				}else if(3 == ts.get(i).getTestItem()){
 					testItemWord = "杂质";
-				}else if(3.2 == ts.get(i).getTestItem()){
+				}else if(4 == ts.get(i).getTestItem()){
 					testItemWord = "矿物质";
-				}else if(4.1 == ts.get(i).getTestItem()){
-					testItemWord = "不完善粒";
-				}else if(4.2 == ts.get(i).getTestItem()){
-					testItemWord = "生霉粒";
 				}else if(5 == ts.get(i).getTestItem()){
-					testItemWord = "色泽气味(质量指标)";
+					testItemWord = "不完善粒";
 				}else if(6 == ts.get(i).getTestItem()){
-					testItemWord = "面筋吸水量";
+					testItemWord = "生霉粒";
 				}else if(7 == ts.get(i).getTestItem()){
-					testItemWord = "脂肪酸值";
+					testItemWord = "色泽气味(质量指标)";
 				}else if(8 == ts.get(i).getTestItem()){
-					testItemWord = "品尝评分值";
+					testItemWord = "硬度指数";
 				}else if(9 == ts.get(i).getTestItem()){
+					testItemWord = "面筋吸水量";
+				}else if(10 == ts.get(i).getTestItem()){
+					testItemWord = "脂肪酸值";
+				}else if(11 == ts.get(i).getTestItem()){
+					testItemWord = "品尝评分值";
+				}else if(12 == ts.get(i).getTestItem()){
 					testItemWord = "色泽气味(储存品质指标)";
-				}else if(10.1 == ts.get(i).getTestItem()){
+				}else if(13 == ts.get(i).getTestItem()){
 					testItemWord = "真菌毒素(黄曲霉毒素B1)";
-				}else if(10.2 == ts.get(i).getTestItem()){
-					testItemWord = "真菌毒素(脱氧雪腐)";
-				}else if(10.3 == ts.get(i).getTestItem()){
-					testItemWord = "真菌毒素(镰刀菌烯醇)";
-				}else if(10.4 == ts.get(i).getTestItem()){
+				}else if(14 == ts.get(i).getTestItem()){
+					testItemWord = "真菌毒素(脱氧雪腐镰刀菌烯醇)";
+				}else if(15 == ts.get(i).getTestItem()){
 					testItemWord = "真菌毒素(玉米赤霉烯酮)";
-				}else if(11.1 == ts.get(i).getTestItem()){
+				}else if(16 == ts.get(i).getTestItem()){
 					testItemWord = "重金属(铅)";
-				}else if(11.2 == ts.get(i).getTestItem()){
+				}else if(17 == ts.get(i).getTestItem()){
 					testItemWord = "重金属(镉)";
-				}else if(11.3 == ts.get(i).getTestItem()){
+				}else if(18 == ts.get(i).getTestItem()){
 					testItemWord = "重金属(汞)";
-				}else if(11.4 == ts.get(i).getTestItem()){
+				}else if(19 == ts.get(i).getTestItem()){
 					testItemWord = "重金属(砷)";
 				}
             	params.put("${checked" + (i+1) + "}", testItemWord);
@@ -216,23 +216,39 @@ public class ExportWord {
 				}else if("2".equals(checkeds[i])){
 					checkedWords += "水分,";
 				}else if("3".equals(checkeds[i])){
-					checkedWords += "杂质,矿物质,";
+					checkedWords += "杂质,";
 				}else if("4".equals(checkeds[i])){
-					checkedWords += "不完善粒,生霉粒,";
+					checkedWords += "矿物质,";
 				}else if("5".equals(checkeds[i])){
-					checkedWords += "色泽气味(质量指标),";
+					checkedWords += "不完善粒,";
 				}else if("6".equals(checkeds[i])){
-					checkedWords += "面筋吸水量,";
+					checkedWords += "生霉粒,";
 				}else if("7".equals(checkeds[i])){
-					checkedWords += "脂肪酸值,";
+					checkedWords += "色泽气味(质量指标),";
 				}else if("8".equals(checkeds[i])){
-					checkedWords += "品尝评分值,";
+					checkedWords += "硬度指数,";
 				}else if("9".equals(checkeds[i])){
-					checkedWords += "色泽气味(储存品质指标),";
+					checkedWords += "面筋吸水量,";
 				}else if("10".equals(checkeds[i])){
-					checkedWords += "真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐),真菌毒素(镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),";
+					checkedWords += "脂肪酸值,";
 				}else if("11".equals(checkeds[i])){
-					checkedWords += "重金属(铅),重金属(镉),重金属(汞),重金属(砷),";
+					checkedWords += "品尝评分值,";
+				}else if("12".equals(checkeds[i])){
+					checkedWords += "色泽气味(储存品质指标),";
+				}else if("13".equals(checkeds[i])){
+					checkedWords += "真菌毒素(黄曲霉毒素B1),";
+				}else if("14".equals(checkeds[i])){
+					checkedWords += "真菌毒素(脱氧雪腐镰刀菌烯醇),";
+				}else if("15".equals(checkeds[i])){
+					checkedWords += "真菌毒素(玉米赤霉烯酮),";
+				}else if("16".equals(checkeds[i])){
+					checkedWords += "重金属(铅),";
+				}else if("17".equals(checkeds[i])){
+					checkedWords += "重金属(镉),";
+				}else if("18".equals(checkeds[i])){
+					checkedWords += "重金属(汞),";
+				}else if("19".equals(checkeds[i])){
+					checkedWords += "重金属(砷),";
 				}
          }
          params.put("${checkeds}", checkedWords); 
@@ -241,7 +257,7 @@ public class ExportWord {
     		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
     		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
     		 for(TestItem t:testItems) {
-    	         	if(t.getTestItem() == 1.0) {
+    	         	if(t.getTestItem() == 1) {
     	         		params.put("${rongzhongjiancejieguo}", t.getResult());  
     	         		int result = Integer.parseInt(t.getResult());
     	         		if(result >= 750) {
@@ -251,7 +267,7 @@ public class ExportWord {
     	         			params.put("${rongzhongdanxiangpingjia}", "不达标"); 
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 2.0) {
+    	         	} else if(t.getTestItem() == 2) {
     	         		params.put("${shuifenjiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 12.5) {
@@ -261,7 +277,7 @@ public class ExportWord {
     	         			params.put("${shuifendanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 3.1) {
+    	         	} else if(t.getTestItem() == 3) {
     	         		params.put("${zazhizongliangjiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 1.0) {
@@ -271,7 +287,7 @@ public class ExportWord {
     	         			params.put("${zazhizongliangdanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 3.2) {
+    	         	} else if(t.getTestItem() == 4) {
     	         		params.put("${zazhikuangwuzhijiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 0.5) {
@@ -281,7 +297,7 @@ public class ExportWord {
     	         			params.put("${zazhikuangwuzhidanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 4.1) {
+    	         	} else if(t.getTestItem() == 5) {
     	         		params.put("${buwanshanlijiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 8.0) {
@@ -291,7 +307,7 @@ public class ExportWord {
     	         			params.put("${buwanshanlidanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 5.0) {
+    	         	} else if(t.getTestItem() == 7) {
     	         		params.put("${sezeqiweijiancejieguo1}", t.getResult());  
     	         		if(t.getResult().equals("正常")) {
     	         			params.put("${sezeqiweidanxiangpingjia}", "达标");
@@ -300,7 +316,17 @@ public class ExportWord {
     	         			params.put("${sezeqiweidanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 6.0) {
+    	         	} else if(t.getTestItem() == 8) {
+    	         		params.put("${yingduzhishujiancejieguo}", t.getResult());  
+    	         		int result = Integer.parseInt(t.getResult());
+    	         		if(result >= 60) {
+    	         			params.put("${yingduzhishudanxiangpingjia}", "硬质小麦");  
+    	         		} else if(result > 45 && result < 60){
+    	         			params.put("${yingduzhishudanxiangpingjia}", "混合小麦");  
+    	         		} else if(result <= 45) {
+    	         			params.put("${yingduzhishudanxiangpingjia}", "软质小麦");  
+    	         		}
+    	         	} else if(t.getTestItem() == 9) {
     	         		params.put("${mianjinxishuijianyanjieguo}", t.getResult());  
     	         		int result = Integer.parseInt(t.getResult());
     	         		if(result >= 180) {
@@ -310,7 +336,7 @@ public class ExportWord {
     	         		} else {
     	         			jieguopanding1 = 3;
     	         		}
-    	         	} else if(t.getTestItem() == 8.0) {
+    	         	} else if(t.getTestItem() == 11) {
     	         		params.put("${pinchangpinfenjianyanjieguo}", t.getResult());  
     	         		int result = Integer.parseInt(t.getResult());
     	         		if(result >= 70) {
@@ -320,7 +346,7 @@ public class ExportWord {
     	         		} else if(result <60) {
     	         			jieguopanding2 = 3;
     	         		}
-    	         	} else if(t.getTestItem() == 5.0) {
+    	         	} else if(t.getTestItem() == 12) {
     	         		params.put("${sezeqiweijiancejieguo2}", t.getResult());  
     	         	}
     	         	
@@ -349,7 +375,7 @@ public class ExportWord {
     		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
     		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
     		 for(TestItem t:testItems) {
-    	         	if(t.getTestItem() == 1.0) {
+    	         	if(t.getTestItem() == 1) {
     	         		params.put("${rongzhongjiancejieguo}", t.getResult());  
     	         		int result = Integer.parseInt(t.getResult());
     	         		if(result >= 650) {
@@ -359,7 +385,7 @@ public class ExportWord {
     	         			params.put("${rongzhongdanxiangpingjia}", "不达标"); 
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 2.0) {
+    	         	} else if(t.getTestItem() == 2) {
     	         		params.put("${shuifenjiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 14.0) {
@@ -369,7 +395,7 @@ public class ExportWord {
     	         			params.put("${shuifendanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 3.1) {
+    	         	} else if(t.getTestItem() == 3) {
     	         		params.put("${zazhijiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 1.0) {
@@ -379,7 +405,7 @@ public class ExportWord {
     	         			params.put("${zazhidanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 4.1) {
+    	         	} else if(t.getTestItem() == 5) {
     	         		params.put("${buwanshanlizongliangjiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 8.0) {
@@ -389,7 +415,7 @@ public class ExportWord {
     	         			params.put("${buwanshanlizongliangdanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 4.2) {
+    	         	} else if(t.getTestItem() == 6) {
     	         		params.put("${buwanshanlishengmeilijiancejieguo}", t.getResult());  
     	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result <= 2.0) {
@@ -399,7 +425,7 @@ public class ExportWord {
     	         			params.put("${buwanshanlishengmeilidanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 5.0) {
+    	         	} else if(t.getTestItem() == 7) {
     	         		params.put("${sezeqiweijianchejieguo1}", t.getResult());  
     	         		if(t.getResult().equals("正常")) {
     	         			params.put("${sezeqiweidanxiangpingjia}", "达标");
@@ -408,7 +434,7 @@ public class ExportWord {
     	         			params.put("${sezeqiweidanxiangpingjia}", "不达标");
     	         			isFuhe = false;
     	         		}
-    	         	} else if(t.getTestItem() == 7.0) {
+    	         	} else if(t.getTestItem() == 10) {
     	         		params.put("${zhifangsuanzhijianyanjieguo}", t.getResult());  
     	         		int result = Integer.parseInt(t.getResult());
     	         		if(result <= 65) {
@@ -418,7 +444,7 @@ public class ExportWord {
     	         		} else if(result > 78){
     	         			jieguopanding1 = 3;
     	         		}
-    	         	} else if(t.getTestItem() == 8.0) {
+    	         	} else if(t.getTestItem() == 11) {
     	         		params.put("${pinchangpinfenjianyanjieguo}", t.getResult());  
     	         		int result = Integer.parseInt(t.getResult());
     	         		if(result >= 70) {
@@ -428,7 +454,7 @@ public class ExportWord {
     	         		} else if(result <60) {
     	         			jieguopanding2 = 3;
     	         		}
-    	         	} else if(t.getTestItem() == 5.0) {
+    	         	} else if(t.getTestItem() == 12) {
     	         		params.put("${sezeqiweijianchejieguo2}", t.getResult());  
     	         	}
     	         	

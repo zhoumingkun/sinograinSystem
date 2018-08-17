@@ -20,6 +20,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.toughguy.sinograin.model.barn.ReturnSingle;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.pagination.PagerModel;
@@ -104,23 +105,39 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				}else if("2".equals(checkedsNum2[i])){
 					checkedsWord1 += "水分,";
 				}else if("3".equals(checkedsNum2[i])){
-					checkedsWord1 += "杂质,矿物质,";
+					checkedsWord1 += "杂质,";
 				}else if("4".equals(checkedsNum2[i])){
-					checkedsWord1 += "不完善粒,生霉粒,";
+					checkedsWord1 += "矿物质,";
 				}else if("5".equals(checkedsNum2[i])){
-					checkedsWord1 += "色泽气味(质量指标),";
+					checkedsWord1 += "不完善粒,";
 				}else if("6".equals(checkedsNum2[i])){
-					checkedsWord1 += "面筋吸水量,";
+					checkedsWord1 += "生霉粒,";
 				}else if("7".equals(checkedsNum2[i])){
-					checkedsWord1 += "脂肪酸值,";
+					checkedsWord1 += "色泽气味(质量指标),";
 				}else if("8".equals(checkedsNum2[i])){
-					checkedsWord1 += "品尝评分值,";
+					checkedsWord1 += "硬度指数,";
 				}else if("9".equals(checkedsNum2[i])){
-					checkedsWord1 += "色泽气味(储存品质指标),";
+					checkedsWord1 += "面筋吸水量,";
 				}else if("10".equals(checkedsNum2[i])){
-					checkedsWord1 += "真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐),真菌毒素(镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),";
+					checkedsWord1 += "脂肪酸值,";
 				}else if("11".equals(checkedsNum2[i])){
-					checkedsWord1 += "重金属(铅),重金属(镉),重金属(汞),重金属(砷),";
+					checkedsWord1 += "品尝评分值,";
+				}else if("12".equals(checkedsNum2[i])){
+					checkedsWord1 += "色泽气味(储存品质指标),";
+				}else if("13".equals(checkedsNum2[i])){
+					checkedsWord1 += "真菌毒素(黄曲霉毒素B1),";
+				}else if("14".equals(checkedsNum2[i])){
+					checkedsWord1 += "真菌毒素(脱氧雪腐镰刀菌烯醇),";
+				}else if("15".equals(checkedsNum2[i])){
+					checkedsWord1 += "真菌毒素(玉米赤霉烯酮),";
+				}else if("16".equals(checkedsNum2[i])){
+					checkedsWord1 += "重金属(铅),";
+				}else if("17".equals(checkedsNum2[i])){
+					checkedsWord1 += "重金属(镉),";
+				}else if("18".equals(checkedsNum2[i])){
+					checkedsWord1 += "重金属(汞),";
+				}else if("19".equals(checkedsNum2[i])){
+					checkedsWord1 += "重金属(砷),";
 				}
 			}
 			String checkedsWord2 = checkedsWord1.substring(0, checkedsWord1.length()-1);
@@ -138,45 +155,45 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 					createCell2.setCellValue(checkedsWord3[(b)*3]); //检验项目
 					Boolean isValue = false;
 					for(int i=1;i<=result.size();i++) {
-						double testItem = result.get(i-1).getTestItem();
+						int testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
-						if(1.0 == testItem) {
+						if(1 == testItem) {
   							testItem4 += "容重";
-  						}else if(2.0 == testItem){
+  						}else if(2 == testItem){
   							testItem4 += "水分";
-  						}else if(3.1 == testItem){
+  						}else if(3 == testItem){
   							testItem4 += "杂质";
-  						}else if(3.2 == testItem){
+  						}else if(4 == testItem){
   							testItem4 += "矿物质";
-  						}else if(4.1 == testItem){
-  							testItem4 += "不完善粒";
-  						}else if(4.2 == testItem){
-  							testItem4 += "生霉粒";
   						}else if(5 == testItem){
-  							testItem4 += "色泽气味(质量指标)";
+  							testItem4 += "不完善粒";
   						}else if(6 == testItem){
-  							testItem4 += "面筋吸水量";
+  							testItem4 += "生霉粒";
   						}else if(7 == testItem){
-  							testItem4 += "脂肪酸值";
+  							testItem4 += "色泽气味(质量指标)";
   						}else if(8 == testItem){
-  							testItem4 += "品尝评分值";
+  							testItem4 += "硬度指数";
   						}else if(9 == testItem){
+  							testItem4 += "面筋吸水量";
+  						}else if(10 == testItem){
+  							testItem4 += "脂肪酸值";
+  						}else if(11 == testItem){
+  							testItem4 += "品尝评分值";
+  						}else if(12 == testItem){
   							testItem4 += "色泽气味(储存品质指标)";
-  						}else if(10.1 == testItem){
+  						}else if(13 == testItem){
   							testItem4 += "真菌毒素(黄曲霉毒素B1)";
-  						}else if(10.2 == testItem){
-  							testItem4 += "真菌毒素(脱氧雪腐)";
-  						}else if(10.3 == testItem){
-  							testItem4 += "真菌毒素(镰刀菌烯醇)";
-  						}else if(10.4 == testItem){
+  						}else if(14 == testItem){
+  							testItem4 += "真菌毒素(脱氧雪腐镰刀菌烯醇)";
+  						}else if(15 == testItem){
   							testItem4 += "真菌毒素(玉米赤霉烯酮)";
-  						}else if(11.1 == testItem){
+  						}else if(16 == testItem){
   							testItem4 += "重金属(铅)";
-  						}else if(11.2 == testItem){
+  						}else if(17 == testItem){
   							testItem4 += "重金属(镉)";
-  						}else if(11.3 == testItem){
+  						}else if(18 == testItem){
   							testItem4 += "重金属(汞)";
-  						}else if(11.4 == testItem){
+  						}else if(19 == testItem){
   							testItem4 += "重金属(砷)";
   						}
 						if(checkedsWord3[(b)*3].equals(testItem4)) {
@@ -211,45 +228,45 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 					createCell6.setCellValue(checkedsWord3[1+(b)*3]);  //检验项目
 					boolean isValue = false;
 					for(int i=1;i<=result.size();i++) {
-						double testItem = result.get(i-1).getTestItem();
+						int testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
-						if(1.0 == testItem) {
+						if(1 == testItem) {
   							testItem4 += "容重";
-  						}else if(2.0 == testItem){
+  						}else if(2 == testItem){
   							testItem4 += "水分";
-  						}else if(3.1 == testItem){
+  						}else if(3 == testItem){
   							testItem4 += "杂质";
-  						}else if(3.2 == testItem){
+  						}else if(4 == testItem){
   							testItem4 += "矿物质";
-  						}else if(4.1 == testItem){
-  							testItem4 += "不完善粒";
-  						}else if(4.2 == testItem){
-  							testItem4 += "生霉粒";
   						}else if(5 == testItem){
-  							testItem4 += "色泽气味(质量指标)";
+  							testItem4 += "不完善粒";
   						}else if(6 == testItem){
-  							testItem4 += "面筋吸水量";
+  							testItem4 += "生霉粒";
   						}else if(7 == testItem){
-  							testItem4 += "脂肪酸值";
+  							testItem4 += "色泽气味(质量指标)";
   						}else if(8 == testItem){
-  							testItem4 += "品尝评分值";
+  							testItem4 += "硬度指数";
   						}else if(9 == testItem){
+  							testItem4 += "面筋吸水量";
+  						}else if(10 == testItem){
+  							testItem4 += "脂肪酸值";
+  						}else if(11 == testItem){
+  							testItem4 += "品尝评分值";
+  						}else if(12 == testItem){
   							testItem4 += "色泽气味(储存品质指标)";
-  						}else if(10.1 == testItem){
+  						}else if(13 == testItem){
   							testItem4 += "真菌毒素(黄曲霉毒素B1)";
-  						}else if(10.2 == testItem){
+  						}else if(14 == testItem){
   							testItem4 += "真菌毒素(脱氧雪腐)";
-  						}else if(10.3 == testItem){
-  							testItem4 += "真菌毒素(镰刀菌烯醇)";
-  						}else if(10.4 == testItem){
-  							testItem4 += "真菌毒素(玉米赤霉烯酮)";
-  						}else if(11.1 == testItem){
+  						}else if(15 == testItem){
+  							testItem4 += "真菌毒素(镰刀菌烯醇玉米赤霉烯酮)";
+  						}else if(16 == testItem){
   							testItem4 += "重金属(铅)";
-  						}else if(11.2 == testItem){
+  						}else if(17 == testItem){
   							testItem4 += "重金属(镉)";
-  						}else if(11.3 == testItem){
+  						}else if(18 == testItem){
   							testItem4 += "重金属(汞)";
-  						}else if(11.4 == testItem){
+  						}else if(19 == testItem){
   							testItem4 += "重金属(砷)";
   						}
 						if(checkedsWord3[1+(b)*3].equals(testItem4)) {
@@ -282,45 +299,45 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 					createCell9.setCellValue(checkedsWord3[2+(b)*3]);  //检验项目
 					boolean isValue = false;
 					for(int i=1;i<=result.size();i++) {
-						double testItem = result.get(i-1).getTestItem();
+						int testItem = result.get(i-1).getTestItem();
 						String testItem4 = "";
-						if(1.0 == testItem) {
+						if(1 == testItem) {
   							testItem4 += "容重";
-  						}else if(2.0 == testItem){
+  						}else if(2 == testItem){
   							testItem4 += "水分";
-  						}else if(3.1 == testItem){
+  						}else if(3 == testItem){
   							testItem4 += "杂质";
-  						}else if(3.2 == testItem){
+  						}else if(4 == testItem){
   							testItem4 += "矿物质";
-  						}else if(4.1 == testItem){
-  							testItem4 += "不完善粒";
-  						}else if(4.2 == testItem){
-  							testItem4 += "生霉粒";
   						}else if(5 == testItem){
-  							testItem4 += "色泽气味(质量指标)";
+  							testItem4 += "不完善粒";
   						}else if(6 == testItem){
-  							testItem4 += "面筋吸水量";
+  							testItem4 += "生霉粒";
   						}else if(7 == testItem){
-  							testItem4 += "脂肪酸值";
+  							testItem4 += "色泽气味(质量指标)";
   						}else if(8 == testItem){
-  							testItem4 += "品尝评分值";
+  							testItem4 += "硬度指数";
   						}else if(9 == testItem){
+  							testItem4 += "面筋吸水量";
+  						}else if(10 == testItem){
+  							testItem4 += "脂肪酸值";
+  						}else if(11 == testItem){
+  							testItem4 += "品尝评分值";
+  						}else if(12 == testItem){
   							testItem4 += "色泽气味(储存品质指标)";
-  						}else if(10.1 == testItem){
+  						}else if(13 == testItem){
   							testItem4 += "真菌毒素(黄曲霉毒素B1)";
-  						}else if(10.2 == testItem){
-  							testItem4 += "真菌毒素(脱氧雪腐)";
-  						}else if(10.3 == testItem){
-  							testItem4 += "真菌毒素(镰刀菌烯醇)";
-  						}else if(10.4 == testItem){
+  						}else if(14 == testItem){
+  							testItem4 += "真菌毒素(脱氧雪腐镰刀菌烯醇)";
+  						}else if(15 == testItem){
   							testItem4 += "真菌毒素(玉米赤霉烯酮)";
-  						}else if(11.1 == testItem){
+  						}else if(16 == testItem){
   							testItem4 += "重金属(铅)";
-  						}else if(11.2 == testItem){
+  						}else if(17 == testItem){
   							testItem4 += "重金属(镉)";
-  						}else if(11.3 == testItem){
+  						}else if(18 == testItem){
   							testItem4 += "重金属(汞)";
-  						}else if(11.4 == testItem){
+  						}else if(19 == testItem){
   							testItem4 += "重金属(砷)";
   						}
 						if(checkedsWord3[2+(b)*3].equals(testItem4)) {
@@ -371,28 +388,21 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 		
 		PagerModel<TestItem> pts = dao.findPaginated(params);
 		for(TestItem pt:pts.getData()) {
-			String checkeds = sampleService.find(pt.getSampleId()).getCheckeds();
-			Map<String, Object> p = new HashMap<String, Object>();
-			p.put("sampleId", pt.getSampleId());
-			List<TestItem> ts = dao.findAll(p);
-			String testItems = "";
-			for(TestItem t:ts) {
-				Double d = t.getTestItem();
-				int i = (int) Math.floor(d);
-				testItems += i + ",";
-			}
-			String newTestItems = testItems.substring(0, testItems.length()-1);
-			if(checkeds.equals(newTestItems)) {
-				int returnState = returnSingleService.findBySampleId(pt.getSampleId()).getReturnState();
-				if(returnState == 1) {
-					//2为已归还
+			Sample sample = sampleService.find(pt.getSampleId());
+			ReturnSingle rs = returnSingleService.findBySampleId(pt.getSampleId());
+			
+			//判断样品状态是否为已检测
+			if(sample.getDetectionState() == 1) {
+				pt.setState(-1);
+			} else if(sample.getDetectionState() == 2) {
+				//判断是否有归还单
+				if("".equals(rs) || rs == null) {
+					pt.setState(1);
+				} else if(rs.getReturnState() == 1){
 					pt.setState(2);
 				} else {
-					//1，应归还
 					pt.setState(1);
 				}
-			} else {
-				pt.setState(-1);
 			}
 		}
 		return pts;

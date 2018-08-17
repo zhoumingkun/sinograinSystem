@@ -1423,34 +1423,55 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			    			}else if("2".equals(checked[j])){
 			    				str += "水分,";
 			    			}else if("3".equals(checked[j])){
-			    				str += "杂质(矿物质),";
+			    				str += "杂质,";
 			    			}else if("4".equals(checked[j])){
-			    				str += "不完善粒(生霉粒),";
+			    				str += "矿物质,";
 			    			}else if("5".equals(checked[j])){
+			    				str += "不完善粒,";
+			    			}else if("6".equals(checked[j])){
+			    				str += "生霉粒,";
+			    			}else if("7".equals(checked[j])){
 			    				str += "色泽气味(质量指标),";
-			    			}else if("6".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+			    			}else if("8".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+			    				str += "硬度指数,";
+			    			}else if("9".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
 			    				str += "面筋吸水量,";
-			    			}else if("7".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
+			    			}else if("10".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
 			    				str += "脂肪酸值,";
-			    			}else if("8".equals(checked[j])){
-			    				str += "品尝评分值,";
-			    			}else if("9".equals(checked[j])){
-			    				str += "色泽气味(储存品质指标),";
-			    			}else if("10".equals(checked[j])){
-			    				str += "真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),";
 			    			}else if("11".equals(checked[j])){
-			    				str += "重金属(铅、镉、汞、砷),";
+			    				str += "品尝评分值,";
+			    			}else if("12".equals(checked[j])){
+			    				str += "色泽气味(储存品质指标),";
+			    			}else if("13".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
+			    				str += "真菌毒素(黄曲霉毒素B1),";
+			    			}else if("14".equals(checked[j])){
+			    				str += "真菌毒素(脱氧雪腐镰刀菌烯醇),";
+			    			}else if("15".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
+			    				str += "真菌毒素(玉米赤霉烯酮),";
+			    			}else if("16".equals(checked[j])){
+			    				str += "重金属(铅),";
+			    			}else if("17".equals(checked[j])){
+			    				str += "重金属(镉),";
+			    			}else if("18".equals(checked[j])){
+			    				str += "重金属(汞),";
+			    			}else if("19".equals(checked[j])){
+			    				str += "重金属(砷),";
 			    			}
 			    			
 			    		}
 			    		
 			    		String substring = str.substring(0,str.length()-1);
-			    		substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
-			    		substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "全指标项目");
-			    		substring = substring.replace("容重,水分,杂质(矿物质),不完善粒(生霉粒),色泽气味(质量指标)", "质量指标全项目");
-			    		substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
-			    		substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
-			    		substring = substring.replace("真菌毒素(黄曲霉毒素B1、脱氧雪腐、镰刀菌烯醇、玉米赤霉烯酮),重金属(铅、镉、汞、砷)", "食品卫生指标全项目");
+			    		if(sampleReport.get(i).getSort().equals("小麦")) {
+			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,色泽气味(质量指标),硬度指数,面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标),硬度指数", "质量指标全项目");
+			    			substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+			    			substring = substring.replace("真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+			    		} else {
+			    			substring = substring.replace("容重,水分,杂质,不完善粒,生霉粒,色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标)", "质量指标全项目");
+			    			substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+			    			substring = substring.replace("真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+			    		}
 			    		
 			    		
 			    		HSSFCell createCell2 = row.createCell(2);

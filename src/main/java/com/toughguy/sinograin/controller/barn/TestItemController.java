@@ -23,6 +23,7 @@ import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
+import com.toughguy.sinograin.util.SortUtil;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -80,22 +81,44 @@ public class TestItemController {
 					Sample sample = sampleService.findBySampleNum(t.getSampleNum());
 					t.setSampleId(sample.getId());
 				}
+				List<TestItem> tis = testItemService.findAll();
+				for(TestItem ti:tis) {
+					if(ti.getSampleId() == t.getSampleId() && ti.getTestItem() == t.getTestItem()){
+						ti.setResult(t.getResult());
+						ti.setPrincipal(t.getPrincipal());
+						testItemService.update(ti);
+					} else {
+						testItemService.save(t);
+					}
+				}
+				//判断是否已检测完
 				List<TestItem> testItems = testItemService.findResult(t.getSampleId());
-				String testItemStr1 = null;
+				String testItemStr1 = "";
 				for(TestItem testItem:testItems) {
 					
 					testItemStr1 += testItem.getTestItem() + ",";
 				}
 				if(testItemStr1 != null || "".equals(testItemStr1)) {
-					String testItemStr2 = testItemStr1.substring(0, testItemStr1.length()-1);
+					String[] testItemStr2 = testItemStr1.substring(0, testItemStr1.length()-1).split(",");
 					String checkeds = handoverService.findCheckedBySampleId(t.getSampleId()).getCheckeds();
-					if(checkeds.equals(testItemStr2)) {
+					//将string数组转成Int数组
+					int[] a = new int[testItemStr2.length];
+					for(int i = 0;i<testItemStr2.length;i++) {
+						a[i] = Integer.parseInt(testItemStr2[i]);
+					}
+					//使用冒泡排序法进行排序
+					int[] testItemInt = SortUtil.bubbleSort(a);
+					String newTestItem = "";
+					for(int i=0;i<testItemInt.length;i++) {
+						newTestItem += testItemInt[i] + ",";
+					}
+					String testItemStr = newTestItem.substring(0, newTestItem.length()-1);
+					if(checkeds.equals(testItemStr)) {
 						Sample s = sampleService.find(t.getSampleId());
 						s.setDetectionState(2);
 						sampleService.update(s);
 					}
 				}
-				testItemService.save(t);
 			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -162,19 +185,19 @@ public class TestItemController {
 	public List<Sample> getSampleBySortAndTestItem(TestItem testItem) {
 		List<Sample> sampleAll = testItemService.getAllSampleBySortAndTestItem(testItem);
 		List<Sample> samples = testItemService.getSampleBySortAndTestItem(testItem);
-		int id1 = 0;
-		int id2 = 0;
-		if(samples.size()>0) {
-			for(Sample s:samples) {
-				id2 = s.getId();
-				for(int i=0;i<sampleAll.size();i++) {
-					id1 = sampleAll.get(i).getId();
-					if(id1 == id2) {
-						sampleAll.remove(i);
-					}
-				}
-			}
-		}
+//		int id1 = 0;
+//		int id2 = 0;
+//		if(samples.size()>0) {
+//			for(Sample s:samples) {
+//				id2 = s.getId();
+//				for(int i=0;i<sampleAll.size();i++) {
+//					id1 = sampleAll.get(i).getId();
+//					if(id1 == id2) {
+//						sampleAll.remove(i);
+//					}
+//				}
+//			}
+//		}
 		return sampleAll;
 		
 	}

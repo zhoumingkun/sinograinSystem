@@ -64,7 +64,7 @@
 		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
-		where bs.id = #{id}
+		where bs.id = #{id} ORDER BY bh.createTime desc LIMIT 1
 	</select>
 	
 	<!-- 查询全部样品 -->

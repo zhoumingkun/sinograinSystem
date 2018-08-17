@@ -1,16 +1,13 @@
 package com.toughguy.sinograin.controller.barn;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.toughguy.sinograin.model.barn.Handover;
 import com.toughguy.sinograin.model.barn.ReturnSingle;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.pagination.PagerModel;
-import com.toughguy.sinograin.service.barn.prototype.IBarnService;
-import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 
@@ -127,6 +121,13 @@ public class ReturnSingleController {
 		try {
 			Date d = new Date();
 			returnSingle.setReturnTime(new java.sql.Date(d.getTime()));
+			String[] sampleIds = returnSingleService.find(returnSingle.getId()).getSampleIds().split(",");
+			for(int i=0;i<sampleIds.length;i++) {
+				Sample sample = sampleService.find(Integer.parseInt(sampleIds[i]));
+				//样品归还后从3（已生成领取交接单）更改样品状态为2（已入库）
+				sample.setSampleState(2);
+				sampleService.update(sample);
+			}
 			returnSingleService.update(returnSingle);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
