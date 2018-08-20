@@ -31,7 +31,7 @@
 	
 	<!-- 分页查询检测数据  -->
 	<select id="findPaginated" resultType="TestItem" parameterType="Map">
-		select bti.*,bs.sampleNum,bh.checkeds from barn_test_item bti 
+		select bti.*,bs.sampleNum,bs.sort,bh.checkeds from barn_test_item bti 
 		LEFT JOIN barn_sample bs ON bs.id = bti.sampleId 
 		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) GROUP BY bs.`sampleNum`
 		<include refid="paramsSQL"/>

@@ -180,7 +180,24 @@ public class HandoverController {
 	public String expotHandover(int id,HttpServletResponse response){
 		try {
 			Handover handover = handoverService.find(id);
-			handoverService.expotHandover(response,handover);
+			handoverService.expotHandover(response,handover,false);
+			return "{ \"success\" : true}";
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "{ \"success\" : false}";
+		}
+	}
+	/**
+	 *  导出带有位置的样品领取交接单
+	 * @param id
+	 * @return String
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/expotStorageHandover")
+	public String expotStorageHandover(int id,HttpServletResponse response){
+		try {
+			Handover handover = handoverService.find(id);
+			handoverService.expotHandover(response,handover,true);
 			return "{ \"success\" : true}";
 		} catch (Exception e) {
 			// TODO: handle exception
