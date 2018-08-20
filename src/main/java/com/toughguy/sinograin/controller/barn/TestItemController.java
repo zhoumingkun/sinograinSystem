@@ -82,14 +82,17 @@ public class TestItemController {
 					t.setSampleId(sample.getId());
 				}
 				List<TestItem> tis = testItemService.findAll();
+				boolean is = true;
 				for(TestItem ti:tis) {
 					if(ti.getSampleId() == t.getSampleId() && ti.getTestItem() == t.getTestItem()){
 						ti.setResult(t.getResult());
 						ti.setPrincipal(t.getPrincipal());
 						testItemService.update(ti);
-					} else {
-						testItemService.save(t);
+						is = false;
 					}
+				}
+				if(is) {
+					testItemService.save(t);
 				}
 				//判断是否已检测完
 				List<TestItem> testItems = testItemService.findResult(t.getSampleId());

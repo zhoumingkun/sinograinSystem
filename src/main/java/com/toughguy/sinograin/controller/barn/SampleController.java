@@ -31,6 +31,7 @@ import com.toughguy.sinograin.model.barn.ReturnSingle;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.model.barn.SmallSample;
+import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.model.barn.WarehouseCounter;
 import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
@@ -43,6 +44,7 @@ import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
+import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterPlaceService;
 import com.toughguy.sinograin.service.barn.prototype.IWarehouseCounterService;
 import com.toughguy.sinograin.util.BarCodeUtil;
@@ -73,6 +75,8 @@ public class SampleController {
 	private ILibraryService libraryService;
 	@Autowired
 	private IReturnSingleService returnSingleService;
+	@Autowired
+	private ITestItemService testItemService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -917,12 +921,31 @@ public class SampleController {
 			PagerModel<Sample> pg = sampleService.findPaginated(map);
 			List<Sample> samples = new ArrayList<Sample>();
 			for(Sample s : pg.getData()) {
+				s.setStorage(s.getDepot() + "--" + s.getCounter() + "--" + s.getPlace());
 				ReturnSingle rs = returnSingleService.findBySampleId(s.getId());
 				if(rs == null || "".equals(rs)) {
 					samples.add(s);
 				}
 			}
 			return samples;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	/**
+	 * 检验报告获取方法
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/findSampleReport")
+	public Sample findSampleReport(String sampleNum) {
+		try {
+			Sample sample1 = sampleService.findBySampleNum(sampleNum);
+			Sample sample2 = sampleService.find(sample1.getId());
+			List<TestItem> testItems = testItemService.findResult(sample2.getId());
+			sample2.setTestItems(testItems);
+			return sample2;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

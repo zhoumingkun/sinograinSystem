@@ -2,6 +2,7 @@ package com.toughguy.sinograin.model.barn;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toughguy.sinograin.model.AbstractModel;
@@ -65,6 +66,7 @@ public class Sample extends AbstractModel{
 	private Date dateStart;          //搜索开始时间（前台）
 	private Date dateEnd;            //搜索结束时间（前台）
 	private String taskName;      //任务名(页面展示)
+	private List<TestItem> testItems; //检验项目集
 	
 	public String getFormName() {
 		return formName;
@@ -361,6 +363,14 @@ public class Sample extends AbstractModel{
 	}
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
+	}
+	
+	
+	public List<TestItem> getTestItems() {
+		return testItems;
+	}
+	public void setTestItems(List<TestItem> testItems) {
+		this.testItems = testItems;
 	}
 	@Override
 	public String toString(){
