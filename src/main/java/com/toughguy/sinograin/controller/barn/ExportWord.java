@@ -494,11 +494,20 @@ public class ExportWord {
     	         	}
     	         }
     	 }
-         if(isFuhe) {
-        	 params.put("${isFuhe}", "经检验该仓小麦，符合中央储备粮储存质量要求。");
-         } else {
-        	 params.put("${isFuhe}", "经检验该仓小麦，不符合中央储备粮储存质量要求。");
-         }
+        	 if(sample.getSort().equals("小麦")) {
+        		 if(isFuhe) {
+        			 params.put("${isFuhe}", "经检验该仓小麦，符合中央储备粮储存质量要求。");
+        		 } else {
+        			 params.put("${isFuhe}", "经检验该仓小麦，不符合中央储备粮储存质量要求。");
+        		 }
+        	 } else {
+        		 if(isFuhe) {
+        			 params.put("${isFuhe}", "经检验该仓玉米，符合中央储备粮储存质量要求。");
+        		 } else {
+        			 params.put("${isFuhe}", "经检验该仓玉米，不符合中央储备粮储存质量要求。");
+        		 }
+        		 
+        	 }
          return params;
      }
 }
