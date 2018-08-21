@@ -393,7 +393,13 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 			
 			//判断样品状态是否为已检测
 			if(sample.getDetectionState() == 1) {
-				pt.setState(-1);
+				if("".equals(rs) || rs == null) {
+					pt.setState(-1);
+				} else if(rs.getReturnState() == 1){
+					pt.setState(2);
+				} else {
+					pt.setState(-1);
+				}
 			} else if(sample.getDetectionState() == 2) {
 				//判断是否有归还单
 				if("".equals(rs) || rs == null) {

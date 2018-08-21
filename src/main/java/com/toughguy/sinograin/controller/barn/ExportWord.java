@@ -49,8 +49,9 @@ public class ExportWord {
      * @throws Exception
      */
      @RequestMapping(value="exportWordXM")
-     public void exportWordXM(HttpServletResponse response,int sampleId) throws Exception {
-    	 	Map<String, Object> params = replace(sampleId);
+     public void exportWordXM(HttpServletResponse response,String sampleNum) throws Exception {
+    	 	Sample s = sampleService.findBySampleNum(sampleNum);
+    	 	Map<String, Object> params = replace(s.getId());
             XwpfTUtil xwpfTUtil = new XwpfTUtil();  
             
             XWPFDocument doc;  
@@ -84,9 +85,9 @@ public class ExportWord {
      * @throws Exception
      */
     @RequestMapping(value="exportWordYM")
-     public void exportWordYM(HttpServletResponse response,int sampleId) throws Exception {  
-    		
-    		Map<String, Object> params = replace(sampleId);
+     public void exportWordYM(HttpServletResponse response,String sampleNum) throws Exception {  
+    		Sample s = sampleService.findBySampleNum(sampleNum);
+    		Map<String, Object> params = replace(s.getId());
     		XwpfTUtil xwpfTUtil = new XwpfTUtil();  
       
             XWPFDocument doc;  
@@ -196,7 +197,7 @@ public class ExportWord {
          Sample sample = sampleService.find(sampleId);
          boolean isFuhe = false;
          params.put("${sampleNum}", sample.getSampleNum());
-         params.put("${pLibraryName}",sample.getpLibraryName());  
+         params.put("${pLibraryName}","中央储备粮" + sample.getpLibraryName()+ "直属库");  
          params.put("${sort}", sample.getSort());  
          params.put("${libraryName}", sample.getLibraryName());  
          params.put("${position}",  sample.getPosition());  
@@ -204,7 +205,7 @@ public class ExportWord {
          params.put("${quality}",  sample.getQuality());  
          params.put("${amount}",  sample.getAmount());  
          params.put("${autograph}", sample.getAutograph());  
-         params.put("${sampleTime}", sample.getSampleTime());  
+         params.put("${sampleTime}", sample.getSampleTime().toString());  
          params.put("${remark}", sample.getRemark()); 
          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
          params.put("${newDate}", sdf.format(new Date()));  
@@ -253,7 +254,7 @@ public class ExportWord {
          }
          params.put("${checkeds}", checkedWords); 
     	 List<TestItem> testItems = testItemService.findResult(sampleId);
-    	 if(sample.getSort() == "小麦") {
+    	 if(sample.getSort().equals("小麦")) {
     		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
     		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
     		 for(TestItem t:testItems) {
@@ -371,7 +372,7 @@ public class ExportWord {
     	         		isFuhe = true;
     	         	}
     	         }
-    	 } else if(sample.getSort() == "玉米") {
+    	 } else if(sample.getSort().equals("玉米")) {
     		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
     		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
     		 for(TestItem t:testItems) {
@@ -481,9 +482,9 @@ public class ExportWord {
     	         }
     	 }
          if(isFuhe) {
-        	 params.put("${isFuhe}", "符合");
+        	 params.put("${isFuhe}", "经检验该仓小麦，符合中央储备粮储存质量要求。");
          } else {
-        	 params.put("${isFuhe}", "不符合");
+        	 params.put("${isFuhe}", "经检验该仓小麦，不符合中央储备粮储存质量要求。");
          }
          return params;
      }
