@@ -197,6 +197,7 @@ public class ExportWord {
          Sample sample = sampleService.find(sampleId);
          boolean isFuhe = false;
          params.put("${sampleNum}", sample.getSampleNum());
+         params.put("${sampleNum1}", "监" + sample.getSampleNum());
          params.put("${pLibraryName}","中央储备粮" + sample.getpLibraryName()+ "直属库");  
          params.put("${sort}", sample.getSort());  
          params.put("${libraryName}", sample.getLibraryName());  
@@ -252,7 +253,19 @@ public class ExportWord {
 					checkedWords += "重金属(砷),";
 				}
          }
-         params.put("${checkeds}", checkedWords); 
+        String substring = checkedWords.substring(0,checkedWords.length()-1);
+ 		if(sample.getSort().equals("小麦")) {
+ 			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,色泽气味(质量指标),硬度指数,面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+ 			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,色泽气味(质量指标),硬度指数", "质量指标全项目");
+ 			substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+ 			substring = substring.replace("真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+ 		} else {
+ 			substring = substring.replace("容重,水分,杂质,不完善粒,生霉粒,色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+ 			substring = substring.replace("容重,水分,杂质,不完善粒,生霉粒,色泽气味(质量指标)", "质量指标全项目");
+ 			substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+ 			substring = substring.replace("真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+ 		}
+         params.put("${checkeds}", substring); 
     	 List<TestItem> testItems = testItemService.findResult(sampleId);
     	 if(sample.getSort().equals("小麦")) {
     		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
@@ -319,7 +332,7 @@ public class ExportWord {
     	         		}
     	         	} else if(t.getTestItem() == 8) {
     	         		params.put("${yingduzhishujiancejieguo}", t.getResult());  
-    	         		int result = Integer.parseInt(t.getResult());
+    	         		Double result = Double.parseDouble(t.getResult());
     	         		if(result >= 60) {
     	         			params.put("${yingduzhishudanxiangpingjia}", "硬质小麦");  
     	         		} else if(result > 45 && result < 60){
