@@ -4,17 +4,10 @@ package com.toughguy.sinograin.dto;
 
 public class ShuifenDTO {
 	
-	private String qimin;                               //器皿编号
 	private String hongqianqiminzhiliang;               //烘前器皿质量(g)
 	private String shiyangzhiliang;                     //试样质量（g）
 	private String hengzhongqiminj_shiyangzhiliang;     //恒重器皿及试样恒重后质量(g)
 	private String shuifenhanliang;                     //水分含量（%）
-	public String getQimin() {
-		return qimin;
-	}
-	public void setQimin(String qimin) {
-		this.qimin = qimin;
-	}
 	public String getHongqianqiminzhiliang() {
 		return hongqianqiminzhiliang;
 	}

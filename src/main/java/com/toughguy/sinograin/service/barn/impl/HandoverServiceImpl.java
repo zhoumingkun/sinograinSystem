@@ -271,7 +271,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				//第一行数据内容
 				HSSFRow row = sh.createRow(1);
-				Region region1 = new Region(1, (short) 0, 1, (short) 7);
+				Region region1 = new Region(1, (short) 0, 1, (short) 11);
 				HSSFCell createCell = row.createCell(0);
 				utils.setRegionStyle(sh, region1, utils.Style6(workbook));
 				sh.addMergedRegion(region1);
@@ -279,7 +279,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				createCell.setCellValue(handover.getName());
 				//第二行数据内容
 				HSSFRow row2 = sh.createRow(2);
-				Region region2 = new Region(2, (short) 0, 2, (short) 7);
+				Region region2 = new Region(2, (short) 0, 2, (short) 11);
 				HSSFCell createCell2 = row2.createCell(0);
 				utils.setRegionStyle(sh, region2, utils.Style7(workbook));
 				sh.addMergedRegion(region2);
@@ -298,7 +298,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				createCell3.setCellValue("检验项目");
 				
 				HSSFCell create = row3.createCell(1);
-				Region region3 = new Region(3, (short) 1, 3, (short) 7);
+				Region region3 = new Region(3, (short) 1, 3, (short) 11);
 				utils.setRegionStyle(sh, region3, utils.Style6(workbook));
 				sh.addMergedRegion(region3);
 //				create.setCellStyle(utils.Style6(workbook));
@@ -450,7 +450,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 						
 				}
 				HSSFRow rowCell = sh.createRow(5+number);
-				Region region = new Region(5+number, (short) 5, 5+number, (short) 7);
+				Region region = new Region(5+number, (short) 5, 5+number, (short) 11);
 				
 				HSSFCell createCell4 = rowCell.createCell(0);
 				createCell4.setCellStyle(utils.Style6(workbook));
@@ -480,7 +480,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				
 				HSSFRow createRow = sh.createRow(6+number);
-				Region regio = new Region(6+number, (short) 4, 6+number, (short) 7);
+				Region regio = new Region(6+number, (short) 4, 6+number, (short) 11);
 				
 				HSSFCell createCell10 = createRow.createCell(0);
 				createCell10.setCellStyle(utils.Style6(workbook));
@@ -504,7 +504,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				sh.addMergedRegion(regio);
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式
 				String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
-				createCell14.setCellValue("样品管理员："+handover.getSampleAdmin()+"     "+"时间："+date);
+				createCell14.setCellValue("样品管理员："+handover.getSampleAdmin()+"                  "+"时间："+date);
 				
 				
 				OutputStream output = response.getOutputStream();

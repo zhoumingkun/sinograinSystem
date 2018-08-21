@@ -344,11 +344,10 @@ public class ImportExcelController {
         			for(;i<=lastRow;i++){
         				row = sheet.getRow(i);
         				ShuifenDTO item = new ShuifenDTO();
-        				item.setQimin(util.getCellValue(row.getCell(1)));
-        				item.setHongqianqiminzhiliang(util.getCellValue(row.getCell(2)));
-        				item.setShiyangzhiliang(util.getCellValue(row.getCell(3)));
-        				item.setHengzhongqiminj_shiyangzhiliang(util.getCellValue(row.getCell(4)));
-        				item.setShuifenhanliang(util.getCellValue(row.getCell(5)));
+        				item.setHongqianqiminzhiliang(util.getCellValue(row.getCell(1)));
+        				item.setShiyangzhiliang(util.getCellValue(row.getCell(2)));
+        				item.setHengzhongqiminj_shiyangzhiliang(util.getCellValue(row.getCell(3)));
+        				item.setShuifenhanliang(util.getCellValue(row.getCell(4)));
         				
         				items.add(item);
         			}
@@ -356,11 +355,10 @@ public class ImportExcelController {
             	}else{
         			row = sheet.getRow(i);
         			ShuifenDTO item = new ShuifenDTO();
-        			item.setQimin(util.getCellValue(row.getCell(1)));
-    				item.setHongqianqiminzhiliang(util.getCellValue(row.getCell(2)));
-    				item.setShiyangzhiliang(util.getCellValue(row.getCell(3)));
-    				item.setHengzhongqiminj_shiyangzhiliang(util.getCellValue(row.getCell(4)));
-    				item.setShuifenhanliang(util.getCellValue(row.getCell(5)));
+    				item.setHongqianqiminzhiliang(util.getCellValue(row.getCell(1)));
+    				item.setShiyangzhiliang(util.getCellValue(row.getCell(2)));
+    				item.setHengzhongqiminj_shiyangzhiliang(util.getCellValue(row.getCell(3)));
+    				item.setShuifenhanliang(util.getCellValue(row.getCell(4)));
     				items.add(item);
             	}
             	ir.setItems(items);
