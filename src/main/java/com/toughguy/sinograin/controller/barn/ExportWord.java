@@ -385,9 +385,15 @@ public class ExportWord {
     	         		isFuhe = true;
     	         	}
     	         }
+    		 if(isFuhe) {
+    			 params.put("${isFuhe}", "经检验该仓小麦，符合中央储备粮储存质量要求。");
+    		 } else {
+    			 params.put("${isFuhe}", "经检验该仓小麦，不符合中央储备粮储存质量要求。");
+    		 }
     	 } else if(sample.getSort().equals("玉米")) {
     		 int jieguopanding1 = 0;  //面筋吸水量的结果判定   
     		 int jieguopanding2 = 0;  //品尝评分值的结果判定       
+    		 int jieguopanding3 = 0;  //色泽气味的结果判定
     		 for(TestItem t:testItems) {
     	         	if(t.getTestItem() == 1) {
     	         		params.put("${rongzhongjiancejieguo}", t.getResult());  
@@ -469,27 +475,32 @@ public class ExportWord {
     	         			jieguopanding2 = 3;
     	         		}
     	         	} else if(t.getTestItem() == 12) {
-    	         		params.put("${sezeqiweijianchejieguo2}", t.getResult());  
+    	         		params.put("${sezeqiweijianchejieguo2}", t.getResult());
+    	         		if(t.getResult().equals("正常")) {
+    	         			jieguopanding3 = 1;
+    	         		} else {
+    	         			jieguopanding3 = 2;
+    	         		}
     	         	}
     	         	
     	         	if(jieguopanding1 < jieguopanding2) {
-    	         		if(jieguopanding2 == 2) {
+    	         		if(jieguopanding2 == 2 && jieguopanding3 == 1) {
     	         			params.put("${jieguopanding}", "轻度不宜存");
     	         			isFuhe = false;
-    	         		} else if(jieguopanding2 == 3) {
+    	         		} else if(jieguopanding2 == 3 && jieguopanding3 == 2) {
     	         			params.put("${jieguopanding}", "重度不宜存");
     	         			isFuhe = false;
     	         		}
     	         	} else if(jieguopanding1 > jieguopanding2) {
-    	         		if(jieguopanding1 == 2) {
+    	         		if(jieguopanding1 == 2 && jieguopanding3 == 1) {
     	         			params.put("${jieguopanding}", "轻度不宜存");
     	         			isFuhe = false;
-    	         		} else if(jieguopanding1 == 3) {
+    	         		} else if(jieguopanding1 == 3 && jieguopanding3 == 2) {
     	         			params.put("${jieguopanding}", "重度不宜存");
     	         			isFuhe = false;
     	         		}
-    	         	} else {
-    	         		params.put("${jieguopanding}", "宜存");
+    	         	} else if(jieguopanding1 != 0 && jieguopanding2 != 0 && jieguopanding3 != 0){
+    	         		params.put("${jieguopanding}", "");
     	         		isFuhe = true;
     	         	}
     	         }
