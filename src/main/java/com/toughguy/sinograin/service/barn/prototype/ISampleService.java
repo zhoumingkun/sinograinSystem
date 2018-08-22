@@ -37,15 +37,15 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 */
 	public List<Sample> findSamplesByTask(String taskName);
 	
-//	/**
-//	 * 导出玉米
-//	 */
-//	public void Export(HttpServletResponse response,String ids,String title);
+	/**
+	 * 导出玉米
+	 */
+	public void Export(HttpServletResponse response,String ids,String title);
 //
-//	/**
-//	 * 导出小麦
-//	 */
-//	public void ExeclPOI(HttpServletResponse response,String ids,String title);
+	/**
+	 * 导出小麦
+	 */
+	public void ExeclPOI(HttpServletResponse response,String ids,String title);
 //	/**
 //	 * 导出小麦质量
 //	 */

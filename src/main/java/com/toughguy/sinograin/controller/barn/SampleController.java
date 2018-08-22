@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mysql.fabric.xmlrpc.base.Data;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Library;
@@ -357,34 +358,34 @@ public class SampleController {
 		}
 	}
 
-//	// 导出小麦总表
-//	@ResponseBody
-//	@RequestMapping(value = "/ExeclPOI")
-//	@RequiresPermissions("sample:reportXMorYM")
-//	public String ExeclPOI(HttpServletResponse response, String ids, String title) {
-//		try {
-//			sampleService.ExeclPOI(response, ids, title);
-//			return "{ \"success\" : true }";
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return "{ \"success\" : false }";
-//		}
-//	}
+	// 导出小麦总表
+	@ResponseBody
+	@RequestMapping(value = "/ExeclPOI")
+	@RequiresPermissions("sample:reportXMorYM")
+	public String ExeclPOI(HttpServletResponse response, String ids, String title) {
+		try {
+			sampleService.ExeclPOI(response, ids, title);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 
-//	// 导出玉米总表
-//	@RequestMapping("/Export/POI")
-//	@ResponseBody
-//	@RequiresPermissions("sample:reportXMorYM")
-//	public String Export(HttpServletResponse response, String ids, String title) {
-//		try {
-//			// 返回结果
-//			sampleService.Export(response, ids, title);
-//			return "{ \"success\" : true }";
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return "{ \"success\" : false }";
-//		}
-//	}
+	// 导出玉米总表
+	@RequestMapping("/Export/POI")
+	@ResponseBody
+	@RequiresPermissions("sample:reportXMorYM")
+	public String Export(HttpServletResponse response, String ids, String title) {
+		try {
+			// 返回结果
+			sampleService.Export(response, ids, title);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
 
 	@ResponseBody
 	@RequestMapping(value = "/findSamplesByTask")
