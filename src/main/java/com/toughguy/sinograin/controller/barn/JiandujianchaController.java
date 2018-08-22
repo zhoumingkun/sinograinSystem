@@ -73,11 +73,16 @@ public class JiandujianchaController{
 				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
 				//对应Excel文件中的sheet，0代表第一个             
 				HSSFSheet sh = workbook.getSheetAt(0);  
-//				sheet.addMergedRegion(new CellRangeAddress(0,1,1,1));
+
 				HSSFRow row2 = sh.createRow(2);
 				row2.setHeightInPoints(37);
+				HSSFRow row3 = sh.createRow(3);
+				row3.setHeightInPoints(37);
 				Region region = new Region(2, (short) 0, 3, (short) 0);
 				HSSFCell createCell0 = row2.createCell(0);
+				createCell0.setCellValue("");//定义为空字符串，横向合并单元格显示边框
+				HSSFCell createCell00 = row3.createCell(0); 
+				createCell00.setCellValue("");
 				utils.setRegionStyle(sh, region, utils.Style9(workbook));
 				sh.addMergedRegion(region);
 				createCell0.setCellValue("基本信息");
@@ -146,14 +151,8 @@ public class JiandujianchaController{
                 createCell13.setCellStyle(utils.Style13(workbook));
                 createCell13.setCellValue("郑龙龙");
             
-//                Region region7 = new Region(2, (short) 19, 3, (short) 19);
-//				HSSFCell createCell28= row2.createCell(19);
-//				utils.setRegionStyle(sh, region7, utils.Style9(workbook));
-//				sh.addMergedRegion(region7);
-//				createCell28.setCellValue("基本信息");
           //第四行数据内容   
-				HSSFRow row3 = sh.createRow(3);
-				row3.setHeightInPoints(37);
+				
 				HSSFCell createCell14 = row3.createCell(1);
 				createCell14.setCellStyle(utils.Style11(workbook));
 				createCell14.setCellValue("存储库点");
