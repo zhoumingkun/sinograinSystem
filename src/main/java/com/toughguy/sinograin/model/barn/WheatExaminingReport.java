@@ -36,32 +36,44 @@ public class WheatExaminingReport {
 	private double grainQuality;	//实际粮食质量（同 保管账数量）
 	private double slip;			//差率
 	private int qualityGrade;		//质量等级（1 一等  2 二等  3 三等）
-	private String shuifen_pingjunzhi; // 平均值（%）(水分)
-	private String zazhizongliang_1;  //杂质总量B（%）
-	private String kuangwuzhihanliang_pingjunzhi;//矿物质含量平均值（%）
-	private String buwanshanlihanliang_pingjunzhi_1;//不完善粒含量平均值（%）
-	private String yingduzhishu_pingjunzhi;      //硬度指数平均值
-	private String sezeqiwei_pingjunzhi;      //色泽气味平均值
-	private String pingjunzhiganmianjinzhiliang;  //平均值干面筋质量m2（g）
-	private String shimianjin_pingjunzhi;     //湿面筋平均值
-	private String pinchangpingfenzhi;  //品尝评分值
-	private String sfjiance;  //水分检测人
-	private String bwsljiance;   //不完善粒检测人
-	private String fenyangjiance;  //不完善粒的分样检测人
-	private String cdjljiance;   //测定记录表检测人
-	private String mjxsljiance;  //面筋吸水量检测人
-	private String mtpfjiance;   //馒头评分检测人
-	private String inspectors;   //检测人集合
-	private Date sfriqi;        //水分日期
-	private Date bwslriqi;      //不完善粒日期
-	private Date cdjlriqi;       //测定记录日期
-	private Date mjxslriqi;     //面筋吸水量日期
-	private Date mtpfriqi;       //馒头评分日期
-	private String inspectionTime;  //检测日期
-	
-	private int sampleId;   //样品id（页面展示）
-	private String smallSampleNum; //小样编号
-	private String taskName; //任务名称（页面展示）
+	private String rongzhong;       //容重
+	private String shuifen;         //水分
+	private String zazhizongliang;   //杂质总量
+	private String zazhikuangwuzhi;  //矿物质
+	private String buwanshanli;      //不完善粒
+	private String yingduzhishu;    //硬度指数
+	private String sezeqiwei1;       //色泽气味 （质量指标）
+	private String jieguopanding1;    //结果判定（质量指标）
+	private String mianjinxishuiliang;  //面筋吸水量
+	private String shimianjin;       //湿面筋
+	private String pinchangpingfen;    //品尝评分
+	private String sezeqiwei2;        //色泽气味(储存品质)
+	private String jieguopanding2;    //结果判定（储存品质）
+	private String jianceren;        //检测人
+	private String jianceshijian;     //检测时间
+//	private String shuifen_pingjunzhi; // 平均值（%）(水分)
+//	private String zazhizongliang_1;  //杂质总量B（%）
+//	private String kuangwuzhihanliang_pingjunzhi;//矿物质含量平均值（%）
+//	private String buwanshanlihanliang_pingjunzhi_1;//不完善粒含量平均值（%）
+//	private String yingduzhishu_pingjunzhi;      //硬度指数平均值
+//	private String sezeqiwei_pingjunzhi;      //色泽气味平均值
+//	private String pingjunzhiganmianjinzhiliang;  //平均值干面筋质量m2（g）
+//	private String shimianjin_pingjunzhi;     //湿面筋平均值
+//	private String pinchangpingfenzhi;  //品尝评分值
+//	private String sfjiance;  //水分检测人
+//	private String bwsljiance;   //不完善粒检测人
+//	private String fenyangjiance;  //不完善粒的分样检测人
+//	private String cdjljiance;   //测定记录表检测人
+//	private String mjxsljiance;  //面筋吸水量检测人
+//	private String mtpfjiance;   //馒头评分检测人
+//	private String inspectors;   //检测人集合
+//	private Date sfriqi;        //水分日期
+//	private Date bwslriqi;      //不完善粒日期
+//	private Date cdjlriqi;       //测定记录日期
+//	private Date mjxslriqi;     //面筋吸水量日期
+//	private Date mtpfriqi;       //馒头评分日期
+//	private String inspectionTime;  //检测日期
+//	private String smallSampleNum; //小样编号
 	public String getpLibraryName() {
 		return pLibraryName;
 	}
@@ -86,6 +98,12 @@ public class WheatExaminingReport {
 	public void setSampleNo(String sampleNo) {
 		this.sampleNo = sampleNo;
 	}
+	public String getOriginPlace() {
+		return originPlace;
+	}
+	public void setOriginPlace(String originPlace) {
+		this.originPlace = originPlace;
+	}
 	public String getPosition() {
 		return position;
 	}
@@ -104,13 +122,6 @@ public class WheatExaminingReport {
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
-	
-	public String getOriginPlace() {
-		return originPlace;
-	}
-	public void setOriginPlace(String originPlace) {
-		this.originPlace = originPlace;
-	}
 	public String getGainTime() {
 		return gainTime;
 	}
@@ -123,7 +134,6 @@ public class WheatExaminingReport {
 	public void setStorageTime(Date storageTime) {
 		this.storageTime = storageTime;
 	}
-	
 	public Date getCheckApplyTime() {
 		return checkApplyTime;
 	}
@@ -142,7 +152,6 @@ public class WheatExaminingReport {
 	public void setSampleTime(Date sampleTime) {
 		this.sampleTime = sampleTime;
 	}
-	
 	public String getRemark() {
 		return remark;
 	}
@@ -221,156 +230,95 @@ public class WheatExaminingReport {
 	public void setQualityGrade(int qualityGrade) {
 		this.qualityGrade = qualityGrade;
 	}
-	public String getShuifen_pingjunzhi() {
-		return shuifen_pingjunzhi;
+	public String getRongzhong() {
+		return rongzhong;
 	}
-	public void setShuifen_pingjunzhi(String shuifen_pingjunzhi) {
-		this.shuifen_pingjunzhi = shuifen_pingjunzhi;
+	public void setRongzhong(String rongzhong) {
+		this.rongzhong = rongzhong;
 	}
-	public String getZazhizongliang_1() {
-		return zazhizongliang_1;
+	public String getShuifen() {
+		return shuifen;
 	}
-	public void setZazhizongliang_1(String zazhizongliang_1) {
-		this.zazhizongliang_1 = zazhizongliang_1;
+	public void setShuifen(String shuifen) {
+		this.shuifen = shuifen;
 	}
-	public String getBuwanshanlihanliang_pingjunzhi_1() {
-		return buwanshanlihanliang_pingjunzhi_1;
+	public String getZazhizongliang() {
+		return zazhizongliang;
 	}
-	public void setBuwanshanlihanliang_pingjunzhi_1(String buwanshanlihanliang_pingjunzhi_1) {
-		this.buwanshanlihanliang_pingjunzhi_1 = buwanshanlihanliang_pingjunzhi_1;
+	public void setZazhizongliang(String zazhizongliang) {
+		this.zazhizongliang = zazhizongliang;
 	}
-	public String getSezeqiwei_pingjunzhi() {
-		return sezeqiwei_pingjunzhi;
+	public String getZazhikuangwuzhi() {
+		return zazhikuangwuzhi;
 	}
-	public void setSezeqiwei_pingjunzhi(String sezeqiwei_pingjunzhi) {
-		this.sezeqiwei_pingjunzhi = sezeqiwei_pingjunzhi;
+	public void setZazhikuangwuzhi(String zazhikuangwuzhi) {
+		this.zazhikuangwuzhi = zazhikuangwuzhi;
 	}
-	public String getPinchangpingfenzhi() {
-		return pinchangpingfenzhi;
+	public String getBuwanshanli() {
+		return buwanshanli;
 	}
-	public void setPinchangpingfenzhi(String pinchangpingfenzhi) {
-		this.pinchangpingfenzhi = pinchangpingfenzhi;
+	public void setBuwanshanli(String buwanshanli) {
+		this.buwanshanli = buwanshanli;
 	}
-	public String getKuangwuzhihanliang_pingjunzhi() {
-		return kuangwuzhihanliang_pingjunzhi;
+	public String getYingduzhishu() {
+		return yingduzhishu;
 	}
-	public void setKuangwuzhihanliang_pingjunzhi(String kuangwuzhihanliang_pingjunzhi) {
-		this.kuangwuzhihanliang_pingjunzhi = kuangwuzhihanliang_pingjunzhi;
+	public void setYingduzhishu(String yingduzhishu) {
+		this.yingduzhishu = yingduzhishu;
 	}
-	public String getYingduzhishu_pingjunzhi() {
-		return yingduzhishu_pingjunzhi;
+	public String getSezeqiwei1() {
+		return sezeqiwei1;
 	}
-	public void setYingduzhishu_pingjunzhi(String yingduzhishu_pingjunzhi) {
-		this.yingduzhishu_pingjunzhi = yingduzhishu_pingjunzhi;
+	public void setSezeqiwei1(String sezeqiwei1) {
+		this.sezeqiwei1 = sezeqiwei1;
 	}
-	public String getPingjunzhiganmianjinzhiliang() {
-		return pingjunzhiganmianjinzhiliang;
+	public String getJieguopanding1() {
+		return jieguopanding1;
 	}
-	public void setPingjunzhiganmianjinzhiliang(String pingjunzhiganmianjinzhiliang) {
-		this.pingjunzhiganmianjinzhiliang = pingjunzhiganmianjinzhiliang;
+	public void setJieguopanding1(String jieguopanding1) {
+		this.jieguopanding1 = jieguopanding1;
 	}
-	public String getShimianjin_pingjunzhi() {
-		return shimianjin_pingjunzhi;
+	public String getMianjinxishuiliang() {
+		return mianjinxishuiliang;
 	}
-	public void setShimianjin_pingjunzhi(String shimianjin_pingjunzhi) {
-		this.shimianjin_pingjunzhi = shimianjin_pingjunzhi;
+	public void setMianjinxishuiliang(String mianjinxishuiliang) {
+		this.mianjinxishuiliang = mianjinxishuiliang;
 	}
-	public String getSmallSampleNum() {
-		return smallSampleNum;
+	public String getShimianjin() {
+		return shimianjin;
 	}
-	public void setSmallSampleNum(String smallSampleNum) {
-		this.smallSampleNum = smallSampleNum;
+	public void setShimianjin(String shimianjin) {
+		this.shimianjin = shimianjin;
 	}
-	public String getTaskName() {
-		return taskName;
+	public String getPinchangpingfen() {
+		return pinchangpingfen;
 	}
-	public void setTaskName(String taskName) {
-		this.taskName = taskName;
+	public void setPinchangpingfen(String pinchangpingfen) {
+		this.pinchangpingfen = pinchangpingfen;
 	}
-	public int getSampleId() {
-		return sampleId;
+	public String getSezeqiwei2() {
+		return sezeqiwei2;
 	}
-	public void setSampleId(int sampleId) {
-		this.sampleId = sampleId;
+	public void setSezeqiwei2(String sezeqiwei2) {
+		this.sezeqiwei2 = sezeqiwei2;
 	}
-	public String getSfjiance() {
-		return sfjiance;
+	public String getJieguopanding2() {
+		return jieguopanding2;
 	}
-	public void setSfjiance(String sfjiance) {
-		this.sfjiance = sfjiance;
+	public void setJieguopanding2(String jieguopanding2) {
+		this.jieguopanding2 = jieguopanding2;
 	}
-	public String getBwsljiance() {
-		return bwsljiance;
+	public String getJianceren() {
+		return jianceren;
 	}
-	public void setBwsljiance(String bwsljiance) {
-		this.bwsljiance = bwsljiance;
+	public void setJianceren(String jianceren) {
+		this.jianceren = jianceren;
 	}
-	
-	public String getFenyangjiance() {
-		return fenyangjiance;
+	public String getJianceshijian() {
+		return jianceshijian;
 	}
-	public void setFenyangjiance(String fenyangjiance) {
-		this.fenyangjiance = fenyangjiance;
-	}
-	public String getCdjljiance() {
-		return cdjljiance;
-	}
-	public void setCdjljiance(String cdjljiance) {
-		this.cdjljiance = cdjljiance;
-	}
-	public String getMjxsljiance() {
-		return mjxsljiance;
-	}
-	public void setMjxsljiance(String mjxsljiance) {
-		this.mjxsljiance = mjxsljiance;
-	}
-	public String getMtpfjiance() {
-		return mtpfjiance;
-	}
-	public void setMtpfjiance(String mtpfjiance) {
-		this.mtpfjiance = mtpfjiance;
-	}
-	public String getInspectors() {
-		return inspectors;
-	}
-	public void setInspectors(String inspectors) {
-		this.inspectors = inspectors;
-	}
-	public Date getSfriqi() {
-		return sfriqi;
-	}
-	public void setSfriqi(Date sfriqi) {
-		this.sfriqi = sfriqi;
-	}
-	public Date getBwslriqi() {
-		return bwslriqi;
-	}
-	public void setBwslriqi(Date bwslriqi) {
-		this.bwslriqi = bwslriqi;
-	}
-	public Date getCdjlriqi() {
-		return cdjlriqi;
-	}
-	public void setCdjlriqi(Date cdjlriqi) {
-		this.cdjlriqi = cdjlriqi;
-	}
-	public Date getMjxslriqi() {
-		return mjxslriqi;
-	}
-	public void setMjxslriqi(Date mjxslriqi) {
-		this.mjxslriqi = mjxslriqi;
-	}
-	public Date getMtpfriqi() {
-		return mtpfriqi;
-	}
-	public void setMtpfriqi(Date mtpfriqi) {
-		this.mtpfriqi = mtpfriqi;
-	}
-	public String getInspectionTime() {
-		return inspectionTime;
-	}
-	public void setInspectionTime(String inspectionTime) {
-		this.inspectionTime = inspectionTime;
+	public void setJianceshijian(String jianceshijian) {
+		this.jianceshijian = jianceshijian;
 	}
 	
 	

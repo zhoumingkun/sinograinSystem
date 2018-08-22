@@ -52,6 +52,8 @@ import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
 
+import ch.qos.logback.core.CoreConstants;
+
 @Controller
 @RequestMapping(value = "/sample")
 public class SampleController {
@@ -355,34 +357,34 @@ public class SampleController {
 		}
 	}
 
-	// 导出小麦总表
-	@ResponseBody
-	@RequestMapping(value = "/ExeclPOI")
-	@RequiresPermissions("sample:reportXMorYM")
-	public String ExeclPOI(HttpServletResponse response, String ids, String title) {
-		try {
-			sampleService.ExeclPOI(response, ids, title);
-			return "{ \"success\" : true }";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"success\" : false }";
-		}
-	}
+//	// 导出小麦总表
+//	@ResponseBody
+//	@RequestMapping(value = "/ExeclPOI")
+//	@RequiresPermissions("sample:reportXMorYM")
+//	public String ExeclPOI(HttpServletResponse response, String ids, String title) {
+//		try {
+//			sampleService.ExeclPOI(response, ids, title);
+//			return "{ \"success\" : true }";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "{ \"success\" : false }";
+//		}
+//	}
 
-	// 导出玉米总表
-	@RequestMapping("/Export/POI")
-	@ResponseBody
-	@RequiresPermissions("sample:reportXMorYM")
-	public String Export(HttpServletResponse response, String ids, String title) {
-		try {
-			// 返回结果
-			sampleService.Export(response, ids, title);
-			return "{ \"success\" : true }";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"success\" : false }";
-		}
-	}
+//	// 导出玉米总表
+//	@RequestMapping("/Export/POI")
+//	@ResponseBody
+//	@RequiresPermissions("sample:reportXMorYM")
+//	public String Export(HttpServletResponse response, String ids, String title) {
+//		try {
+//			// 返回结果
+//			sampleService.Export(response, ids, title);
+//			return "{ \"success\" : true }";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "{ \"success\" : false }";
+//		}
+//	}
 
 	@ResponseBody
 	@RequestMapping(value = "/findSamplesByTask")
@@ -390,200 +392,414 @@ public class SampleController {
 	public List<Sample> findSamplesByTask(String taskName) {
 		return sampleService.findSamplesByTask(taskName);
 	}
-
+	
 	@ResponseBody
 	@RequestMapping(value = "/dataWheatReport")
-	@RequiresPermissions("sample:dataWheatReport")
 	public List<WheatExaminingReport> dataWheatReport(String ids) {
 		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
-		String[] id = ids.split(",");
-		List<String> inspectors = new ArrayList<String>();
-		List<Date> date = new ArrayList<Date>();
-		for (int i = 0; i < id.length; i++) {
-			WheatExaminingReport w = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
-			List<WheatExaminingReport> wheats = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			for (int j = 0; j < wheats.size(); j++) {
-				int newNum = Integer.parseInt(wheats.get(j).getSmallSampleNum().substring(9));
-				w.setQualityGrade(wheats.get(j).getQualityGrade());
-				w.setRealCapacity(wheats.get(j).getRealCapacity());
-
-				if (newNum == 04) {
-					w.setShuifen_pingjunzhi(wheats.get(j).getShuifen_pingjunzhi());
-					inspectors.add(wheats.get(j).getSfjiance());
-					date.add(wheats.get(j).getSfriqi());
-				} else if (newNum == 01) {
-					w.setZazhizongliang_1(wheats.get(j).getZazhizongliang_1());
-					w.setKuangwuzhihanliang_pingjunzhi(wheats.get(j).getKuangwuzhihanliang_pingjunzhi());
-					w.setBuwanshanlihanliang_pingjunzhi_1(wheats.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-					if(wheats.get(j).getBwsljiance() != null && wheats.get(j).getBwsljiance().length() != 0) {
-						inspectors.add(wheats.get(j).getBwsljiance());
+		WheatExaminingReport w = new WheatExaminingReport();
+		String[] idStrs = ids.split(",");
+		for(int i=0;i<idStrs.length;i++) {
+			w = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(idStrs[i]));
+			List<TestItem> testItems = testItemService.findResult(Integer.parseInt(idStrs[i]));
+			String jianceren = "";
+			Date jianceshijian = null;
+			for(TestItem t:testItems) {
+				if(1 == t.getTestItem()) {
+					w.setRongzhong(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) >= 750) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
 					}
-					if(wheats.get(j).getFenyangjiance() != null && wheats.get(j).getFenyangjiance().length() != 0) {
-						inspectors.add(wheats.get(j).getFenyangjiance());
+				}else if(2 == t.getTestItem()){
+					w.setShuifen(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 12.5) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
 					}
-					date.add(wheats.get(j).getBwslriqi());
-				} else if (newNum == 05) {
-					w.setYingduzhishu_pingjunzhi(wheats.get(j).getYingduzhishu_pingjunzhi());
-					w.setSezeqiwei_pingjunzhi(wheats.get(j).getSezeqiwei_pingjunzhi());
-					inspectors.add(wheats.get(j).getCdjljiance());
-					date.add(wheats.get(j).getCdjlriqi());
-				} else if (newNum == 06) {
-					w.setPingjunzhiganmianjinzhiliang(wheats.get(j).getPingjunzhiganmianjinzhiliang());
-					w.setShimianjin_pingjunzhi(wheats.get(j).getShimianjin_pingjunzhi());
-					inspectors.add(wheats.get(j).getMjxsljiance());
-					date.add(wheats.get(j).getMjxslriqi());
-				} else if (newNum == 07) {
-					w.setPinchangpingfenzhi(wheats.get(j).getPinchangpingfenzhi());
-					inspectors.add(wheats.get(j).getMtpfjiance());
-					date.add(wheats.get(j).getMtpfriqi());
+				}else if(3 == t.getTestItem()){
+					w.setZazhizongliang(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 1.0) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
+					}
+				}else if(4 == t.getTestItem()){
+					w.setZazhikuangwuzhi(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 0.5) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
+					}
+				}else if(5 == t.getTestItem()){
+					w.setBuwanshanli(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 8.0) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
+					}
+				}else if(7 == t.getTestItem()){
+					w.setSezeqiwei1(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(t.getResult().equals("正常")) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
+					}
+				}else if(8 == t.getTestItem()){
+					w.setYingduzhishu(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) >= 60) {
+						w.setJieguopanding1("达标");
+					} else if(Double.parseDouble(t.getResult()) > 45 && Double.parseDouble(t.getResult()) < 60) {
+						w.setJieguopanding1("达标");
+					} else {
+						w.setJieguopanding1("不达标");
+					}
+				}else if(9 == t.getTestItem()){
+					w.setMianjinxishuiliang(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) >= 180) {
+						w.setJieguopanding2("宜存");
+					} else if(Double.parseDouble(t.getResult()) < 180){
+						w.setJieguopanding2("轻度不宜存");
+					}
+				}else if(11 == t.getTestItem()){
+					w.setPinchangpingfen(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) >= 70) {
+						w.setJieguopanding2("宜存");
+					} else if(Double.parseDouble(t.getResult()) >= 60 && Double.parseDouble(t.getResult()) < 70){
+						w.setJieguopanding2("轻度不宜存");
+					} else if(Double.parseDouble(t.getResult()) < 60){
+						w.setJieguopanding2("重度不宜存");
+					}
+				}else if(12 == t.getTestItem()){
+					w.setSezeqiwei2(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(w.getJieguopanding2() != null) {
+						if(t.getResult().equals("正常") && w.getJieguopanding2().equals("宜存")) {
+							w.setJieguopanding2("宜存");
+						} else if(t.getResult().equals("正常") && w.getJieguopanding2().equals("轻度不宜存")){
+							w.setJieguopanding2("轻度不宜存");
+						} else if(t.getResult().equals("基本正常")){
+							w.setJieguopanding2("重度不宜存");
+						}
+					}
 				}
+				jianceshijian = t.getUpdateTime();
 			}
-			String ins = StringUtils.join(inspectors.toArray(),",");
-			w.setInspectors(ins);
-			Date newDate = null;
-			Calendar c1 = Calendar.getInstance();
-			Calendar c2 = Calendar.getInstance();
-			for(Date d: date) {
-				if(newDate == null) {
-					newDate = d;
-				}
-				c1.setTime(newDate);
-				c2.setTime(d);
-				int result = c1.compareTo(c2);
-				if(result==0) {
-					System.out.println("c1相等c2");
-				} else if(result<0) {
-					newDate = d;
-				} else if(result>0) {
-					System.out.println("c1大于c2");
-				}
-			}
+			w.setJianceren(jianceren.substring(0, jianceren.length()-1));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			w.setInspectionTime(sdf.format(newDate));
+			w.setJianceshijian(sdf.format(jianceshijian));
 			ws.add(w);
 		}
 		return ws;
 	}
-
+// 分小样后有原始记录的生成检测报表方法
+//	@ResponseBody
+//	@RequestMapping(value = "/dataWheatReport")
+//	@RequiresPermissions("sample:dataWheatReport")
+//	public List<WheatExaminingReport> dataWheatReport(String ids) {
+//		List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
+//		String[] id = ids.split(",");
+//		List<String> inspectors = new ArrayList<String>();
+//		List<Date> date = new ArrayList<Date>();
+//		for (int i = 0; i < id.length; i++) {
+//			WheatExaminingReport w = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
+//			List<WheatExaminingReport> wheats = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
+//			for (int j = 0; j < wheats.size(); j++) {
+//				int newNum = Integer.parseInt(wheats.get(j).getSmallSampleNum().substring(9));
+//				w.setQualityGrade(wheats.get(j).getQualityGrade());
+//				w.setRealCapacity(wheats.get(j).getRealCapacity());
+//
+//				if (newNum == 04) {
+//					w.setShuifen_pingjunzhi(wheats.get(j).getShuifen_pingjunzhi());
+//					inspectors.add(wheats.get(j).getSfjiance());
+//					date.add(wheats.get(j).getSfriqi());
+//				} else if (newNum == 01) {
+//					w.setZazhizongliang_1(wheats.get(j).getZazhizongliang_1());
+//					w.setKuangwuzhihanliang_pingjunzhi(wheats.get(j).getKuangwuzhihanliang_pingjunzhi());
+//					w.setBuwanshanlihanliang_pingjunzhi_1(wheats.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+//					if(wheats.get(j).getBwsljiance() != null && wheats.get(j).getBwsljiance().length() != 0) {
+//						inspectors.add(wheats.get(j).getBwsljiance());
+//					}
+//					if(wheats.get(j).getFenyangjiance() != null && wheats.get(j).getFenyangjiance().length() != 0) {
+//						inspectors.add(wheats.get(j).getFenyangjiance());
+//					}
+//					date.add(wheats.get(j).getBwslriqi());
+//				} else if (newNum == 05) {
+//					w.setYingduzhishu_pingjunzhi(wheats.get(j).getYingduzhishu_pingjunzhi());
+//					w.setSezeqiwei_pingjunzhi(wheats.get(j).getSezeqiwei_pingjunzhi());
+//					inspectors.add(wheats.get(j).getCdjljiance());
+//					date.add(wheats.get(j).getCdjlriqi());
+//				} else if (newNum == 06) {
+//					w.setPingjunzhiganmianjinzhiliang(wheats.get(j).getPingjunzhiganmianjinzhiliang());
+//					w.setShimianjin_pingjunzhi(wheats.get(j).getShimianjin_pingjunzhi());
+//					inspectors.add(wheats.get(j).getMjxsljiance());
+//					date.add(wheats.get(j).getMjxslriqi());
+//				} else if (newNum == 07) {
+//					w.setPinchangpingfenzhi(wheats.get(j).getPinchangpingfenzhi());
+//					inspectors.add(wheats.get(j).getMtpfjiance());
+//					date.add(wheats.get(j).getMtpfriqi());
+//				}
+//			}
+//			String ins = StringUtils.join(inspectors.toArray(),",");
+//			w.setInspectors(ins);
+//			Date newDate = null;
+//			Calendar c1 = Calendar.getInstance();
+//			Calendar c2 = Calendar.getInstance();
+//			for(Date d: date) {
+//				if(newDate == null) {
+//					newDate = d;
+//				}
+//				c1.setTime(newDate);
+//				c2.setTime(d);
+//				int result = c1.compareTo(c2);
+//				if(result==0) {
+//					System.out.println("c1相等c2");
+//				} else if(result<0) {
+//					newDate = d;
+//				} else if(result>0) {
+//					System.out.println("c1大于c2");
+//				}
+//			}
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//			w.setInspectionTime(sdf.format(newDate));
+//			ws.add(w);
+//		}
+//		return ws;
+//	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/dataCornReport")
-	// @RequiresPermissions("sample:dataCornReport")
-	public List<CornExaminingReport> dataCornReport(String ids) {
-		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
-		String[] id = ids.split(",");
-		List<String> inspectors = new ArrayList<String>();
-		List<Date> date = new ArrayList<Date>();
-		for (int i = 0; i < id.length; i++) {
-			CornExaminingReport c = cornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
-			List<CornExaminingReport> corns = cornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
-			for (int j = 0; j < corns.size(); j++) {
-				int newNum = Integer.parseInt(corns.get(j).getSmallSampleNum().substring(9));
-				c.setQualityGrade(corns.get(j).getQualityGrade());
-				c.setRealCapacity(corns.get(j).getRealCapacity());
-				if (newNum == 04) {
-					c.setShuifen_pingjunzhi(corns.get(j).getShuifen_pingjunzhi());
-					inspectors.add(corns.get(j).getSfjiance());
-					date.add(corns.get(j).getSfriqi());
-				} else if (newNum == 02) {
-					c.setZazhizongliang_1(corns.get(j).getZazhizongliang_1());
-					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
-						inspectors.add(corns.get(j).getBwsljiance());
+	public List<CornExaminingReport> dataCorReport(String ids) {
+		List<CornExaminingReport> cornExaminingReports = new ArrayList<CornExaminingReport>();
+		CornExaminingReport cornExaminingReport = new CornExaminingReport();
+		String[] idStrs = ids.split(",");
+		for(int i=0;i<idStrs.length;i++) {
+			cornExaminingReport = cornExaminingReportDao.findBasicSituation(Integer.parseInt(idStrs[i]));
+			List<TestItem> testItems = testItemService.findResult(Integer.parseInt(idStrs[i]));
+			String jianceren = "";
+			Date jianceshijian = null;
+			for(TestItem t:testItems) {
+				if(1 == t.getTestItem()) {
+					cornExaminingReport.setRongzhong(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) >= 650) {
+						cornExaminingReport.setJieguopanding1("达标");
+					} else {
+						cornExaminingReport.setJieguopanding1("不达标");
 					}
-					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
-						inspectors.add(corns.get(j).getFenyangjiance());
+				}else if(2 == t.getTestItem()){
+					cornExaminingReport.setShuifen(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 14.0) {
+						cornExaminingReport.setJieguopanding1("达标");
+					} else {
+						cornExaminingReport.setJieguopanding1("不达标");
 					}
-					date.add(corns.get(j).getBwslriqi());
-				} else if (newNum == 01) {
-					c.setBuwanshanlihanliang_pingjunzhi_1(corns.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
-						inspectors.add(corns.get(j).getBwsljiance());
+				}else if(3 == t.getTestItem()){
+					cornExaminingReport.setZazhi(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 1.0) {
+						cornExaminingReport.setJieguopanding1("达标");
+					} else {
+						cornExaminingReport.setJieguopanding1("不达标");
 					}
-					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
-						inspectors.add(corns.get(j).getFenyangjiance());
+				}else if(5 == t.getTestItem()){
+					cornExaminingReport.setBuwanshanlizongliang(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 8.0) {
+						cornExaminingReport.setJieguopanding1("达标");
+					} else {
+						cornExaminingReport.setJieguopanding1("不达标");
 					}
-					date.add(corns.get(j).getBwslriqi());
-				} else if (newNum == 03) {
-					c.setShengmeilihanliang_pingjunzhi(corns.get(j).getShengmeilihanliang_pingjunzhi());
-					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
-						inspectors.add(corns.get(j).getBwsljiance());
+				}else if(6 == t.getTestItem()){
+					cornExaminingReport.setBuwanshanlishengmeikeli(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 2.0) {
+						cornExaminingReport.setJieguopanding1("达标");
+					} else {
+						cornExaminingReport.setJieguopanding1("不达标");
 					}
-					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
-						inspectors.add(corns.get(j).getFenyangjiance());
+				}else if(7 == t.getTestItem()){
+					cornExaminingReport.setSezeqiwei1(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(t.getResult().equals("正常")) {
+						cornExaminingReport.setJieguopanding1("达标");
+					} else {
+						cornExaminingReport.setJieguopanding1("不达标");
 					}
-					date.add(corns.get(j).getBwslriqi());
-				} else if (newNum == 05) {
-					c.setSezeqiwei_pingjunzhi(corns.get(j).getSezeqiwei_pingjunzhi());
-					inspectors.add(corns.get(j).getCdjljiance());
-					date.add(corns.get(j).getCdjlriqi());
-				} else if (newNum == 06) {
-					c.setZhifangsuanzhi_pingjunzhi(corns.get(j).getZhifangsuanzhi_pingjunzhi());
-					inspectors.add(corns.get(j).getZfsjiance());
-					date.add(corns.get(j).getZfsriqi());
-				} else if (newNum == 07) {
-					c.setPinchangpingfenzhi(corns.get(j).getPinchangpingfenzhi());
-					inspectors.add(corns.get(j).getYmpfjiance());
-					date.add(corns.get(j).getYmpfriqi());
+				}else if(10 == t.getTestItem()){
+					cornExaminingReport.setZhifangsuanzhi(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) <= 65) {
+						cornExaminingReport.setJieguopanding2("宜存");
+					} else if(Double.parseDouble(t.getResult()) <= 78){
+						cornExaminingReport.setJieguopanding2("轻度不宜存");
+					} else if(Double.parseDouble(t.getResult()) > 78){
+						cornExaminingReport.setJieguopanding2("重度不宜存");
+					}
+				}else if(11 == t.getTestItem()){
+					cornExaminingReport.setPinchangpingfen(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(Double.parseDouble(t.getResult()) >= 70) {
+						cornExaminingReport.setJieguopanding2("宜存");
+					} else if(Double.parseDouble(t.getResult()) >= 60){
+						cornExaminingReport.setJieguopanding2("轻度不宜存");
+					} else if(Double.parseDouble(t.getResult()) < 60){
+						cornExaminingReport.setJieguopanding2("重度不宜存");
+					}
+				}else if(12 == t.getTestItem()){
+					cornExaminingReport.setSezeqiwei2(t.getResult());
+					jianceren = t.getPrincipal() + ",";
+					if(cornExaminingReport.getJieguopanding2() != null) {
+						if(t.getResult().equals("正常") && cornExaminingReport.getJieguopanding2().equals("宜存")) {
+							cornExaminingReport.setJieguopanding2("宜存");
+						} else if(t.getResult().equals("正常") && cornExaminingReport.getJieguopanding2().equals("轻度不宜存")){
+							cornExaminingReport.setJieguopanding2("轻度不宜存");
+						} else if(t.getResult().equals("基本正常")){
+							cornExaminingReport.setJieguopanding2("重度不宜存");
+						}
+					}
 				}
+				jianceshijian = t.getUpdateTime();
 			}
-			String ins = StringUtils.join(inspectors.toArray(),",");
-			c.setInspectors(ins);
-			Date newDate = null;
-			Calendar c1 = Calendar.getInstance();
-			Calendar c2 = Calendar.getInstance();
-			for(Date d: date) {
-				if(newDate == null) {
-					newDate = d;
-				}
-				c1.setTime(newDate);
-				c2.setTime(d);
-				int result = c1.compareTo(c2);
-				if(result==0) {
-					System.out.println("c1相等c2");
-				} else if(result<0) {
-					newDate = d;
-				} else if(result>0) {
-					System.out.println("c1大于c2");
-				}
-			}
+			cornExaminingReport.setJianceren(jianceren.substring(0, jianceren.length()-1));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			c.setInspectionTime(sdf.format(newDate));
-			cs.add(c);
-			
+			cornExaminingReport.setJianceshijian(sdf.format(jianceshijian));
+			cornExaminingReports.add(cornExaminingReport);
 		}
-		return cs;
+		return cornExaminingReports;
 	}
+//	分小样后有原始记录的生成检测报表方法
+//	@ResponseBody
+//	@RequestMapping(value = "/dataCornReport")
+//	// @RequiresPermissions("sample:dataCornReport")
+//	public List<CornExaminingReport> dataCornReport(String ids) {
+//		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
+//		String[] id = ids.split(",");
+//		List<String> inspectors = new ArrayList<String>();
+//		List<Date> date = new ArrayList<Date>();
+//		for (int i = 0; i < id.length; i++) {
+//			CornExaminingReport c = cornExaminingReportDao.findBasicSituation(Integer.parseInt(id[i]));
+//			List<CornExaminingReport> corns = cornExaminingReportDao.findQualityAcceptance(Integer.parseInt(id[i]));
+//			for (int j = 0; j < corns.size(); j++) {
+//				int newNum = Integer.parseInt(corns.get(j).getSmallSampleNum().substring(9));
+//				c.setQualityGrade(corns.get(j).getQualityGrade());
+//				c.setRealCapacity(corns.get(j).getRealCapacity());
+//				if (newNum == 04) {
+//					c.setShuifen_pingjunzhi(corns.get(j).getShuifen_pingjunzhi());
+//					inspectors.add(corns.get(j).getSfjiance());
+//					date.add(corns.get(j).getSfriqi());
+//				} else if (newNum == 02) {
+//					c.setZazhizongliang_1(corns.get(j).getZazhizongliang_1());
+//					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
+//						inspectors.add(corns.get(j).getBwsljiance());
+//					}
+//					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
+//						inspectors.add(corns.get(j).getFenyangjiance());
+//					}
+//					date.add(corns.get(j).getBwslriqi());
+//				} else if (newNum == 01) {
+//					c.setBuwanshanlihanliang_pingjunzhi_1(corns.get(j).getBuwanshanlihanliang_pingjunzhi_1());
+//					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
+//						inspectors.add(corns.get(j).getBwsljiance());
+//					}
+//					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
+//						inspectors.add(corns.get(j).getFenyangjiance());
+//					}
+//					date.add(corns.get(j).getBwslriqi());
+//				} else if (newNum == 03) {
+//					c.setShengmeilihanliang_pingjunzhi(corns.get(j).getShengmeilihanliang_pingjunzhi());
+//					if(corns.get(j).getBwsljiance() != null && corns.get(j).getBwsljiance().length() != 0) {
+//						inspectors.add(corns.get(j).getBwsljiance());
+//					}
+//					if(corns.get(j).getFenyangjiance() != null && corns.get(j).getFenyangjiance().length() != 0) {
+//						inspectors.add(corns.get(j).getFenyangjiance());
+//					}
+//					date.add(corns.get(j).getBwslriqi());
+//				} else if (newNum == 05) {
+//					c.setSezeqiwei_pingjunzhi(corns.get(j).getSezeqiwei_pingjunzhi());
+//					inspectors.add(corns.get(j).getCdjljiance());
+//					date.add(corns.get(j).getCdjlriqi());
+//				} else if (newNum == 06) {
+//					c.setZhifangsuanzhi_pingjunzhi(corns.get(j).getZhifangsuanzhi_pingjunzhi());
+//					inspectors.add(corns.get(j).getZfsjiance());
+//					date.add(corns.get(j).getZfsriqi());
+//				} else if (newNum == 07) {
+//					c.setPinchangpingfenzhi(corns.get(j).getPinchangpingfenzhi());
+//					inspectors.add(corns.get(j).getYmpfjiance());
+//					date.add(corns.get(j).getYmpfriqi());
+//				}
+//			}
+//			String ins = StringUtils.join(inspectors.toArray(),",");
+//			c.setInspectors(ins);
+//			Date newDate = null;
+//			Calendar c1 = Calendar.getInstance();
+//			Calendar c2 = Calendar.getInstance();
+//			for(Date d: date) {
+//				if(newDate == null) {
+//					newDate = d;
+//				}
+//				c1.setTime(newDate);
+//				c2.setTime(d);
+//				int result = c1.compareTo(c2);
+//				if(result==0) {
+//					System.out.println("c1相等c2");
+//				} else if(result<0) {
+//					newDate = d;
+//				} else if(result>0) {
+//					System.out.println("c1大于c2");
+//				}
+//			}
+//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//			c.setInspectionTime(sdf.format(newDate));
+//			cs.add(c);
+//			
+//		}
+//		return cs;
+//	}
+//
+//	/**
+//	 * 导出小麦质量
+//	 */
+//	@ResponseBody
+//	@RequestMapping(value = "/ExportXMzhiliang")
+//	@RequiresPermissions("sample:ExportXMorYMzhiliang")
+//	public String ExportXMzhiliang(HttpServletResponse response, String ids, String title) {
+//		try {
+//			// 返回结果
+//			sampleService.ExportXMzhiliang(response, ids, title);
+//			return "{ \"success\" : true }";
+//		} catch (Exception e) {
+//			return "{ \"success\" : false }";
+//		}
+//	}
 
-	/**
-	 * 导出小麦质量
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/ExportXMzhiliang")
-	@RequiresPermissions("sample:ExportXMorYMzhiliang")
-	public String ExportXMzhiliang(HttpServletResponse response, String ids, String title) {
-		try {
-			// 返回结果
-			sampleService.ExportXMzhiliang(response, ids, title);
-			return "{ \"success\" : true }";
-		} catch (Exception e) {
-			return "{ \"success\" : false }";
-		}
-	}
-
-	/**
-	 * 导出玉米质量
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/ExportYMzhiliang")
-	@RequiresPermissions("sample:ExportXMorYMzhiliang")
-	public String ExportYMzhiliang(HttpServletResponse response, String ids, String title) {
-		try {
-			// 返回结果
-			sampleService.ExportYMzhiliang(response, ids, title);
-			return "{ \"success\" : true }";
-		} catch (Exception e) {
-			return "{ \"success\" : false }";
-		}
-	}
+//	/**
+//	 * 导出玉米质量
+//	 */
+//	@ResponseBody
+//	@RequestMapping(value = "/ExportYMzhiliang")
+//	@RequiresPermissions("sample:ExportXMorYMzhiliang")
+//	public String ExportYMzhiliang(HttpServletResponse response, String ids, String title) {
+//		try {
+//			// 返回结果
+//			sampleService.ExportYMzhiliang(response, ids, title);
+//			return "{ \"success\" : true }";
+//		} catch (Exception e) {
+//			return "{ \"success\" : false }";
+//		}
+//	}
 
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
