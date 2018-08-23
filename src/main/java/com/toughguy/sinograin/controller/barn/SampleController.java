@@ -770,37 +770,37 @@ public class SampleController {
 //		return cs;
 //	}
 //
-//	/**
-//	 * 导出小麦质量
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value = "/ExportXMzhiliang")
-//	@RequiresPermissions("sample:ExportXMorYMzhiliang")
-//	public String ExportXMzhiliang(HttpServletResponse response, String ids, String title) {
-//		try {
-//			// 返回结果
-//			sampleService.ExportXMzhiliang(response, ids, title);
-//			return "{ \"success\" : true }";
-//		} catch (Exception e) {
-//			return "{ \"success\" : false }";
-//		}
-//	}
+	/**
+	 * 导出小麦质量
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/ExportXMzhiliang")
+	@RequiresPermissions("sample:ExportXMorYMzhiliang")
+	public String ExportXMzhiliang(HttpServletResponse response, String ids, String title) {
+		try {
+			// 返回结果
+			sampleService.ExportXMzhiliang(response, ids, title);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
 
-//	/**
-//	 * 导出玉米质量
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value = "/ExportYMzhiliang")
-//	@RequiresPermissions("sample:ExportXMorYMzhiliang")
-//	public String ExportYMzhiliang(HttpServletResponse response, String ids, String title) {
-//		try {
-//			// 返回结果
-//			sampleService.ExportYMzhiliang(response, ids, title);
-//			return "{ \"success\" : true }";
-//		} catch (Exception e) {
-//			return "{ \"success\" : false }";
-//		}
-//	}
+	/**
+	 * 导出玉米质量
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/ExportYMzhiliang")
+	@RequiresPermissions("sample:ExportXMorYMzhiliang")
+	public String ExportYMzhiliang(HttpServletResponse response, String ids, String title) {
+		try {
+			// 返回结果
+			sampleService.ExportYMzhiliang(response, ids, title);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			return "{ \"success\" : false }";
+		}
+	}
 
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
