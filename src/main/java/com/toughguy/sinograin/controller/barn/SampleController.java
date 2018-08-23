@@ -27,6 +27,7 @@ import com.mysql.fabric.xmlrpc.base.Data;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Library;
+import com.toughguy.sinograin.model.barn.Record;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.ReturnSingle;
 import com.toughguy.sinograin.model.barn.Sample;
@@ -38,6 +39,7 @@ import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
+import com.toughguy.sinograin.persist.barn.prototype.IRecordDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
@@ -80,6 +82,8 @@ public class SampleController {
 	private IReturnSingleService returnSingleService;
 	@Autowired
 	private ITestItemService testItemService;
+	@Autowired
+	private IRecordDao recordDao;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -1168,5 +1172,43 @@ public class SampleController {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/findRecord")
+	public List<Record> findRecord(Sample sample) {
+		List<Record> record = recordDao.findRecord(sample);
+		for(Record r:record) {
+			List<TestItem> testItems = testItemService.findResult(r.getSampleId());
+			for(TestItem t:testItems) {
+				if(t.getTestItem() == 1) {
+					r.setRongzhong(t.getResult());
+				} else if(t.getTestItem() == 2) {
+					r.setShuifen(t.getResult());
+				} else if(t.getTestItem() == 3) {
+					r.setZazhi(t.getResult());
+				} else if(t.getTestItem() == 4) {
+					r.setKuangwuzhi(t.getResult());
+				} else if(t.getTestItem() == 5) {
+					r.setBuwanshanli(t.getResult());
+				} else if(t.getTestItem() == 6) {
+					r.setShengmeili(t.getResult());
+				} else if(t.getTestItem() == 7) {
+					r.setSezeqiwei1(t.getResult());
+				} else if(t.getTestItem() == 8) {
+					r.setYingduzhishu(t.getResult());
+				} else if(t.getTestItem() == 9) {
+					r.setMianjinxishuiliang(t.getResult());
+				} else if(t.getTestItem() == 10) {
+					r.setZhifangsuanzhi(t.getResult());
+				} else if(t.getTestItem() == 11) {
+					r.setPinchangpingfen(t.getResult());
+				} else if(t.getTestItem() == 12) {
+					r.setSezeqiwei2(t.getResult());
+				}
+			}
+			record.add(r);
+		}
+		return record;
 	}
 }
