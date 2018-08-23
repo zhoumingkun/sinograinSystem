@@ -7,10 +7,11 @@
 	 bs.position, bs.sort, bs.amount, bs.gainTime, bs.storageTime,bs.originPlace,br.createTime checkApplyTime,
 	 br.updateTime assignMissionTime, bs.sampleTime, bs.remark, bm.length, bm.wide, bm.high, 
 	 bm.deductVolume, bm.realVolume, bm.realCapacity, bm.correctioFactor, 
-	 bm.aveDensity, bm.qualityGrade, bm.unQuality, bm.grainQuality, bm.slip FROM barn_library pbl 
+	 bm.aveDensity, bm.qualityGrade, bm.unQuality, bm.grainQuality, bm.slip, bt.taskName FROM barn_library pbl 
 	  LEFT JOIN barn_library bl ON bl.pLibraryId = pbl.id 
 	  LEFT JOIN barn_register br ON br.libraryId = bl.id 
 	  LEFT JOIN barn_sample bs ON bs.pId = br.id 
+	  LEFT JOIN barn_task bt ON bs.taskId = bt.id 
 	  LEFT JOIN barn_manuscript bm ON bm.sampleId = bs.id
 		<if test=" _parameter != null and _parameter != '' ">
 		where bs.id=#{id}

@@ -51,6 +51,7 @@ public class WheatExaminingReport {
 	private String jieguopanding2;    //结果判定（储存品质）
 	private String jianceren;        //检测人
 	private String jianceshijian;     //检测时间
+	private String taskName;           //任务名
 //	private String shuifen_pingjunzhi; // 平均值（%）(水分)
 //	private String zazhizongliang_1;  //杂质总量B（%）
 //	private String kuangwuzhihanliang_pingjunzhi;//矿物质含量平均值（%）
@@ -319,6 +320,12 @@ public class WheatExaminingReport {
 	}
 	public void setJianceshijian(String jianceshijian) {
 		this.jianceshijian = jianceshijian;
+	}
+	public String getTaskName() {
+		return taskName;
+	}
+	public void setTaskName(String taskName) {
+		this.taskName = taskName;
 	}
 	
 	

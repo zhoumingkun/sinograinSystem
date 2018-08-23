@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Handover;
 import com.toughguy.sinograin.model.barn.Sample;
@@ -1048,310 +1050,375 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				e.printStackTrace();
 			}		
 	}
-//	
-//	
-//	/*
-//	 * 导出小麦质量验收情况表
-//	 * 
-//	 */
-//	public  void ExportXMzhiliang(HttpServletResponse response,String ids,String title) { {
-//		//传入的文件  
-//        FileInputStream fileInput;
-//        POIUtils utils = new POIUtils();
-//		try {
-//			fileInput = new FileInputStream("upload/base/小麦质量验收情况表.xls");
-//			//poi包下的类读取excel文件  
-//			POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-//			// 创建一个webbook，对应一个Excel文件            
-//			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-//			//对应Excel文件中的sheet，0代表第一个             
-//			HSSFSheet sh = workbook.getSheetAt(0);  
-////			 HSSFRow row = sh.createRow(8);
-////			 row.createCell(0).setCellValue("bb");
-////			 sh.getRow(9).getCell(2).setCellValue("xx");
-////			 sh.getRow(9).getCell(3).setCellValue("xx");
-////			 sh.getRow(9).getCell(4).setCellValue("x");
-////			 sh.getRow(9).getCell(5).setCellValue("xx");
-//			 
-//			 List<WheatExaminingReport> Wobjiect1 = wheatExaminingReportDao.findQualityAcceptance(Integer.parseInt(ids));
-//				
-//				for(int j=0; j<Wobjiect1.size(); j++) {
-//				    HSSFRow row = sh.createRow(8+j);
-//				    row.setHeight((short) 300); // 行高
-//					int newNum = Integer.parseInt(Wobjiect1.get(j).getSmallSampleNum().substring(9));
-//					HSSFCell cell1 = row.createCell(0);
-//					cell1.setCellStyle(utils.Style1(workbook));
-//					cell1.setCellValue(Wobjiect1.get(j).getTaskName());
-//					
-//					HSSFCell cell2 = row.createCell(1);
-//					cell2.setCellStyle(utils.Style1(workbook));
-//					cell2.setCellValue("监" + Wobjiect1.get(j).getSampleNum());
-//					
-//					HSSFCell cell3 = row.createCell(2);
-//					cell3.setCellStyle(utils.Style1(workbook));
-//					cell3.setCellValue(Wobjiect1.get(j).getQualityGrade());
-//					
-//					HSSFCell cell4 = row.createCell(3);
-//					cell4.setCellStyle(utils.Style1(workbook));
-//					cell4.setCellValue(Wobjiect1.get(j).getRealCapacity());
-//					
-//					HSSFCell cell5 = row.createCell(4);
-//					cell5.setCellStyle(utils.Style1(workbook));
-//					if(newNum == 4) {
-//						cell5.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
-//					}else{cell5.setCellValue("");}
-//					
-//					HSSFCell cell6 = row.createCell(5);
-//					cell6.setCellStyle(utils.Style1(workbook));
-//					
-//					HSSFCell cell7 = row.createCell(6);
-//					cell7.setCellStyle(utils.Style1(workbook));
-//					
-//					HSSFCell cell8 = row.createCell(7);
-//					cell8.setCellStyle(utils.Style1(workbook));
-//					if(newNum == 1){
-//						cell6.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
-//						cell7.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
-//						cell8.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-//					}else{
-//						cell6.setCellValue("");
-//						cell7.setCellValue("");
-//						cell8.setCellValue("");
-//					}
-//					
-//					HSSFCell cell9 = row.createCell(8);
-//					cell9.setCellStyle(utils.Style1(workbook));
-//					
-//					HSSFCell cell10 = row.createCell(9);
-//					cell10.setCellStyle(utils.Style1(workbook));
-//					
-//					if(newNum == 5) {
-//						cell9.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
-//						cell10.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
-//					}else{
-//						cell9.setCellValue("");
-//						cell10.setCellValue("");
-//					}
-//					
-//					HSSFCell cell12 = row.createCell(11);
-//					cell12.setCellStyle(utils.Style1(workbook));
-//				    
-//					HSSFCell cell13 = row.createCell(12);
-//					cell13.setCellStyle(utils.Style1(workbook));
-//					
-//					if(newNum == 6) {
-//						cell12.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
-//						cell13.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
-//					}else{
-//						cell12.setCellValue("");
-//						cell13.setCellValue("");
-//					}
-//					
-//					HSSFCell cell14 = row.createCell(13);
-//					cell14.setCellStyle(utils.Style1(workbook));
-//					if(newNum == 7) {
-//						cell14.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
-//					}else{cell14.setCellValue("");}
-//					
-//					/*if(newNum == 4) {
-//						HSSFCell cell5 = row.createCell(4);
-//						cell5.setCellStyle(utils.Style1(workbook));
-//						cell5.setCellValue(Wobjiect1.get(j).getShuifen_pingjunzhi());
-//					}
-//					else if(newNum == 1) {
-//						HSSFCell cell6 = row.createCell(5);
-//						cell6.setCellStyle(utils.Style1(workbook));
-//						cell6.setCellValue(Wobjiect1.get(j).getZazhizongliang_1());
-//						
-//						HSSFCell cell7 = row.createCell(6);
-//						cell7.setCellStyle(utils.Style1(workbook));
-//						cell7.setCellValue(Wobjiect1.get(j).getKuangwuzhihanliang_pingjunzhi());
-//						
-//						HSSFCell cell8 = row.createCell(7);
-//						cell8.setCellStyle(utils.Style1(workbook));
-//						cell8.setCellValue(Wobjiect1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-//					}
-//					else if(newNum == 5) {
-//						HSSFCell cell9 = row.createCell(8);
-//						cell9.setCellStyle(utils.Style1(workbook));
-//						cell9.setCellValue(Wobjiect1.get(j).getYingduzhishu_pingjunzhi());
-//						
-//						HSSFCell cell10 = row.createCell(9);
-//						cell10.setCellStyle(utils.Style1(workbook));
-//						cell10.setCellValue(Wobjiect1.get(j).getSezeqiwei_pingjunzhi());
-//					}
-//					else if(newNum == 6) {
-//						HSSFCell cell12 = row.createCell(11);
-//						cell12.setCellStyle(utils.Style1(workbook));
-//						cell12.setCellValue(Wobjiect1.get(j).getPingjunzhiganmianjinzhiliang());
-//					    
-//						HSSFCell cell13 = row.createCell(12);
-//						cell13.setCellStyle(utils.Style1(workbook));
-//						cell13.setCellValue(Wobjiect1.get(j).getShimianjin_pingjunzhi());
-//					}
-//					else if(newNum == 7) {
-//						HSSFCell cell14 = row.createCell(13);
-//						cell14.setCellStyle(utils.Style1(workbook));
-//						cell14.setCellValue(Wobjiect1.get(j).getPinchangpingfenzhi());
-//					}*/
-//					HSSFCell cell11 = row.createCell(10);
-//					cell11.setCellStyle(utils.Style1(workbook));
-//					cell11.setCellValue("");
-//					
-//					HSSFCell cell15 = row.createCell(14);
-//					cell15.setCellStyle(utils.Style1(workbook));
-//					cell15.setCellValue("");
-//					
-//					HSSFCell cell16 = row.createCell(15);
-//					cell16.setCellStyle(utils.Style1(workbook));
-//					cell16.setCellValue("");
-//				}
-//
-////			 FileOutputStream out = new FileOutputStream("E://小麦质量.xls");  
-////			 workbook.write(out);
-//			//将修改后的文件写出到D:\\excel目录下  
-//	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
-//	        OutputStream output = response.getOutputStream();
-//    		response.reset();
-//    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
-//    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//    		workbook.write(output);
-//    		output.flush();  
-//	        //将Excel写出        
-//	        workbook.write(output);  
-//	        //关闭流  
-//	        fileInput.close();  
-//	        output.close();  
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}  
-//   
-//	}
-//	}
-//	
-//	
-//	
-//	/*
-//	 * 导出玉米质量验收情况表
-//	 * 
-//	 */
-//	public  void ExportYMzhiliang(HttpServletResponse response,String ids,String title) { {
-//		//传入的文件  
-//        FileInputStream fileInput;
-//        POIUtils utils = new POIUtils();
-//		try {
-//			fileInput = new FileInputStream("upload/base/玉米质量验收情况表.xls");
-//			//poi包下的类读取excel文件  
-//			POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-//			// 创建一个webbook，对应一个Excel文件            
-//			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-//			//对应Excel文件中的sheet，0代表第一个             
-//			HSSFSheet sh = workbook.getSheetAt(0);  
-////			 HSSFRow row = sh.createRow(8);
-////			 row.createCell(0).setCellValue("bb");
-////			 sh.getRow(9).getCell(2).setCellValue("xx");
-////			 sh.getRow(9).getCell(3).setCellValue("xx");
-////			 sh.getRow(9).getCell(4).setCellValue("x");
-////			 sh.getRow(9).getCell(5).setCellValue("xx");
-//			 
-//		
-//		List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(Integer.parseInt(ids));
-//		for(int j=0; j<cornExaminingReport1.size(); j++) {
-//			HSSFRow row = sh.createRow(8+j);
-//			row.setHeight((short) 300); // 行高
-//			int newNum = Integer.parseInt(cornExaminingReport1.get(j).getSmallSampleNum().substring(9));
-//			HSSFCell createCell = row.createCell(0);
-//			createCell.setCellStyle(utils.Style1(workbook));
-//			createCell.setCellValue(cornExaminingReport1.get(j).getTaskName());
-//			
-//			HSSFCell createCell2 = row.createCell(1);
-//			createCell2.setCellStyle(utils.Style1(workbook));
-//			createCell2.setCellValue("监" + cornExaminingReport1.get(j).getSampleNum());
-//			
-//			HSSFCell createCell3 = row.createCell(2);
-//			createCell3.setCellStyle(utils.Style1(workbook));
-//			createCell3.setCellValue(cornExaminingReport1.get(j).getQualityGrade());
-//			
-//			HSSFCell createCell4 = row.createCell(3);
-//			createCell4.setCellStyle(utils.Style1(workbook));
-//			createCell4.setCellValue(cornExaminingReport1.get(j).getRealCapacity());
-//			
-//			HSSFCell cell1 = row.createCell(4);
-//			cell1.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 04){
-//				cell1.setCellValue(cornExaminingReport1.get(j).getShuifen_pingjunzhi());
-//			}else{cell1.setCellValue("");}
-//			
-//			HSSFCell cell2 = row.createCell(5);
-//			cell2.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 02){
-//				cell2.setCellValue(cornExaminingReport1.get(j).getZazhizongliang_1());
-//			}else{cell2.setCellValue("");}
-//			
-//			HSSFCell cell3 = row.createCell(6);
-//			cell3.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 01) {
-//				cell3.setCellValue(cornExaminingReport1.get(j).getBuwanshanlihanliang_pingjunzhi_1());
-//			}else{cell3.setCellValue("");}
-//			
-//			HSSFCell cell4 = row.createCell(7);
-//			cell4.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 03) {
-//				cell4.setCellValue(cornExaminingReport1.get(j).getShengmeilihanliang_pingjunzhi());
-//			}else{cell4.setCellValue("");}
-//		
-//			HSSFCell cell5 = row.createCell(8);
-//			cell5.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 05){
-//				cell5.setCellValue(cornExaminingReport1.get(j).getSezeqiwei_pingjunzhi());
-//			}else{cell5.setCellValue("");}
-//		
-//			HSSFCell cell6 = row.createCell(10);
-//			cell6.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 06) {
-//				cell6.setCellValue(cornExaminingReport1.get(j).getZhifangsuanzhi_pingjunzhi());
-//			}else{cell6.setCellValue("");}
-//			
-//			HSSFCell cell7 = row.createCell(11);
-//			cell7.setCellStyle(utils.Style1(workbook));
-//			if(newNum == 07) {
-//				cell7.setCellValue(cornExaminingReport1.get(j).getPinchangpingfenzhi());
-//			}else{cell7.setCellValue("");}
-//			
-//			HSSFCell cell12 = row.createCell(9);
-//			cell12.setCellStyle(utils.Style1(workbook));
-//			cell12.setCellValue("");
-//			
-//			HSSFCell cell13 = row.createCell(12);
-//			cell13.setCellStyle(utils.Style1(workbook));
-//			cell13.setCellValue("");
-//			
-//			HSSFCell cell14 = row.createCell(13);
-//			cell14.setCellStyle(utils.Style1(workbook));
-//			cell14.setCellValue("");
-//		}
-//   
-////		FileOutputStream out = new FileOutputStream("E://玉米质量.xls");  
-////		 workbook.write(out);
-//		//将修改后的文件写出到D:\\excel目录下  
-//        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
-//        OutputStream output = response.getOutputStream();
-//		response.reset();
-//		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
-//		response.setContentType("application/vnd.ms-excel;charset=utf-8");
-//		workbook.write(output);
-//		output.flush();  
-//        //将Excel写出        
-//        workbook.write(output);  
-//        //关闭流  
-//        fileInput.close();  
-//        output.close();  
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//	}  
-//	}
-//	}
+	
+	
+	/*
+	 * 导出小麦质量验收情况表
+	 * 
+	 */
+	public  void ExportXMzhiliang(HttpServletResponse response,String ids,String title) {
+		//传入的文件  
+        FileInputStream fileInput;
+        POIUtils utils = new POIUtils();
+		try {
+			fileInput = new FileInputStream("upload/base/小麦质量验收情况表.xls");
+			//poi包下的类读取excel文件  
+			POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
+			// 创建一个webbook，对应一个Excel文件            
+			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
+			//对应Excel文件中的sheet，0代表第一个             
+			HSSFSheet sh = workbook.getSheetAt(0);  
+//			 HSSFRow row = sh.createRow(8);
+//			 row.createCell(0).setCellValue("bb");
+//			 sh.getRow(9).getCell(2).setCellValue("xx");
+//			 sh.getRow(9).getCell(3).setCellValue("xx");
+//			 sh.getRow(9).getCell(4).setCellValue("x");
+//			 sh.getRow(9).getCell(5).setCellValue("xx");
+			String[] idStrs = ids.split(",");
+			List<WheatExaminingReport> ws = new ArrayList<WheatExaminingReport>();
+			for(int i=0;i<idStrs.length;i++) {
+				WheatExaminingReport Wobjiect = wheatExaminingReportDao.findBasicSituation(Integer.parseInt(idStrs[i]));
+				ws.add(Wobjiect);
+				List<TestItem> testItems = testItemService.findResult(Integer.parseInt(idStrs[i]));
+				HSSFRow row = sh.createRow(8+i);
+				row.setHeight((short) 300); // 行高
+				HSSFCell cell1 = row.createCell(0);
+				cell1.setCellStyle(utils.Style1(workbook));
+				cell1.setCellValue(Wobjiect.getTaskName());
+				
+				HSSFCell cell2 = row.createCell(1);
+				cell2.setCellStyle(utils.Style1(workbook));
+				cell2.setCellValue("监" + Wobjiect.getSampleNum());
+				
+				HSSFCell cell3 = row.createCell(2);
+				cell3.setCellStyle(utils.Style1(workbook));
+				cell3.setCellValue(Wobjiect.getQualityGrade());
+				//检验结果
+				HSSFCell cell4 = row.createCell(3);
+				cell4.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell5 = row.createCell(4);
+				cell5.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell6 = row.createCell(5);
+				cell6.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell7 = row.createCell(6);
+				cell7.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell8 = row.createCell(7);
+				cell8.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell9 = row.createCell(8);
+				cell9.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell10 = row.createCell(9);
+				cell10.setCellStyle(utils.Style1(workbook));
+				//结果判定
+				HSSFCell cell11 = row.createCell(10);
+				cell11.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell12 = row.createCell(11);
+				cell12.setCellStyle(utils.Style1(workbook));
+				//湿面筋
+				HSSFCell cell13 = row.createCell(12);
+				cell13.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell14 = row.createCell(13);
+				cell14.setCellStyle(utils.Style1(workbook));
+				HSSFCell cell15 = row.createCell(14);
+				cell15.setCellStyle(utils.Style1(workbook));
+				//结果判定
+				HSSFCell cell16 = row.createCell(15);
+				cell16.setCellStyle(utils.Style1(workbook));
+				
+				String jieguopanding1 = null;
+				String jieguopanding2 = null;
+				for(TestItem t:testItems) {
+					//容重
+					if(t.getTestItem() == 1) {
+						cell4.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) >= 750) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//水分
+					} else if(t.getTestItem() == 2) {
+						cell5.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) <= 12.5) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//杂质
+					} else if(t.getTestItem() == 3) {
+						cell6.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) <= 1.0) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//矿物质
+					} else if(t.getTestItem() == 4) {
+						cell7.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) <= 0.5) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//不完善粒
+					} else if(t.getTestItem() == 5) {
+						cell8.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) <= 8.0) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//硬度指数
+					} else if(t.getTestItem() == 8) {
+						cell9.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) >= 60) {
+							jieguopanding1 = "达标";
+						} else if(Double.parseDouble(t.getResult()) > 45 && Double.parseDouble(t.getResult()) < 60) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//色泽气味（质量指标）
+					} else if(t.getTestItem() == 7) {
+						cell10.setCellValue(t.getResult());
+						if(t.getResult().equals("正常")) {
+							jieguopanding1 = "达标";
+						} else {
+							jieguopanding1 = "不达标";
+						}
+					//面筋吸水量
+					} else if(t.getTestItem() == 9) {
+						cell12.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) >= 180) {
+							jieguopanding2 = "宜存";
+						} else if(Double.parseDouble(t.getResult()) < 180){
+							jieguopanding2 = "轻度不宜存";
+						}
+					//品尝评分
+					} else if(t.getTestItem() == 11) {
+						cell14.setCellValue(t.getResult());
+						if(Double.parseDouble(t.getResult()) >= 70) {
+							jieguopanding2 = "宜存";
+						} else if(Double.parseDouble(t.getResult()) >= 60 && Double.parseDouble(t.getResult()) < 70){
+							jieguopanding2 = "轻度不宜存";
+						} else if(Double.parseDouble(t.getResult()) < 60){
+							jieguopanding2 = "重度不宜存";
+						}
+					//色泽气味(储存品质指标)
+					} else if(t.getTestItem() == 12) {
+						cell15.setCellValue(t.getResult());
+						if(jieguopanding2 != null) {
+							if(t.getResult().equals("正常") && jieguopanding2.equals("宜存")) {
+								jieguopanding2 = "宜存";
+							} else if(t.getResult().equals("正常") && jieguopanding2.equals("轻度不宜存")){
+								jieguopanding2 = "轻度不宜存";
+							} else if(t.getResult().equals("基本正常")){
+								jieguopanding2 = "重度不宜存";
+							}
+						}
+					}
+				}
+				cell11.setCellValue(jieguopanding1);
+				cell16.setCellValue(jieguopanding2);
+			}
+
+//			 FileOutputStream out = new FileOutputStream("E://小麦质量.xls");  
+//			 workbook.write(out);
+			//将修改后的文件写出到D:\\excel目录下  
+	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
+	        OutputStream output = response.getOutputStream();
+    		response.reset();
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+    		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+    		workbook.write(output);
+    		output.flush();  
+	        //将Excel写出        
+	        workbook.write(output);  
+	        //关闭流  
+	        fileInput.close();  
+	        output.close();  
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  
+   
+	}
+	
+	
+	
+	/*
+	 * 导出玉米质量验收情况表
+	 * 
+	 */
+	public  void ExportYMzhiliang(HttpServletResponse response,String ids,String title) {
+		//传入的文件  
+        FileInputStream fileInput;
+        POIUtils utils = new POIUtils();
+		try {
+			fileInput = new FileInputStream("upload/base/玉米质量验收情况表.xls");
+			//poi包下的类读取excel文件  
+			POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
+			// 创建一个webbook，对应一个Excel文件            
+			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
+			//对应Excel文件中的sheet，0代表第一个             
+			HSSFSheet sh = workbook.getSheetAt(0);  
+//			 HSSFRow row = sh.createRow(8);
+//			 row.createCell(0).setCellValue("bb");
+//			 sh.getRow(9).getCell(2).setCellValue("xx");
+//			 sh.getRow(9).getCell(3).setCellValue("xx");
+//			 sh.getRow(9).getCell(4).setCellValue("x");
+//			 sh.getRow(9).getCell(5).setCellValue("xx");
+			 
+		
+		List<CornExaminingReport> cs = new ArrayList<CornExaminingReport>();
+		String[] idStrs = ids.split(",");
+		for(int i=0;i<idStrs.length;i++) {
+			CornExaminingReport c = icornExaminingReportDao.findBasicSituation(Integer.parseInt(idStrs[i]));
+			cs.add(c);
+			HSSFRow row = sh.createRow(8+i);
+			row.setHeight((short) 300); // 行高
+			HSSFCell createCell = row.createCell(0);
+			createCell.setCellStyle(utils.Style1(workbook));
+			createCell.setCellValue(c.getTaskName());
+			
+			HSSFCell createCell2 = row.createCell(1);
+			createCell2.setCellStyle(utils.Style1(workbook));
+			createCell2.setCellValue("监" + c.getSampleNum());
+			
+			HSSFCell createCell3 = row.createCell(2);
+			createCell3.setCellStyle(utils.Style1(workbook));
+			createCell3.setCellValue(c.getQualityGrade());
+			//检测结果
+			HSSFCell cell1 = row.createCell(3);
+			cell1.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell2 = row.createCell(4);
+			cell2.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell3 = row.createCell(5);
+			cell3.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell4 = row.createCell(6);
+			cell4.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell5 = row.createCell(7);
+			cell5.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell6 = row.createCell(8);
+			cell6.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell7 = row.createCell(9);
+			cell7.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell8 = row.createCell(10);
+			cell8.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell9 = row.createCell(11);
+			cell9.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell10 = row.createCell(12);
+			cell10.setCellStyle(utils.Style1(workbook));
+			HSSFCell cell11 = row.createCell(13);
+			cell11.setCellStyle(utils.Style1(workbook));
+			List<TestItem> testItems = testItemService.findResult(Integer.parseInt(idStrs[i]));
+			String jieguopanding1 = null;
+			String jieguopanding2 = null;
+			for(TestItem t:testItems) {
+				//容重
+				if(t.getTestItem() == 1) {
+					cell1.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) >= 650) {
+						jieguopanding1 = "达标";
+					} else {
+						jieguopanding1 = "不达标";
+					}
+				//水分
+				} else if(t.getTestItem() == 2) {
+					cell2.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) <= 14.0) {
+						jieguopanding1 = "达标";
+					} else {
+						jieguopanding1 = "不达标";
+					}
+				//杂质
+				} else if(t.getTestItem() == 3) {
+					cell3.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) <= 1.0) {
+						jieguopanding1 = "达标";
+					} else {
+						jieguopanding1 = "不达标";
+					}
+				//不完善粒
+				} else if(t.getTestItem() == 5) {
+					cell4.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) <= 8.0) {
+						jieguopanding1 = "达标";
+					} else {
+						jieguopanding1 = "不达标";
+					}
+				//生霉粒
+				} else if(t.getTestItem() == 6) {
+					cell5.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) <= 2.0) {
+						jieguopanding1 = "达标";
+					} else {
+						jieguopanding1 = "不达标";
+					}
+				//色泽气味(质量指标)
+				} else if(t.getTestItem() == 7) {
+					cell6.setCellValue(t.getResult());
+					if(t.getResult().equals("正常")) {
+						jieguopanding1 = "达标";
+					} else {
+						jieguopanding1 = "不达标";
+					}
+				//脂肪酸酯
+				} else if(t.getTestItem() == 10) {
+					cell8.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) <= 65) {
+						jieguopanding2 = "宜存";
+					} else if(Double.parseDouble(t.getResult()) <= 78){
+						jieguopanding2 = "轻度不宜存";
+					} else if(Double.parseDouble(t.getResult()) > 78){
+						jieguopanding2 = "重度不宜存";
+					}
+				//品尝评分
+				} else if(t.getTestItem() == 11) {
+					cell9.setCellValue(t.getResult());
+					if(Double.parseDouble(t.getResult()) >= 70) {
+						jieguopanding2 = "宜存";
+					} else if(Double.parseDouble(t.getResult()) >= 60){
+						jieguopanding2 = "轻度不宜存";
+					} else if(Double.parseDouble(t.getResult()) < 60){
+						jieguopanding2 = "重度不宜存";
+					}
+				//色泽气味(储存品质指标)
+				} else if(t.getTestItem() == 12) {
+					cell10.setCellValue(t.getResult());
+					if(c.getJieguopanding2() != null) {
+						if(t.getResult().equals("正常") && c.getJieguopanding2().equals("宜存")) {
+							jieguopanding2 = "宜存";
+						} else if(t.getResult().equals("正常") && c.getJieguopanding2().equals("轻度不宜存")){
+							jieguopanding2 = "轻度不宜存";
+						} else if(t.getResult().equals("基本正常")){
+							jieguopanding2 = "重度不宜存";
+						}
+					}
+				}
+			}
+			cell7.setCellValue(jieguopanding1);
+			cell11.setCellValue(jieguopanding2);
+		}
+   
+//		FileOutputStream out = new FileOutputStream("E://玉米质量.xls");  
+//		 workbook.write(out);
+		//将修改后的文件写出到D:\\excel目录下  
+        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
+        OutputStream output = response.getOutputStream();
+		response.reset();
+		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+		workbook.write(output);
+		output.flush();  
+        //将Excel写出        
+        workbook.write(output);  
+        //关闭流  
+        fileInput.close();  
+        output.close();  
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+}
 
 	@Override
 	public Sample findAllCereals() {

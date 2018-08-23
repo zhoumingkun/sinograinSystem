@@ -46,14 +46,14 @@ public interface ISampleService extends IGenericService<Sample, Integer>{
 	 * 导出小麦
 	 */
 	public void ExeclPOI(HttpServletResponse response,String ids,String title);
-//	/**
-//	 * 导出小麦质量
-//	 */
-//	public void ExportXMzhiliang(HttpServletResponse response,String ids,String title);
-//	/**
-//	 * 导出玉米质量
-//	 */
-//	public void ExportYMzhiliang(HttpServletResponse response,String ids,String title);
+	/**
+	 * 导出小麦质量
+	 */
+	public void ExportXMzhiliang(HttpServletResponse response,String ids,String title);
+	/**
+	 * 导出玉米质量
+	 */
+	public void ExportYMzhiliang(HttpServletResponse response,String ids,String title);
 
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
