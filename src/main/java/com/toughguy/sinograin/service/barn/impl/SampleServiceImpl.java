@@ -17,6 +17,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -1469,24 +1470,26 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 //				String[] sampleNo = storageTime.split(",");
 				List<Sample> sampleReport = sampleDao.findBystorageTime(storageTime);
 				SimpleDateFormat dateSample = new SimpleDateFormat("yyyy-MM-dd");
+				CellStyle style = workbook.createCellStyle();
+				style = utils.StyleSamplePlace(workbook);
 				for (int i = 0; i < sampleReport.size(); i++) {
 					//根据扦样编号查询样品
 //					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
 					HSSFRow row = sh.createRow(5+i);
 					row.setHeight((short) 600); // 行高
 					HSSFCell createCell = row.createCell(0);
-					createCell.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell.setCellStyle(style);
 					createCell.setCellValue(sampleReport.get(i).getSampleNum()); //检验编号
 					
 					HSSFCell createCell1 = row.createCell(1);
-					createCell1.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell1.setCellStyle(style);
 					createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
 					
 					String sampleNum = sampleReport.get(i).getSampleNum();
 				    Handover handover = handoverDao.findsampleNums(sampleNum);
 				    if(handover == null || "".equals(handover)) {
 				    	HSSFCell createCell2 = row.createCell(2);
-			    		createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
+			    		createCell2.setCellStyle(style);
 			    		createCell2.setCellValue("");
 				    } else {
 				    	String checkeds = handover.getCheckeds();
@@ -1551,17 +1554,17 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			    		
 			    		
 			    		HSSFCell createCell2 = row.createCell(2);
-			    		createCell2.setCellStyle(utils.StyleSamplePlace(workbook));
+			    		createCell2.setCellStyle(style);
 			    		createCell2.setCellValue(substring);//检验项目
 			    		
 			    	}
 					
 					HSSFCell createCell3 = row.createCell(3);
-					createCell3.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell3.setCellStyle(style);
 					createCell3.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
 					
 					HSSFCell createCell4 = row.createCell(4);
-					createCell4.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell4.setCellStyle(style);
 					if(sampleReport.get(i).getSampleTime() == null ){
 					 createCell4.setCellValue(""); //扦样时间
 					}else{
@@ -1569,27 +1572,27 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					}
 					
 					HSSFCell createCell5 = row.createCell(5);
-					createCell5.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell5.setCellStyle(style);
 					createCell5.setCellValue(""); 					//工作人员
 					
 					HSSFCell createCell6 = row.createCell(6);
-					createCell6.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell6.setCellStyle(style);
 					createCell6.setCellValue(""); 					//工作时间
 					
 					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sampleReport.get(i).getPlaceId());
 					if(w == null ){
 						HSSFCell createCell7 = row.createCell(7);
-						createCell7.setCellStyle(utils.StyleSamplePlace(workbook));
+						createCell7.setCellStyle(style);
 						createCell7.setCellValue(""); 	//存放位置
 					}else{
 						String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
 						HSSFCell createCell7 = row.createCell(7);
-						createCell7.setCellStyle(utils.StyleSamplePlace(workbook));
+						createCell7.setCellStyle(style);
 						createCell7.setCellValue(placeName); 	//存放位置
 					}
 					
 					HSSFCell createCell8 = row.createCell(8);
-					createCell8.setCellStyle(utils.StyleSamplePlace(workbook));
+					createCell8.setCellStyle(style);
 					createCell8.setCellValue(sampleReport.get(i).getRemark()); 	//备注
 				}
 				String title = "中央事权粮油样品登记薄";
