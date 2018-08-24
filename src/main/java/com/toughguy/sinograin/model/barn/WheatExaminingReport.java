@@ -3,6 +3,8 @@ package com.toughguy.sinograin.model.barn;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 小麦检测报告实体类 （用与页面展示）
  * @author BOBO
@@ -23,6 +25,7 @@ public class WheatExaminingReport {
 	private Date checkApplyTime; //验收申请时间(表的创建时间)
 	private Date assignMissionTime; //任务下达时间(表的状态为2的修改时间)
 	private Date sampleTime;   	//扦样时间
+	private String autograph;    //扦样人
 	private String remark;      //备注
 	private double length;        	//长度
 	private double wide;			//宽度
@@ -129,24 +132,28 @@ public class WheatExaminingReport {
 	public void setGainTime(String gainTime) {
 		this.gainTime = gainTime;
 	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getStorageTime() {
 		return storageTime;
 	}
 	public void setStorageTime(Date storageTime) {
 		this.storageTime = storageTime;
 	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getCheckApplyTime() {
 		return checkApplyTime;
 	}
 	public void setCheckApplyTime(Date checkApplyTime) {
 		this.checkApplyTime = checkApplyTime;
 	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getAssignMissionTime() {
 		return assignMissionTime;
 	}
 	public void setAssignMissionTime(Date assignMissionTime) {
 		this.assignMissionTime = assignMissionTime;
 	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public Date getSampleTime() {
 		return sampleTime;
 	}
@@ -326,6 +333,12 @@ public class WheatExaminingReport {
 	}
 	public void setTaskName(String taskName) {
 		this.taskName = taskName;
+	}
+	public String getAutograph() {
+		return autograph;
+	}
+	public void setAutograph(String autograph) {
+		this.autograph = autograph;
 	}
 	
 	

@@ -1,10 +1,8 @@
 package com.toughguy.sinograin.controller.barn;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mysql.fabric.xmlrpc.base.Data;
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.Library;
@@ -54,8 +49,6 @@ import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
-
-import ch.qos.logback.core.CoreConstants;
 
 @Controller
 @RequestMapping(value = "/sample")
