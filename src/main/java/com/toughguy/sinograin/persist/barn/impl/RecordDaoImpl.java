@@ -1,6 +1,7 @@
 package com.toughguy.sinograin.persist.barn.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,9 +13,9 @@ import com.toughguy.sinograin.persist.impl.GenericDaoImpl;
 public class RecordDaoImpl  extends GenericDaoImpl<Record, Integer> implements IRecordDao {
 
 	@Override
-	public List<Record> findRecord(Sample sample) {
+	public List<Record> findRecord(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectList(typeNameSpace + ".findRecord",sample);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findRecord",params);
 	}
 
 }

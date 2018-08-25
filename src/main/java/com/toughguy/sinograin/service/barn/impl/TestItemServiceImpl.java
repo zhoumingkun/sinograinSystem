@@ -32,7 +32,6 @@ import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
 
-import junit.framework.Test;
 
 @Service
 public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> implements ITestItemService {

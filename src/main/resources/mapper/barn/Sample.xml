@@ -192,7 +192,7 @@
 	</select>
 	<!--根据storageTime查询导出样品登记簿-->
 	<select id="findBystorageTime" parameterType="String" resultType="Sample">
-		select * from barn_sample where year(storageTime) =#{storageTime}
+		select * from barn_sample where year(storageTime) =#{storageTime} ORDER BY SUBSTRING(sampleNum,7)
 	</select>
 	<!-- 查询平台所有小麦玉米食用油库存总量  -->
 	<select id="findAllCereals" resultType="Sample"  >

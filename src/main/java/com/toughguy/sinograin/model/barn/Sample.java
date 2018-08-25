@@ -1,6 +1,6 @@
 package com.toughguy.sinograin.model.barn;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 

@@ -35,7 +35,7 @@
 		LEFT JOIN barn_sample bs ON bs.id = bti.sampleId 
 		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds) GROUP BY bs.`sampleNum`
 		<include refid="paramsSQL"/>
-		ORDER BY createTime desc  limit #{offset}, #{limit}
+		ORDER BY bti.createTime desc  limit #{offset}, #{limit}
 	</select>
 	
 	<select id="getTotalOfItems" parameterType="Map" resultType="int">
