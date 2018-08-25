@@ -5,8 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -1169,39 +1171,139 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/findRecord")
-	public List<Record> findRecord(Sample sample) {
-		List<Record> record = recordDao.findRecord(sample);
-		for(Record r:record) {
-			List<TestItem> testItems = testItemService.findResult(r.getSampleId());
-			for(TestItem t:testItems) {
-				if(t.getTestItem() == 1) {
-					r.setRongzhong(t.getResult());
-				} else if(t.getTestItem() == 2) {
-					r.setShuifen(t.getResult());
-				} else if(t.getTestItem() == 3) {
-					r.setZazhi(t.getResult());
-				} else if(t.getTestItem() == 4) {
-					r.setKuangwuzhi(t.getResult());
-				} else if(t.getTestItem() == 5) {
-					r.setBuwanshanli(t.getResult());
-				} else if(t.getTestItem() == 6) {
-					r.setShengmeili(t.getResult());
-				} else if(t.getTestItem() == 7) {
-					r.setSezeqiwei1(t.getResult());
-				} else if(t.getTestItem() == 8) {
-					r.setYingduzhishu(t.getResult());
-				} else if(t.getTestItem() == 9) {
-					r.setMianjinxishuiliang(t.getResult());
-				} else if(t.getTestItem() == 10) {
-					r.setZhifangsuanzhi(t.getResult());
-				} else if(t.getTestItem() == 11) {
-					r.setPinchangpingfen(t.getResult());
-				} else if(t.getTestItem() == 12) {
-					r.setSezeqiwei2(t.getResult());
+	public List<Record> findRecord(String params) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
+			}
+			List<Record> record = recordDao.findRecord(map);
+			String jianyanyuan1 = "";
+			Date jianceTime = null;
+			for(Record r:record) {
+				List<TestItem> testItems = testItemService.findResult(r.getSampleId());
+				for(TestItem t:testItems) {
+					if(t.getTestItem() == 1) {
+						r.setRongzhong(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 2) {
+						r.setShuifen(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 3) {
+						r.setZazhi(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 4) {
+						r.setKuangwuzhi(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 5) {
+						r.setBuwanshanli(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 6) {
+						r.setShengmeili(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 7) {
+						r.setSezeqiwei1(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 8) {
+						r.setYingduzhishu(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 9) {
+						r.setMianjinxishuiliang(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 10) {
+						r.setZhifangsuanzhi(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 11) {
+						r.setPinchangpingfen(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					} else if(t.getTestItem() == 12) {
+						r.setSezeqiwei2(t.getResult());
+						jianyanyuan1 = t.getPrincipal() + ",";
+						if(jianceTime == null) {
+							jianceTime = t.getUpdateTime();
+						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
+							jianceTime = t.getUpdateTime();
+						}
+					}
+					//检验员去重
+					String[] jianyanyuan2 = (jianyanyuan1.substring(0,jianyanyuan1.length()-1)).split(",");
+					List<String> list = new ArrayList<String>();
+					String jianyanyuan3 = "";
+					for(int i=0;i<jianyanyuan2.length;i++) {
+						if(!list.contains(jianyanyuan2[i])) {
+							list.add(jianyanyuan2[i]);
+						}
+					}
+					for(int i=0;i<list.size();i++) {
+						jianyanyuan3 = list.get(i) + ",";
+					}
+					r.setJianyanyuan(jianyanyuan3);
+					r.setJianceTime(jianceTime);
 				}
 			}
-			record.add(r);
+			return record;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
-		return record;
 	}
 }

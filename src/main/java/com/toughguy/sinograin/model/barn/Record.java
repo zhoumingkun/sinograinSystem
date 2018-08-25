@@ -2,6 +2,8 @@ package com.toughguy.sinograin.model.barn;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 档案实体类
  * @author BOBO
@@ -17,6 +19,7 @@ public class Record {
 	private String amount;    //数量
 	private String gainTime;  //收获年度
 	private Date barnTime;   //入库时间（仓库的时间）
+	private String quality;  //性质
 	private String shape;     //形状
 	private double length;     //长度
 	private double wide;       //宽度
@@ -30,6 +33,12 @@ public class Record {
 	private double unQuality;   //测量计算数
 	private double grainQuality;  //保管账数量
 	private double slip;         //差率
+	private String gzdgRummager;  //工作底稿检查人
+	private Date gzdgTime;    //工作底稿时间（工作底稿创建时间）
+	
+	private String problem;     //问题
+	private String rummager;    //监督检查报告的检查人
+	private Date jianduTime;    //监督检查时间（监督检查创建时间）
 	
 	private int qualityGrade;    //等级
 	private String rongzhong;    //容重
@@ -45,6 +54,8 @@ public class Record {
 	private String pinchangpingfen;  //品尝评分
 	private String sezeqiwei2;      //色泽气味（储存品质指标）
 	private int sampleId;          //样品id
+	private String jianyanyuan;   //检验员
+	private Date jianceTime;      //检测时间（取检测最后的时间）
 	public String getpLibraryName() {
 		return pLibraryName;
 	}
@@ -69,6 +80,7 @@ public class Record {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
 	public String getBarnType() {
 		return barnType;
 	}
@@ -93,6 +105,7 @@ public class Record {
 	public void setGainTime(String gainTime) {
 		this.gainTime = gainTime;
 	}
+	
 	public Date getBarnTime() {
 		return barnTime;
 	}
@@ -260,6 +273,57 @@ public class Record {
 	}
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
+	}
+	public String getQuality() {
+		return quality;
+	}
+	public void setQuality(String quality) {
+		this.quality = quality;
+	}
+	public String getProblem() {
+		return problem;
+	}
+	public void setProblem(String problem) {
+		this.problem = problem;
+	}
+	public String getRummager() {
+		return rummager;
+	}
+	public void setRummager(String rummager) {
+		this.rummager = rummager;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getJianduTime() {
+		return jianduTime;
+	}
+	public void setJianduTime(Date jianduTime) {
+		this.jianduTime = jianduTime;
+	}
+	public String getGzdgRummager() {
+		return gzdgRummager;
+	}
+	public void setGzdgRummager(String gzdgRummager) {
+		this.gzdgRummager = gzdgRummager;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getGzdgTime() {
+		return gzdgTime;
+	}
+	public void setGzdgTime(Date gzdgTime) {
+		this.gzdgTime = gzdgTime;
+	}
+	public String getJianyanyuan() {
+		return jianyanyuan;
+	}
+	public void setJianyanyuan(String jianyanyuan) {
+		this.jianyanyuan = jianyanyuan;
+	}
+	@JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
+	public Date getJianceTime() {
+		return jianceTime;
+	}
+	public void setJianceTime(Date jianceTime) {
+		this.jianceTime = jianceTime;
 	}
 	
 	
