@@ -708,7 +708,11 @@ public class JiandujianchaController{
 					createCell112.setCellValue("");
 					utils.setRegionStyle(sh, region25, utils.Style11(workbook));
 					sh.addMergedRegion(region25);
-					createCell108.setCellValue(r.getProblem());  //问题
+					String problem = "";
+					for(int a=0;a<r.getProblem().length;a++) {
+						problem += r.getProblem()[a] + ",";
+					}
+					createCell108.setCellValue(problem.substring(0, problem.length()-1));  //问题
 					
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
@@ -1407,7 +1411,11 @@ public class JiandujianchaController{
 					createCell112.setCellValue("");
 					utils.setRegionStyle(sh, region25, utils.Style11(workbook));
 					sh.addMergedRegion(region25);
-					createCell108.setCellValue(r.getProblem());  //问题
+					String problem = "";
+					for(int a=0;a<r.getProblem().length;a++) {
+						problem += r.getProblem()[a] + ",";
+					}
+					createCell108.setCellValue(problem.substring(0, problem.length()-1));  //问题
 					
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
