@@ -30,6 +30,13 @@
 		LEFT JOIN barn_library pbl ON bl.pLibraryId = pbl.id
 		where bsr.id = #{id}
 	</select>
+	<!-- 查询某条安全报告 -->
+	<select id="findBySampleId" parameterType="int" resultType="SafetyReport">
+		select *
+		from barn_sample bs 
+		LEFT JOIN barn_safety_report bsr ON bsr.sampleId = bs.id
+		where bs.id = #{sampleId}
+	</select>
 	
 	<!-- 查询全部安全报告 -->
 	<select id="findAll" resultType="SafetyReport" parameterType="Map">

@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.CornExaminingReport;
 import com.toughguy.sinograin.model.barn.SafetyReport;
+import com.toughguy.sinograin.persist.barn.prototype.ISafetyReportDao;
 import com.toughguy.sinograin.service.barn.prototype.ISafetyReportService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
@@ -102,6 +103,12 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 		} catch (Exception e) {
 			e.printStackTrace();
 		}  
+	}
+
+	@Override
+	public List<SafetyReport> findBySampleId(int sampleId) {
+		// TODO Auto-generated method stub
+		return ((ISafetyReportDao)dao).findBySampleId(sampleId);
 	}
 
 }

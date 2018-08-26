@@ -36,7 +36,7 @@ public class Record {
 	private String gzdgRummager;  //工作底稿检查人
 	private Date gzdgTime;    //工作底稿时间（工作底稿创建时间）
 	
-	private String problem;     //问题
+	private String[] problem;     //问题
 	private String rummager;    //监督检查报告的检查人
 	private Date jianduTime;    //监督检查时间（监督检查创建时间）
 	
@@ -280,10 +280,11 @@ public class Record {
 	public void setQuality(String quality) {
 		this.quality = quality;
 	}
-	public String getProblem() {
+	
+	public String[] getProblem() {
 		return problem;
 	}
-	public void setProblem(String problem) {
+	public void setProblem(String[] problem) {
 		this.problem = problem;
 	}
 	public String getRummager() {

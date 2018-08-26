@@ -27,6 +27,7 @@ import com.toughguy.sinograin.model.barn.Library;
 import com.toughguy.sinograin.model.barn.Record;
 import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.ReturnSingle;
+import com.toughguy.sinograin.model.barn.SafetyReport;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.model.barn.SmallSample;
@@ -41,6 +42,7 @@ import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
+import com.toughguy.sinograin.service.barn.prototype.ISafetyReportService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
@@ -79,6 +81,8 @@ public class SampleController {
 	private ITestItemService testItemService;
 	@Autowired
 	private IRecordDao recordDao;
+	@Autowired
+	private ISafetyReportService safetyReportService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -407,7 +411,7 @@ public class SampleController {
 			for(TestItem t:testItems) {
 				if(1 == t.getTestItem()) {
 					w.setRongzhong(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) >= 750) {
 						w.setJieguopanding1("达标");
 					} else {
@@ -415,7 +419,7 @@ public class SampleController {
 					}
 				}else if(2 == t.getTestItem()){
 					w.setShuifen(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 12.5) {
 						w.setJieguopanding1("达标");
 					} else {
@@ -423,7 +427,7 @@ public class SampleController {
 					}
 				}else if(3 == t.getTestItem()){
 					w.setZazhizongliang(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 1.0) {
 						w.setJieguopanding1("达标");
 					} else {
@@ -431,7 +435,7 @@ public class SampleController {
 					}
 				}else if(4 == t.getTestItem()){
 					w.setZazhikuangwuzhi(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 0.5) {
 						w.setJieguopanding1("达标");
 					} else {
@@ -439,7 +443,7 @@ public class SampleController {
 					}
 				}else if(5 == t.getTestItem()){
 					w.setBuwanshanli(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 8.0) {
 						w.setJieguopanding1("达标");
 					} else {
@@ -447,7 +451,7 @@ public class SampleController {
 					}
 				}else if(7 == t.getTestItem()){
 					w.setSezeqiwei1(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(t.getResult().equals("正常")) {
 						w.setJieguopanding1("达标");
 					} else {
@@ -455,7 +459,7 @@ public class SampleController {
 					}
 				}else if(8 == t.getTestItem()){
 					w.setYingduzhishu(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) >= 60) {
 						w.setJieguopanding1("达标");
 					} else if(Double.parseDouble(t.getResult()) > 45 && Double.parseDouble(t.getResult()) < 60) {
@@ -465,7 +469,7 @@ public class SampleController {
 					}
 				}else if(9 == t.getTestItem()){
 					w.setMianjinxishuiliang(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) >= 180) {
 						w.setJieguopanding2("宜存");
 					} else if(Double.parseDouble(t.getResult()) < 180){
@@ -473,7 +477,7 @@ public class SampleController {
 					}
 				}else if(11 == t.getTestItem()){
 					w.setPinchangpingfen(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) >= 70) {
 						w.setJieguopanding2("宜存");
 					} else if(Double.parseDouble(t.getResult()) >= 60 && Double.parseDouble(t.getResult()) < 70){
@@ -483,7 +487,7 @@ public class SampleController {
 					}
 				}else if(12 == t.getTestItem()){
 					w.setSezeqiwei2(t.getResult());
-					jianceren = t.getPrincipal() + ",";
+					jianceren += t.getPrincipal() + ",";
 					if(w.getJieguopanding2() != null) {
 						if(t.getResult().equals("正常") && w.getJieguopanding2().equals("宜存")) {
 							w.setJieguopanding2("宜存");
@@ -496,7 +500,19 @@ public class SampleController {
 				}
 				jianceshijian = t.getUpdateTime();
 			}
-			w.setJianceren(jianceren.substring(0, jianceren.length()-1));
+			//检验员去重
+			String[] jianceren1 = (jianceren.substring(0,jianceren.length()-1)).split(",");
+			List<String> jiancerenList = new ArrayList<String>();
+			String jianceren3 = "";
+			for(int a=0;a<jianceren1.length;a++) {
+				if(!jiancerenList.contains(jianceren1[a])) {
+					jiancerenList.add(jianceren1[a]);
+				}
+			}
+			for(int b=0;b<jiancerenList.size();i++) {
+				jianceren3 = jiancerenList.get(i) + ",";
+			}
+			w.setJianceren(jianceren3.substring(0, jianceren.length()-1));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			w.setJianceshijian(sdf.format(jianceshijian));
 			ws.add(w);
@@ -1184,11 +1200,40 @@ public class SampleController {
 			String jianyanyuan1 = "";
 			Date jianceTime = null;
 			for(Record r:record) {
+				//监督检测报告
+				List<SafetyReport> safetyReports = safetyReportService.findBySampleId(r.getSampleId());
+				String problemStr = "";
+				String rummagerStr = "";
+				Date jianduTime = null;
+				for(SafetyReport s:safetyReports) {
+					problemStr += s.getProblem() + ",";
+					rummagerStr += s.getRummager() + ",";
+					if(jianduTime == null) {
+						jianduTime = s.getUpdateTime();
+					} else if(jianduTime.getTime() < s.getUpdateTime().getTime()) {
+						jianduTime = s.getUpdateTime();
+					}
+				}
+				String[] problems = problemStr.substring(0, problemStr.length()-1).split(",");
+				r.setProblem(problems);
+				String[] rummager1 = (rummagerStr.substring(0,rummagerStr.length()-1)).split(",");
+				List<String> rummagerList = new ArrayList<String>();
+				String rummager2 = "";
+				for(int i=0;i<rummager1.length;i++) {
+					if(!rummagerList.contains(rummager1[i])) {
+						rummagerList.add(rummager1[i]);
+					}
+				}
+				for(int i=0;i<rummagerList.size();i++) {
+					rummager2 = rummagerList.get(i) + ",";
+				}
+				r.setRummager(rummager2);
+				r.setJianduTime(jianduTime);
 				List<TestItem> testItems = testItemService.findResult(r.getSampleId());
 				for(TestItem t:testItems) {
 					if(t.getTestItem() == 1) {
 						r.setRongzhong(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1196,7 +1241,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 2) {
 						r.setShuifen(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1204,7 +1249,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 3) {
 						r.setZazhi(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1212,7 +1257,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 4) {
 						r.setKuangwuzhi(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1220,7 +1265,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 5) {
 						r.setBuwanshanli(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1228,7 +1273,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 6) {
 						r.setShengmeili(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1236,7 +1281,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 7) {
 						r.setSezeqiwei1(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1244,7 +1289,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 8) {
 						r.setYingduzhishu(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1252,7 +1297,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 9) {
 						r.setMianjinxishuiliang(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1260,7 +1305,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 10) {
 						r.setZhifangsuanzhi(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1268,7 +1313,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 11) {
 						r.setPinchangpingfen(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1276,7 +1321,7 @@ public class SampleController {
 						}
 					} else if(t.getTestItem() == 12) {
 						r.setSezeqiwei2(t.getResult());
-						jianyanyuan1 = t.getPrincipal() + ",";
+						jianyanyuan1 += t.getPrincipal() + ",";
 						if(jianceTime == null) {
 							jianceTime = t.getUpdateTime();
 						} else if(jianceTime.getTime() < t.getUpdateTime().getTime()) {
@@ -1295,7 +1340,7 @@ public class SampleController {
 					for(int i=0;i<list.size();i++) {
 						jianyanyuan3 = list.get(i) + ",";
 					}
-					r.setJianyanyuan(jianyanyuan3);
+					r.setJianyanyuan(jianyanyuan3.substring(0, jianyanyuan3.length()-1));
 					r.setJianceTime(jianceTime);
 				}
 			}
