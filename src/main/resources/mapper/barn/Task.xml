@@ -84,6 +84,12 @@
 			<if test="position != null and position != ''">
 				and bs.position = #{position}
 			</if>
+			<if test="detectionState != null and detectionState != ''">
+				and bs.detectionState = #{detectionState}
+			</if>
+			<if test="sort != null and sort != ''">
+				and bs.sort = #{sort}
+			</if>
 		</where>
 	</sql>
 	
