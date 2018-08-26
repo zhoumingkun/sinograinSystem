@@ -381,48 +381,48 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				}
 				
 				HSSFCell cell19 = row3.createCell(18);
-				cell19.setCellStyle(utils.Style1(workbook));
-				cell19.setCellValue(cornExaminingReport.getLength());
+				cell19.setCellStyle(utils.Style14(workbook));
+				cell19.setCellValue(cornExaminingReport.getLength());//长（保留两位小数）
 				
 				HSSFCell cell20 = row3.createCell(19);
-				cell20.setCellStyle(utils.Style1(workbook));
-				cell20.setCellValue(cornExaminingReport.getWide());
+				cell20.setCellStyle(utils.Style14(workbook));
+				cell20.setCellValue(cornExaminingReport.getWide());//宽（保留两位小数）
 				
 				HSSFCell cell21 = row3.createCell(20);
-				cell21.setCellStyle(utils.Style1(workbook));
-				cell21.setCellValue(cornExaminingReport.getHigh());
+				cell21.setCellStyle(utils.Style14(workbook));
+				cell21.setCellValue(cornExaminingReport.getHigh());//高（保留两位小数）
 				
 				HSSFCell cell22 = row3.createCell(21);
-				cell22.setCellStyle(utils.Style1(workbook));
-				cell22.setCellValue(cornExaminingReport.getDeductVolume());
+				cell22.setCellStyle(utils.Style16(workbook));
+				cell22.setCellValue(cornExaminingReport.getDeductVolume());//扣除体积（整数）
 				
 				HSSFCell cell23 = row3.createCell(22);
-				cell23.setCellStyle(utils.Style1(workbook));
-				cell23.setCellValue(cornExaminingReport.getRealVolume());
+				cell23.setCellStyle(utils.Style15(workbook));
+				cell23.setCellValue(cornExaminingReport.getRealVolume());//实际体积（保留一位小数）
 				
 				HSSFCell cell24 = row3.createCell(23);
-				cell24.setCellStyle(utils.Style1(workbook));
-				cell24.setCellValue(cornExaminingReport.getRealCapacity());
+				cell24.setCellStyle(utils.Style16(workbook));
+				cell24.setCellValue(cornExaminingReport.getRealCapacity());//容重（整数）
 				
 				HSSFCell cell25 = row3.createCell(24);
-				cell25.setCellStyle(utils.Style1(workbook));
-				cell25.setCellValue(cornExaminingReport.getCorrectioFactor());
+				cell25.setCellStyle(utils.Style14(workbook));
+				cell25.setCellValue(cornExaminingReport.getCorrectioFactor());//修正系数（保留两位小数）
 				
 				HSSFCell cell26 = row3.createCell(25);
-				cell26.setCellStyle(utils.Style1(workbook));
-				cell26.setCellValue(cornExaminingReport.getAveDensity());
+				cell26.setCellStyle(utils.Style15(workbook));
+				cell26.setCellValue(cornExaminingReport.getAveDensity());//平均密度（保留一位小数）
 				
 				HSSFCell cell27 = row3.createCell(26);
-				cell27.setCellStyle(utils.Style1(workbook));
-				cell27.setCellValue(cornExaminingReport.getUnQuality());
+				cell27.setCellStyle(utils.Style16(workbook));
+				cell27.setCellValue(cornExaminingReport.getUnQuality());//测量计算数（整数）
 				
 				HSSFCell cell28 = row3.createCell(27);
-				cell28.setCellStyle(utils.Style1(workbook));
-				cell28.setCellValue(cornExaminingReport.getGrainQuality());
+				cell28.setCellStyle(utils.Style16(workbook));
+				cell28.setCellValue(cornExaminingReport.getGrainQuality());//保管账计算数（整数）
 				
 				HSSFCell cell29 = row3.createCell(28);
-				cell29.setCellStyle(utils.Style1(workbook));
-				cell29.setCellValue(cornExaminingReport.getSlip());
+				cell29.setCellStyle(utils.Style15(workbook));
+				cell29.setCellValue(cornExaminingReport.getSlip());//差率（保留一位小数）
 				
 				HSSFCell createCell = row3.createCell(29);
 				createCell.setCellStyle(utils.Style1(workbook));
@@ -845,48 +845,48 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				}
 				
 				HSSFCell cell16 = row3.createCell(17);
-				cell16.setCellStyle(utils.Style1(workbook));
-				cell16.setCellValue(Wobjiect.getLength());
+				cell16.setCellStyle(utils.Style14(workbook));
+				cell16.setCellValue(Wobjiect.getLength());  //长（保留两位小数）
 				
 				HSSFCell cell17 = row3.createCell(18);
-				cell17.setCellStyle(utils.Style1(workbook));
-				cell17.setCellValue(Wobjiect.getWide());
+				cell17.setCellStyle(utils.Style14(workbook));  
+				cell17.setCellValue(Wobjiect.getWide());    //宽（保留两位小数）
 				
 				HSSFCell cell18 = row3.createCell(19);
-				cell18.setCellStyle(utils.Style1(workbook));
-				cell18.setCellValue(Wobjiect.getHigh());
+				cell18.setCellStyle(utils.Style14(workbook));
+				cell18.setCellValue(Wobjiect.getHigh());    //高（保留两位小数）
 				
 				HSSFCell cell19 = row3.createCell(20);
-				cell19.setCellStyle(utils.Style1(workbook));
-				cell19.setCellValue(Wobjiect.getDeductVolume());
+				cell19.setCellStyle(utils.Style16(workbook));
+				cell19.setCellValue(Wobjiect.getDeductVolume());//扣除体积（整数）
 				
 				HSSFCell cell20 = row3.createCell(21);
-				cell20.setCellStyle(utils.Style1(workbook));
-				cell20.setCellValue(Wobjiect.getRealVolume());
+				cell20.setCellStyle(utils.Style15(workbook));
+				cell20.setCellValue(Wobjiect.getRealVolume());  //实际体积（保留一位小数）
 				
 				HSSFCell cell21 = row3.createCell(22);
-				cell21.setCellStyle(utils.Style1(workbook));
-				cell21.setCellValue(Wobjiect.getRealCapacity());
+				cell21.setCellStyle(utils.Style16(workbook));
+				cell21.setCellValue(Wobjiect.getRealCapacity()); //容重（整数）
 				
 				HSSFCell cell22 = row3.createCell(23);
-				cell22.setCellStyle(utils.Style1(workbook));
-				cell22.setCellValue(Wobjiect.getCorrectioFactor());
+				cell22.setCellStyle(utils.Style14(workbook));
+				cell22.setCellValue(Wobjiect.getCorrectioFactor());//修正系数（保留两位小数）
 				
 				HSSFCell cell23 = row3.createCell(24);
-				cell23.setCellStyle(utils.Style1(workbook));
-				cell23.setCellValue(Wobjiect.getAveDensity());
+				cell23.setCellStyle(utils.Style15(workbook));
+				cell23.setCellValue(Wobjiect.getAveDensity());//平均密度（保留一位小数）
 				
 				HSSFCell cell24 = row3.createCell(25);
-				cell24.setCellStyle(utils.Style1(workbook));
-				cell24.setCellValue(Wobjiect.getUnQuality());
+				cell24.setCellStyle(utils.Style16(workbook));
+				cell24.setCellValue(Wobjiect.getUnQuality());//测量计算数（整数）
 				
 				HSSFCell cell25 = row3.createCell(26);
-				cell25.setCellStyle(utils.Style1(workbook));
-				cell25.setCellValue(Wobjiect.getGrainQuality());
+				cell25.setCellStyle(utils.Style16(workbook));
+				cell25.setCellValue(Wobjiect.getGrainQuality());//保管账计算数（整数）
 				
 				HSSFCell cell26 = row3.createCell(27);
-				cell26.setCellStyle(utils.Style1(workbook));
-				cell26.setCellValue(Wobjiect.getSlip());
+				cell26.setCellStyle(utils.Style15(workbook));
+				cell26.setCellValue(Wobjiect.getSlip());      //差率（保留一位小数）
 				
 				HSSFCell cell27 = row3.createCell(28);
 				cell27.setCellStyle(utils.Style1(workbook));
