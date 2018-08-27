@@ -1225,9 +1225,9 @@ public class SampleController {
 					}
 				}
 				for(int i=0;i<rummagerList.size();i++) {
-					rummager2 = rummagerList.get(i) + ",";
+					rummager2 += rummagerList.get(i) + ",";
 				}
-				r.setRummager(rummager2);
+				r.setRummager(rummager2.substring(0,rummager2.length()-1));
 				r.setJianduTime(jianduTime);
 				List<TestItem> testItems = testItemService.findResult(r.getSampleId());
 				for(TestItem t:testItems) {

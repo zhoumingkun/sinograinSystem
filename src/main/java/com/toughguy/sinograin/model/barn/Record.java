@@ -1,5 +1,6 @@
 package com.toughguy.sinograin.model.barn;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -325,6 +326,23 @@ public class Record {
 	}
 	public void setJianceTime(Date jianceTime) {
 		this.jianceTime = jianceTime;
+	}
+	@Override
+	public String toString() {
+		return "Record [pLibraryName=" + pLibraryName + ", libraryName=" + libraryName + ", position=" + position
+				+ ", sort=" + sort + ", barnType=" + barnType + ", cangrong=" + cangrong + ", amount=" + amount
+				+ ", gainTime=" + gainTime + ", barnTime=" + barnTime + ", quality=" + quality + ", shape=" + shape
+				+ ", length=" + length + ", wide=" + wide + ", high=" + high + ", measuredVolume=" + measuredVolume
+				+ ", deductVolume=" + deductVolume + ", realVolume=" + realVolume + ", realCapacity=" + realCapacity
+				+ ", correctioFactor=" + correctioFactor + ", aveDensity=" + aveDensity + ", unQuality=" + unQuality
+				+ ", grainQuality=" + grainQuality + ", slip=" + slip + ", gzdgRummager=" + gzdgRummager + ", gzdgTime="
+				+ gzdgTime + ", problem=" + Arrays.toString(problem) + ", rummager=" + rummager + ", jianduTime="
+				+ jianduTime + ", qualityGrade=" + qualityGrade + ", rongzhong=" + rongzhong + ", shuifen=" + shuifen
+				+ ", zazhi=" + zazhi + ", kuangwuzhi=" + kuangwuzhi + ", buwanshanli=" + buwanshanli + ", shengmeili="
+				+ shengmeili + ", sezeqiwei1=" + sezeqiwei1 + ", yingduzhishu=" + yingduzhishu + ", mianjinxishuiliang="
+				+ mianjinxishuiliang + ", zhifangsuanzhi=" + zhifangsuanzhi + ", pinchangpingfen=" + pinchangpingfen
+				+ ", sezeqiwei2=" + sezeqiwei2 + ", sampleId=" + sampleId + ", jianyanyuan=" + jianyanyuan
+				+ ", jianceTime=" + jianceTime + "]";
 	}
 	
 	
