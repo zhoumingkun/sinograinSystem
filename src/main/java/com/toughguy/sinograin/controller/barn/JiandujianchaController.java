@@ -552,19 +552,19 @@ public class JiandujianchaController{
 	                //
 	                Region region10 = new Region(5+i*9, (short) 7, 11+i*9, (short) 7);
 					HSSFCell createCell70 = row5.createCell(7);
-					createCell70.setCellValue("");//定义为空字符串，横向合并单元格显示边框
-					HSSFCell createCell71 = row6.createCell(7); 
-					createCell71.setCellValue("");
-					HSSFCell createCell72 = row7.createCell(7); 
-					createCell72.setCellValue("");
-					HSSFCell createCell73 = row8.createCell(7); 
-					createCell73.setCellValue("");
-					HSSFCell createCell74 = row9.createCell(7); 
-					createCell74.setCellValue("");
-					HSSFCell createCell75 = row10.createCell(7); 
-					createCell75.setCellValue("");
-					HSSFCell createCell76 = row11.createCell(7); 
-					createCell76.setCellValue("");
+//					createCell70.setCellValue("");//定义为空字符串，横向合并单元格显示边框
+//					HSSFCell createCell71 = row6.createCell(7); 
+//					createCell71.setCellValue("");
+//					HSSFCell createCell72 = row7.createCell(7); 
+//					createCell72.setCellValue("");
+//					HSSFCell createCell73 = row8.createCell(7); 
+//					createCell73.setCellValue("");
+//					HSSFCell createCell74 = row9.createCell(7); 
+//					createCell74.setCellValue("");
+//					HSSFCell createCell75 = row10.createCell(7); 
+//					createCell75.setCellValue("");
+//					HSSFCell createCell76 = row11.createCell(7); 
+//					createCell76.setCellValue("");
 					utils.setRegionStyle(sh, region10, utils.Style19(workbook));
 					sh.addMergedRegion(region9);
 					createCell70.setCellValue("质量情况");
@@ -702,19 +702,19 @@ public class JiandujianchaController{
 	                //
 	                Region region24 = new Region(5+i*9, (short) 13, 11+i*9, (short) 13);
 					HSSFCell createCell101 = row5.createCell(13);
-					createCell101.setCellValue("");//定义为空字符串，横向合并单元格显示边框
-					HSSFCell createCell102 = row6.createCell(13); 
-					createCell102.setCellValue("");
-					HSSFCell createCell103 = row7.createCell(13); 
-					createCell103.setCellValue("");
-					HSSFCell createCell104 = row8.createCell(13); 
-					createCell104.setCellValue("");
-					HSSFCell createCell105 = row9.createCell(13); 
-					createCell105.setCellValue("");
-					HSSFCell createCell106 = row10.createCell(13); 
-					createCell106.setCellValue("");
-					HSSFCell createCell107= row11.createCell(13); 
-					createCell107.setCellValue("");
+//					createCell101.setCellValue("");//定义为空字符串，横向合并单元格显示边框
+//					HSSFCell createCell102 = row6.createCell(13); 
+//					createCell102.setCellValue("");
+//					HSSFCell createCell103 = row7.createCell(13); 
+//					createCell103.setCellValue("");
+//					HSSFCell createCell104 = row8.createCell(13); 
+//					createCell104.setCellValue("");
+//					HSSFCell createCell105 = row9.createCell(13); 
+//					createCell105.setCellValue("");
+//					HSSFCell createCell106 = row10.createCell(13); 
+//					createCell106.setCellValue("");
+//					HSSFCell createCell107= row11.createCell(13); 
+//					createCell107.setCellValue("");
 					utils.setRegionStyle(sh, region24, utils.Style19(workbook));
 					sh.addMergedRegion(region24);
 					createCell101.setCellValue("主要存在问题");
@@ -741,7 +741,7 @@ public class JiandujianchaController{
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
 					Region region26 = new Region(13+i*9, (short) 1,13+i*9, (short) 3);
-					HSSFCell createCell113 = row13.createCell(8);
+					HSSFCell createCell113 = row13.createCell(1);
 					utils.setRegionStyle(sh, region26, utils.Style22(workbook));
 					sh.addMergedRegion(region26);
 					createCell113.setCellValue("检查人:"+r.getGzdgRummager());  //检查人
@@ -762,17 +762,17 @@ public class JiandujianchaController{
 					sh.addMergedRegion(region28);
 					createCell116.setCellValue(r.getJianyanyuan());  //时间
 					
-					Region region29 = new Region(13+i*9, (short) 8,13+i*9, (short) 10);
-					HSSFCell createCell117 = row13.createCell(8);
+					Region region29 = new Region(13+i*9, (short) 11,13+i*9, (short) 12);
+					HSSFCell createCell117 = row13.createCell(11);
 					utils.setRegionStyle(sh, region29, utils.Style22(workbook));
 					sh.addMergedRegion(region29);
 					createCell117.setCellValue("时间:"+r.getJianceTime());  //时间
 					
-					HSSFCell createCell118 = row13.createCell(12);
+					HSSFCell createCell118 = row13.createCell(14);
 					createCell118.setCellStyle(utils.Style22(workbook));
 					createCell118.setCellValue("记录人"+r.getRummager());  //记录人
 					
-					HSSFCell createCell119 = row13.createCell(14);
+					HSSFCell createCell119 = row13.createCell(16);
 					createCell119.setCellStyle(utils.Style22(workbook));
 					createCell119.setCellValue("时间"+r.getJianduTime());  //时间
 			}
@@ -1133,19 +1133,19 @@ public class JiandujianchaController{
 					
 					Region region9 = new Region(5+i*9, (short) 1, 11+i*9, (short) 1);
 					HSSFCell createCell35 = row5.createCell(1);
-					createCell35.setCellValue("");//定义为空字符串，横向合并单元格显示边框
-					HSSFCell createCell36 = row6.createCell(1); 
-					createCell36.setCellValue("");
-					HSSFCell createCell37 = row7.createCell(1); 
-					createCell37.setCellValue("");
-					HSSFCell createCell38 = row8.createCell(1); 
-					createCell38.setCellValue("");
-					HSSFCell createCell39 = row9.createCell(1); 
-					createCell39.setCellValue("");
-					HSSFCell createCell40 = row10.createCell(1); 
-					createCell40.setCellValue("");
-					HSSFCell createCell41 = row11.createCell(1); 
-					createCell41.setCellValue("");
+//					createCell35.setCellValue("");//定义为空字符串，横向合并单元格显示边框
+//					HSSFCell createCell36 = row6.createCell(1); 
+//					createCell36.setCellValue("");
+//					HSSFCell createCell37 = row7.createCell(1); 
+//					createCell37.setCellValue("");
+//					HSSFCell createCell38 = row8.createCell(1); 
+//					createCell38.setCellValue("");
+//					HSSFCell createCell39 = row9.createCell(1); 
+//					createCell39.setCellValue("");
+//					HSSFCell createCell40 = row10.createCell(1); 
+//					createCell40.setCellValue("");
+//					HSSFCell createCell41 = row11.createCell(1); 
+//					createCell41.setCellValue("");
 					utils.setRegionStyle(sh, region9, utils.Style9(workbook));
 					sh.addMergedRegion(region9);
 					createCell35.setCellValue("数量情况");
@@ -1445,39 +1445,39 @@ public class JiandujianchaController{
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
 					Region region26 = new Region(13+i*9, (short) 1,13+i*9, (short) 3);
-					HSSFCell createCell113 = row13.createCell(8);
-					utils.setRegionStyle(sh, region26, utils.Style11(workbook));
+					HSSFCell createCell113 = row13.createCell(1);
+					utils.setRegionStyle(sh, region26, utils.Style22(workbook));
 					sh.addMergedRegion(region26);
 					createCell113.setCellValue("检查人:"+r.getGzdgRummager());  //检查人
 					
 					Region region27 = new Region(13+i*9, (short) 4,13+i*9, (short) 5);
 					HSSFCell createCell114 = row13.createCell(4);
-					utils.setRegionStyle(sh, region27, utils.Style11(workbook));
+					utils.setRegionStyle(sh, region27, utils.Style22(workbook));
 					sh.addMergedRegion(region27);
 					createCell114.setCellValue("时间:"+r.getGzdgRummager());  //时间
 					
 					HSSFCell createCell115 = row13.createCell(7);
-					createCell115.setCellStyle(utils.Style10(workbook));
+					createCell115.setCellStyle(utils.Style22(workbook));
 					createCell115.setCellValue("检验员");  //检验员
 	                
 					Region region28 = new Region(13+i*9, (short) 8,13+i*9, (short) 10);
 					HSSFCell createCell116 = row13.createCell(8);
-					utils.setRegionStyle(sh, region28, utils.Style11(workbook));
+					utils.setRegionStyle(sh, region28, utils.Style22(workbook));
 					sh.addMergedRegion(region28);
 					createCell116.setCellValue(r.getJianyanyuan());  //时间
 					
-					Region region29 = new Region(13+i*9, (short) 8,13+i*9, (short) 10);
-					HSSFCell createCell117 = row13.createCell(8);
-					utils.setRegionStyle(sh, region29, utils.Style11(workbook));
+					Region region29 = new Region(13+i*9, (short) 11,13+i*9, (short) 12);
+					HSSFCell createCell117 = row13.createCell(11);
+					utils.setRegionStyle(sh, region29, utils.Style22(workbook));
 					sh.addMergedRegion(region29);
 					createCell117.setCellValue("时间:"+r.getJianceTime());  //时间
 					
-					HSSFCell createCell118 = row13.createCell(12);
-					createCell118.setCellStyle(utils.Style10(workbook));
+					HSSFCell createCell118 = row13.createCell(14);
+					createCell118.setCellStyle(utils.Style22(workbook));
 					createCell118.setCellValue("记录人"+r.getRummager());  //记录人
 					
-					HSSFCell createCell119 = row13.createCell(14);
-					createCell119.setCellStyle(utils.Style10(workbook));
+					HSSFCell createCell119 = row13.createCell(16);
+					createCell119.setCellStyle(utils.Style22(workbook));
 					createCell119.setCellValue("时间"+r.getJianduTime());  //时间
 //					
 //              }
