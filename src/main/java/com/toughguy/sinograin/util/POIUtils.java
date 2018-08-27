@@ -392,7 +392,7 @@ public class POIUtils {
 				style.setFont(fon);// 选择需要用到的字体格式
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
-				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框加粗
+				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
 				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 				style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM); //下边框加粗
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
@@ -424,6 +424,89 @@ public class POIUtils {
 				style.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);//右边框加粗
 				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
+			public HSSFCellStyle Style17(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
+				style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);//上边框加粗
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+				style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);//左边框加粗
+				return style;
+			}
+			public HSSFCellStyle Style18(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
+				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM); //下边框加粗
+				style.setBorderLeft(HSSFCellStyle.BORDER_MEDIUM);//左边框加粗
+				return style;
+			}
+			public HSSFCellStyle Style19(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
+				style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);//上边框加粗
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM); //下边框加粗
+				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
+			public HSSFCellStyle Style20(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
+				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
+			public HSSFCellStyle Style21(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
+				style.setBorderTop(HSSFCellStyle.BORDER_MEDIUM);//上边框加粗
+				style.setBorderRight(HSSFCellStyle.BORDER_MEDIUM);//右边框加粗
+				style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM); //下边框加粗
+				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+				return style;
+			}
+			public HSSFCellStyle Style22(HSSFWorkbook wb) {
+				HSSFCellStyle style = wb.createCellStyle();
+				HSSFFont fon = wb.createFont();
+				fon.setFontName("宋体");
+				fon.setFontHeightInPoints((short) 10);// 设置字体大小
+				style.setFont(fon);// 选择需要用到的字体格式
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
 				return style;
 			}
 			/**
