@@ -52,11 +52,13 @@ import com.toughguy.sinograin.dto.XMPresentation;
 import com.toughguy.sinograin.dto.ZhifangsuanzhiDTO;
 import com.toughguy.sinograin.model.barn.Handover;
 import com.toughguy.sinograin.model.barn.Record;
+import com.toughguy.sinograin.model.barn.SafetyReport;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.model.barn.WarehouseCounterPlace;
 import com.toughguy.sinograin.model.barn.WheatExaminingReport;
 import com.toughguy.sinograin.persist.barn.prototype.IRecordDao;
+import com.toughguy.sinograin.service.barn.prototype.ISafetyReportService;
 import com.toughguy.sinograin.service.barn.prototype.ITestItemService;
 import com.toughguy.sinograin.util.ImportUtil;
 import com.toughguy.sinograin.util.POIUtils;
@@ -73,6 +75,8 @@ public class JiandujianchaController{
 	private ITestItemService testItemService;
 	@Autowired
 	private IRecordDao recordDao;
+	@Autowired
+	private ISafetyReportService safetyReportService;
 	/*
 	 *导出监督检查档案模板 (小麦)
 	 */
@@ -99,7 +103,38 @@ public class JiandujianchaController{
 				List<Record> record = recordDao.findRecord(map);
 				String jianyanyuan1 = "";
 				Date jianceTime = null;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 				for(Record r:record) {
+					//监督检测报告
+					List<SafetyReport> safetyReports = safetyReportService.findBySampleId(r.getSampleId());
+					String problemStr = "";
+					String rummagerStr = "";
+					Date jianduTime = null;
+					for(SafetyReport s:safetyReports) {
+						problemStr += s.getProblem() + ",";
+						rummagerStr += s.getRummager() + ",";
+						if(jianduTime == null) {
+							jianduTime = s.getUpdateTime();
+						} else if(jianduTime.getTime() < s.getUpdateTime().getTime()) {
+							jianduTime = s.getUpdateTime();
+						}
+					}
+					String[] problems = problemStr.substring(0, problemStr.length()-1).split(",");
+					r.setProblem(problems);
+					String[] rummager1 = (rummagerStr.substring(0,rummagerStr.length()-1)).split(",");
+					List<String> rummagerList = new ArrayList<String>();
+					String rummager2 = "";
+					for(int i=0;i<rummager1.length;i++) {
+						if(!rummagerList.contains(rummager1[i])) {
+							rummagerList.add(rummager1[i]);
+						}
+					}
+					for(int i=0;i<rummagerList.size();i++) {
+						rummager2 += rummagerList.get(i) + ",";
+					}
+					r.setRummager(rummager2.substring(0,rummager2.length()-1));
+					r.setJianduTime(jianduTime);
+					//检验项目
 					List<TestItem> testItems = testItemService.findResult(r.getSampleId());
 					for(TestItem t:testItems) {
 						if(t.getTestItem() == 1) {
@@ -217,9 +252,6 @@ public class JiandujianchaController{
 					
 						
 					}
-//				}
-				
-					
 				HSSFRow row2 = sh.createRow(2);
 				row2.setHeightInPoints(37);
 				HSSFRow row3 = sh.createRow(3);
@@ -722,6 +754,8 @@ public class JiandujianchaController{
 					Region region25 = new Region(5+i*9, (short) 14,11+i*9, (short) 18);
 					HSSFCell createCell108 = row11.createCell(14);
 					createCell108.setCellValue("");//定义为空字符串，横向合并单元格显示边框
+					HSSFCell createCell1081 = row5.createCell(14); 
+					createCell1081.setCellValue("");
 					HSSFCell createCell109 = row6.createCell(14); 
 					createCell109.setCellValue("");
 					HSSFCell createCell110 = row7.createCell(14); 
@@ -733,10 +767,10 @@ public class JiandujianchaController{
 					utils.setRegionStyle(sh, region25, utils.Style21(workbook));
 					sh.addMergedRegion(region25);
 					String problem = "";
-					for(int a=0;a<r.getProblem().length;a++) {
-						problem += r.getProblem()[a] + ",";
+					for(int a=1;a<=r.getProblem().length;a++) {
+						problem += "问题"+ a + ":" + r.getProblem()[a-1] + ",";
 					}
-					createCell108.setCellValue(problem.substring(0, problem.length()-1));  //问题
+					createCell1081.setCellValue(problem.substring(0, problem.length()-4));  //问题
 					
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
@@ -750,7 +784,7 @@ public class JiandujianchaController{
 					HSSFCell createCell114 = row13.createCell(4);
 					utils.setRegionStyle(sh, region27, utils.Style22(workbook));
 					sh.addMergedRegion(region27);
-					createCell114.setCellValue("时间:"+r.getGzdgRummager());  //时间
+					createCell114.setCellValue("时间:"+sdf.format(r.getJianduTime()));  //时间
 					
 					HSSFCell createCell115 = row13.createCell(7);
 					createCell115.setCellStyle(utils.Style22(workbook));
@@ -760,13 +794,13 @@ public class JiandujianchaController{
 					HSSFCell createCell116 = row13.createCell(8);
 					utils.setRegionStyle(sh, region28, utils.Style22(workbook));
 					sh.addMergedRegion(region28);
-					createCell116.setCellValue(r.getJianyanyuan());  //时间
+					createCell116.setCellValue(r.getJianyanyuan().substring(0,r.getJianyanyuan().length()-1));  //检验员
 					
 					Region region29 = new Region(13+i*9, (short) 11,13+i*9, (short) 12);
 					HSSFCell createCell117 = row13.createCell(11);
 					utils.setRegionStyle(sh, region29, utils.Style22(workbook));
 					sh.addMergedRegion(region29);
-					createCell117.setCellValue("时间:"+r.getJianceTime());  //时间
+					createCell117.setCellValue("时间:"+sdf.format(r.getJianceTime()));  //时间
 					
 					HSSFCell createCell118 = row13.createCell(14);
 					createCell118.setCellStyle(utils.Style22(workbook));
@@ -774,12 +808,12 @@ public class JiandujianchaController{
 					
 					HSSFCell createCell119 = row13.createCell(16);
 					createCell119.setCellStyle(utils.Style22(workbook));
-					createCell119.setCellValue("时间"+r.getJianduTime());  //时间
+					createCell119.setCellValue("时间"+sdf.format(r.getJianduTime()));  //时间
 			}
 
 				String title = "中央事权粮检查（验）档案";
 				OutputStream output = response.getOutputStream();
-				response.reset();
+//				response.reset();
 				response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
 				response.setContentType("application/vnd.ms-excel;charset=utf-8");
 				workbook.write(output);
@@ -823,6 +857,7 @@ public class JiandujianchaController{
 				List<Record> record = recordDao.findRecord(map);
 				String jianyanyuan1 = "";
 				Date jianceTime = null;
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
 				for(Record r:record) {
 					List<TestItem> testItems = testItemService.findResult(r.getSampleId());
 					for(TestItem t:testItems) {
@@ -1425,6 +1460,8 @@ public class JiandujianchaController{
 					Region region25 = new Region(5+i*9, (short) 14,11+i*9, (short) 18);
 					HSSFCell createCell108 = row11.createCell(14);
 					createCell108.setCellValue("");//定义为空字符串，横向合并单元格显示边框
+					HSSFCell createCell1081 = row5.createCell(14); 
+					createCell1081.setCellValue("");
 					HSSFCell createCell109 = row6.createCell(14); 
 					createCell109.setCellValue("");
 					HSSFCell createCell110 = row7.createCell(14); 
@@ -1436,11 +1473,10 @@ public class JiandujianchaController{
 					utils.setRegionStyle(sh, region25, utils.Style11(workbook));
 					sh.addMergedRegion(region25);
 					String problem = "";
-					for(int a=0;a<r.getProblem().length;a++) {
-						problem += r.getProblem()[a] + ",";
+					for(int a=1;a<=r.getProblem().length;a++) {
+						problem += "问题"+ a + ":" + r.getProblem()[a-1] + ",";
 					}
-					System.out.println(r.getProblem());
-					createCell108.setCellValue(problem.substring(0, problem.length()-1));  //问题
+					createCell1081.setCellValue(problem.substring(0, problem.length()-1));  //问题
 					
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
@@ -1454,7 +1490,7 @@ public class JiandujianchaController{
 					HSSFCell createCell114 = row13.createCell(4);
 					utils.setRegionStyle(sh, region27, utils.Style22(workbook));
 					sh.addMergedRegion(region27);
-					createCell114.setCellValue("时间:"+r.getGzdgRummager());  //时间
+					createCell114.setCellValue("时间:"+sdf.format(r.getJianduTime()));  //时间
 					
 					HSSFCell createCell115 = row13.createCell(7);
 					createCell115.setCellStyle(utils.Style22(workbook));
@@ -1464,13 +1500,13 @@ public class JiandujianchaController{
 					HSSFCell createCell116 = row13.createCell(8);
 					utils.setRegionStyle(sh, region28, utils.Style22(workbook));
 					sh.addMergedRegion(region28);
-					createCell116.setCellValue(r.getJianyanyuan());  //时间
+					createCell116.setCellValue(r.getJianyanyuan().substring(0,r.getJianyanyuan().length()-1));  //检验员
 					
 					Region region29 = new Region(13+i*9, (short) 11,13+i*9, (short) 12);
 					HSSFCell createCell117 = row13.createCell(11);
 					utils.setRegionStyle(sh, region29, utils.Style22(workbook));
 					sh.addMergedRegion(region29);
-					createCell117.setCellValue("时间:"+r.getJianceTime());  //时间
+					createCell117.setCellValue("时间:"+sdf.format(r.getJianceTime()));  //时间
 					
 					HSSFCell createCell118 = row13.createCell(14);
 					createCell118.setCellStyle(utils.Style22(workbook));
@@ -1478,13 +1514,13 @@ public class JiandujianchaController{
 					
 					HSSFCell createCell119 = row13.createCell(16);
 					createCell119.setCellStyle(utils.Style22(workbook));
-					createCell119.setCellValue("时间"+r.getJianduTime());  //时间
+					createCell119.setCellValue("时间"+sdf.format(r.getJianduTime()));  //时间
 //					
 //              }
 
 				String title = "中央事权粮检查（验）档案";
 				OutputStream output = response.getOutputStream();
-				response.reset();
+//				response.reset();
 				response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
 				response.setContentType("application/vnd.ms-excel;charset=utf-8");
 				workbook.write(output);
