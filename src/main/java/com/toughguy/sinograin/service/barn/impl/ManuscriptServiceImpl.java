@@ -144,7 +144,10 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        cell10.setCellStyle(utils.Style3(workbook));
 	        cell10.setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
 	        
-	        sh.getRow(13).getCell(2).setCellValue(manuscript.getRealVolume());		//真实体积（粮堆实际体积）
+	        HSSFCell cell100 =sh.getRow(13).getCell(2);
+	        cell100.setCellStyle(utils.Style3(workbook));
+	        cell100.setCellValue(manuscript.getRealVolume());		//真实体积（粮堆实际体积）
+	        
 	        sh.getRow(15).getCell(2).setCellValue(manuscript.getRealCapacity());	//粮食容重（g/l）
 	        sh.getRow(16).getCell(2).setCellValue(manuscript.getCorrectioFactor()); //修正后修正系数
 	        sh.getRow(17).getCell(2).setCellValue(manuscript.getAveDensity());		//粮食平均密度（g/l）？
