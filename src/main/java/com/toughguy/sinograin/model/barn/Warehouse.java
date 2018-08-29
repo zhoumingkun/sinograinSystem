@@ -16,6 +16,8 @@ public class Warehouse extends AbstractModel {
 	private int counterId;    //样品柜id
 	private int warehouseUseNumber;//库房使用数（页面使用）
 	private int warehouseTotal;  //库房总数（页面使用）
+	
+	private String describe;   //描述（品种按性质分）
 	public String getDepot() {
 		return depot;
 	}
@@ -45,6 +47,12 @@ public class Warehouse extends AbstractModel {
 	}
 	public void setWarehouseTotal(int warehouseTotal) {
 		this.warehouseTotal = warehouseTotal;
+	}
+	public String getDescribe() {
+		return describe;
+	}
+	public void setDescribe(String describe) {
+		this.describe = describe;
 	}
 	
 }
