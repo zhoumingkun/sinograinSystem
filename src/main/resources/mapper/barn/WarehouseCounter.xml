@@ -15,6 +15,13 @@
 	<select id="find" parameterType="int" resultType="WarehouseCounter">
 		select * from barn_warehouse_counter where id = #{id}
 	</select>
+	<!-- 查询柜子中的所有样品 -->
+	<select id="findSample" parameterType="int" resultType="Sample">
+		select DISTINCT bs.* from barn_warehouse_counter bwc 
+		RIGHT JOIN barn_warehouse_counter_place bwcp ON bwcp.pId = bwc.id 
+		RIGHT JOIN barn_sample bs ON bs.placeId = bwcp.id
+		where bwc.id = #{counterId}
+	</select>
 	
 	<!-- 根据柜号查询柜 -->
 	<select id="findByCounter" parameterType="String" resultType="WarehouseCounter">
