@@ -425,7 +425,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell29.setCellValue(cornExaminingReport.getSlip());//差率（保留一位小数）
 				
 				HSSFCell createCell = row3.createCell(29);
-				createCell.setCellStyle(utils.Style1(workbook));
+				createCell.setCellStyle(utils.Style27(workbook));
 				createCell.setCellValue(cornExaminingReport.getQualityGrade());
 				
 //				List<CornExaminingReport> cornExaminingReport1 = icornExaminingReportDao.findQualityAcceptance(intId[i]);
@@ -889,7 +889,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell26.setCellValue(Wobjiect.getSlip());      //差率（保留一位小数）
 				
 				HSSFCell cell27 = row3.createCell(28);
-				cell27.setCellStyle(utils.Style1(workbook));
+				cell27.setCellStyle(utils.Style27(workbook));
 				cell27.setCellValue(Wobjiect.getQualityGrade());
 				
 //				HSSFCell cell39 = row3.createCell(39);
@@ -1092,7 +1092,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				cell2.setCellValue("监" + Wobjiect.getSampleNum());
 				
 				HSSFCell cell3 = row.createCell(2);
-				cell3.setCellStyle(utils.Style1(workbook));
+				cell3.setCellStyle(utils.Style27(workbook));
 				cell3.setCellValue(Wobjiect.getQualityGrade());
 				//检验结果
 				HSSFCell cell4 = row.createCell(3);
@@ -1286,7 +1286,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			createCell2.setCellValue("监" + c.getSampleNum());
 			
 			HSSFCell createCell3 = row.createCell(2);
-			createCell3.setCellStyle(utils.Style1(workbook));
+			createCell3.setCellStyle(utils.Style27(workbook));
 			createCell3.setCellValue(c.getQualityGrade());
 			//检测结果
 			HSSFCell cell1 = row.createCell(3);

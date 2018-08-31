@@ -159,8 +159,8 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
 	@RequiresPermissions("sample:getBySampleNum")
-	public Sample getBySampleNum(String sampleNo) {
-		return sampleService.findBySampleNum(sampleNo);
+	public Sample getBySampleNum(String sampleNum) {
+		return sampleService.findBySampleNum(sampleNum);
 	}
 
 	@ResponseBody
