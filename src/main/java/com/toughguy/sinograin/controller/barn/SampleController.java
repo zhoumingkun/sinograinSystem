@@ -114,6 +114,18 @@ public class SampleController {
 	}
 
 	@ResponseBody
+	@RequestMapping(value = "/editDetectionState")
+	@RequiresPermissions("sample:edit")
+	public String editDetectionState(Sample sample) {
+		try {
+			sampleService.update(sample);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	@ResponseBody
 	@RequestMapping(value = "/edit")
 	@RequiresPermissions("sample:edit")
 	public String edit(Sample sample) {
@@ -159,8 +171,8 @@ public class SampleController {
 	@ResponseBody
 	@RequestMapping(value = "/getBySampleNum")
 	@RequiresPermissions("sample:getBySampleNum")
-	public Sample getBySampleNum(String sampleNo) {
-		return sampleService.findBySampleNum(sampleNo);
+	public Sample getBySampleNum(String sampleNum) {
+		return sampleService.findBySampleNum(sampleNum);
 	}
 
 	@ResponseBody
