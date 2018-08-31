@@ -1,8 +1,6 @@
 package com.toughguy.sinograin.controller.barn;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +22,6 @@ import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
 import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
-import com.toughguy.sinograin.util.DateUtil;
 
 @Controller
 @RequestMapping("/handover")
@@ -73,6 +70,29 @@ public class HandoverController {
 	public String remove(Handover handover) {
 		try {
 			barnService.dealCheck(handover,3,null);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	//删除交接单
+	@ResponseBody
+	@RequestMapping(value = "/removeHandover")
+	//@RequiresPermissions("handover:remove")
+	public String removeHandover(int id) {
+		try {
+			 Handover handover = handoverService.find(id);
+			 String sampleIds = handover.getSampleIds();
+			 String[] sampleIds2 = sampleIds.split(",");
+			for(int i=0;i<sampleIds2.length;i++) {
+				Sample sample = sampleService.find(Integer.parseInt(sampleIds2[i]));
+				sample.setSampleState(2);
+				sampleService.update(sample);
+			}
+			//将交接单状态改为不启用
+			handover.setState(1);
+			handoverService.update(handover);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -135,6 +155,7 @@ public class HandoverController {
 			if (!StringUtils.isEmpty(params)) {
 				// 参数处理
 				map = om.readValue(params, new TypeReference<Map<String, Object>>() {});
+				map.put("state", -1);
 			}
 			PagerModel<Handover> pg = handoverService.findPaginated(map);
 			// 序列化查询结果为JSON

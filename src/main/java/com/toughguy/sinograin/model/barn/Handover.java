@@ -22,6 +22,7 @@ public class Handover extends AbstractModel{
 	private int userId;                //管理员id
 	private String sampleAdmin;        //样品管理员
 	private String receiptor;           //领取人
+	private int state;               //状态   -1启用     1不启用
 	
 	private List<Sample> samples;        //样品集（页面展示）
 	private String sort;                    //样品品种
@@ -94,6 +95,12 @@ public class Handover extends AbstractModel{
 	}
 	public void setSamples(List<Sample> samples) {
 		this.samples = samples;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
 	}
 	
 }

@@ -58,6 +58,7 @@ public class TaskController {
 			for(Sample s : ss) {
 //				List<CornExaminingReport> cs = cornExaminingReportDao.findQualityAcceptance(s.getId());
 				CornExaminingReport c = cornExaminingReportDao.findBasicSituation(s.getId());
+				c.setSampleId(s.getId());
 				List<TestItem> testItems = testItemService.findResult(s.getId());
 				String jianceren = "";
 				Date jianceshijian = null;
@@ -176,6 +177,7 @@ public class TaskController {
 				List<Sample> ss = taskService.findsampleIdBylibraryId(map);	
 				for(Sample s : ss) {
 					WheatExaminingReport w = wheatExaminingReportDao.findBasicSituation(s.getId());
+					w.setSampleId(s.getId());
 					List<TestItem> testItems = testItemService.findResult(s.getId());
 					String jianceren = "";
 					Date jianceshijian = null;

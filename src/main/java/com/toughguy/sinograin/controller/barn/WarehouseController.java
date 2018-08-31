@@ -109,29 +109,37 @@ public class WarehouseController {
 				for(Sample s:ss) {
 					if(s.getSort().equals("小麦")) {
 						xmnum++;
-						if(s.getQuality().equals("ZC")) {
-							xmzc++;
-						} else if(s.getQuality().equals("ZD")) {
-							xmzd++;
-						} else if(s.getQuality().equals("LC")) {
-							xmlc++;
-						} else if(s.getQuality().equals("SP")) {
-							xmsp++;
-						} else if(s.getQuality().equals("TD")) {
-							xmtd++;
+						if(s.getQuality() == null || "".equals(s.getQuality())) {
+						} else {
+							if(s.getQuality().equals("ZC")) {
+								xmzc++;
+							} else if(s.getQuality().equals("ZD")) {
+								xmzd++;
+							} else if(s.getQuality().equals("LC")) {
+								xmlc++;
+							} else if(s.getQuality().equals("SP")) {
+								xmsp++;
+							} else if(s.getQuality().equals("TD")) {
+								xmtd++;
+							}
 						}
 					} else if(s.getSort().equals("玉米")) {
 						ymnum++;
-						if(s.getQuality().equals("ZC")) {
-							ymzc++;
-						} else if(s.getQuality().equals("ZD")) {
-							ymzd++;
-						} else if(s.getQuality().equals("LC")) {
-							ymlc++;
-						} else if(s.getQuality().equals("SP")) {
-							ymsp++;
-						} else if(s.getQuality().equals("TD")) {
-							ymtd++;
+						if(s.getQuality() == null || "".equals(s.getQuality())) {
+						} else {
+							System.out.println(s.getId());
+							System.out.println(s.getQuality());
+							if(s.getQuality().equals("ZC")) {
+								ymzc++;
+							} else if(s.getQuality().equals("ZD")) {
+								ymzd++;
+							} else if(s.getQuality().equals("LC")) {
+								ymlc++;
+							} else if(s.getQuality().equals("SP")) {
+								ymsp++;
+							} else if(s.getQuality().equals("TD")) {
+								ymtd++;
+							}
 						}
 					}
 				}

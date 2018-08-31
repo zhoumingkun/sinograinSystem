@@ -55,6 +55,7 @@ public class WheatExaminingReport {
 	private String jianceren;        //检测人
 	private String jianceshijian;     //检测时间
 	private String taskName;           //任务名
+	private int sampleId;               //样品id
 //	private String shuifen_pingjunzhi; // 平均值（%）(水分)
 //	private String zazhizongliang_1;  //杂质总量B（%）
 //	private String kuangwuzhihanliang_pingjunzhi;//矿物质含量平均值（%）
@@ -339,6 +340,12 @@ public class WheatExaminingReport {
 	}
 	public void setAutograph(String autograph) {
 		this.autograph = autograph;
+	}
+	public int getSampleId() {
+		return sampleId;
+	}
+	public void setSampleId(int sampleId) {
+		this.sampleId = sampleId;
 	}
 	
 	

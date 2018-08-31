@@ -69,6 +69,7 @@
 			<if test="userId != null and userId != ''">userId = #{userId},</if>
 			<if test="sampleAdmin != null and sampleAdmin != ''">sampleAdmin = #{sampleAdmin},</if>
 			<if test="receiptor != null and receiptor != ''">receiptor = #{receiptor},</if>
+			<if test="state != null and state != ''">state = #{state},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -115,6 +116,9 @@
 			</if>
 			<if test=" userId != null and userId != '' ">
 				and userId = #{ userId }
+			</if>
+			<if test=" state != null and state != '' ">
+				and state = #{state}
 			</if>
 		</where>
 	</sql>
