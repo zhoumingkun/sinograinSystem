@@ -11,6 +11,8 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.T;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellValue;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -26,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImportUtil {
 
     Workbook wb = null;
-    
+    FormulaEvaluator formulaEvaluator = null;
     /**
      * 
      * 根据流读取Excel文件
@@ -61,20 +63,91 @@ public class ImportUtil {
 	* @param cell   
 	* @return   
 	*/    
-	public String getCellValue(Cell cell){    
+	public  String getCellValue(Cell cell){    
 	    if(cell == null) return "";    
 	    if(cell.getCellType() == Cell.CELL_TYPE_STRING){    
 	        return cell.getStringCellValue();    
 	    }else if(cell.getCellType() == Cell.CELL_TYPE_BOOLEAN){    
 	        return String.valueOf(cell.getBooleanCellValue());    
-	    }else if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){    
-	        return cell.getCellFormula() ;    
+	    }else if(cell.getCellType() == Cell.CELL_TYPE_FORMULA){ 
+	    	return String.valueOf(cell.getCellFormula());
+//	        return cell.getCellFormula() ;    
 	    }else if(cell.getCellType() == Cell.CELL_TYPE_NUMERIC){    
 	        return String.valueOf(cell.getNumericCellValue());    
 	    }
 	    return "";    
 	}
-	
+    
+    
+    
+//    public  String getCellValue(Cell cell) {
+//		int cellType = cell.getCellType();
+//		String cellValue = "";
+//		switch (cellType) {
+//		case HSSFCell.CELL_TYPE_NUMERIC:
+//			cellValue = String.valueOf(cell.getNumericCellValue());
+//			break;
+// 
+//		case HSSFCell.CELL_TYPE_FORMULA:
+//			try {
+//				cellValue = cell.getStringCellValue();
+//			} catch (IllegalStateException e) {
+//				cellValue = String.valueOf(cell.getNumericCellValue());
+//			}
+//			break;
+// 
+//		default:
+//			cellValue = cell.getStringCellValue();
+//		}
+// 
+//		return cellValue.trim();
+//	}
+
+//	 public String getCellValue(Cell cell) {
+//		          String value = null;
+//		          if (cell != null) {
+//		             switch (cell.getCellType()) {
+//		              case HSSFCell.CELL_TYPE_FORMULA:
+//		                  // cell.getCellFormula();
+//		                  try {
+//		                      value = String.valueOf(cell.getNumericCellValue());
+//		                  } catch (IllegalStateException e) {
+//		                      value = String.valueOf(cell.getRichStringCellValue());
+//		                  }
+//		                  break;
+//		              case HSSFCell.CELL_TYPE_NUMERIC:
+//		                 value = String.valueOf(cell.getNumericCellValue());
+//		                  break;
+//		              case HSSFCell.CELL_TYPE_STRING:
+//		                  value = String.valueOf(cell.getRichStringCellValue());
+//		                  break;
+//		              }
+//		          }
+//				return value;
+//	 }
+//    public  String getCellValue(Cell cell) {// 获取单元格数据内容为字符串类型的数据
+//        String strCell = "";
+//        if (cell == null) {
+//            return "";
+//        }
+//        switch (cell.getCellType()) {
+//        case HSSFCell.CELL_TYPE_FORMULA:
+//        	try {
+//        	       strCell = String.valueOf(cell.getNumericCellValue());
+//
+//        	} catch (IllegalStateException e) {
+//        	       strCell = String.valueOf(cell.getRichStringCellValue());
+//
+//        	}
+//        	break;
+//        }
+//        return strCell;
+//    }
+		          
+
+
+
+
 	/** 
 	    * 合并单元格处理,获取合并行 
 	    * @param sheet 

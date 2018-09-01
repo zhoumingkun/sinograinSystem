@@ -76,7 +76,7 @@ public class ImportExcelController {
             	ImportZhifangsuanzhi ir = new ImportZhifangsuanzhi();
             	
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setPingjunzhi(util.getCellValue(row.getCell(7)));
+            	ir.setPingjunzhi(util.getCellValue(row.getCell(7)));//
             	ir.setBeizhu_1(util.getCellValue(row.getCell(8)));
             	ir.setBeizhu_2(util.getCellValue(row.getCell(9)));
             	
@@ -92,7 +92,7 @@ public class ImportExcelController {
         				item.setKoh_rongyeyongliang_1(util.getCellValue(row.getCell(3)));
         				item.setKoh_rongyenongdu(util.getCellValue(row.getCell(4)));
         				item.setKongbai(util.getCellValue(row.getCell(5)));
-        				item.setZhifangsuanzhi(util.getCellValue(row.getCell(6)));
+        				item.setZhifangsuanzhi(util.getCellValue(row.getCell(6)));//
         				items.add(item);
         			}
         			i--;
@@ -104,7 +104,7 @@ public class ImportExcelController {
     				item.setKoh_rongyeyongliang_1(util.getCellValue(row.getCell(3)));
     				item.setKoh_rongyenongdu(util.getCellValue(row.getCell(4)));
     				item.setKongbai(util.getCellValue(row.getCell(5)));
-    				item.setZhifangsuanzhi(util.getCellValue(row.getCell(6)));
+    				item.setZhifangsuanzhi(util.getCellValue(row.getCell(6)));//
     				items.add(item);
             	}
             	ir.setItems(items);
@@ -150,12 +150,12 @@ public class ImportExcelController {
             	Row row = sheet.getRow(i);
             	ImportBuwanshanliYM ir = new ImportBuwanshanliYM();
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setDaza_pingjunzhi(util.getCellValue(row.getCell(5)));
-            	ir.setXiaoza_pingjunzhi(util.getCellValue(row.getCell(9)));
-            	ir.setZazhizongliang_pingjunzhi(util.getCellValue(row.getCell(11)));
+            	ir.setDaza_pingjunzhi(util.getCellValue(row.getCell(5)));//
+            	ir.setXiaoza_pingjunzhi(util.getCellValue(row.getCell(9)));//
+            	ir.setZazhizongliang_pingjunzhi(util.getCellValue(row.getCell(11)));//
             	ir.setYizhongliang_pingjunzhi(util.getCellValue(row.getCell(14)));
-            	ir.setBuwanshanli_pingjunzhi(util.getCellValue(row.getCell(17)));
-            	ir.setShengmeili_pingjunzhi(util.getCellValue(row.getCell(20)));
+            	ir.setBuwanshanli_pingjunzhi(util.getCellValue(row.getCell(17)));//
+            	ir.setShengmeili_pingjunzhi(util.getCellValue(row.getCell(20)));//
             	ir.setSeze_qiwei(util.getCellValue(row.getCell(21)));
             	ir.setRongzhong_pingjunzhi(util.getCellValue(row.getCell(23)));
             	ir.setJianceren(util.getCellValue(row.getCell(24)));
@@ -174,18 +174,18 @@ public class ImportExcelController {
         				item.setShiyanghao(util.getCellValue(row.getCell(1)));
         				item.setDayangzhiliang(util.getCellValue(row.getCell(2)));
         				item.setDazazhilaing(util.getCellValue(row.getCell(3)));
-        				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));
+        				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));//
         				item.setXiaoyangzhiliang(util.getCellValue(row.getCell(6)));
         				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
-        				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));
-        				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));
+        				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));//
+        				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));//
         				item.setYizhongliang(util.getCellValue(row.getCell(12)));
         				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(13)));
         				item.setBuwanshanli(util.getCellValue(row.getCell(15)));
-        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(16)));
+        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(16)));//
         				item.setShengmeili(util.getCellValue(row.getCell(18)));
         				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(19)));
-        				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
+        				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));//
         				
         				items.add(item);
         			}
@@ -197,18 +197,18 @@ public class ImportExcelController {
         			item.setShiyanghao(util.getCellValue(row.getCell(1)));
     				item.setDayangzhiliang(util.getCellValue(row.getCell(2)));
     				item.setDazazhilaing(util.getCellValue(row.getCell(3)));
-    				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));
+    				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));//
     				item.setXiaoyangzhiliang(util.getCellValue(row.getCell(6)));
     				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
-    				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));
-    				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));
+    				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));//
+    				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));//
     				item.setYizhongliang(util.getCellValue(row.getCell(12)));
     				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(13)));
     				item.setBuwanshanli(util.getCellValue(row.getCell(15)));
-    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(16)));
+    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(16)));//
     				item.setShengmeili(util.getCellValue(row.getCell(18)));
     				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(19)));
-    				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
+    				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));//
     				
     				items.add(item);
             	}
@@ -406,10 +406,10 @@ public class ImportExcelController {
             	Row row = sheet.getRow(i);
             	ImportBuwanshanliXM ir = new ImportBuwanshanliXM();
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setDaza_pingjunzhi(util.getCellValue(row.getCell(5)));
-            	ir.setXiaoza_pingjunzhi(util.getCellValue(row.getCell(9)));
-            	ir.setZazhizongliang_pingjunzhi(util.getCellValue(row.getCell(11)));
-            	ir.setKuangwuzhizongliang_pingjunzhi(util.getCellValue(row.getCell(14)));
+            	ir.setDaza_pingjunzhi(util.getCellValue(row.getCell(5)));//
+            	ir.setXiaoza_pingjunzhi(util.getCellValue(row.getCell(9)));//
+            	ir.setZazhizongliang_pingjunzhi(util.getCellValue(row.getCell(11)));//
+            	ir.setKuangwuzhizongliang_pingjunzhi(util.getCellValue(row.getCell(14)));//
             	ir.setYizhongliang_pingjunzhi(util.getCellValue(row.getCell(17)));
             	ir.setBuwanshanli_pingjunzhi(util.getCellValue(row.getCell(20)));
             	ir.setSeze_qiwei(util.getCellValue(row.getCell(21)));
@@ -431,17 +431,17 @@ public class ImportExcelController {
         				item.setShiyanghao(util.getCellValue(row.getCell(1)));
         				item.setDayangzhiliang(util.getCellValue(row.getCell(2)));
         				item.setDazazhilaing(util.getCellValue(row.getCell(3)));
-        				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));
+        				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));//
         				item.setXiaoyangzhiliang(util.getCellValue(row.getCell(6)));
         				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
-        				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));
-        				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));
+        				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));//
+        				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));//
         				item.setKuangwuzhi(util.getCellValue(row.getCell(12)));
-        				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(row.getCell(13)));
+        				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(row.getCell(13)));//
         				item.setYizhongliang(util.getCellValue(row.getCell(15)));
         				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(16)));
         				item.setBuwanshanli(util.getCellValue(row.getCell(18)));
-        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(19)));
+        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(19)));//
         				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
         				
         				items.add(item);
@@ -454,17 +454,17 @@ public class ImportExcelController {
         			item.setShiyanghao(util.getCellValue(row.getCell(1)));
     				item.setDayangzhiliang(util.getCellValue(row.getCell(2)));
     				item.setDazazhilaing(util.getCellValue(row.getCell(3)));
-    				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));
+    				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));//
     				item.setXiaoyangzhiliang(util.getCellValue(row.getCell(6)));
     				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
-    				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));
-    				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));
+    				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));//
+    				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));//
     				item.setKuangwuzhi(util.getCellValue(row.getCell(12)));
-    				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(row.getCell(13)));
+    				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(row.getCell(13)));//
     				item.setYizhongliang(util.getCellValue(row.getCell(15)));
     				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(16)));
     				item.setBuwanshanli(util.getCellValue(row.getCell(18)));
-    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(19)));
+    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(19)));//
     				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
     				
     				items.add(item);
