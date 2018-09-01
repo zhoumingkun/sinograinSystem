@@ -828,7 +828,12 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
+<<<<<<< HEAD
 	/**	 * 为了移动端登录问题
+=======
+	/**
+	 * 为了移动端登录问题
+>>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/unlogin")
