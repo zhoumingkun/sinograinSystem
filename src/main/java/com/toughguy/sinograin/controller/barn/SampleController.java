@@ -828,7 +828,15 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-
+	/**
+	 * 为了移动端登录问题
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/unlogin")
+	@RequiresPermissions("sample:unlogin")
+	public String unlogin() {
+			return null;
+	}
 	/**
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
