@@ -828,12 +828,21 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-
+	/**	 * 为了移动端登录问题
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/unlogin")
+	@RequiresPermissions("sample:unlogin")
+	public String unlogin() {
+			return null;
+	}
 	/**
+
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
+	@RequiresPermissions("sample:getAllCereals")
 	public Map findAllCereals() {
 			Sample sample = sampleService.findAllCereals();
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -1105,6 +1114,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/putIntoTask")
+	@RequiresPermissions("sample:putIntoTask")
 	public String putIntoTask(Sample sample) {
 		System.out.println(sample.getIds());
 		System.out.println(sample.getTaskId());
@@ -1129,6 +1139,7 @@ public class SampleController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getByTaskId")
+//	@RequiresPermissions("sample:getByTaskId")
 	public List<Sample> getByTaskId(int taskId) {
 		return sampleService.findByTaskId(taskId);
 	}
