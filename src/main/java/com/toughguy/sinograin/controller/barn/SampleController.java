@@ -828,26 +828,12 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-<<<<<<< HEAD
-	/**	 * 为了移动端登录问题
-=======
-	/**
-	 * 为了移动端登录问题
->>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/unlogin")
-	@RequiresPermissions("sample:unlogin")
-	public String unlogin() {
-			return null;
-	}
 	/**
 
 	 * 查询平台所有小麦玉米食用油库存总量
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
-	@RequiresPermissions("sample:getAllCereals")
 	public Map findAllCereals() {
 			Sample sample = sampleService.findAllCereals();
 			Map<String, Object> map = new HashMap<String, Object>();
