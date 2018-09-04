@@ -834,7 +834,6 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getAllCereals")
-	@RequiresPermissions("sample:getAllCereals")
 	public Map findAllCereals() {
 			Sample sample = sampleService.findAllCereals();
 			Map<String, Object> map = new HashMap<String, Object>();
