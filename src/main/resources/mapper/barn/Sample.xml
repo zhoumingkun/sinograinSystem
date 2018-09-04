@@ -95,7 +95,7 @@
 		 LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
 		 LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
 		<include refid="paramsSQL"/>
-		group by bs.id ORDER BY <if test="rank != null and rank != ''">${rank},</if>bs.id limit #{offset}, #{limit}
+		group by bs.id ORDER BY <if test="rank != null and rank != '' and rank == 'sampleNum'">right(${rank},4),</if><if test="rank != null and rank != '' and rank != 'sampleNum'">${rank},</if>bs.id limit #{offset}, #{limit}
 	</select>
 	<!-- 分页查询临时扦样 -->
 	<select id="findTemporaryPaginated" resultType="Sample" parameterType="Map">
