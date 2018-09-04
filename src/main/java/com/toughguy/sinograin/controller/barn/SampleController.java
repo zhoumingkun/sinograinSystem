@@ -223,7 +223,7 @@ public class SampleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/temporarySaveAll")
-	@RequiresPermissions("sample:saveAll")
+	@RequiresPermissions("sample:temporarySaveAll")
 	public String temporarySaveAll(Register register, String sample) {
 		try {
 			SamplingDTO samplingDTO = new SamplingDTO();
@@ -828,19 +828,6 @@ public class SampleController {
 			return "{ \"success\" : false }";
 		}
 	}
-<<<<<<< HEAD
-	/**	 * 为了移动端登录问题
-=======
-	/**
-	 * 为了移动端登录问题
->>>>>>> branch 'master' of https://github.com/1192012793/sinograin_backend
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/unlogin")
-	@RequiresPermissions("sample:unlogin")
-	public String unlogin() {
-			return null;
-	}
 	/**
 
 	 * 查询平台所有小麦玉米食用油库存总量
@@ -1161,6 +1148,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/findBysampleNumMobile")
+//	@RequiresPermissions("sample:findBysampleNumMobile")
 	public Sample findBysampleNumMobile(String sampleNum) {
 		return sampleService.findBysampleNumMobile(sampleNum);
 	}
@@ -1199,6 +1187,7 @@ public class SampleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/findSampleReport")
+	@RequiresPermissions("sample:findSampleReport")
 	public Sample findSampleReport(String sampleNum) {
 		try {
 			Sample sample1 = sampleService.findBySampleNum(sampleNum);

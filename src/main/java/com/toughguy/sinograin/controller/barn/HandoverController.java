@@ -79,7 +79,7 @@ public class HandoverController {
 	//删除交接单
 	@ResponseBody
 	@RequestMapping(value = "/removeHandover")
-	//@RequiresPermissions("handover:remove")
+	@RequiresPermissions("handover:remove")
 	public String removeHandover(int id) {
 		try {
 			 Handover handover = handoverService.find(id);
@@ -198,6 +198,7 @@ public class HandoverController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/expotHandover")
+	@RequiresPermissions("handover:expotHandover")
 	public String expotHandover(int id,HttpServletResponse response){
 		try {
 			Handover handover = handoverService.find(id);
@@ -215,6 +216,7 @@ public class HandoverController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/expotStorageHandover")
+	@RequiresPermissions("handover:expotStorageHandover")
 	public String expotStorageHandover(int id,HttpServletResponse response){
 		try {
 			Handover handover = handoverService.find(id);

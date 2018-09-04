@@ -8,6 +8,7 @@ import java.util.Map;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +59,7 @@ public class ReturnSingleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-//	@RequiresPermissions("returnSingle:save")
+	@RequiresPermissions("returnSingle:save")
 	public String save(ReturnSingle returnSingle) {
 		try {
 			String[] returnSingles = returnSingle.getSampleIds().split(",");
@@ -116,7 +117,7 @@ public class ReturnSingleController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/guihuan")
-	//@RequiresPermissions("returnSingle:guihuan")
+	@RequiresPermissions("returnSingle:guihuan")
 	public String guihuan(ReturnSingle returnSingle) {
 		try {
 			Date d = new Date();

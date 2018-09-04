@@ -27,6 +27,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -81,6 +82,7 @@ public class JiandujianchaController{
 	 *导出监督检查档案模板 (小麦)
 	 */
 	@RequestMapping(value="/ExportJiandujianchaXM/{params}")
+	@RequiresPermissions("ExportJDJCDA:ExportJiandujianchaXM")
 	public void ExportJiandujianchaXM(HttpServletResponse response,@PathVariable String params) throws Exception{
 		FileInputStream fileInput;
 	      POIUtils utils = new POIUtils();
@@ -857,6 +859,7 @@ public class JiandujianchaController{
 	 *导出监督检查档案模板 (玉米)
 	 */
 	@RequestMapping(value="/ExportJiandujianchaYM/{params}")
+	@RequiresPermissions("ExportJDJCDA:ExportJiandujianchaYM")
 	public void ExportJiandujianchaYM(HttpServletResponse response,@PathVariable String params) throws Exception{
 		FileInputStream fileInput;
 	      POIUtils utils = new POIUtils();

@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,7 +70,7 @@ public class TestItemController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "/save")
-//	@RequiresPermissions("testItem:save")
+	@RequiresPermissions("testItem:save")
 	public String save(String params) {
 		List<TestItem> list;
 		try {

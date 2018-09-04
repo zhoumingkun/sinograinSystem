@@ -14,6 +14,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +54,7 @@ public class ImportExcelController {
      */
     @ResponseBody
 	@RequestMapping(value = "/importExcelZFSZ", method = RequestMethod.POST)
+    @RequiresPermissions("import:importExcelZFSZ")
 	public List<ImportZhifangsuanzhi> importExcelZFSZ(MultipartHttpServletRequest muiltRequest, HttpServletRequest req) {
         try {
         	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
@@ -61,7 +63,8 @@ public class ImportExcelController {
 			
 			//读取Excel文件
 			Workbook wb = util.read(file);
-			
+			//获取公式的值的接口
+			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
             Sheet sheet = wb.getSheetAt(0);    //获得第一个表单  
             
             //System.out.println("总行数:"+sheet.getLastRowNum());
@@ -77,7 +80,7 @@ public class ImportExcelController {
             	ImportZhifangsuanzhi ir = new ImportZhifangsuanzhi();
             	
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setPingjunzhi(util.getCellValue(row.getCell(7)));//
+            	ir.setPingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(7))));//
             	ir.setBeizhu_1(util.getCellValue(row.getCell(8)));
             	ir.setBeizhu_2(util.getCellValue(row.getCell(9)));
             	
@@ -93,7 +96,7 @@ public class ImportExcelController {
         				item.setKoh_rongyeyongliang_1(util.getCellValue(row.getCell(3)));
         				item.setKoh_rongyenongdu(util.getCellValue(row.getCell(4)));
         				item.setKongbai(util.getCellValue(row.getCell(5)));
-        				item.setZhifangsuanzhi(util.getCellValue(row.getCell(6)));//
+        				item.setZhifangsuanzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(6))));//
         				items.add(item);
         			}
         			i--;
@@ -105,7 +108,7 @@ public class ImportExcelController {
     				item.setKoh_rongyeyongliang_1(util.getCellValue(row.getCell(3)));
     				item.setKoh_rongyenongdu(util.getCellValue(row.getCell(4)));
     				item.setKongbai(util.getCellValue(row.getCell(5)));
-    				item.setZhifangsuanzhi(util.getCellValue(row.getCell(6)));//
+    				item.setZhifangsuanzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(6))));//
     				items.add(item);
             	}
             	ir.setItems(items);
@@ -128,6 +131,7 @@ public class ImportExcelController {
      */
     @ResponseBody
 	@RequestMapping(value = "/importExcelBWSLYM", method = RequestMethod.POST)
+    @RequiresPermissions("import:importExcelBWSLYM")
     public List<ImportBuwanshanliYM> importExcelBWSLYM(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
         try {
         	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
@@ -159,7 +163,7 @@ public class ImportExcelController {
             	ir.setBuwanshanli_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(17))));//
             	ir.setShengmeili_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(20))));//
             	ir.setSeze_qiwei(util.getCellValue(row.getCell(21)));
-            	ir.setRongzhong_pingjunzhi(util.getCellValue(row.getCell(23)));
+            	ir.setRongzhong_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(23))));//
             	ir.setJianceren(util.getCellValue(row.getCell(24)));
             	ir.setBeizhu_1(util.getCellValue(row.getCell(25)));
             	ir.setBeizhu_2(util.getCellValue(row.getCell(26)));
@@ -186,8 +190,8 @@ public class ImportExcelController {
         				item.setBuwanshanli(util.getCellValue(row.getCell(15)));
         				item.setBuwanshanli_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(16))));//
         				item.setShengmeili(util.getCellValue(row.getCell(18)));
-        				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(19)));
-        				item.setRongzhong_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(22))));//
+        				item.setShengmeili_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(19))));//
+        				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
         				
         				items.add(item);
         			}
@@ -209,8 +213,8 @@ public class ImportExcelController {
     				item.setBuwanshanli(util.getCellValue(row.getCell(15)));
     				item.setBuwanshanli_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(16))));//
     				item.setShengmeili(util.getCellValue(row.getCell(18)));
-    				item.setShengmeili_cedingzhi(util.getCellValue(row.getCell(19)));
-    				item.setRongzhong_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(22))));//
+    				item.setShengmeili_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(19))));
+    				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
     				
     				items.add(item);
             	}
@@ -235,6 +239,7 @@ public class ImportExcelController {
      */
     @ResponseBody
 	@RequestMapping(value = "/importExcelMJXS", method = RequestMethod.POST)
+    @RequiresPermissions("import:importExcelMJXS")
     public List<ImportMianjinxishuiliang> importExcelMJXS(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
     	try {
 	    	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
@@ -244,7 +249,8 @@ public class ImportExcelController {
 			//读取Excel文件
 			Workbook wb;
 				wb = util.read(file);
-			
+				//获取公式的值的接口
+			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
 	        Sheet sheet = wb.getSheetAt(0);    //获得第一个表单  
 	        
 	        //System.out.println("总行数:"+sheet.getLastRowNum());
@@ -260,7 +266,7 @@ public class ImportExcelController {
             	ImportMianjinxishuiliang ir = new ImportMianjinxishuiliang();
             	
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setPingjunzhi_ganmianjinzhiliang(util.getCellValue(row.getCell(5)));
+            	ir.setPingjunzhi_ganmianjinzhiliang(util.getCellValue(evaluator.evaluateInCell(row.getCell(5))));//
             	ir.setBeizhu_1(util.getCellValue(row.getCell(6)));
             	ir.setBeizhu_2(util.getCellValue(row.getCell(7)));
             	
@@ -274,7 +280,7 @@ public class ImportExcelController {
         				item.setShiyangzhiliang(util.getCellValue(row.getCell(1)));
         				item.setShimianjinzhiliang(util.getCellValue(row.getCell(2)));
         				item.setGanmianjinzhiliang(util.getCellValue(row.getCell(3)));
-        				item.setMianjinxishuiliang(util.getCellValue(row.getCell(4)));
+        				item.setMianjinxishuiliang(util.getCellValue(evaluator.evaluateInCell(row.getCell(4))));//
         				items.add(item);
         			}
         			i--;
@@ -284,7 +290,7 @@ public class ImportExcelController {
     				item.setShiyangzhiliang(util.getCellValue(row.getCell(1)));
     				item.setShimianjinzhiliang(util.getCellValue(row.getCell(2)));
     				item.setGanmianjinzhiliang(util.getCellValue(row.getCell(3)));
-    				item.setMianjinxishuiliang(util.getCellValue(row.getCell(4)));
+    				item.setMianjinxishuiliang(util.getCellValue(evaluator.evaluateInCell(row.getCell(4))));//
     				items.add(item);
             	}
             	ir.setItems(items);
@@ -310,6 +316,7 @@ public class ImportExcelController {
      */
     @ResponseBody
 	@RequestMapping(value = "/importExcelSF", method = RequestMethod.POST)
+    @RequiresPermissions("import:importExcelSF")
     public List<ImportShuifen> importExcelSF(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
     	try {
 	    	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
@@ -319,7 +326,8 @@ public class ImportExcelController {
 			//读取Excel文件
 			Workbook wb;
 				wb = util.read(file);
-			
+				//获取公式的值的接口
+			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
 	        Sheet sheet = wb.getSheetAt(0);    //获得第一个表单  
 	        
 	        //System.out.println("总行数:"+sheet.getLastRowNum());
@@ -335,7 +343,7 @@ public class ImportExcelController {
             	ImportShuifen ir = new ImportShuifen();
             	
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setPingjunzhi(util.getCellValue(row.getCell(6)));
+            	ir.setPingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(6))));//
             	ir.setBeizhu_1(util.getCellValue(row.getCell(7)));
             	ir.setBeizhu_2(util.getCellValue(row.getCell(8)));
             	
@@ -349,7 +357,7 @@ public class ImportExcelController {
         				item.setHongqianqiminzhiliang(util.getCellValue(row.getCell(1)));
         				item.setShiyangzhiliang(util.getCellValue(row.getCell(2)));
         				item.setHengzhongqiminj_shiyangzhiliang(util.getCellValue(row.getCell(3)));
-        				item.setShuifenhanliang(util.getCellValue(row.getCell(4)));
+        				item.setShuifenhanliang(util.getCellValue(evaluator.evaluateInCell(row.getCell(4))));//
         				
         				items.add(item);
         			}
@@ -360,7 +368,7 @@ public class ImportExcelController {
     				item.setHongqianqiminzhiliang(util.getCellValue(row.getCell(1)));
     				item.setShiyangzhiliang(util.getCellValue(row.getCell(2)));
     				item.setHengzhongqiminj_shiyangzhiliang(util.getCellValue(row.getCell(3)));
-    				item.setShuifenhanliang(util.getCellValue(row.getCell(4)));
+    				item.setShuifenhanliang(util.getCellValue(evaluator.evaluateInCell(row.getCell(4))));//
     				items.add(item);
             	}
             	ir.setItems(items);
@@ -385,6 +393,7 @@ public class ImportExcelController {
      */
     @ResponseBody
 	@RequestMapping(value = "/importExcelBWSLXM", method = RequestMethod.POST)
+    @RequiresPermissions("import:importExcelBWSLXM")
     public List<ImportBuwanshanliXM> importExcelBWSLXM(MultipartHttpServletRequest muiltRequest, HttpServletRequest req){
         try {
         	String fileName = muiltRequest.getFileNames().next(); // 得到文件名（注意。是content-type
@@ -393,7 +402,8 @@ public class ImportExcelController {
 			
 			//读取Excel文件
 			Workbook wb = util.read(file);
-			
+			//获取公式的值的接口
+			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
             Sheet sheet = wb.getSheetAt(0);    //获得第一个表单  
             
             //System.out.println("总行数:"+sheet.getLastRowNum());
@@ -408,14 +418,14 @@ public class ImportExcelController {
             	Row row = sheet.getRow(i);
             	ImportBuwanshanliXM ir = new ImportBuwanshanliXM();
             	ir.setSampleNum(util.getCellValue(row.getCell(0)));
-            	ir.setDaza_pingjunzhi(util.getCellValue(row.getCell(5)));//
-            	ir.setXiaoza_pingjunzhi(util.getCellValue(row.getCell(9)));//
-            	ir.setZazhizongliang_pingjunzhi(util.getCellValue(row.getCell(11)));//
-            	ir.setKuangwuzhizongliang_pingjunzhi(util.getCellValue(row.getCell(14)));//
+            	ir.setDaza_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(5))));//
+            	ir.setXiaoza_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(9))));//
+            	ir.setZazhizongliang_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(11))));//
+            	ir.setKuangwuzhizongliang_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(14))));//
             	ir.setYizhongliang_pingjunzhi(util.getCellValue(row.getCell(17)));
-            	ir.setBuwanshanli_pingjunzhi(util.getCellValue(row.getCell(20)));
+            	ir.setBuwanshanli_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(20))));//
             	ir.setSeze_qiwei(util.getCellValue(row.getCell(21)));
-            	ir.setRongzhong_pingjunzhi(util.getCellValue(row.getCell(23)));
+            	ir.setRongzhong_pingjunzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(23))));//
             	ir.setJianceren(util.getCellValue(row.getCell(24)));
             	ir.setBeizhu_1(util.getCellValue(row.getCell(25)));
             	ir.setBeizhu_2(util.getCellValue(row.getCell(26)));
@@ -433,17 +443,17 @@ public class ImportExcelController {
         				item.setShiyanghao(util.getCellValue(row.getCell(1)));
         				item.setDayangzhiliang(util.getCellValue(row.getCell(2)));
         				item.setDazazhilaing(util.getCellValue(row.getCell(3)));
-        				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));//
+        				item.setDaza_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(4))));//
         				item.setXiaoyangzhiliang(util.getCellValue(row.getCell(6)));
         				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
-        				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));//
-        				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));//
+        				item.setXiaoza_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(8))));//
+        				item.setZazhizongliang_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(10))));//
         				item.setKuangwuzhi(util.getCellValue(row.getCell(12)));
-        				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(row.getCell(13)));//
+        				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(13))));//
         				item.setYizhongliang(util.getCellValue(row.getCell(15)));
         				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(16)));
         				item.setBuwanshanli(util.getCellValue(row.getCell(18)));
-        				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(19)));//
+        				item.setBuwanshanli_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(19))));//
         				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
         				
         				items.add(item);
@@ -456,17 +466,17 @@ public class ImportExcelController {
         			item.setShiyanghao(util.getCellValue(row.getCell(1)));
     				item.setDayangzhiliang(util.getCellValue(row.getCell(2)));
     				item.setDazazhilaing(util.getCellValue(row.getCell(3)));
-    				item.setDaza_cedingzhi(util.getCellValue(row.getCell(4)));//
+    				item.setDaza_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(4))));//
     				item.setXiaoyangzhiliang(util.getCellValue(row.getCell(6)));
     				item.setXiaozazhiliang(util.getCellValue(row.getCell(7)));
-    				item.setXiaoza_cedingzhi(util.getCellValue(row.getCell(8)));//
-    				item.setZazhizongliang_cedingzhi(util.getCellValue(row.getCell(10)));//
+    				item.setXiaoza_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(8))));//
+    				item.setZazhizongliang_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(10))));//
     				item.setKuangwuzhi(util.getCellValue(row.getCell(12)));
-    				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(row.getCell(13)));//
+    				item.setKuangwuzhizongliang_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(13))));//
     				item.setYizhongliang(util.getCellValue(row.getCell(15)));
     				item.setYizhongliang_cedingzhi(util.getCellValue(row.getCell(16)));
     				item.setBuwanshanli(util.getCellValue(row.getCell(18)));
-    				item.setBuwanshanli_cedingzhi(util.getCellValue(row.getCell(19)));//
+    				item.setBuwanshanli_cedingzhi(util.getCellValue(evaluator.evaluateInCell(row.getCell(19))));//
     				item.setRongzhong_cedingzhi(util.getCellValue(row.getCell(22)));
     				
     				items.add(item);

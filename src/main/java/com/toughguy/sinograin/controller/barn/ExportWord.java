@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +50,7 @@ public class ExportWord {
      * @throws Exception
      */
      @RequestMapping(value="exportWordXM")
+     @RequiresPermissions("export:exportWordXM")
      public void exportWordXM(HttpServletResponse response,String sampleNum) throws Exception {
     	 	Sample s = sampleService.findBySampleNum(sampleNum);
     	 	Map<String, Object> params = replace(s.getId());
@@ -85,6 +87,7 @@ public class ExportWord {
      * @throws Exception
      */
     @RequestMapping(value="exportWordYM")
+    @RequiresPermissions("export:exportWordYM")
      public void exportWordYM(HttpServletResponse response,String sampleNum) throws Exception {  
     		Sample s = sampleService.findBySampleNum(sampleNum);
     		Map<String, Object> params = replace(s.getId());
@@ -120,6 +123,7 @@ public class ExportWord {
      * @throws Exception
      */
      @RequestMapping(value="exportWordTestItem")
+     @RequiresPermissions("export:exportWordTestItem")
      public void exportWordTestItem(HttpServletResponse response,int sampleId) throws Exception {  
             Map<String, Object> params = new HashMap<String, Object>();  
             Sample sample = sampleService.find(sampleId);

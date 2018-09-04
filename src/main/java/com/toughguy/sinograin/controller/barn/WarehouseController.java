@@ -46,6 +46,7 @@ public class WarehouseController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/save")
+	@RequiresPermissions("warehouse:save")
 	public String save(Warehouse warehouse) {
 		try {
 			warehouseService.save(warehouse);
