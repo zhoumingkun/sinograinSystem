@@ -40,6 +40,7 @@ import com.toughguy.sinograin.persist.barn.prototype.ICornExaminingReportDao;
 import com.toughguy.sinograin.persist.barn.prototype.IRecordDao;
 import com.toughguy.sinograin.persist.barn.prototype.IWheatExaminingReportDao;
 import com.toughguy.sinograin.service.barn.prototype.IBarnService;
+import com.toughguy.sinograin.service.barn.prototype.IHandoverService;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
 import com.toughguy.sinograin.service.barn.prototype.ISafetyReportService;
@@ -83,6 +84,8 @@ public class SampleController {
 	private IRecordDao recordDao;
 	@Autowired
 	private ISafetyReportService safetyReportService;
+	@Autowired
+	private IHandoverService handoverService;
 
 	@ResponseBody
 	@RequestMapping(value = "/getAll")
@@ -310,6 +313,40 @@ public class SampleController {
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("total", pg.getTotal());
 			result.put("rows", pg.getData());
+			return om.writeValueAsString(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{ \"total\" : 0, \"rows\" : [] }";
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "/editData")
+//	@RequiresPermissions("sample:list")
+	public String editData(String params,int handoverId) {
+		try {
+			ObjectMapper om = new ObjectMapper();
+			Map<String, Object> map = new HashMap<String, Object>();
+			if (!StringUtils.isEmpty(params)) {
+				// 参数处理
+				map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+				});
+			}
+			PagerModel<Sample> pg = sampleService.findPaginated(map);
+			List<Sample> ss = new ArrayList<Sample>();
+			// 序列化查询结果为JSON
+			for(Sample p:pg.getData()) {
+				p.setStorage(p.getDepot() + "--" + p.getCounter() + "--" + p.getPlace());
+				ss.add(p);
+			}
+			String[] sampleIds = handoverService.find(handoverId).getSampleIds().split(",");
+			System.out.println(sampleIds.length);
+			for(int i=0;i<sampleIds.length;i++) {
+				Sample s = sampleService.find(Integer.parseInt(sampleIds[i]));
+				ss.add(s);
+			}
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("total", pg.getTotal());
+			result.put("rows", ss);
 			return om.writeValueAsString(result);
 		} catch (Exception e) {
 			e.printStackTrace();

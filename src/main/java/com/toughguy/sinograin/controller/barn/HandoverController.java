@@ -233,5 +233,44 @@ public class HandoverController {
 		return handoverService.findSampleByCheckPoint(checkPoint);
 			
 	}
+	/**
+	 * 修改交接单
+	 * @param checkPoint
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editHandover")
+	public String editHandover(Handover handover){
+		try {
+			//查出该交接单，将交接单中的样品恢复状态
+			Handover handover1 = handoverService.find(handover.getId());
+			String[] sampleIds1 = handover1.getSampleIds().split(",");
+			for(int i=0;i<sampleIds1.length;i++) {
+				Sample sample = sampleService.find(Integer.parseInt(sampleIds1[i]));
+				sample.setSampleState(2);
+				sampleService.update(sample);
+			}
+			//查出修改后的交接单的样品
+			String[] sampleIds2 = handover.getSampleIds().split(",");
+			for(int i=0;i<sampleIds2.length;i++) {
+				Sample sample = sampleService.find(Integer.parseInt(sampleIds2[i]));
+				sample.setSampleState(3);
+				sampleService.update(sample);
+			}
+			handoverService.update(handover);
+			return "{ \"success\" : true}";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Handover handover1 = handoverService.find(handover.getId());
+			String[] sampleIds = handover1.getSampleIds().split(",");
+			for(int i=0;i<sampleIds.length;i++) {
+				Sample sample = sampleService.find(Integer.parseInt(sampleIds[i]));
+				sample.setSampleState(3);
+				sampleService.update(sample);
+			}
+			return "{ \"success\" : false}";
+		}
+	}
 	
 }
