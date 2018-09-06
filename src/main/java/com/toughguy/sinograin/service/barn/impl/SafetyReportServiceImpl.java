@@ -55,7 +55,8 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 				SafetyReport safetyReport = safetyReportService.find(ids[j]);
 				HSSFSheet sh = workbook.getSheetAt(0);  
 				HSSFRow row = sh.createRow(j+2);
-				row.setHeight((short) 300);
+//				row.setHeight((short) 600);
+				row.setHeightInPoints(30);
 				HSSFCell createCell = row.createCell(0);
 				createCell.setCellStyle(utils.Style2(workbook));
 				createCell.setCellValue(j+1);
