@@ -205,8 +205,9 @@ public class POIUtils {
 				HSSFFont fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
-				style.setWrapText(true); 
-				 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setWrapText(true);
+				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
+				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
 				style.setFont(fon);// 选择需要用到的字体格式
 				return style;
 			}

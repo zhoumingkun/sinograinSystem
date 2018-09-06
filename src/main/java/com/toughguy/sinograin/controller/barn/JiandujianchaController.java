@@ -653,8 +653,12 @@ public class JiandujianchaController{
 					//
 					HSSFCell createCell86 = row5.createCell(10);
 					createCell86.setCellStyle(utils.Style23(workbook));
-					createCell86.setCellValue(r.getQualityGrade());  //等级
-	                
+					if(r.getQualityGrade()==0){
+						createCell86.setCellValue("");
+					}else{
+						createCell86.setCellValue(r.getQualityGrade());//等级
+					}
+					
 	                HSSFCell createCell87 = row6.createCell(10);
 	                createCell87.setCellStyle(utils.Style20(workbook));
 	                createCell87.setCellValue(r.getRongzhong());  //容重
@@ -773,7 +777,12 @@ public class JiandujianchaController{
 					for(int a=1;a<=r.getProblem().length;a++) {
 						problem += "问题"+ a + ":" + r.getProblem()[a-1] + ",";
 					}
-					createCell1081.setCellValue(problem.substring(0, problem.length()-4));  //问题
+					if(problem.substring(0, problem.length()-4)==null){
+						createCell1081.setCellValue("");
+					}else{
+						createCell1081.setCellValue(problem.substring(0, problem.length()-4));
+					}
+//					createCell1081.setCellValue(problem.substring(0, problem.length()-4));  //问题
 					
 					HSSFRow row13 = sh.createRow(13+i*9);
 					row13.setHeightInPoints(37); // 行高
@@ -822,7 +831,12 @@ public class JiandujianchaController{
 					HSSFCell createCell118 = row13.createCell(14);
 					utils.setRegionStyle(sh, region27, utils.Style22(workbook));
 					sh.addMergedRegion(region27);
-					createCell118.setCellValue(r.getRummager());  //记录人
+					if(r.getRummager()==null){
+						createCell118.setCellValue("");
+					}else{
+						createCell118.setCellValue(r.getRummager());
+					}
+//					createCell118.setCellValue(r.getRummager());  //记录人
 					
 					HSSFCell createCell120 = row13.createCell(16);
 					createCell120.setCellStyle(utils.Style22(workbook));
@@ -1406,7 +1420,12 @@ public class JiandujianchaController{
 					//
 					HSSFCell createCell86 = row5.createCell(10);
 					createCell86.setCellStyle(utils.Style23(workbook));
-					createCell86.setCellValue(r.getQualityGrade());  //等级
+					if(r.getQualityGrade()==0){
+						createCell86.setCellValue("");
+					}else{
+						createCell86.setCellValue(r.getQualityGrade());//等级
+					}
+//					createCell86.setCellValue(r.getQualityGrade());  //等级
 	                
 	                HSSFCell createCell87 = row6.createCell(10);
 	                createCell87.setCellStyle(utils.Style20(workbook));
@@ -1526,7 +1545,12 @@ public class JiandujianchaController{
 					for(int a=1;a<=r.getProblem().length;a++) {
 						problem += "问题"+ a + ":" + r.getProblem()[a-1] + ",";
 					}
-					createCell1081.setCellValue(problem.substring(0, problem.length()-1));  //问题
+					if(r.getRummager()==null){
+						createCell1081.setCellValue("");
+					}else{
+						createCell1081.setCellValue(problem.substring(0, problem.length()-1));
+					}
+//					createCell1081.setCellValue(problem.substring(0, problem.length()-1));  //问题
 					
 					
 					HSSFRow row13 = sh.createRow(13+i*9);
@@ -1576,7 +1600,12 @@ public class JiandujianchaController{
 					HSSFCell createCell118 = row13.createCell(14);
 					utils.setRegionStyle(sh, region27, utils.Style22(workbook));
 					sh.addMergedRegion(region27);
-					createCell118.setCellValue(r.getRummager());  //记录人
+					if(r.getRummager()==null){
+						createCell118.setCellValue("");
+					}else{
+						createCell118.setCellValue(r.getRummager());
+					}
+//					createCell118.setCellValue(r.getRummager());  //记录人
 					
 					HSSFCell createCell120 = row13.createCell(16);
 					createCell120.setCellStyle(utils.Style22(workbook));
