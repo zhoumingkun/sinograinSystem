@@ -470,7 +470,9 @@ public class SampleController {
 					w.setShuifen(t.getResult());
 					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 12.5) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else {
 						w.setJieguopanding1("不达标");
 					}
@@ -478,7 +480,9 @@ public class SampleController {
 					w.setZazhizongliang(t.getResult());
 					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 1.0) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else {
 						w.setJieguopanding1("不达标");
 					}
@@ -486,7 +490,9 @@ public class SampleController {
 					w.setZazhikuangwuzhi(t.getResult());
 					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 0.5) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else {
 						w.setJieguopanding1("不达标");
 					}
@@ -494,7 +500,9 @@ public class SampleController {
 					w.setBuwanshanli(t.getResult());
 					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 8.0) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else {
 						w.setJieguopanding1("不达标");
 					}
@@ -502,7 +510,9 @@ public class SampleController {
 					w.setSezeqiwei1(t.getResult());
 					jianceren += t.getPrincipal() + ",";
 					if(t.getResult().equals("正常")) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else {
 						w.setJieguopanding1("不达标");
 					}
@@ -510,9 +520,13 @@ public class SampleController {
 					w.setYingduzhishu(t.getResult());
 					jianceren += t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) >= 60) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else if(Double.parseDouble(t.getResult()) > 45 && Double.parseDouble(t.getResult()) < 60) {
-						w.setJieguopanding1("达标");
+						if(w.getJieguopanding1().equals("") || w.getJieguopanding1() == null) {
+							w.setJieguopanding1("达标");
+						}
 					} else {
 						w.setJieguopanding1("不达标");
 					}
@@ -558,10 +572,10 @@ public class SampleController {
 					jiancerenList.add(jianceren1[a]);
 				}
 			}
-			for(int b=0;b<jiancerenList.size();i++) {
-				jianceren3 = jiancerenList.get(i) + ",";
+			for(int b=0;b<jiancerenList.size();b++) {
+				jianceren3 = jiancerenList.get(b) + ",";
 			}
-			w.setJianceren(jianceren3.substring(0, jianceren.length()-1));
+			w.setJianceren(jianceren3.substring(0, jianceren3.length()-1));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			w.setJianceshijian(sdf.format(jianceshijian));
 			ws.add(w);
@@ -667,7 +681,9 @@ public class SampleController {
 					cornExaminingReport.setShuifen(t.getResult());
 					jianceren = t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 14.0) {
-						cornExaminingReport.setJieguopanding1("达标");
+						if(cornExaminingReport.getJieguopanding1().equals("") || cornExaminingReport.getJieguopanding1() == null) {
+							cornExaminingReport.setJieguopanding1("达标");
+						}
 					} else {
 						cornExaminingReport.setJieguopanding1("不达标");
 					}
@@ -675,7 +691,9 @@ public class SampleController {
 					cornExaminingReport.setZazhi(t.getResult());
 					jianceren = t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 1.0) {
-						cornExaminingReport.setJieguopanding1("达标");
+						if(cornExaminingReport.getJieguopanding1().equals("") || cornExaminingReport.getJieguopanding1() == null) {
+							cornExaminingReport.setJieguopanding1("达标");
+						}
 					} else {
 						cornExaminingReport.setJieguopanding1("不达标");
 					}
@@ -683,7 +701,9 @@ public class SampleController {
 					cornExaminingReport.setBuwanshanlizongliang(t.getResult());
 					jianceren = t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 8.0) {
-						cornExaminingReport.setJieguopanding1("达标");
+						if(cornExaminingReport.getJieguopanding1().equals("") || cornExaminingReport.getJieguopanding1() == null) {
+							cornExaminingReport.setJieguopanding1("达标");
+						}
 					} else {
 						cornExaminingReport.setJieguopanding1("不达标");
 					}
@@ -691,7 +711,9 @@ public class SampleController {
 					cornExaminingReport.setBuwanshanlishengmeikeli(t.getResult());
 					jianceren = t.getPrincipal() + ",";
 					if(Double.parseDouble(t.getResult()) <= 2.0) {
-						cornExaminingReport.setJieguopanding1("达标");
+						if(cornExaminingReport.getJieguopanding1().equals("") || cornExaminingReport.getJieguopanding1() == null) {
+							cornExaminingReport.setJieguopanding1("达标");
+						}
 					} else {
 						cornExaminingReport.setJieguopanding1("不达标");
 					}
@@ -699,7 +721,9 @@ public class SampleController {
 					cornExaminingReport.setSezeqiwei1(t.getResult());
 					jianceren = t.getPrincipal() + ",";
 					if(t.getResult().equals("正常")) {
-						cornExaminingReport.setJieguopanding1("达标");
+						if(cornExaminingReport.getJieguopanding1().equals("") || cornExaminingReport.getJieguopanding1() == null) {
+							cornExaminingReport.setJieguopanding1("达标");
+						}
 					} else {
 						cornExaminingReport.setJieguopanding1("不达标");
 					}
