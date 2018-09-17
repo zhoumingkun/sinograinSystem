@@ -13,11 +13,12 @@ public class SmallSample extends AbstractModel {
 	
 	private String smallSampleNum;		//小样编号
 	private int sampleId;				//样品id
-	private int checkPoint;				//检测项（1 不完善粒、杂质、生霉粒  2 水分 3 硬度 4 脂肪酸值 5 品尝评分 6 卫生  7 加工品质）
+	private String checkPoint;				//检测项（1 不完善粒、杂质、生霉粒  2 水分 3 硬度 4 脂肪酸值 5 品尝评分 6 卫生  7 加工品质）
 	private int checkId;				//检测id
 	private String smallSamplePic;		//小样条形码
 	private int state;                  //检验单的状态 1，创建  2，编辑
-	private int taskId;                 //任务id
+//	private int taskId;                 //任务id
+	private String smallSampleWord;     //小样编号文字版
 	
 	private String sampleNum;	//检测编号 (页面展示)
 	private String sampleWord;  //扦样编号(页面展示文字)
@@ -35,10 +36,11 @@ public class SmallSample extends AbstractModel {
 	public void setSampleId(int sampleId) {
 		this.sampleId = sampleId;
 	}
-	public int getCheckPoint() {
+	
+	public String getCheckPoint() {
 		return checkPoint;
 	}
-	public void setCheckPoint(int checkPoint) {
+	public void setCheckPoint(String checkPoint) {
 		this.checkPoint = checkPoint;
 	}
 	public int getCheckId() {
@@ -75,14 +77,21 @@ public class SmallSample extends AbstractModel {
 		this.state = state;
 	}
 	
-	public int getTaskId() {
-		return taskId;
-	}
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
-	}
+//	public int getTaskId() {
+//		return taskId;
+//	}
+//	public void setTaskId(int taskId) {
+//		this.taskId = taskId;
+//	}
+	
 	public String getSampleWord() {
 		return sampleWord;
+	}
+	public String getSmallSampleWord() {
+		return smallSampleWord;
+	}
+	public void setSmallSampleWord(String smallSampleWord) {
+		this.smallSampleWord = smallSampleWord;
 	}
 	public void setSampleWord(String sampleWord) {
 		this.sampleWord = sampleWord;

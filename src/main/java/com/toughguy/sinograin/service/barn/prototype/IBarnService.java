@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.service.barn.prototype;
 
+import java.util.List;
+
 import com.toughguy.sinograin.dto.SamplingDTO;
 import com.toughguy.sinograin.model.barn.Handover;
 import com.toughguy.sinograin.model.barn.Sample;
@@ -29,7 +31,7 @@ public interface IBarnService {
 	 * 实现扫码将样品分小样
 	 * sample  样品实体
 	 * */
-	public void saveSmallSample(Sample sample,int taskId);
+	public void saveSmallSample(Sample sample);
 	
 	/**
 	 * 临时保存扦样表及表数据

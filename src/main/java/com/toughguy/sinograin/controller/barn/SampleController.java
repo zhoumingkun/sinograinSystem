@@ -5,10 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -241,58 +239,110 @@ public class SampleController {
 		}
 	}
 
+//	@ResponseBody
+//	@RequestMapping(value = "/split")
+//	// @RequiresPermissions("sample:split")
+//	public String splitSample(int id, int isPrint, String params) {
+//		try {
+//			if (isPrint == 3) {
+//				ObjectMapper om = new ObjectMapper();
+//				Map<String, Object> map = new HashMap<String, Object>();
+//				if (!StringUtils.isEmpty(params)) {
+//					// 参数处理
+//					map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+//					});
+//				}
+//				List<SmallSample> smallSamples = smallSampleService.findAll(map);
+//				String smallSampleNums = null;
+//				for (SmallSample smallSample : smallSamples) {
+//					if (smallSampleNums == null) {
+//						smallSampleNums = smallSample.getSmallSampleNum() + ",";
+//					} else {
+//						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
+//					}
+//				}
+//				String ss = smallSampleNums.substring(0, smallSampleNums.length() - 1);
+//				return ss;
+//			} else {
+//				Sample sample = sampleService.find(id);
+//				barnService.saveSmallSample(sample);
+//				ObjectMapper om = new ObjectMapper();
+//				Map<String, Object> map = new HashMap<String, Object>();
+//				if (!StringUtils.isEmpty(params)) {
+//					// 参数处理
+//					map = om.readValue(params, new TypeReference<Map<String, Object>>() {
+//					});
+//				}
+//				List<SmallSample> smallSamples = smallSampleService.findAll(map);
+//				String smallSampleNums = null;
+//				for (SmallSample smallSample : smallSamples) {
+//					if (smallSampleNums == null) {
+//						smallSampleNums = smallSample.getSmallSampleNum() + ",";
+//					} else {
+//						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
+//					}
+//				}
+//				String ss = smallSampleNums.substring(0, smallSampleNums.length() - 1);
+//				return ss;
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "{ \"success\" : false }";
+//		}
+//	}
+	/**
+	 * 分小样方法
+	 * @param sampleNum
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/split")
 	// @RequiresPermissions("sample:split")
-	public String splitSample(int id, int isPrint, String params, int taskId) {
-		try {
-			if (isPrint == 3) {
-				ObjectMapper om = new ObjectMapper();
-				Map<String, Object> map = new HashMap<String, Object>();
-				if (!StringUtils.isEmpty(params)) {
-					// 参数处理
-					map = om.readValue(params, new TypeReference<Map<String, Object>>() {
-					});
-				}
-				List<SmallSample> smallSamples = smallSampleService.findAll(map);
-				String smallSampleNums = null;
-				for (SmallSample smallSample : smallSamples) {
-					if (smallSampleNums == null) {
-						smallSampleNums = smallSample.getSmallSampleNum() + ",";
-					} else {
-						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
-					}
-				}
-				String ss = smallSampleNums.substring(0, smallSampleNums.length() - 1);
+	public List<SmallSample> splitSmallSampleNum(String sampleNum,String checkPoint) {
+		if(checkPoint.equals("0")) {
+			List<SmallSample> ss1 = smallSampleService.findBySampleNum(sampleNum);
+			boolean isSplit = false;
+			if(ss1.size() > 0) {
+				isSplit = true;
+			}
+			Sample sample = sampleService.findBySampleNum(sampleNum);
+			if(isSplit) {
+				List<SmallSample> ss = smallSampleService.findBySampleId(sample.getId());
 				return ss;
 			} else {
-				Sample sample = sampleService.find(id);
-				barnService.saveSmallSample(sample, taskId);
-				ObjectMapper om = new ObjectMapper();
-				Map<String, Object> map = new HashMap<String, Object>();
-				if (!StringUtils.isEmpty(params)) {
-					// 参数处理
-					map = om.readValue(params, new TypeReference<Map<String, Object>>() {
-					});
-				}
-				List<SmallSample> smallSamples = smallSampleService.findAll(map);
-				String smallSampleNums = null;
-				for (SmallSample smallSample : smallSamples) {
-					if (smallSampleNums == null) {
-						smallSampleNums = smallSample.getSmallSampleNum() + ",";
-					} else {
-						smallSampleNums = smallSampleNums + smallSample.getSmallSampleNum() + ",";
+				//分小样（打印全部小样条形码）
+				barnService.saveSmallSample(sample);
+				List<SmallSample> ss2 = smallSampleService.findBySampleId(sample.getId());
+				SmallSample smallSample = new SmallSample();
+				for(SmallSample s:ss2) {
+					if(s.getSmallSampleNum().substring(s.getSmallSampleNum().length()-1).equals("1")) {
+						smallSample.setCheckPoint(s.getCheckPoint());
+						smallSample.setSmallSamplePic(s.getSmallSamplePic());
+						smallSample.setSampleId(s.getSampleId());
+						smallSample.setSmallSampleNum(s.getSmallSampleNum().substring(0,s.getSmallSampleNum().length()-1) + "2");
+						smallSample.setState(s.getState());
+						smallSample.setSmallSampleWord(s.getSmallSampleNum().substring(0,s.getSmallSampleNum().length()-3) + "小2");
+						smallSampleService.save(smallSample);				
 					}
 				}
-				String ss = smallSampleNums.substring(0, smallSampleNums.length() - 1);
-				return ss;
+				List<SmallSample> ss3 = smallSampleService.findBySampleId(sample.getId());
+				return ss3;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "{ \"success\" : false }";
+		} else {
+			//分小样（打印其中一个小样条形码）
+			Sample sample = sampleService.findBySampleNum(sampleNum);
+			List<SmallSample> ss = smallSampleService.findBySampleId(sample.getId());
+			List<SmallSample> smallSamples = new ArrayList<SmallSample>();
+			if(ss.size() > 0) {
+				for(SmallSample s:ss) {
+					if(s.getCheckPoint().equals(checkPoint)) {
+						smallSamples.add(s);
+					}
+				}
+			}
+			return smallSamples;
 		}
 	}
-
 	@ResponseBody
 	@RequestMapping(value = "/data")
 //	@RequiresPermissions("sample:list")

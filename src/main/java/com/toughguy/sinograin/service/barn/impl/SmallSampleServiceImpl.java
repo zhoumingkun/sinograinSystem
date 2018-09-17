@@ -1,5 +1,7 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.toughguy.sinograin.model.barn.Sample;
@@ -14,5 +16,17 @@ public class SmallSampleServiceImpl extends GenericServiceImpl<SmallSample, Inte
 	@Override
 	public SmallSample findBySmallSampleNum(String smallSampleNum) {
 		return ((ISmallSampleDao)dao).findBySmallSampleNum(smallSampleNum);	
+	}
+
+	@Override
+	public List<SmallSample> findBySampleId(int sampleId) {
+		// TODO Auto-generated method stub
+		return ((ISmallSampleDao)dao).findBySampleId(sampleId);
+	}
+
+	@Override
+	public List<SmallSample> findBySampleNum(String sampleNum) {
+		// TODO Auto-generated method stub
+		return ((ISmallSampleDao)dao).findBySampleNum(sampleNum);
 	}
 }

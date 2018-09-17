@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.SmallSample">
 
 	<insert id="save" parameterType="SmallSample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state,taskId) 
-		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic},#{state},#{taskId})
+		insert into barn_small_sample (guid, createTime,updateTime,smallSampleNum,sampleId,checkPoint,checkId,smallSamplePic,state,smallSampleWord) 
+		values (#{guid}, #{createTime},#{updateTime},#{smallSampleNum},#{sampleId},#{checkPoint},#{checkId},#{smallSamplePic},#{state},#{smallSampleWord})
 	</insert>
 	
 	<!-- 删除某个小样 -->
@@ -35,6 +35,16 @@
 		select * from barn_small_sample
 		<include refid="paramsSQL"/>
 	</select>
+	<!-- 根据样品id查询小样 -->
+	<select id="findBySampleId" resultType="SmallSample" parameterType="int">
+		select * from barn_small_sample bss left join barn_sample bs on bss.sampleId = bs.id
+		where bs.id = #{sampleId}
+	</select>
+	<!-- 根据样品id查询小样 -->
+	<select id="findBySampleNum" resultType="SmallSample" parameterType="String">
+		select * from barn_small_sample bss left join barn_sample bs on bss.sampleId = bs.id
+		where bs.sampleNum = #{sampleNum}
+	</select>
 	
 	<!-- 分页查询小样 -->
 	<select id="findPaginated" resultType="SmallSample" parameterType="Map">
@@ -59,7 +69,7 @@
 			<if test="checkId != null and checkId != ''">checkId = #{checkId},</if>
 			<if test="smallSamplePic != null and smallSamplePic != ''">smallSamplePic = #{smallSamplePic},</if>
 			<if test="state != null and state != ''">state = #{state},</if>
-			<if test="taskId != null and taskId != ''">taskId = #{taskId},</if>
+			<if test="smallSampleWord != null and smallSampleWord != ''">smallSampleWord = #{smallSampleWord},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -93,9 +103,6 @@
 			
 			<if test=" state != null and state != '' ">
 				and state = #{ state }
-			</if>
-			<if test=" taskId != null and taskId != '' ">
-				and taskId = #{ taskId }
 			</if>
 		</where>
 	</sql>

@@ -39,10 +39,11 @@
 	
 	<!-- 根据样品编号查询样品id  -->
 	<select id="findBySampleNum" parameterType="String" resultType="Sample">
-		select bs.*,bwcp.place,bwc.counter,bw.depot from barn_sample bs 
+		select bs.*,bwcp.place,bwc.counter,bw.depot,bh.checkeds from barn_sample bs 
 		LEFT JOIN barn_warehouse_counter_place bwcp ON bs.placeId = bwcp.id 
 		LEFT JOIN barn_warehouse_counter bwc ON bwcp.pId = bwc.id 
 		LEFT JOIN barn_warehouse bw ON bwc.pId = bw.id
+		LEFT JOIN barn_handover bh ON FIND_IN_SET(bs.id,bh.sampleIds)
 		where bs.sampleNum = #{sampleNum}
 	</select>
 	<!-- 根据检测编号查询样品 (移动端) -->

@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -76,17 +78,94 @@ public class SamplingUtil {
 		return  year + sortInt + lib;
 	}
 	
-	public static List<String> smallSampleNums(Sample sample){
-		List <String> list = new ArrayList<String>();
+	public static Map<String, Object> smallSampleNums(Sample sample){
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> list = new ArrayList<String>();
 		if(!StringUtils.isEmpty(sample.getSampleNum())&&!StringUtils.isEmpty(sample.getCheckeds())){
 			String sampleNum = sample.getSampleNum();
 			String [] checks = sample.getCheckeds().split(",");
-			for(String s : checks){
-				String check = String.format("%02d", Integer.parseInt(s));
+			int smallSample1 = 0;
+			int smallSample7 = 0;
+			String checkPoint1 = "";
+			String checkPoint3 = "";
+			String checkPoint4 = "";
+			String checkPoint5 = "";
+			String checkPoint6 = "";
+			String checkPoint7 = "";
+			String checkPoint8 = "";
+				for(String s : checks){
+					if(s.equals("1")) {
+						smallSample1 = 1;
+						checkPoint1 += s + ",";
+					} else if(s.equals("2")) {
+						String check = String.format("%02d", 3);
+						list.add(sampleNum + "-" + check);
+						checkPoint3 = s + ",";
+					} else if(s.equals("3")) {
+						smallSample1 = 1;
+						checkPoint1 += s + ",";
+					} else if(s.equals("4")) {
+						smallSample1 = 1;
+						checkPoint1 += s + ",";
+					} else if(s.equals("5")) {
+						smallSample1 = 1;
+						checkPoint1 += s + ",";
+					} else if(s.equals("6")) {
+						smallSample1 = 1;
+						checkPoint1 += s + ",";
+					} else if(s.equals("8")) {
+						String check = String.format("%02d", 4);
+						list.add(sampleNum + "-" + check);
+						checkPoint4 += s + ",";
+					} else if(s.equals("9")) {
+						String check = String.format("%02d", 5);
+						list.add(sampleNum + "-" + check);
+						checkPoint5 += s + ",";
+					} else if(s.equals("10")) {
+						String check = String.format("%02d", 8);
+						list.add(sampleNum + "-" + check);
+						checkPoint8 += s + ",";
+					} else if(s.equals("11")) {
+						String check = String.format("%02d", 6);
+						list.add(sampleNum + "-" + check);
+						checkPoint6 += s + ",";
+					} else if(s.equals("13") || s.equals("14") || s.equals("15") || s.equals("16") || s.equals("17") || s.equals("18") || s.equals("19")) {
+						smallSample7 = 7;
+						checkPoint7 += s + ",";
+					}
+				}
+			if(smallSample1 != 0) {
+				String check = String.format("%02d", smallSample1);
 				list.add(sampleNum + "-" + check);
 			}
+			if(smallSample7 != 0) {
+				String check = String.format("%02d", smallSample7);
+				list.add(sampleNum + "-" + check);
+			}
+			map.put("list", list);
+			if(checkPoint1.length() != 0) {
+				map.put("checkPoint1", checkPoint1.substring(0, checkPoint1.length()-1));
+			}
+			if(checkPoint3.length() != 0) {
+			map.put("checkPoint3", checkPoint3.substring(0, checkPoint3.length()-1));
+			}
+			if(checkPoint4.length() != 0) {
+				map.put("checkPoint4", checkPoint4.substring(0, checkPoint4.length()-1));
+			}
+			if(checkPoint5.length() != 0) {
+				map.put("checkPoint5", checkPoint5.substring(0, checkPoint5.length()-1));
+			}
+			if(checkPoint6.length() != 0) {
+				map.put("checkPoint6", checkPoint6.substring(0, checkPoint6.length()-1));
+			}
+			if(checkPoint7.length() != 0) {
+				map.put("checkPoint7", checkPoint7.substring(0, checkPoint7.length()-1));
+			}
+			if(checkPoint8.length() != 0) {
+				map.put("checkPoint8", checkPoint8.substring(0, checkPoint8.length()-1));
+			}
 		}
-		return list;
+		return map;
 	}
 /*	public String writeProperties() throws IOException{
 		 String ranStr = null;

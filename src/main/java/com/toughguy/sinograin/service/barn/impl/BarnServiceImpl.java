@@ -1,9 +1,12 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import static org.mockito.Matchers.intThat;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +27,8 @@ import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
+
+import groovy.util.logging.Log4j2.Log4j2LoggingStrategy;
 
 @Service
 public class BarnServiceImpl implements IBarnService {
@@ -130,32 +135,65 @@ public class BarnServiceImpl implements IBarnService {
 			}
 		}
 	@Override
-	public void saveSmallSample(Sample sample,int taskId) {
-		List<String> nums = SamplingUtil.smallSampleNums(sample);
-		if(!CollectionUtils.isEmpty(nums)){
-			for(String s: nums){
-				SmallSample smallSample = new SmallSample();
-				//获取检测项
-				int point =Integer.parseInt(s.substring(s.length()-1)) ;
+	public void saveSmallSample(Sample sample) {
+		Map<String,Object> map = SamplingUtil.smallSampleNums(sample);
+		List<String> nums = (List<String>)map.get("list");
+		for(String num: nums){
+			SmallSample smallSample = new SmallSample();
+			//获取检测项
+			if(num.substring(num.length()-1).equals("1")) {
+				String point = String.valueOf(map.get("checkPoint1"));
 				smallSample.setCheckPoint(point);
-				//生成二维码
-				String path = UploadUtil.getAbsolutePath("smaBarcode");
-				File f = new File(path);  //无路径则创建 
-				if(!f.exists()){
-					f.mkdirs();
-				}
-				String barFileName = BarCodeUtil.rename("png");
-				BarCodeUtil.generateFile(s, path + "/"+ barFileName);
-				smallSample.setSmallSamplePic(barFileName);
-				smallSample.setSampleId(sample.getId());
-				smallSample.setSmallSampleNum(s);
-				smallSample.setState(1);
-				smallSample.setTaskId(taskId);
-				smallSampleService.save(smallSample);
+			} else if(num.substring(num.length()-1).equals("3")) {
+				String point = String.valueOf(map.get("checkPoint3"));
+				smallSample.setCheckPoint(point);
+			} else if(num.substring(num.length()-1).equals("4")) {
+				String point = String.valueOf(map.get("checkPoint4"));
+				smallSample.setCheckPoint(point);
+			} else if(num.substring(num.length()-1).equals("5")) {
+				String point = String.valueOf(map.get("checkPoint5"));
+				smallSample.setCheckPoint(point);
+			}  else if(num.substring(num.length()-1).equals("6")) {
+				String point = String.valueOf(map.get("checkPoint6"));
+				smallSample.setCheckPoint(point);
+			}else if(num.substring(num.length()-1).equals("7")) {
+				String point = String.valueOf(map.get("checkPoint7"));
+				smallSample.setCheckPoint(point);
+			} else if(num.substring(num.length()-1).equals("8")) {
+				String point = String.valueOf(map.get("checkPoint8"));
+				smallSample.setCheckPoint(point);
 			}
-			sample.setSampleState(3);
-			sampleService.update(sample);
-		}	
+			//生成二维码
+			String path = UploadUtil.getAbsolutePath("smaBarcode");
+			File f = new File(path);  //无路径则创建 
+			if(!f.exists()){
+				f.mkdirs();
+			}
+			String barFileName = BarCodeUtil.rename("png");
+			BarCodeUtil.generateFile(num, path + "/"+ barFileName);
+			smallSample.setSmallSamplePic(barFileName);
+			smallSample.setSampleId(sample.getId());
+			smallSample.setSmallSampleNum(num);
+			smallSample.setState(1);
+			if(num.substring(num.length()-1).equals("1")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "小1");
+			} else if(num.substring(num.length()-1).equals("3")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "水");
+			} else if(num.substring(num.length()-1).equals("4")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "硬");
+			} else if(num.substring(num.length()-1).equals("5")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "面");
+			} else if(num.substring(num.length()-1).equals("6")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "品");
+			} else if(num.substring(num.length()-1).equals("7")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "卫");
+			} else if(num.substring(num.length()-1).equals("8")) {
+				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "脂");
+			}
+			smallSampleService.save(smallSample);
+		}
+		sample.setSampleState(5);
+		sampleService.update(sample);
 	}
 
 	/**
