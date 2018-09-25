@@ -14,20 +14,19 @@ public class Cedingjilu extends AbstractModel{
 	private static final long serialVersionUID = 1081272876075110807L;
 	
 	private int smallSampleId;   			      //样品ID
-	private String table_version;			  //表格版本号
-	private Date riqi;          			  //日期
-	private String shiwen;   				  //室温
-	private String xiangduishidu;   		  //相对湿度
-	private String didian;   				  //地点
-	private String jiancefangfa;              //检测方法
-	private String yiqishebei_mingcheng_1;    //仪器设备名称1
-	private String yiqishebei_mingcheng_2;    //仪器设备名称2
-	private String yiqishebei_mingcheng_3;    //仪器设备名称3
-	private String yiqishebei_mingcheng_4;    //仪器设备名称4
-	private String yiqishebei_bianhao_1;      //仪器设备编号1
-	private String yiqishebei_bianhao_2;      //仪器设备编号2
-	private String yiqishebei_bianhao_3;      //仪器设备编号3
-	private String yiqishebei_bianhao_4;      //仪器设备编号4
+	private String c_table_version;			  //表格版本号
+	private Date c_riqi;          			  //日期
+	private String c_shiwen;   				  //室温
+	private String c_xiangduishidu;   		  //相对湿度
+	private String c_jiancefangfa;              //检测方法
+	private String c_yiqishebei_mingcheng_1;    //仪器设备名称1
+	private String c_yiqishebei_mingcheng_2;    //仪器设备名称2
+	private String c_yiqishebei_mingcheng_3;    //仪器设备名称3
+	private String c_yiqishebei_mingcheng_4;    //仪器设备名称4
+	private String c_yiqishebei_bianhao_1;      //仪器设备编号1
+	private String c_yiqishebei_bianhao_2;      //仪器设备编号2
+	private String c_yiqishebei_bianhao_3;      //仪器设备编号3
+	private String c_yiqishebei_bianhao_4;      //仪器设备编号4
 	private String rongzhong_1;               //容重1
 	private String rongzhong_2;               //容重2
 	private String rongzhong_pingjunzhi;      //容重平均值
@@ -75,96 +74,89 @@ public class Cedingjilu extends AbstractModel{
 	private String jiaohe;             	   	   //校核
 	
 	
-	public int getsmallSampleId() {
+	public int getSmallSampleId() {
 		return smallSampleId;
 	}
-	public void setsmallSampleId(int smallSampleId) {
+	public void setSmallSampleId(int smallSampleId) {
 		this.smallSampleId = smallSampleId;
 	}
-	public String getTable_version() {
-		return table_version;
+	public String getC_table_version() {
+		return c_table_version;
 	}
-	public void setTable_version(String table_version) {
-		this.table_version = table_version;
+	public void setC_table_version(String c_table_version) {
+		this.c_table_version = c_table_version;
 	}
-
-	public Date getRiqi() {
-		return riqi;
+	public Date getC_riqi() {
+		return c_riqi;
 	}
-	public void setRiqi(Date riqi) {
-		this.riqi = riqi;
+	public void setC_riqi(Date c_riqi) {
+		this.c_riqi = c_riqi;
 	}
-	public String getShiwen() {
-		return shiwen;
+	public String getC_shiwen() {
+		return c_shiwen;
 	}
-	public void setShiwen(String shiwen) {
-		this.shiwen = shiwen;
+	public void setC_shiwen(String c_shiwen) {
+		this.c_shiwen = c_shiwen;
 	}
-	public String getXiangduishidu() {
-		return xiangduishidu;
+	public String getC_xiangduishidu() {
+		return c_xiangduishidu;
 	}
-	public void setXiangduishidu(String xiangduishidu) {
-		this.xiangduishidu = xiangduishidu;
+	public void setC_xiangduishidu(String c_xiangduishidu) {
+		this.c_xiangduishidu = c_xiangduishidu;
 	}
-	public String getDidian() {
-		return didian;
+	public String getC_jiancefangfa() {
+		return c_jiancefangfa;
 	}
-	public void setDidian(String didian) {
-		this.didian = didian;
+	public void setC_jiancefangfa(String c_jiancefangfa) {
+		this.c_jiancefangfa = c_jiancefangfa;
 	}
-	public String getJiancefangfa() {
-		return jiancefangfa;
+	public String getC_yiqishebei_mingcheng_1() {
+		return c_yiqishebei_mingcheng_1;
 	}
-	public void setJiancefangfa(String jiancefangfa) {
-		this.jiancefangfa = jiancefangfa;
+	public void setC_yiqishebei_mingcheng_1(String c_yiqishebei_mingcheng_1) {
+		this.c_yiqishebei_mingcheng_1 = c_yiqishebei_mingcheng_1;
 	}
-	public String getYiqishebei_mingcheng_1() {
-		return yiqishebei_mingcheng_1;
+	public String getC_yiqishebei_mingcheng_2() {
+		return c_yiqishebei_mingcheng_2;
 	}
-	public void setYiqishebei_mingcheng_1(String yiqishebei_mingcheng_1) {
-		this.yiqishebei_mingcheng_1 = yiqishebei_mingcheng_1;
+	public void setC_yiqishebei_mingcheng_2(String c_yiqishebei_mingcheng_2) {
+		this.c_yiqishebei_mingcheng_2 = c_yiqishebei_mingcheng_2;
 	}
-	public String getYiqishebei_mingcheng_2() {
-		return yiqishebei_mingcheng_2;
+	public String getC_yiqishebei_mingcheng_3() {
+		return c_yiqishebei_mingcheng_3;
 	}
-	public void setYiqishebei_mingcheng_2(String yiqishebei_mingcheng_2) {
-		this.yiqishebei_mingcheng_2 = yiqishebei_mingcheng_2;
+	public void setC_yiqishebei_mingcheng_3(String c_yiqishebei_mingcheng_3) {
+		this.c_yiqishebei_mingcheng_3 = c_yiqishebei_mingcheng_3;
 	}
-	public String getYiqishebei_mingcheng_3() {
-		return yiqishebei_mingcheng_3;
+	public String getC_yiqishebei_mingcheng_4() {
+		return c_yiqishebei_mingcheng_4;
 	}
-	public void setYiqishebei_mingcheng_3(String yiqishebei_mingcheng_3) {
-		this.yiqishebei_mingcheng_3 = yiqishebei_mingcheng_3;
+	public void setC_yiqishebei_mingcheng_4(String c_yiqishebei_mingcheng_4) {
+		this.c_yiqishebei_mingcheng_4 = c_yiqishebei_mingcheng_4;
 	}
-	public String getYiqishebei_mingcheng_4() {
-		return yiqishebei_mingcheng_4;
+	public String getC_yiqishebei_bianhao_1() {
+		return c_yiqishebei_bianhao_1;
 	}
-	public void setYiqishebei_mingcheng_4(String yiqishebei_mingcheng_4) {
-		this.yiqishebei_mingcheng_4 = yiqishebei_mingcheng_4;
+	public void setC_yiqishebei_bianhao_1(String c_yiqishebei_bianhao_1) {
+		this.c_yiqishebei_bianhao_1 = c_yiqishebei_bianhao_1;
 	}
-	public String getYiqishebei_bianhao_1() {
-		return yiqishebei_bianhao_1;
+	public String getC_yiqishebei_bianhao_2() {
+		return c_yiqishebei_bianhao_2;
 	}
-	public void setYiqishebei_bianhao_1(String yiqishebei_bianhao_1) {
-		this.yiqishebei_bianhao_1 = yiqishebei_bianhao_1;
+	public void setC_yiqishebei_bianhao_2(String c_yiqishebei_bianhao_2) {
+		this.c_yiqishebei_bianhao_2 = c_yiqishebei_bianhao_2;
 	}
-	public String getYiqishebei_bianhao_2() {
-		return yiqishebei_bianhao_2;
+	public String getC_yiqishebei_bianhao_3() {
+		return c_yiqishebei_bianhao_3;
 	}
-	public void setYiqishebei_bianhao_2(String yiqishebei_bianhao_2) {
-		this.yiqishebei_bianhao_2 = yiqishebei_bianhao_2;
+	public void setC_yiqishebei_bianhao_3(String c_yiqishebei_bianhao_3) {
+		this.c_yiqishebei_bianhao_3 = c_yiqishebei_bianhao_3;
 	}
-	public String getYiqishebei_bianhao_3() {
-		return yiqishebei_bianhao_3;
+	public String getC_yiqishebei_bianhao_4() {
+		return c_yiqishebei_bianhao_4;
 	}
-	public void setYiqishebei_bianhao_3(String yiqishebei_bianhao_3) {
-		this.yiqishebei_bianhao_3 = yiqishebei_bianhao_3;
-	}
-	public String getYiqishebei_bianhao_4() {
-		return yiqishebei_bianhao_4;
-	}
-	public void setYiqishebei_bianhao_4(String yiqishebei_bianhao_4) {
-		this.yiqishebei_bianhao_4 = yiqishebei_bianhao_4;
+	public void setC_yiqishebei_bianhao_4(String c_yiqishebei_bianhao_4) {
+		this.c_yiqishebei_bianhao_4 = c_yiqishebei_bianhao_4;
 	}
 	public String getRongzhong_1() {
 		return rongzhong_1;

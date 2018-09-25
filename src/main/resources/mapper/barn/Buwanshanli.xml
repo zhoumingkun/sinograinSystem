@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Buwanshanli">
 
 	<insert id="save" parameterType="Buwanshanli" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_zazhi_buwanshanli_cedingjilu (id, smallSampleId,table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,
-		yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,
+		insert into barn_zazhi_buwanshanli_cedingjilu (id, smallSampleId,b_b_table_version,b_b_riqi,b_b_shiwen,b_b_xiangduishidu,b_b_jiancefangfa,b_b_yiqishebei_mingcheng_1,
+		b_yiqishebei_mingcheng_2,b_yiqishebei_mingcheng_3,b_yiqishebei_bianhao_1,b_yiqishebei_bianhao_2,b_yiqishebei_bianhao_3,
 		dayangzhiliang_1,dayangzhiliang_2,dayangzazhizhiliang_1,dayangzazhizhiliang_2,
 		dayangzazhihanliang_1,dayangzazhihanliang_2,dayangzazhihanliang_pingjunzhi,
 		xiaoyangzhiliang_1,xiaoyangzhiliang_2,xiaoyangzazhizhiliang_1,xiaoyangzazhizhiliang_2,
@@ -12,8 +12,8 @@
 		kuangwuzhizhiliang_1,kuangwuzhizhiliang_2,kuangwuzhihanliang_1,kuangwuzhihanliang_2,kuangwuzhihanliang_pingjunzhi,zazhizongliang_1,buwanshanlizhiliang_1,buwanshanlizhiliang_2,
 	    buwanshanlihanliang_1,buwanshanlihanliang_2,buwanshanlihanliang_pingjunzhi_1,buwanshanlihanliang_pingjunzhi_2,
 	    shengmeilizhiliang_1,shengmeilizhiliang_2,shengmeilihanliang_1,shengmeilihanliang_2,shengmeilihanliang_pingjunzhi,beizhu,fenyangjiance,buwanshanli_zazhi_jiance,jiaohe,createTime,updateTime) 
-		values ( #{id}, #{smallSampleId},#{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},
-		#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},
+		values ( #{id}, #{smallSampleId},#{b_table_version},#{b_riqi},#{b_shiwen},#{b_xiangduishidu},#{b_jiancefangfa},#{b_yiqishebei_mingcheng_1},
+		#{b_yiqishebei_mingcheng_2},#{b_yiqishebei_mingcheng_3},#{b_yiqishebei_bianhao_1},#{b_yiqishebei_bianhao_2},#{b_yiqishebei_bianhao_3},
 		#{dayangzhiliang_1},#{dayangzhiliang_2},#{dayangzazhizhiliang_1},#{dayangzazhizhiliang_2},
 		#{dayangzazhihanliang_1},#{dayangzazhihanliang_2},#{dayangzazhihanliang_pingjunzhi},
 		#{xiaoyangzhiliang_1},#{xiaoyangzhiliang_2},#{xiaoyangzazhizhiliang_1},#{xiaoyangzazhizhiliang_2},
@@ -77,17 +77,17 @@
 		update barn_zazhi_buwanshanli_cedingjilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
-			<if test="riqi != null">riqi = #{riqi},</if>
-			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
-			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
-            <if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
-			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
-			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
-			<if test="yiqishebei_mingcheng_3 != null and yiqishebei_mingcheng_3 != ''">yiqishebei_mingcheng_3 = #{yiqishebei_mingcheng_3},</if>
-			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1},</if>
-			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2},</if>
-			<if test="yiqishebei_bianhao_3 != null and yiqishebei_bianhao_3 != ''">yiqishebei_bianhao_3 = #{yiqishebei_bianhao_3},</if>
+			<if test="b_table_version != null and b_table_version != ''">b_table_version = #{b_table_version},</if>
+			<if test="b_riqi != null">b_riqi = #{b_riqi},</if>
+			<if test="b_shiwen != null and b_shiwen != ''">b_shiwen = #{b_shiwen},</if>
+			<if test="b_xiangduishidu != null and b_xiangduishidu != ''">b_xiangduishidu = #{b_xiangduishidu},</if>
+            <if test="b_jiancefangfa != null and b_jiancefangfa != ''">b_jiancefangfa = #{b_jiancefangfa},</if>
+			<if test="b_yiqishebei_mingcheng_1 != null and b_yiqishebei_mingcheng_1 != ''">b_yiqishebei_mingcheng_1 = #{b_yiqishebei_mingcheng_1},</if>
+			<if test="b_yiqishebei_mingcheng_2 != null and b_yiqishebei_mingcheng_2 != ''">b_yiqishebei_mingcheng_2 = #{b_yiqishebei_mingcheng_2},</if>
+			<if test="b_yiqishebei_mingcheng_3 != null and b_yiqishebei_mingcheng_3 != ''">b_yiqishebei_mingcheng_3 = #{b_yiqishebei_mingcheng_3},</if>
+			<if test="b_yiqishebei_bianhao_1 != null and b_yiqishebei_bianhao_1 != ''">b_yiqishebei_bianhao_1 = #{b_yiqishebei_bianhao_1},</if>
+			<if test="b_yiqishebei_bianhao_2 != null and b_yiqishebei_bianhao_2 != ''">b_yiqishebei_bianhao_2 = #{b_yiqishebei_bianhao_2},</if>
+			<if test="b_yiqishebei_bianhao_3 != null and b_yiqishebei_bianhao_3 != ''">b_yiqishebei_bianhao_3 = #{b_yiqishebei_bianhao_3},</if>
 			<if test="dayangzhiliang_1 != null and dayangzhiliang_1 != ''">dayangzhiliang_1 = #{dayangzhiliang_1},</if>
 			<if test="dayangzhiliang_2 != null and dayangzhiliang_2 != ''">dayangzhiliang_2 = #{dayangzhiliang_2},</if>
 			<if test="dayangzazhizhiliang_1 != null and dayangzazhizhiliang_1 != ''">dayangzazhizhiliang_1 = #{dayangzazhizhiliang_1},</if>
@@ -135,38 +135,38 @@
 			<if test="smallSampleId != null and smallSampleId != ''">
 				and smallSampleId = #{smallSampleId}
 			</if>
-			<if test="table_version != null and table_version != ''">
-				and table_version = #{table_version}
+			<if test="b_table_version != null and b_table_version != ''">
+				and b_0table_version = #{b_table_version}
 			</if>
-			<if test="riqi != null">
-				and riqi = #{riqi}
+			<if test="b_riqi != null">
+				and b_riqi = #{b_riqi}
 			</if>
-			<if test="shiwen != null and shiwen != ''">
-				and shiwen = #{shiwen}
+			<if test="b_shiwen != null and b_shiwen != ''">
+				and b_shiwen = #{b_shiwen}
 			</if>
-			<if test="xiangduishidu != null and xiangduishidu != ''">
-				and xiangduishidu = #{xiangduishidu}
+			<if test="b_xiangduishidu != null and b_xiangduishidu != ''">
+				and b_xiangduishidu = #{b_xiangduishidu}
 			</if>
-            <if test="jiancefangfa != null and jiancefangfa != ''">
-            	and jiancefangfa = #{jiancefangfa}
+            <if test="b_jiancefangfa != null and b_jiancefangfa != ''">
+            	and b_jiancefangfa = #{b_jiancefangfa}
             </if>
-			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">
-				and yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1}
+			<if test="b_yiqishebei_mingcheng_1 != null and b_yiqishebei_mingcheng_1 != ''">
+				and b_yiqishebei_mingcheng_1 = #{b_yiqishebei_mingcheng_1}
 			</if>
-			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">
-				and yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2}
+			<if test="b_yiqishebei_mingcheng_2 != null and b_yiqishebei_mingcheng_2 != ''">
+				and b_yiqishebei_mingcheng_2 = #{b_yiqishebei_mingcheng_2}
 			</if>
-			<if test="yiqishebei_mingcheng_3 != null and yiqishebei_mingcheng_3 != ''">
-				and yiqishebei_mingcheng_3 = #{yiqishebei_mingcheng_3}
+			<if test="b_yiqishebei_mingcheng_3 != null and b_yiqishebei_mingcheng_3 != ''">
+				and b_yiqishebei_mingcheng_3 = #{b_yiqishebei_mingcheng_3}
 			</if>
-			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">
-				and yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1}
+			<if test="b_yiqishebei_bianhao_1 != null and b_yiqishebei_bianhao_1 != ''">
+				and b_yiqishebei_bianhao_1 = #{b_yiqishebei_bianhao_1}
 			</if>
-			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">
-				and yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2}
+			<if test="b_yiqishebei_bianhao_2 != null and b_yiqishebei_bianhao_2 != ''">
+				and b_yiqishebei_bianhao_2 = #{b_yiqishebei_bianhao_2}
 			</if>
-			<if test="yiqishebei_bianhao_3 != null and yiqishebei_bianhao_3 != ''">
-				and yiqishebei_bianhao_3 = #{yiqishebei_bianhao_3}
+			<if test="b_yiqishebei_bianhao_3 != null and b_yiqishebei_bianhao_3 != ''">
+				and b_yiqishebei_bianhao_3 = #{b_yiqishebei_bianhao_3}
 			</if>
 			<if test="dayangzhiliang_1 != null and dayangzhiliang_1 != ''">
 				and dayangzhiliang_1 = #{dayangzhiliang_1}
