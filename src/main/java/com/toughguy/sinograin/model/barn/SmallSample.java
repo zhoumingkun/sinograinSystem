@@ -19,6 +19,11 @@ public class SmallSample extends AbstractModel {
 	private int state;                  //检验单的状态 1，创建  2，编辑
 //	private int taskId;                 //任务id
 	private String smallSampleWord;     //小样编号文字版
+	private int inspectState;           //检验状态 -1待审核 1未通过 2已通过 3草稿
+	private String approveRemark;        //审批备注
+	private String checkMember;          //校核员
+	private String inspector;            //检验员
+	private int checkOrderApprovalStatus;  //检验单审批状态  -1待审批   1已通过   2未通过
 	
 	private String sampleNum;	//检测编号 (页面展示)
 	private String sampleWord;  //扦样编号(页面展示文字)
@@ -104,6 +109,37 @@ public class SmallSample extends AbstractModel {
 		this.sampleNo = sampleNo;
 	}
 	
+	public int getInspectState() {
+		return inspectState;
+	}
+	public void setInspectState(int inspectState) {
+		this.inspectState = inspectState;
+	}
+	public String getApproveRemark() {
+		return approveRemark;
+	}
+	public void setApproveRemark(String approveRemark) {
+		this.approveRemark = approveRemark;
+	}
+	public String getCheckMember() {
+		return checkMember;
+	}
+	public void setCheckMember(String checkMember) {
+		this.checkMember = checkMember;
+	}
+	public String getInspector() {
+		return inspector;
+	}
+	public void setInspector(String inspector) {
+		this.inspector = inspector;
+	}
+	
+	public int getCheckOrderApprovalStatus() {
+		return checkOrderApprovalStatus;
+	}
+	public void setCheckOrderApprovalStatus(int checkOrderApprovalStatus) {
+		this.checkOrderApprovalStatus = checkOrderApprovalStatus;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

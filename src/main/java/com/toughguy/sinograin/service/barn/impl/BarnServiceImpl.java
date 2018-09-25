@@ -176,19 +176,19 @@ public class BarnServiceImpl implements IBarnService {
 			smallSample.setSmallSampleNum(num);
 			smallSample.setState(1);
 			if(num.substring(num.length()-1).equals("1")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "小1");
+				smallSample.setSmallSampleWord(num + "小1");
 			} else if(num.substring(num.length()-1).equals("3")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "水");
+				smallSample.setSmallSampleWord(num + "水");
 			} else if(num.substring(num.length()-1).equals("4")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "硬");
+				smallSample.setSmallSampleWord(num + "硬");
 			} else if(num.substring(num.length()-1).equals("5")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "面");
+				smallSample.setSmallSampleWord(num + "面");
 			} else if(num.substring(num.length()-1).equals("6")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "品");
+				smallSample.setSmallSampleWord(num + "品");
 			} else if(num.substring(num.length()-1).equals("7")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "卫");
+				smallSample.setSmallSampleWord(num + "卫");
 			} else if(num.substring(num.length()-1).equals("8")) {
-				smallSample.setSmallSampleWord(num.substring(0, num.length()-3) + "脂");
+				smallSample.setSmallSampleWord(num + "脂");
 			}
 			smallSampleService.save(smallSample);
 		}

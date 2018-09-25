@@ -321,7 +321,7 @@ public class SampleController {
 						smallSample.setSampleId(s.getSampleId());
 						smallSample.setSmallSampleNum(s.getSmallSampleNum().substring(0,s.getSmallSampleNum().length()-1) + "2");
 						smallSample.setState(s.getState());
-						smallSample.setSmallSampleWord(s.getSmallSampleNum().substring(0,s.getSmallSampleNum().length()-3) + "小2");
+						smallSample.setSmallSampleWord(s.getSmallSampleNum() + "小2");
 						smallSampleService.save(smallSample);				
 					}
 				}

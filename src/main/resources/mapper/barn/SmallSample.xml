@@ -104,6 +104,9 @@
 			<if test=" state != null and state != '' ">
 				and state = #{ state }
 			</if>
+			<if test=" inspectState != null and inspectState != '' ">
+				and inspectState = #{ inspectState }
+			</if>
 		</where>
 	</sql>
 	

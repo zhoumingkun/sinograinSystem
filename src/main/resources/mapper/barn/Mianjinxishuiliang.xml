@@ -12,7 +12,7 @@
 		delete from barn_mianjinxishuiliang_cedingjilu where id = #{id}
 	</delete>
 	
-	<!-- 删除交接单集 -->
+	<!-- 删除检验单集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_mianjinxishuiliang_cedingjilu where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
@@ -20,12 +20,22 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某个交接单  -->
+	<!-- 查询某个检验单  -->
 	<select id="find" parameterType="int" resultType="Mianjinxishuiliang">
 		select * from barn_mianjinxishuiliang_cedingjilu where id = #{id}
 	</select>
-	
-	<!-- 查询全部交接单  -->
+	<!-- 根据小样查询检验单  -->
+	<select id="findBySmallSampleId" parameterType="int" resultType="Mianjinxishuiliang">
+		select * from barn_mianjinxishuiliang_cedingjilu bmc left join barn_small_sample bss on bmc.smallSampleId = bss.id where bss.id = #{smallSampleId}
+	</select>
+	<!-- 查询未审批的全部测定记录  -->
+	<select id="findByCheckOrderApprovalStatus" resultType="Mianjinxishuiliang" parameterType="String">
+		SELECT bmc.* FROM barn_mianjinxishuiliang_cedingjilu bmc
+		LEFT JOIN barn_small_sample bss ON bmc.smallSampleId = bss.id 
+		LEFT JOIN barn_sample bs ON bss.sampleId = bs.id 
+		where bss.checkOrderApprovalStatus = -1 and bs.sort = #{sort}
+	</select>
+	<!-- 查询全部检验单  -->
 	<select id="findAll" resultType="Mianjinxishuiliang" parameterType="Map">
 		select * from barn_mianjinxishuiliang_cedingjilu
 		<include refid="paramsSQL"/>
