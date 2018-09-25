@@ -12,20 +12,17 @@ public class Buwanshanli extends AbstractModel{
 	private static final long serialVersionUID = 3083587919773638128L;
 	
 	private int smallSampleId;   			          				  //小样ID
-//	private String table_version;			      				  //表格版本号
-	private Date riqi;          			       				  //日期
-	private String shiwen;   				       				  //室温
-	private String xiangduishidu;   		      			   	  //相对湿度
-	private String didian;   				                      //地点
-	private String sampleNum;   			                      //检测编号
-	private String sort;   				                          //样品名称
-	private String jiancefangfa;                   				  //检测方法
-	private String yiqishebei_mingcheng_1;         				  //仪器设备名称1
-	private String yiqishebei_mingcheng_2;        				  //仪器设备名称2
-	private String yiqishebei_mingcheng_3;        				  //仪器设备名称3
-	private String yiqishebei_bianhao_1;          				  //仪器设备编号1
-	private String yiqishebei_bianhao_2;         				  //仪器设备编号2
-	private String yiqishebei_bianhao_3;         				  //仪器设备编号3
+	private String b_table_version;			      				  //表格版本号
+	private Date b_riqi;          			       				  //日期
+	private String b_shiwen;   				       				  //室温
+	private String b_xiangduishidu;   		      			   	  //相对湿度
+	private String b_jiancefangfa;                   				  //检测方法
+	private String b_yiqishebei_mingcheng_1;         				  //仪器设备名称1
+	private String b_yiqishebei_mingcheng_2;        				  //仪器设备名称2
+	private String b_yiqishebei_mingcheng_3;        				  //仪器设备名称3
+	private String b_yiqishebei_bianhao_1;          				  //仪器设备编号1
+	private String b_yiqishebei_bianhao_2;         				  //仪器设备编号2
+	private String b_yiqishebei_bianhao_3;         				  //仪器设备编号3
 	private String dayangzhiliang_1;              				  //大样质量m（g）1
 	private String dayangzhiliang_2;              				  //大样质量m（g）2
 	private String dayangzazhizhiliang_1;         				  //大样杂质质量m（g）1
@@ -75,93 +72,114 @@ public class Buwanshanli extends AbstractModel{
 		this.smallSampleId = smallSampleId;
 	}
 
-	public String getShiwen() {
-		return shiwen;
+
+	public String getB_table_version() {
+		return b_table_version;
 	}
 
 
-	public void setShiwen(String shiwen) {
-		this.shiwen = shiwen;
+	public void setB_table_version(String b_table_version) {
+		this.b_table_version = b_table_version;
 	}
 
 
-	public String getXiangduishidu() {
-		return xiangduishidu;
+	public Date getB_riqi() {
+		return b_riqi;
 	}
 
 
-	public void setXiangduishidu(String xiangduishidu) {
-		this.xiangduishidu = xiangduishidu;
+	public void setB_riqi(Date b_riqi) {
+		this.b_riqi = b_riqi;
 	}
 
 
-	public String getJiancefangfa() {
-		return jiancefangfa;
+	public String getB_shiwen() {
+		return b_shiwen;
 	}
 
 
-	public void setJiancefangfa(String jiancefangfa) {
-		this.jiancefangfa = jiancefangfa;
+	public void setB_shiwen(String b_shiwen) {
+		this.b_shiwen = b_shiwen;
 	}
 
 
-	public String getYiqishebei_mingcheng_1() {
-		return yiqishebei_mingcheng_1;
+	public String getB_xiangduishidu() {
+		return b_xiangduishidu;
 	}
 
 
-	public void setYiqishebei_mingcheng_1(String yiqishebei_mingcheng_1) {
-		this.yiqishebei_mingcheng_1 = yiqishebei_mingcheng_1;
+	public void setB_xiangduishidu(String b_xiangduishidu) {
+		this.b_xiangduishidu = b_xiangduishidu;
 	}
 
 
-	public String getYiqishebei_mingcheng_2() {
-		return yiqishebei_mingcheng_2;
+	public String getB_jiancefangfa() {
+		return b_jiancefangfa;
 	}
 
 
-	public void setYiqishebei_mingcheng_2(String yiqishebei_mingcheng_2) {
-		this.yiqishebei_mingcheng_2 = yiqishebei_mingcheng_2;
+	public void setB_jiancefangfa(String b_jiancefangfa) {
+		this.b_jiancefangfa = b_jiancefangfa;
 	}
 
 
-	public String getYiqishebei_mingcheng_3() {
-		return yiqishebei_mingcheng_3;
+	public String getB_yiqishebei_mingcheng_1() {
+		return b_yiqishebei_mingcheng_1;
 	}
 
 
-	public void setYiqishebei_mingcheng_3(String yiqishebei_mingcheng_3) {
-		this.yiqishebei_mingcheng_3 = yiqishebei_mingcheng_3;
+	public void setB_yiqishebei_mingcheng_1(String b_yiqishebei_mingcheng_1) {
+		this.b_yiqishebei_mingcheng_1 = b_yiqishebei_mingcheng_1;
 	}
 
 
-	public String getYiqishebei_bianhao_1() {
-		return yiqishebei_bianhao_1;
+	public String getB_yiqishebei_mingcheng_2() {
+		return b_yiqishebei_mingcheng_2;
 	}
 
 
-	public void setYiqishebei_bianhao_1(String yiqishebei_bianhao_1) {
-		this.yiqishebei_bianhao_1 = yiqishebei_bianhao_1;
+	public void setB_yiqishebei_mingcheng_2(String b_yiqishebei_mingcheng_2) {
+		this.b_yiqishebei_mingcheng_2 = b_yiqishebei_mingcheng_2;
 	}
 
 
-	public String getYiqishebei_bianhao_2() {
-		return yiqishebei_bianhao_2;
+	public String getB_yiqishebei_mingcheng_3() {
+		return b_yiqishebei_mingcheng_3;
 	}
 
 
-	public void setYiqishebei_bianhao_2(String yiqishebei_bianhao_2) {
-		this.yiqishebei_bianhao_2 = yiqishebei_bianhao_2;
+	public void setB_yiqishebei_mingcheng_3(String b_yiqishebei_mingcheng_3) {
+		this.b_yiqishebei_mingcheng_3 = b_yiqishebei_mingcheng_3;
 	}
 
 
-	public String getYiqishebei_bianhao_3() {
-		return yiqishebei_bianhao_3;
+	public String getB_yiqishebei_bianhao_1() {
+		return b_yiqishebei_bianhao_1;
 	}
 
 
-	public void setYiqishebei_bianhao_3(String yiqishebei_bianhao_3) {
-		this.yiqishebei_bianhao_3 = yiqishebei_bianhao_3;
+	public void setB_yiqishebei_bianhao_1(String b_yiqishebei_bianhao_1) {
+		this.b_yiqishebei_bianhao_1 = b_yiqishebei_bianhao_1;
+	}
+
+
+	public String getB_yiqishebei_bianhao_2() {
+		return b_yiqishebei_bianhao_2;
+	}
+
+
+	public void setB_yiqishebei_bianhao_2(String b_yiqishebei_bianhao_2) {
+		this.b_yiqishebei_bianhao_2 = b_yiqishebei_bianhao_2;
+	}
+
+
+	public String getB_yiqishebei_bianhao_3() {
+		return b_yiqishebei_bianhao_3;
+	}
+
+
+	public void setB_yiqishebei_bianhao_3(String b_yiqishebei_bianhao_3) {
+		this.b_yiqishebei_bianhao_3 = b_yiqishebei_bianhao_3;
 	}
 
 
@@ -496,42 +514,8 @@ public class Buwanshanli extends AbstractModel{
 		this.jiaohe = jiaohe;
 	}
 
-	public Date getRiqi() {
-		return riqi;
-	}
 
 
-	public void setRiqi(Date riqi) {
-		this.riqi = riqi;
-	}
-	
-	public String getDidian() {
-		return didian;
-	}
-
-	public void setDidian(String didian) {
-		this.didian = didian;
-	}
-
-
-	public String getSampleNum() {
-		return sampleNum;
-	}
-
-
-	public void setSampleNum(String sampleNum) {
-		this.sampleNum = sampleNum;
-	}
-
-
-	public String getSort() {
-		return sort;
-	}
-
-
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
 
 
 	@Override
