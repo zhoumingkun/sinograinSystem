@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Zhifangsuanzhi">
 
 	<insert id="save" parameterType="Zhifangsuanzhi" keyProperty="id" useGeneratedKeys="true">
-		insert into  barn_zhifangsuanzhi_cedingjilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,shiyangzhiliang_1,shiyangzhiliang_2,shiyangshuifen,koh_rongyenongdu,didingzhongdiandushu_1,didingzhongdiandushu_2,didingqishidushu_1,didingqishidushu_2,koh_rongyeyongliang_1,koh_rongyeyongliang_2,kongbaishiyan_koh_yongliang,zhifangsuanzhi_1,zhifangsuanzhi_2,pingjunzhi,pingxingcha_xiangduicha,pingxingcha_xiangduicha_zhi,beizhu,jiance,jiaohe,createTime,updateTime) 
-		                                    values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{shiyangshuifen},#{koh_rongyenongdu},#{didingzhongdiandushu_1},#{didingzhongdiandushu_2},#{didingqishidushu_1},#{didingqishidushu_2},#{koh_rongyeyongliang_1},#{koh_rongyeyongliang_2},#{kongbaishiyan_koh_yongliang},#{zhifangsuanzhi_1},#{zhifangsuanzhi_2},#{pingjunzhi},#{pingxingcha_xiangduicha},#{pingxingcha_xiangduicha_zhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+		insert into  barn_zhifangsuanzhi_cedingjilu (smallSampleId, zf_table_version,zf_riqi,zf_shiwen,zf_xiangduishidu,zf_jiancefangfa,zf_yiqishebei_mingcheng_1,zf_yiqishebei_mingcheng_2,zf_yiqishebei_bianhao_1,zf_yiqishebei_bianhao_2,shiyangzhiliang_1,shiyangzhiliang_2,shiyangshuifen,koh_rongyenongdu,didingzhongdiandushu_1,didingzhongdiandushu_2,didingqishidushu_1,didingqishidushu_2,koh_rongyeyongliang_1,koh_rongyeyongliang_2,kongbaishiyan_koh_yongliang,zhifangsuanzhi_1,zhifangsuanzhi_2,pingjunzhi,pingxingcha_xiangduicha,pingxingcha_xiangduicha_zhi,beizhu,jiance,jiaohe,createTime,updateTime) 
+		                                    values (#{smallSampleId}, #{zf_table_version},#{zf_riqi},#{zf_shiwen},#{zf_xiangduishidu},#{zf_jiancefangfa},#{zf_yiqishebei_mingcheng_1},#{zf_yiqishebei_mingcheng_2},#{zf_yiqishebei_bianhao_1},#{zf_yiqishebei_bianhao_2},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{shiyangshuifen},#{koh_rongyenongdu},#{didingzhongdiandushu_1},#{didingzhongdiandushu_2},#{didingqishidushu_1},#{didingqishidushu_2},#{koh_rongyeyongliang_1},#{koh_rongyeyongliang_2},#{kongbaishiyan_koh_yongliang},#{zhifangsuanzhi_1},#{zhifangsuanzhi_2},#{pingjunzhi},#{pingxingcha_xiangduicha},#{pingxingcha_xiangduicha_zhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 删除某个脂肪酸检测 -->
@@ -58,14 +58,14 @@
 		update barn_zhifangsuanzhi_cedingjilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
-			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
-			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
-			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
-			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
-			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
-			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1},</if>
-			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2},</if>
+			<if test="zf_table_version != null and zf_table_version != ''">zf_table_version = #{zf_table_version},</if>
+			<if test="zf_shiwen != null and zf_shiwen != ''">zf_shiwen = #{zf_shiwen},</if>
+			<if test="zf_xiangduishidu != null and zf_xiangduishidu != ''">zf_xiangduishidu = #{zf_xiangduishidu},</if>
+			<if test="zf_jiancefangfa != null and zf_jiancefangfa != ''">zf_jiancefangfa = #{zf_jiancefangfa},</if>
+			<if test="zf_yiqishebei_mingcheng_1 != null and zf_yiqishebei_mingcheng_1 != ''">zf_yiqishebei_mingcheng_1 = #{zf_yiqishebei_mingcheng_1},</if>
+			<if test="zf_yiqishebei_mingcheng_2 != null and zf_yiqishebei_mingcheng_2 != ''">zf_yiqishebei_mingcheng_2 = #{zf_yiqishebei_mingcheng_2},</if>
+			<if test="zf_yiqishebei_bianhao_1 != null and zf_yiqishebei_bianhao_1 != ''">zf_yiqishebei_bianhao_1 = #{zf_yiqishebei_bianhao_1},</if>
+			<if test="zf_yiqishebei_bianhao_2 != null and zf_yiqishebei_bianhao_2 != ''">zf_yiqishebei_bianhao_2 = #{zf_yiqishebei_bianhao_2},</if>
 			<if test="shiyangzhiliang_1 != null and shiyangzhiliang_1 != ''">shiyangzhiliang_1 = #{shiyangzhiliang_1},</if>
 			<if test="shiyangzhiliang_2 != null and shiyangzhiliang_2 != ''">shiyangzhiliang_2 = #{shiyangzhiliang_2},</if>
 			<if test="shiyangshuifen != null and shiyangshuifen != ''">shiyangshuifen = #{shiyangshuifen},</if>
@@ -101,34 +101,34 @@
 				and smallSampleId like concat(concat('%', #{smallSampleIdLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" table_version != null and table_version != '' ">
-				and table_version = #{table_version}
+			<if test=" zf_table_version != null and zf_table_version != '' ">
+				and zf_table_version = #{zf_table_version}
 			</if>
-			<if test=" riqi != null and riqi != '' ">
-				and riqi = #{riqi}
+			<if test=" zf_riqi != null and zf_riqi != '' ">
+				and zf_riqi = #{zf_riqi}
 			</if>
 
-			<if test=" shiwen != null and shiwen != '' ">
-				and shiwen = #{ shiwen }
+			<if test=" zf_shiwen != null and zf_shiwen != '' ">
+				and zf_shiwen = #{ zf_shiwen }
 			</if>
 			
-			<if test=" xiangduishidu != null and xiangduishidu != '' ">
-				and xiangduishidu = #{ xiangduishidu }
+			<if test=" zf_xiangduishidu != null and zf_xiangduishidu != '' ">
+				and zf_xiangduishidu = #{ zf_xiangduishidu }
 			</if>
-			<if test=" jiancefangfa != null and jiancefangfa != '' ">
-				and jiancefangfa = #{ jiancefangfa }
+			<if test=" zf_jiancefangfa != null and zf_jiancefangfa != '' ">
+				and zf_jiancefangfa = #{ zf_jiancefangfa }
 			</if>
-			<if test=" yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != '' ">
-				and yiqishebei_mingcheng_1 = #{ yiqishebei_mingcheng_1 }
+			<if test=" zf_yiqishebei_mingcheng_1 != null and zf_yiqishebei_mingcheng_1 != '' ">
+				and zf_yiqishebei_mingcheng_1 = #{ zf_yiqishebei_mingcheng_1 }
 			</if>
-			<if test=" yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != '' ">
-				and yiqishebei_mingcheng_2 = #{ yiqishebei_mingcheng_2 }
+			<if test=" zf_yiqishebei_mingcheng_2 != null and zf_yiqishebei_mingcheng_2 != '' ">
+				and zf_yiqishebei_mingcheng_2 = #{ zf_yiqishebei_mingcheng_2 }
 			</if>
-			<if test=" yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != '' ">
-				and yiqishebei_bianhao_1 = #{ yiqishebei_bianhao_1 }
+			<if test=" zf_yiqishebei_bianhao_1 != null and zf_yiqishebei_bianhao_1 != '' ">
+				and zf_yiqishebei_bianhao_1 = #{ zf_yiqishebei_bianhao_1 }
 			</if>
-			<if test=" yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != '' ">
-				and yiqishebei_bianhao_2 = #{ yiqishebei_bianhao_2 }
+			<if test=" zf_yiqishebei_bianhao_2 != null and zf_yiqishebei_bianhao_2 != '' ">
+				and zf_yiqishebei_bianhao_2 = #{ zf_yiqishebei_bianhao_2 }
 			</if>
 			<if test=" shiyangzhiliang_1 != null and shiyangzhiliang_1 != '' ">
 				and shiyangzhiliang_1 = #{ shiyangzhiliang_1 }

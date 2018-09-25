@@ -14,15 +14,15 @@ public class Shuifen extends AbstractModel {
 	private static final long serialVersionUID = 464599627973265946L;
 
 	private int smallSampleId; // 样品ID
-	private String table_version; // 表格版本号
-	private Date riqi; // 日期
-	private String shiwen; // 室温
-	private String xiangduishidu; // 相对湿度
-	private String jiancefangfa; // 检测方法
-	private String yiqishebei_mingcheng_1; // 仪器设备名称1
-	private String yiqishebei_mingcheng_2; // 仪器设备名称2
-	private String yiqishebei_bianhao_1; // 仪器设备编号1
-	private String yiqishebei_bianhao_2; // 仪器设备编号2
+	private String s_table_version; // 表格版本号
+	private Date s_riqi; // 日期
+	private String s_shiwen; // 室温
+	private String s_xiangduishidu; // 相对湿度
+	private String s_jiancefangfa; // 检测方法
+	private String s_yiqishebei_mingcheng_1; // 仪器设备名称1
+	private String s_yiqishebei_mingcheng_2; // 仪器设备名称2
+	private String s_yiqishebei_bianhao_1; // 仪器设备编号1
+	private String s_yiqishebei_bianhao_2; // 仪器设备编号2
 	private String qimin_bianhao_1; // 器皿编号1
 	private String qimin_bianhao_2; // 器皿编号2
 	private String hongqianqiminzhiliang_1; // 烘前器皿质量Wo（g）1
@@ -55,76 +55,77 @@ public class Shuifen extends AbstractModel {
 		this.smallSampleId = smallSampleId;
 	}
 
-	public String getTable_version() {
-		return table_version;
+
+	public String getS_table_version() {
+		return s_table_version;
 	}
 
-	public void setTable_version(String table_version) {
-		this.table_version = table_version;
+	public void setS_table_version(String s_table_version) {
+		this.s_table_version = s_table_version;
 	}
 
-	public Date getRiqi() {
-		return riqi;
+	public Date getS_riqi() {
+		return s_riqi;
 	}
 
-	public void setRiqi(Date riqi) {
-		this.riqi = riqi;
+	public void setS_riqi(Date s_riqi) {
+		this.s_riqi = s_riqi;
 	}
 
-	public String getShiwen() {
-		return shiwen;
+	public String getS_shiwen() {
+		return s_shiwen;
 	}
 
-	public void setShiwen(String shiwen) {
-		this.shiwen = shiwen;
+	public void setS_shiwen(String s_shiwen) {
+		this.s_shiwen = s_shiwen;
 	}
 
-	public String getXiangduishidu() {
-		return xiangduishidu;
+	public String getS_xiangduishidu() {
+		return s_xiangduishidu;
 	}
 
-	public void setXiangduishidu(String xiangduishidu) {
-		this.xiangduishidu = xiangduishidu;
+	public void setS_xiangduishidu(String s_xiangduishidu) {
+		this.s_xiangduishidu = s_xiangduishidu;
 	}
 
-	public String getJiancefangfa() {
-		return jiancefangfa;
+	public String getS_jiancefangfa() {
+		return s_jiancefangfa;
 	}
 
-	public void setJiancefangfa(String jiancefangfa) {
-		this.jiancefangfa = jiancefangfa;
+	public void setS_jiancefangfa(String s_jiancefangfa) {
+		this.s_jiancefangfa = s_jiancefangfa;
 	}
 
-	public String getYiqishebei_mingcheng_1() {
-		return yiqishebei_mingcheng_1;
+	public String getS_yiqishebei_mingcheng_1() {
+		return s_yiqishebei_mingcheng_1;
 	}
 
-	public void setYiqishebei_mingcheng_1(String yiqishebei_mingcheng_1) {
-		this.yiqishebei_mingcheng_1 = yiqishebei_mingcheng_1;
+	public void setS_yiqishebei_mingcheng_1(String s_yiqishebei_mingcheng_1) {
+		this.s_yiqishebei_mingcheng_1 = s_yiqishebei_mingcheng_1;
 	}
 
-	public String getYiqishebei_mingcheng_2() {
-		return yiqishebei_mingcheng_2;
+	public String getS_yiqishebei_mingcheng_2() {
+		return s_yiqishebei_mingcheng_2;
 	}
 
-	public void setYiqishebei_mingcheng_2(String yiqishebei_mingcheng_2) {
-		this.yiqishebei_mingcheng_2 = yiqishebei_mingcheng_2;
+	public void setS_yiqishebei_mingcheng_2(String s_yiqishebei_mingcheng_2) {
+		this.s_yiqishebei_mingcheng_2 = s_yiqishebei_mingcheng_2;
 	}
 
-	public String getYiqishebei_bianhao_1() {
-		return yiqishebei_bianhao_1;
+	public String getS_yiqishebei_bianhao_1() {
+		return s_yiqishebei_bianhao_1;
 	}
 
-	public void setYiqishebei_bianhao_1(String yiqishebei_bianhao_1) {
-		this.yiqishebei_bianhao_1 = yiqishebei_bianhao_1;
+	public void setS_yiqishebei_bianhao_1(String s_yiqishebei_bianhao_1) {
+		this.s_yiqishebei_bianhao_1 = s_yiqishebei_bianhao_1;
 	}
 
-	public String getYiqishebei_bianhao_2() {
-		return yiqishebei_bianhao_2;
+	public String getS_yiqishebei_bianhao_2() {
+		return s_yiqishebei_bianhao_2;
 	}
 
-	public void setYiqishebei_bianhao_2(String yiqishebei_bianhao_2) {
-		this.yiqishebei_bianhao_2 = yiqishebei_bianhao_2;
+	public void setS_yiqishebei_bianhao_2(String s_yiqishebei_bianhao_2) {
+		this.s_yiqishebei_bianhao_2 = s_yiqishebei_bianhao_2;
 	}
 
 	public String getQimin_bianhao_1() {

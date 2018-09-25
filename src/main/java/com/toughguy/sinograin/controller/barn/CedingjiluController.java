@@ -55,7 +55,7 @@ public class CedingjiluController {
 	@RequiresPermissions("all:save")
 	public String save(Cedingjilu cedingjilu) {
 		try {
-			SmallSample smallSample = smallSampleService.find(cedingjilu.getsmallSampleId());
+			SmallSample smallSample = smallSampleService.find(cedingjilu.getSmallSampleId());
 			smallSample.setState(2);
 			smallSampleService.update(smallSample);
 			cedingjiluService.save(cedingjilu);

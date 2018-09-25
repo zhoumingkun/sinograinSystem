@@ -13,8 +13,8 @@ public class Pinchang extends AbstractModel{
 	private static final long serialVersionUID = 7697008272607613700L;
 	
 	private String content;				//内容
-	private Date riqi;				    //日期
-	private String table_version;		//表格版本
+	private Date pc_riqi;				    //日期
+	private String pc_table_version;		//表格版本
 	private String pinchangpingfenzhi;  //品尝评分值
 	private int smallSampleId;         //小样id
 	
@@ -30,20 +30,19 @@ public class Pinchang extends AbstractModel{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRiqi() {
-		return riqi;
-	}
-	public void setRiqi(Date riqi) {
-		this.riqi = riqi;
-	}
-	public String getTable_version() {
-		return table_version;
-	}
-	public void setTable_version(String table_version) {
-		this.table_version = table_version;
-	}
 	
-	
+	public Date getPc_riqi() {
+		return pc_riqi;
+	}
+	public void setPc_riqi(Date pc_riqi) {
+		this.pc_riqi = pc_riqi;
+	}
+	public String getPc_table_version() {
+		return pc_table_version;
+	}
+	public void setPc_table_version(String pc_table_version) {
+		this.pc_table_version = pc_table_version;
+	}
 	public int getSmallSampleId() {
 		return smallSampleId;
 	}

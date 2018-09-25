@@ -36,7 +36,7 @@ public class ZhifangsuanzhiDaoTest {
 		public void testFindAllByIdizhifangsuanzhiDao(){
 			int A = 1;
 			Zhifangsuanzhi zhifangsuanzhi = izhifangsuanzhiDao.find(A);
-		    System.out.println(zhifangsuanzhi.getRiqi());
+		    System.out.println(zhifangsuanzhi.getZf_riqi());
 			System.out.println(zhifangsuanzhi.getDidingqishidushu_1());
 		}
 		
@@ -45,7 +45,7 @@ public class ZhifangsuanzhiDaoTest {
 		public void testUpdateZhifangsuanzhi(){
 			Zhifangsuanzhi zhifangsuanzhi = new Zhifangsuanzhi();
 			zhifangsuanzhi.setId(1);
-			zhifangsuanzhi.setTable_version("1234-0");
+			zhifangsuanzhi.setZf_table_version("1234-0");
 			izhifangsuanzhiDao.update(zhifangsuanzhi);
 		}
 		
@@ -54,7 +54,7 @@ public class ZhifangsuanzhiDaoTest {
 		@Test
 		public void testAddZhifangsuanzhi(){
 			Zhifangsuanzhi zhifangsuanzhi = new Zhifangsuanzhi();
-			zhifangsuanzhi.setTable_version("1234-2");
+			zhifangsuanzhi.setZf_table_version("1234-2");
 			zhifangsuanzhi.setSmallSampleId(2);
 			izhifangsuanzhiDao.save(zhifangsuanzhi);
 		}

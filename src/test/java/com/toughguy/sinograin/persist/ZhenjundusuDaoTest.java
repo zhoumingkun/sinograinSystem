@@ -36,7 +36,7 @@ public class ZhenjundusuDaoTest {
 		public void testFindAllByIdizhenjundusuDao(){
 			int A = 1;
 			Zhenjundusu zhenjundusu = izhenjundusuDao.find(A);
-		    System.out.println(zhenjundusu.getRiqi());
+		    System.out.println(zhenjundusu.getZj_riqi());
 			System.out.println(zhenjundusu.getHuangqumeidusu_1());
 		}
 		
@@ -45,7 +45,7 @@ public class ZhenjundusuDaoTest {
 		public void testUpdateZhenjundusu(){
 			Zhenjundusu zhenjundusu = new Zhenjundusu();
 			zhenjundusu.setId(1);
-			zhenjundusu.setTable_version("1234-0");
+			zhenjundusu.setZj_table_version("1234-0");
 			izhenjundusuDao.update(zhenjundusu);
 		}
 		
@@ -54,7 +54,7 @@ public class ZhenjundusuDaoTest {
 		@Test
 		public void testAddZhenjundusu(){
 			Zhenjundusu zhenjundusu = new Zhenjundusu();
-			zhenjundusu.setTable_version("1234-2");
+			zhenjundusu.setZj_table_version("1234-2");
 			zhenjundusu.setSmallSampleId(2);
 			izhenjundusuDao.save(zhenjundusu);
 		}
