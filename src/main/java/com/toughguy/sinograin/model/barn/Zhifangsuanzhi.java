@@ -15,15 +15,15 @@ public class Zhifangsuanzhi extends AbstractModel{
 
 	
 	private int smallSampleId;                      // 小样ID 
-	private String table_version;                   //表格版本号
-	private Date riqi ;                             //日期
-	private String shiwen ;                           //室温
-	private String xiangduishidu;                   //相对湿度
-	private String jiancefangfa;                    //检测方法
-	private String yiqishebei_mingcheng_1;          //仪器设备名称1
-	private String yiqishebei_mingcheng_2;          //仪器设备名称2
-	private String yiqishebei_bianhao_1;            //仪器设备编号1
-	private String yiqishebei_bianhao_2;            //仪器设备编号2
+	private String zf_table_version;                   //表格版本号
+	private Date zf_riqi ;                             //日期
+	private String zf_shiwen ;                           //室温
+	private String zf_xiangduishidu;                   //相对湿度
+	private String zf_jiancefangfa;                    //检测方法
+	private String zf_yiqishebei_mingcheng_1;          //仪器设备名称1
+	private String zf_yiqishebei_mingcheng_2;          //仪器设备名称2
+	private String zf_yiqishebei_bianhao_1;            //仪器设备编号1
+	private String zf_yiqishebei_bianhao_2;            //仪器设备编号2
 	private String shiyangzhiliang_1;               //试样质量m（g）1
 	private String shiyangzhiliang_2;               //试样质量m（g）2
 	private String shiyangshuifen;                  //试样水分W（%）
@@ -55,60 +55,60 @@ public class Zhifangsuanzhi extends AbstractModel{
 	public void setSmallSampleId(int smallSampleId) {
 		this.smallSampleId = smallSampleId;
 	}
-	public String getTable_version() {
-		return table_version;
+
+	public String getZf_table_version() {
+		return zf_table_version;
 	}
-	public void setTable_version(String table_version) {
-		this.table_version = table_version;
+	public void setZf_table_version(String zf_table_version) {
+		this.zf_table_version = zf_table_version;
 	}
-	public Date getRiqi() {
-		return riqi;
+	public Date getZf_riqi() {
+		return zf_riqi;
 	}
-	public void setRiqi(Date riqi) {
-		this.riqi = riqi;
+	public void setZf_riqi(Date zf_riqi) {
+		this.zf_riqi = zf_riqi;
 	}
-	
-	public String getShiwen() {
-		return shiwen;
+	public String getZf_shiwen() {
+		return zf_shiwen;
 	}
-	public void setShiwen(String shiwen) {
-		this.shiwen = shiwen;
+	public void setZf_shiwen(String zf_shiwen) {
+		this.zf_shiwen = zf_shiwen;
 	}
-	public String getXiangduishidu() {
-		return xiangduishidu;
+	public String getZf_xiangduishidu() {
+		return zf_xiangduishidu;
 	}
-	public void setXiangduishidu(String xiangduishidu) {
-		this.xiangduishidu = xiangduishidu;
+	public void setZf_xiangduishidu(String zf_xiangduishidu) {
+		this.zf_xiangduishidu = zf_xiangduishidu;
 	}
-	public String getJiancefangfa() {
-		return jiancefangfa;
+	public String getZf_jiancefangfa() {
+		return zf_jiancefangfa;
 	}
-	public void setJiancefangfa(String jiancefangfa) {
-		this.jiancefangfa = jiancefangfa;
+	public void setZf_jiancefangfa(String zf_jiancefangfa) {
+		this.zf_jiancefangfa = zf_jiancefangfa;
 	}
-	public String getYiqishebei_mingcheng_1() {
-		return yiqishebei_mingcheng_1;
+	public String getZf_yiqishebei_mingcheng_1() {
+		return zf_yiqishebei_mingcheng_1;
 	}
-	public void setYiqishebei_mingcheng_1(String yiqishebei_mingcheng_1) {
-		this.yiqishebei_mingcheng_1 = yiqishebei_mingcheng_1;
+	public void setZf_yiqishebei_mingcheng_1(String zf_yiqishebei_mingcheng_1) {
+		this.zf_yiqishebei_mingcheng_1 = zf_yiqishebei_mingcheng_1;
 	}
-	public String getYiqishebei_mingcheng_2() {
-		return yiqishebei_mingcheng_2;
+	public String getZf_yiqishebei_mingcheng_2() {
+		return zf_yiqishebei_mingcheng_2;
 	}
-	public void setYiqishebei_mingcheng_2(String yiqishebei_mingcheng_2) {
-		this.yiqishebei_mingcheng_2 = yiqishebei_mingcheng_2;
+	public void setZf_yiqishebei_mingcheng_2(String zf_yiqishebei_mingcheng_2) {
+		this.zf_yiqishebei_mingcheng_2 = zf_yiqishebei_mingcheng_2;
 	}
-	public String getYiqishebei_bianhao_1() {
-		return yiqishebei_bianhao_1;
+	public String getZf_yiqishebei_bianhao_1() {
+		return zf_yiqishebei_bianhao_1;
 	}
-	public void setYiqishebei_bianhao_1(String yiqishebei_bianhao_1) {
-		this.yiqishebei_bianhao_1 = yiqishebei_bianhao_1;
+	public void setZf_yiqishebei_bianhao_1(String zf_yiqishebei_bianhao_1) {
+		this.zf_yiqishebei_bianhao_1 = zf_yiqishebei_bianhao_1;
 	}
-	public String getYiqishebei_bianhao_2() {
-		return yiqishebei_bianhao_2;
+	public String getZf_yiqishebei_bianhao_2() {
+		return zf_yiqishebei_bianhao_2;
 	}
-	public void setYiqishebei_bianhao_2(String yiqishebei_bianhao_2) {
-		this.yiqishebei_bianhao_2 = yiqishebei_bianhao_2;
+	public void setZf_yiqishebei_bianhao_2(String zf_yiqishebei_bianhao_2) {
+		this.zf_yiqishebei_bianhao_2 = zf_yiqishebei_bianhao_2;
 	}
 	public String getShiyangzhiliang_1() {
 		return shiyangzhiliang_1;

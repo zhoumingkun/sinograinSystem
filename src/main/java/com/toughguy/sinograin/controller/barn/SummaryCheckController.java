@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.toughguy.sinograin.dto.SummaryCheckDTO;
 import com.toughguy.sinograin.model.barn.Buwanshanli;
 import com.toughguy.sinograin.model.barn.Cedingjilu;
+import com.toughguy.sinograin.model.barn.Mantoupinchang;
 import com.toughguy.sinograin.model.barn.Mianjinxishuiliang;
 import com.toughguy.sinograin.model.barn.Pinchang;
 import com.toughguy.sinograin.model.barn.Shuifen;
@@ -24,6 +25,7 @@ import com.toughguy.sinograin.persist.barn.prototype.IShuifenDao;
 import com.toughguy.sinograin.persist.barn.prototype.IZhifangsuanzhiDao;
 import com.toughguy.sinograin.service.barn.prototype.IBuwanshanliService;
 import com.toughguy.sinograin.service.barn.prototype.ICedingjiluService;
+import com.toughguy.sinograin.service.barn.prototype.IMantoupinchangService;
 import com.toughguy.sinograin.service.barn.prototype.IMianjinxishuiliangService;
 import com.toughguy.sinograin.service.barn.prototype.IPinchangService;
 import com.toughguy.sinograin.service.barn.prototype.IShuifenService;
@@ -53,7 +55,7 @@ public class SummaryCheckController {
 	@Autowired
 	private IMianjinxishuiliangService mianjinxishuiliangService;
 	@Autowired
-	private IPinchangService pinchangService;
+	private IMantoupinchangService mantoupinchangService;
 	@Autowired
 	private ISmallSampleService smallSampleService;
 	
@@ -136,9 +138,9 @@ public class SummaryCheckController {
 		SummaryCheckDTO scd10 = new SummaryCheckDTO();
 		scd10.setCheckName("馒头品尝评分记录表");
 		scd10.setSort("小麦");
-		List<Pinchang> pinchangs = pinchangService.findByCheckOrderApprovalStatus("小麦");
-		if(pinchangs != null) {
-			scd10.setSum(pinchangs.size());
+		List<Mantoupinchang> mantoupinchangs = mantoupinchangService.findByCheckOrderApprovalStatus("小麦");
+		if(mantoupinchangs != null) {
+			scd10.setSum(mantoupinchangs.size());
 		} else {
 			scd10.setSum(0);
 		}
@@ -223,7 +225,7 @@ public class SummaryCheckController {
 			List<Cedingjilu> cs = cedingjiluService.findByCheckOrderApprovalStatus(sort);
 			if(cs != null) {
 				for(Cedingjilu c:cs) {
-					SmallSample smallSample = smallSampleService.find(c.getsmallSampleId());
+					SmallSample smallSample = smallSampleService.find(c.getSmallSampleId());
 					JSONObject jo = JSONObject.fromObject(smallSample);
 					if(!jo.isEmpty()) {
 						str += jo.toString();
@@ -275,10 +277,10 @@ public class SummaryCheckController {
 				}
 			}
 		} else if(checkName.equals("馒头品尝评分记录表")) {
-			List<Pinchang> ps = pinchangService.findByCheckOrderApprovalStatus(sort);
-			if(ps != null) {
-				for(Pinchang p:ps) {
-					SmallSample smallSample = smallSampleService.find(p.getSmallSampleId());
+			List<Mantoupinchang> ms = mantoupinchangService.findByCheckOrderApprovalStatus(sort);
+			if(ms != null) {
+				for(Mantoupinchang m:ms) {
+					SmallSample smallSample = smallSampleService.find(m.getSmallSampleId());
 					JSONObject jo = JSONObject.fromObject(smallSample);
 					if(!jo.isEmpty()) {
 						str += jo.toString();

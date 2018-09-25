@@ -14,9 +14,9 @@ public class Yumipinchang extends AbstractModel{
 	private static final long serialVersionUID = 4139049675415615508L;
 	
 	private int smallSampleId;           //小样id
-	private Date riqi;				    //日期
-	private String pinpingyuan;			//品评员
-	private String table_version;		//表格版本
+	private Date ym_riqi;				    //日期
+	private String ym_pinpingyuan;			//品评员
+	private String ym_table_version;		//表格版本
 	private String wotouqiwei;          //窝头气味
 	private String wotouseze;           //窝头色泽
 	private String waiguanxingzhuang;   //外观形状
@@ -30,26 +30,25 @@ public class Yumipinchang extends AbstractModel{
 	public void setSmallSampleId(int smallSampleId) {
 		this.smallSampleId = smallSampleId;
 	}
-	public Date getRiqi() {
-		return riqi;
-	}
-	public void setRiqi(Date riqi) {
-		this.riqi = riqi;
-	}
-	public String getPinpingyuan() {
-		return pinpingyuan;
-	}
-	public void setPinpingyuan(String pinpingyuan) {
-		this.pinpingyuan = pinpingyuan;
-	}
-	public String getTable_version() {
-		return table_version;
-	}
-	public void setTable_version(String table_version) {
-		this.table_version = table_version;
-	}
 	
-	
+	public Date getYm_riqi() {
+		return ym_riqi;
+	}
+	public void setYm_riqi(Date ym_riqi) {
+		this.ym_riqi = ym_riqi;
+	}
+	public String getYm_pinpingyuan() {
+		return ym_pinpingyuan;
+	}
+	public void setYm_pinpingyuan(String ym_pinpingyuan) {
+		this.ym_pinpingyuan = ym_pinpingyuan;
+	}
+	public String getYm_table_version() {
+		return ym_table_version;
+	}
+	public void setYm_table_version(String ym_table_version) {
+		this.ym_table_version = ym_table_version;
+	}
 	public String getWotouqiwei() {
 		return wotouqiwei;
 	}

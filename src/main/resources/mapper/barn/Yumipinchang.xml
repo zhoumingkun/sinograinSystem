@@ -3,9 +3,9 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Yumipinchang">
  
 	<insert id="save" parameterType="Yumipinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,riqi,pinpingyuan,table_version,wotouqiwei,
+		insert into barn_yumipinchang_pingfenjilu (id,smallSampleId, createTime,updateTime,ym_riqi,ym_pinpingyuan,ym_table_version,wotouqiwei,
 		wotouseze,waiguanxingzhuang,neibuxingzhuang,ziwei,pinchangpingfenzhi) 
-		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{riqi},#{pinpingyuan},#{table_version},#{wotouqiwei},
+		values (#{id},#{smallSampleId}, #{createTime},#{updateTime},#{ym_riqi},#{ym_pinpingyuan},#{ym_table_version},#{wotouqiwei},
 		#{wotouseze},#{waiguanxingzhuang},#{neibuxingzhuang},#{ziwei},#{pinchangpingfenzhi})
 	</insert>
 	
@@ -61,9 +61,9 @@
 		update barn_yumipinchang_pingfenjilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="riqi != null ">riqi = #{riqi},</if>
-			<if test="pinpingyuan != null and pinpingyuan != ''">pinpingyuan = #{pinpingyuan},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="ym_riqi != null ">ym_riqi = #{ym_riqi},</if>
+			<if test="ym_pinpingyuan != null and ym_pinpingyuan != ''">ym_pinpingyuan = #{ym_pinpingyuan},</if>
+			<if test="ym_table_version != null and ym_table_version != ''">ym_table_version = #{ym_table_version},</if>
 			<if test="wotouqiwei != null and wotouqiwei != ''">wotouqiwei = #{wotouqiwei},</if>
 			<if test="wotouseze != null and wotouseze != ''">wotouseze = #{wotouseze},</if>
 			<if test="waiguanxingzhuang != null and waiguanxingzhuang != ''">waiguanxingzhuang = #{waiguanxingzhuang},</if>
@@ -80,14 +80,14 @@
 			<if test="smallSampleId != null and smallSampleId != ''">
 				and smallSampleId = #{smallSampleId}
 			</if>
-			<if test="riqi != null ">
-				and riqi = #{riqi}
+			<if test="ym_riqi != null ">
+				and ym_riqi = #{ym_riqi}
 			</if>
-			<if test="pinpingyuan != null and pinpingyuan != ''">
-				and pinpingyuan = #{pinpingyuan}
+			<if test="ym_pinpingyuan != null and ym_pinpingyuan != ''">
+				and ym_pinpingyuan = #{ym_pinpingyuan}
 			</if>
-			<if test="table_version != null and table_version != ''">
-				and table_version = #{table_version}
+			<if test="ym_table_version != null and ym_table_version != ''">
+				and ym_table_version = #{ym_table_version}
 			</if>			
 			<if test="wotouqiwei != null and wotouqiwei != ''">
 				and wotouqiwei = #{wotouqiwei}

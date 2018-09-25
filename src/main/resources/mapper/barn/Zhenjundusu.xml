@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Zhenjundusu">
 
 	<insert id="save" parameterType="Zhenjundusu" keyProperty="id" useGeneratedKeys="true">
-		insert into  barn_zhenjundusu_jiancejilu (smallSampleId, table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,yiqishebei_mingcheng_2,yiqishebei_bianhao_1,yiqishebei_bianhao_2,outudushu_1,outudushu_2,outudushu_pingjunzhi,huangqumeidusu_1,huangqumeidusu_2,huangqumeidusu_pingjunzhi,yumichimeixitong_1,yumichimeixitong_2,yumichimeixitong_pingjunzhi,zhequmeidusu_1,zhequmeidusu_2,zhequmeidusu_pingjunzhi,beizhu,jiance,jiaohe,createTime,updateTime) 
-		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{outudushu_1},#{outudushu_2},#{outudushu_pingjunzhi},#{huangqumeidusu_1},#{huangqumeidusu_2},#{huangqumeidusu_pingjunzhi},#{yumichimeixitong_1},#{yumichimeixitong_2},#{yumichimeixitong_pingjunzhi},#{zhequmeidusu_1},#{zhequmeidusu_2},#{zhequmeidusu_pingjunzhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+		insert into  barn_zhenjundusu_jiancejilu (smallSampleId, zj_table_version,zj_riqi,zj_shiwen,zj_xiangduishidu,zj_jiancefangfa,zj_yiqishebei_mingcheng_1,zj_yiqishebei_mingcheng_2,zj_yiqishebei_bianhao_1,zj_yiqishebei_bianhao_2,outudushu_1,outudushu_2,outudushu_pingjunzhi,huangqumeidusu_1,huangqumeidusu_2,huangqumeidusu_pingjunzhi,yumichimeixitong_1,yumichimeixitong_2,yumichimeixitong_pingjunzhi,zhequmeidusu_1,zhequmeidusu_2,zhequmeidusu_pingjunzhi,beizhu,jiance,jiaohe,createTime,updateTime) 
+		values (#{smallSampleId}, #{zj_table_version},#{zj_riqi},#{zj_shiwen},#{zj_xiangduishidu},#{zj_jiancefangfa},#{zj_yiqishebei_mingcheng_1},#{zj_yiqishebei_mingcheng_2},#{zj_yiqishebei_bianhao_1},#{zj_yiqishebei_bianhao_2},#{outudushu_1},#{outudushu_2},#{outudushu_pingjunzhi},#{huangqumeidusu_1},#{huangqumeidusu_2},#{huangqumeidusu_pingjunzhi},#{yumichimeixitong_1},#{yumichimeixitong_2},#{yumichimeixitong_pingjunzhi},#{zhequmeidusu_1},#{zhequmeidusu_2},#{zhequmeidusu_pingjunzhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 删除某个检验单 -->
@@ -58,15 +58,15 @@
 		update barn_zhenjundusu_jiancejilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
-			<if test="riqi != null">riqi = #{riqi},</if>
-			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
-			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
-			<if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
-			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
-			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
-			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1},</if>
-			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2},</if>
+			<if test="zj_table_version != null and zj_table_version != ''">zj_table_version = #{zj_table_version},</if>
+			<if test="zj_riqi != null">zj_riqi = #{zj_riqi},</if>
+			<if test="zj_shiwen != null and zj_shiwen != ''">zj_shiwen = #{zj_shiwen},</if>
+			<if test="zj_xiangduishidu != null and zj_xiangduishidu != ''">zj_xiangduishidu = #{zj_xiangduishidu},</if>
+			<if test="zj_jiancefangfa != null and zj_jiancefangfa != ''">zj_jiancefangfa = #{zj_jiancefangfa},</if>
+			<if test="zj_yiqishebei_mingcheng_1 != null and zj_yiqishebei_mingcheng_1 != ''">zj_yiqishebei_mingcheng_1 = #{zj_yiqishebei_mingcheng_1},</if>
+			<if test="zj_yiqishebei_mingcheng_2 != null and zj_yiqishebei_mingcheng_2 != ''">zj_yiqishebei_mingcheng_2 = #{zj_yiqishebei_mingcheng_2},</if>
+			<if test="zj_yiqishebei_bianhao_1 != null and zj_yiqishebei_bianhao_1 != ''">zj_yiqishebei_bianhao_1 = #{zj_yiqishebei_bianhao_1},</if>
+			<if test="zj_yiqishebei_bianhao_2 != null and zj_yiqishebei_bianhao_2 != ''">zj_yiqishebei_bianhao_2 = #{zj_yiqishebei_bianhao_2},</if>
 			<if test="outudushu_1 != null and outudushu_1 != ''">outudushu_1 = #{outudushu_1},</if>
 			<if test="outudushu_2 != null and outudushu_2 != ''">outudushu_2 = #{outudushu_2},</if>
 			<if test="outudushu_pingjunzhi != null and outudushu_pingjunzhi != ''">outudushu_pingjunzhi = #{outudushu_pingjunzhi},</if>
@@ -100,34 +100,34 @@
 				and smallSampleId like concat(concat('%', #{smallSampleIdLike, jdbcType=VARCHAR}),'%')
 			</if>
 			
-			<if test=" table_version != null and table_version != '' ">
-				and table_version = #{table_version}
+			<if test=" zj_table_version != null and zj_table_version != '' ">
+				and zj_table_version = #{zj_table_version}
 			</if>
-			<if test=" riqi != null and riqi != '' ">
-				and riqi = #{riqi}
+			<if test=" zj_riqi != null and zj_riqi != '' ">
+				and zj_riqi = #{zj_riqi}
 			</if>
 
-			<if test=" shiwen != null and shiwen != '' ">
-				and shiwen = #{ shiwen }
+			<if test=" zj_shiwen != null and zj_shiwen != '' ">
+				and zj_shiwen = #{ zj_shiwen }
 			</if>
 			
-			<if test=" xiangduishidu != null and xiangduishidu != '' ">
-				and xiangduishidu = #{ xiangduishidu }
+			<if test=" zj_xiangduishidu != null and zj_xiangduishidu != '' ">
+				and zj_xiangduishidu = #{ zj_xiangduishidu }
 			</if>
-			<if test=" jiancefangfa != null and jiancefangfa != '' ">
-				and jiancefangfa = #{ jiancefangfa }
+			<if test=" zj_jiancefangfa != null and zj_jiancefangfa != '' ">
+				and zj_jiancefangfa = #{ zj_jiancefangfa }
 			</if>
-			<if test=" yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != '' ">
-				and yiqishebei_mingcheng_1 = #{ yiqishebei_mingcheng_1 }
+			<if test=" zj_yiqishebei_mingcheng_1 != null and zj_yiqishebei_mingcheng_1 != '' ">
+				and zj_yiqishebei_mingcheng_1 = #{ zj_yiqishebei_mingcheng_1 }
 			</if>
-			<if test=" yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != '' ">
-				and yiqishebei_mingcheng_2 = #{ yiqishebei_mingcheng_2 }
+			<if test=" zj_yiqishebei_mingcheng_2 != null and zj_yiqishebei_mingcheng_2 != '' ">
+				and zj_yiqishebei_mingcheng_2 = #{ zj_yiqishebei_mingcheng_2 }
 			</if>
-			<if test=" yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != '' ">
-				and yiqishebei_bianhao_1 = #{ yiqishebei_bianhao_1 }
+			<if test=" zj_yiqishebei_bianhao_1 != null and zj_yiqishebei_bianhao_1 != '' ">
+				and zj_yiqishebei_bianhao_1 = #{ zj_yiqishebei_bianhao_1 }
 			</if>
-			<if test=" yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != '' ">
-				and yiqishebei_bianhao_2 = #{ yiqishebei_bianhao_2 }
+			<if test=" zj_yiqishebei_bianhao_2 != null and zj_yiqishebei_bianhao_2 != '' ">
+				and zj_yiqishebei_bianhao_2 = #{ zj_yiqishebei_bianhao_2 }
 			</if>
 			<if test=" outudushu_1 != null and outudushu_1 != '' ">
 				and outudushu_1 = #{ outudushu_1 }

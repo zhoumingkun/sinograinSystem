@@ -3,8 +3,8 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Pinchang">
 
 	<insert id="save" parameterType="Pinchang" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_pinchang_pingfenjilu (id, createTime,updateTime,content,riqi,pinchangpingfenzhi,table_version) 
-		values (#{id}, #{createTime},#{updateTime},#{content},#{riqi},#{pinchangpingfenzhi},#{table_version})
+		insert into barn_pinchang_pingfenjilu (id, createTime,updateTime,content,pc_riqi,pinchangpingfenzhi,pc_table_version) 
+		values (#{id}, #{createTime},#{updateTime},#{content},#{pc_riqi},#{pinchangpingfenzhi},#{pc_table_version})
 	</insert>
 	
 	
@@ -59,9 +59,9 @@
 		update barn_pinchang_pingfenjilu
 		<set>
 			<if test="content != null and content != ''">content = #{content},</if>
-			<if test="riqi != null ">riqi = #{riqi},</if>
+			<if test="pc_riqi != null ">pc_riqi = #{pc_riqi},</if>
 			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">pinchangpingfenzhi = #{pinchangpingfenzhi},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
+			<if test="pc_table_version != null and pc_table_version != ''">pc_table_version = #{pc_table_version},</if>
 			<if test="updateTime != null">updateTime = #{updateTime},</if>
 		</set>
 		where id = #{id}
@@ -72,14 +72,14 @@
 			<if test="content != null and content != ''">
 				and content = #{content}
 			</if>
-			<if test="riqi != null ">
-				and riqi = #{riqi}
+			<if test="pc_riqi != null ">
+				and pc_riqi = #{pc_riqi}
 			</if>
 			<if test="pinchangpingfenzhi != null and pinchangpingfenzhi != ''">
 				and pinchangpingfenzhi = #{pinchangpingfenzhi}
 			</if>
-			<if test="table_version != null and table_version != ''">
-				and table_version = #{table_version}
+			<if test="pc_table_version != null and pc_table_version != ''">
+				and pc_table_version = #{pc_table_version}
 			</if>
 			<if test=" updateTime != null">
 				and updateTime = #{updateTime}

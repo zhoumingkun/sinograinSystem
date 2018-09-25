@@ -31,7 +31,19 @@
 		select * from barn_mantoupinchang_pingfenjilu
 		<include refid="paramsSQL"/>
 	</select>
+	<!-- 根据小样id查询相应的测定记录  -->
+	<select id="findBySmallSampleId" resultType="Mantoupinchang" parameterType="int">
+		select * from barn_mantoupinchang_pingfenjilu bmp left join barn_small_sample bss on bmp.smallSampleId = bss.id
+		where bss.id = #{smallSampleId}
+	</select>
 	
+	<!-- 查询未审批的全部测定记录  -->
+	<select id="findByCheckOrderApprovalStatus" resultType="Mantoupinchang" parameterType="String">
+		SELECT bmp.* FROM barn_mantoupinchang_pingfenjilu bmp 
+		LEFT JOIN barn_small_sample bss ON bmp.smallSampleId = bss.id 
+		LEFT JOIN barn_sample bs ON bss.sampleId = bs.id 
+		where bss.checkOrderApprovalStatus = -1 and bs.sort = #{sort}
+	</select>
 	<!-- 分页查询工作底稿 -->
 	<!-- <select id="findPaginated" resultType="Mantoupinchang" parameterType="Map">
 		select * from barn_mantoupinchang_pingfenjilu

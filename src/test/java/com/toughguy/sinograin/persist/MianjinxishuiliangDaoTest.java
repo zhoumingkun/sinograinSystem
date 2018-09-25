@@ -36,7 +36,7 @@ public class MianjinxishuiliangDaoTest {
 		public void testFindAllByIdimianjinxishuiliangDao(){
 			int A = 1;
 			Mianjinxishuiliang mianjinxishuiliang = imianjinxishuiliangDao.find(A);
-		    System.out.println(mianjinxishuiliang.getRiqi());
+		    System.out.println(mianjinxishuiliang.getM_riqi());
 			System.out.println(mianjinxishuiliang.getGanmianjinzhiliang_1());
 		}
 		
@@ -45,7 +45,7 @@ public class MianjinxishuiliangDaoTest {
 		public void testUpdateMianjinxishuiliang(){
 			Mianjinxishuiliang mianjinxishuiliang = new Mianjinxishuiliang();
 			mianjinxishuiliang.setId(1);
-			mianjinxishuiliang.setTable_version("0000000-0");
+			mianjinxishuiliang.setM_table_version("0000000-0");
 			imianjinxishuiliangDao.update(mianjinxishuiliang);
 		}
 		
@@ -54,7 +54,7 @@ public class MianjinxishuiliangDaoTest {
 		@Test
 		public void testAddMianjinxishuiliang(){
 			Mianjinxishuiliang mianjinxishuiliang = new Mianjinxishuiliang();
-			mianjinxishuiliang.setTable_version("1234-2");
+			mianjinxishuiliang.setM_table_version("1234-2");
 			mianjinxishuiliang.setSmallSampleId(2);;
 			imianjinxishuiliangDao.save(mianjinxishuiliang);
 		}

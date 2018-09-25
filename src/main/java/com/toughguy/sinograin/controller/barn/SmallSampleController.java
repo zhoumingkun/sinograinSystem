@@ -301,5 +301,63 @@ public class SmallSampleController {
 		}
 		
 	}
+	/**
+	 * 提交水分表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addCheck3")
+	public String submitShuifen(Shuifen shuifen,int inspectState,String smallSampleNum,String inspector) {
+		try {
+			shuifenService.save(shuifen);
+			if(inspectState == -1) {
+				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss.setInspectState(-1);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			} else if(inspectState == 3) {
+				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss.setInspectState(3);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+		
+	}
+	/**
+	 * 提交面筋吸水量表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addCheck4")
+	public String submitMianjinxishuiliang(Mianjinxishuiliang mianjinxishuiliang,int inspectState,String smallSampleNum,String inspector) {
+		try {
+			mianjinxishuiliangService.save(mianjinxishuiliang);
+			if(inspectState == -1) {
+				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss.setInspectState(-1);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			} else if(inspectState == 3) {
+				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss.setInspectState(3);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+		
+	}
 }
 
