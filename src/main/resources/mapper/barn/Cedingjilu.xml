@@ -3,21 +3,14 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Cedingjilu">
 
 	<insert id="save" parameterType="Cedingjilu" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_check_cedingjilu (id,smallSampleId,table_version,riqi,shiwen,xiangduishidu,didian,jiancefangfa,yiqishebei_mingcheng_1,
-		yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_mingcheng_4,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,
-		yiqishebei_bianhao_4,rongzhong_1,rongzhong_2,rongzhong_pingjunzhi,sezeqiwei_1,sezeqiwei_2,sezeqiwei_pingjunzhi,yingduzhishu_1,
-		yingduzhishu_2,yingduzhishu_pingjunzhi,pise_1,pise_2,pise_pingjunzhi,shuifen_1,shuifen_2,shuifen_pingjunzhi,dainfen_1,dainfen_2,
-		dainfen_pingjunzhi,zhifang_1,zhifang_2,zhifang_pingjunzhi,danbai_1,danbai_2,danbai_pingjunzhi,shimianjin_1,shimianjin_2,shimianjin_pingjunzhi,
-		chenjiangzhi_1,chenjiangzhi_2,chenjiangzhi_pingjunzhi,lashenchangdu_1,lashenchangdu_2,lashenchangdu_pingjunzhi,wendingshijian_1,wendingshijian_2,
-		wendingshijian_pingjunzhi,xishuilv_1,xishuilv_2,xishuilv_pingjunzhi,xingchengshijian_1,xingchengshijian_2,xingchengshijian_pingjunzhi,
+		insert into barn_check_cedingjilu (id,smallSampleId,riqi,shiwen,xiangduishidu,didian,sampleNum,jiancefangfa,yiqishebei_mingcheng_1,
+		yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,
+		rongzhong_1,rongzhong_2,yingduzhishu_1,yingduzhishu_2,sezeqiwei_1,sezeqiwei_2,jiareshiyan_1,jiareshiyan_2,jiagongjingdu_1,jiagongjingdu_2,pise_1,pise_2,pingjunzhi,
 		beizhu,jiance,jiaohe,createTime,updateTime) 
-		values ( #{id},#{smallSampleId},#{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{jiancefangfa},#{yiqishebei_mingcheng_1},
-		#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_mingcheng_4},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},
-		#{yiqishebei_bianhao_4},#{rongzhong_1},#{rongzhong_2},#{rongzhong_pingjunzhi},#{sezeqiwei_1},#{sezeqiwei_2},#{sezeqiwei_pingjunzhi},#{yingduzhishu_1},
-		#{yingduzhishu_2},#{yingduzhishu_pingjunzhi},#{pise_1},#{pise_2},#{pise_pingjunzhi},#{shuifen_1},#{shuifen_2},#{shuifen_pingjunzhi},#{dainfen_1},#{dainfen_2},
-		#{dainfen_pingjunzhi},#{zhifang_1},#{zhifang_2},#{zhifang_pingjunzhi},#{danbai_1},#{danbai_2},#{danbai_pingjunzhi},#{shimianjin_1},#{shimianjin_2},#{shimianjin_pingjunzhi},
-		#{chenjiangzhi_1},#{chenjiangzhi_2},#{chenjiangzhi_pingjunzhi},#{lashenchangdu_1},#{lashenchangdu_2},#{lashenchangdu_pingjunzhi},#{wendingshijian_1},#{wendingshijian_2},
-		#{wendingshijian_pingjunzhi},#{xishuilv_1},#{xishuilv_2},#{xishuilv_pingjunzhi},#{xingchengshijian_1},#{xingchengshijian_2},#{xingchengshijian_pingjunzhi},
+		values ( #{id},#{smallSampleId},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{sampleNum},#{jiancefangfa},#{yiqishebei_mingcheng_1},
+		#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},
+		#{rongzhong_1},#{rongzhong_2},#{yingduzhishu_1},#{yingduzhishu_2},#{sezeqiwei_1},#{sezeqiwei_2},#{jiareshiyan_1},#{jiareshiyan_2},#{jiagongjingdu_1},#{jiagongjingdu_2},
+		#{pise_1},#{pise_2},#{pingjunzhi},
 		#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
@@ -62,62 +55,31 @@
 		update barn_check_cedingjilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
 			<if test="riqi != null">riqi = #{riqi},</if>
 			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
 			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
 			<if test="didian != null and didian != ''">didian = #{didian},</if>
+			<if test="sampleNum != null and sampleNum != ''">sampleNum = #{sampleNum},</if>
             <if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
 			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
 			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
 			<if test="yiqishebei_mingcheng_3 != null and yiqishebei_mingcheng_3 != ''">yiqishebei_mingcheng_3 = #{yiqishebei_mingcheng_3},</if>
-			<if test="yiqishebei_mingcheng_4 != null and yiqishebei_mingcheng_4 != ''">yiqishebei_mingcheng_4 = #{yiqishebei_mingcheng_4},</if>
 			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1},</if>
 			<if test="yiqishebei_bianhao_2 != null and yiqishebei_bianhao_2 != ''">yiqishebei_bianhao_2 = #{yiqishebei_bianhao_2},</if>
 			<if test="yiqishebei_bianhao_3 != null and yiqishebei_bianhao_3 != ''">yiqishebei_bianhao_3 = #{yiqishebei_bianhao_3},</if>
-			<if test="yiqishebei_bianhao_4 != null and yiqishebei_bianhao_4 != ''">yiqishebei_bianhao_4 = #{yiqishebei_bianhao_4},</if>
 			<if test="rongzhong_1 != null and rongzhong_1 != ''">rongzhong_1 = #{rongzhong_1},</if>
 			<if test="rongzhong_2 != null and rongzhong_2 != ''">rongzhong_2 = #{rongzhong_2},</if>
-			<if test="rongzhong_pingjunzhi != null and rongzhong_pingjunzhi != ''">rongzhong_pingjunzhi = #{rongzhong_pingjunzhi},</if>
 			<if test="sezeqiwei_1 != null and sezeqiwei_1 != ''">sezeqiwei_1 = #{sezeqiwei_1},</if>
 			<if test="sezeqiwei_2 != null and sezeqiwei_2 != ''">sezeqiwei_2 = #{sezeqiwei_2},</if>
-			<if test="sezeqiwei_pingjunzhi != null and sezeqiwei_pingjunzhi != ''">sezeqiwei_pingjunzhi = #{sezeqiwei_pingjunzhi},</if>			
 			<if test="yingduzhishu_1 != null and yingduzhishu_1 != ''">yingduzhishu_1 = #{yingduzhishu_1},</if>
 			<if test="yingduzhishu_2 != null and yingduzhishu_2 != ''">yingduzhishu_2 = #{yingduzhishu_2},</if>
-			<if test="yingduzhishu_pingjunzhi != null and yingduzhishu_pingjunzhi != ''">yingduzhishu_pingjunzhi = #{yingduzhishu_pingjunzhi},</if>			
+			<if test="jiareshiyan_1 != null and jiareshiyan_1 != ''">jiareshiyan_1 = #{jiareshiyan_1},</if>
+			<if test="jiareshiyan_2 != null and jiareshiyan_2 != ''">jiareshiyan_2 = #{jiareshiyan_2},</if>
+			<if test="jiagongjingdu_1 != null and jiagongjingdu_1 != ''">jiagongjingdu_1 = #{jiagongjingdu_1},</if>
+			<if test="jiagongjingdu_2 != null and jiagongjingdu_2 != ''">jiagongjingdu_2 = #{jiagongjingdu_2},</if>
 			<if test="pise_1 != null and pise_1 != ''">pise_1 = #{pise_1},</if>
 			<if test="pise_2 != null and pise_2 != ''">pise_2 = #{pise_2},</if>
-			<if test="pise_pingjunzhi != null and pise_pingjunzhi != ''">pise_pingjunzhi = #{pise_pingjunzhi},</if>	
-			<if test="shuifen_1 != null and shuifen_1 != ''">shuifen_1 = #{shuifen_1},</if>
-			<if test="shuifen_2 != null and shuifen_2 != ''">shuifen_2 = #{shuifen_2},</if>
-			<if test="shuifen_pingjunzhi != null and shuifen_pingjunzhi != ''">shuifen_pingjunzhi = #{shuifen_pingjunzhi},</if>	
-			<if test="dainfen_1 != null and dainfen_1 != ''">dainfen_1 = #{dainfen_1},</if>
-			<if test="dainfen_2 != null and dainfen_2 != ''">dainfen_2 = #{dainfen_2},</if>
-			<if test="dainfen_pingjunzhi != null and dainfen_pingjunzhi != ''">dainfen_pingjunzhi = #{dainfen_pingjunzhi},</if>				
-			<if test="zhifang_1 != null and zhifang_1 != ''">zhifang_1 = #{zhifang_1},</if>
-			<if test="zhifang_2 != null and zhifang_2 != ''">zhifang_2 = #{zhifang_2},</if>
-			<if test="zhifang_pingjunzhi != null and zhifang_pingjunzhi != ''">zhifang_pingjunzhi = #{zhifang_pingjunzhi},</if>	
-			<if test="danbai_1 != null and danbai_1 != ''">danbai_1 = #{danbai_1},</if>
-			<if test="danbai_2 != null and danbai_2 != ''">danbai_2 = #{danbai_2},</if>
-			<if test="danbai_pingjunzhi != null and danbai_pingjunzhi != ''">danbai_pingjunzhi = #{danbai_pingjunzhi},</if>	
-			<if test="shimianjin_1 != null and shimianjin_1 != ''">shimianjin_1 = #{shimianjin_1},</if>
-			<if test="shimianjin_2 != null and shimianjin_2 != ''">shimianjin_2 = #{shimianjin_2},</if>
-			<if test="shimianjin_pingjunzhi != null and shimianjin_pingjunzhi != ''">shimianjin_pingjunzhi = #{shimianjin_pingjunzhi},</if>	
-			<if test="chenjiangzhi_1 != null and chenjiangzhi_1 != ''">chenjiangzhi_1 = #{chenjiangzhi_1},</if>
-			<if test="chenjiangzhi_2 != null and chenjiangzhi_2 != ''">chenjiangzhi_2 = #{chenjiangzhi_2},</if>
-			<if test="chenjiangzhi_pingjunzhi != null and chenjiangzhi_pingjunzhi != ''">chenjiangzhi_pingjunzhi = #{chenjiangzhi_pingjunzhi},</if>	
-			<if test="lashenchangdu_1 != null and lashenchangdu_1 != ''">lashenchangdu_1 = #{lashenchangdu_1},</if>
-			<if test="lashenchangdu_2 != null and lashenchangdu_2 != ''">lashenchangdu_2 = #{lashenchangdu_2},</if>
-			<if test="lashenchangdu_pingjunzhi != null and lashenchangdu_pingjunzhi != ''">lashenchangdu_pingjunzhi = #{lashenchangdu_pingjunzhi},</if>	
-			<if test="wendingshijian_1 != null and wendingshijian_1 != ''">wendingshijian_1 = #{wendingshijian_1},</if>	
-			<if test="wendingshijian_2 != null and wendingshijian_2 != ''">wendingshijian_2 = #{wendingshijian_2},</if>	
-			<if test="wendingshijian_pingjunzhi != null and wendingshijian_pingjunzhi != ''">wendingshijian_pingjunzhi = #{wendingshijian_pingjunzhi},</if>	
-			<if test="xishuilv_1 != null and xishuilv_1 != ''">xishuilv_1 = #{xishuilv_1},</if>	
-			<if test="xishuilv_2 != null and xishuilv_2 != ''">xishuilv_2 = #{xishuilv_2},</if>	
-			<if test="xishuilv_pingjunzhi != null and xishuilv_pingjunzhi != ''">xishuilv_pingjunzhi = #{xishuilv_pingjunzhi},</if>	
-			<if test="xingchengshijian_1 != null and xingchengshijian_1 != ''">xingchengshijian_1 = #{xingchengshijian_1},</if>	
-			<if test="xingchengshijian_2 != null and xingchengshijian_2 != ''">xingchengshijian_2 = #{xingchengshijian_2},</if>	
-			<if test="xingchengshijian_pingjunzhi != null and xingchengshijian_pingjunzhi != ''">xingchengshijian_pingjunzhi = #{xingchengshijian_pingjunzhi},</if>	
+			<if test="pingjunzhi != null and pingjunzhi != ''">pingjunzhi = #{pingjunzhi},</if>	
 			<if test="beizhu != null and beizhu != ''">beizhu = #{beizhu},</if>	
 			<if test="jiance != null and jiance != ''">jiance = #{jiance},</if>	
 			<if test="jiaohe != null and jiaohe != ''">jiaohe = #{jiaohe},</if>
@@ -133,9 +95,6 @@
 			<if test="smallSampleId != null and smallSampleId != ''">
 			    and smallSampleId = #{smallSampleId}
 			</if>
-			<if test="table_version != null and table_version != ''">
-			    and table_version = #{table_version}
-			</if>
 			<if test="riqi != null">
 			    and riqi = #{riqi}
 			</if>
@@ -147,6 +106,9 @@
 			</if>
 			<if test="didian != null and didian != ''">
 			    and didian = #{didian}
+			</if>
+			<if test="sampleNum != null and sampleNum != ''">
+			    and sampleNum = #{sampleNum}
 			</if>
             <if test="jiancefangfa != null and jiancefangfa != ''">
                 and jiancefangfa = #{jiancefangfa}
@@ -160,9 +122,6 @@
 			<if test="yiqishebei_mingcheng_3 != null and yiqishebei_mingcheng_3 != ''">
 			    and yiqishebei_mingcheng_3 = #{yiqishebei_mingcheng_3}
 			</if>
-			<if test="yiqishebei_mingcheng_4 != null and yiqishebei_mingcheng_4 != ''">
-			    and yiqishebei_mingcheng_4 = #{yiqishebei_mingcheng_4}
-			</if>
 			<if test="yiqishebei_bianhao_1 != null and yiqishebei_bianhao_1 != ''">
 			    and yiqishebei_bianhao_1 = #{yiqishebei_bianhao_1}
 			</if>
@@ -172,17 +131,11 @@
 			<if test="yiqishebei_bianhao_3 != null and yiqishebei_bianhao_3 != ''">
 			    and yiqishebei_bianhao_3 = #{yiqishebei_bianhao_3}
 			</if>
-			<if test="yiqishebei_bianhao_4 != null and yiqishebei_bianhao_4 != ''">
-			    and yiqishebei_bianhao_4 = #{yiqishebei_bianhao_4}
-			</if>
 			<if test="rongzhong_1 != null and rongzhong_1 != ''">
 			    and rongzhong_1 = #{rongzhong_1}
 			</if>
 			<if test="rongzhong_2 != null and rongzhong_2 != ''">
 			    and rongzhong_2 = #{rongzhong_2}
-			</if>
-			<if test="rongzhong_pingjunzhi != null and rongzhong_pingjunzhi != ''">
-			    and rongzhong_pingjunzhi = #{rongzhong_pingjunzhi}
 			</if>
 			<if test="sezeqiwei_1 != null and sezeqiwei_1 != ''">
 			    and sezeqiwei_1 = #{sezeqiwei_1}
@@ -190,116 +143,32 @@
 			<if test="sezeqiwei_2 != null and sezeqiwei_2 != ''">
 			    and sezeqiwei_2 = #{sezeqiwei_2}
 			</if>
-			<if test="sezeqiwei_pingjunzhi != null and sezeqiwei_pingjunzhi != ''">
-			    and sezeqiwei_pingjunzhi = #{sezeqiwei_pingjunzhi}
-			</if>			
 			<if test="yingduzhishu_1 != null and yingduzhishu_1 != ''">
 			    and yingduzhishu_1 = #{yingduzhishu_1}
 			</if>
 			<if test="yingduzhishu_2 != null and yingduzhishu_2 != ''">
 			    and yingduzhishu_2 = #{yingduzhishu_2}
 			</if>
-			<if test="yingduzhishu_pingjunzhi != null and yingduzhishu_pingjunzhi != ''">
-			    and yingduzhishu_pingjunzhi = #{yingduzhishu_pingjunzhi}
-			</if>			
+			<if test="jiareshiyan_1 != null and jiareshiyan_1 != ''">
+			    and jiareshiyan_1 = #{jiareshiyan_1}
+			</if>
+			<if test="jiareshiyan_2 != null and jiareshiyan_2 != ''">
+			    and jiareshiyan_2 = #{jiareshiyan_2}
+			</if>
+			<if test="jiagongjingdu_1 != null and jiagongjingdu_1 != ''">
+			    and jiagongjingdu_1 = #{jiagongjingdu_1}
+			</if>
+			<if test="jiagongjingdu_2 != null and jiagongjingdu_2 != ''">
+			    and jiagongjingdu_2 = #{jiagongjingdu_2}
+			</if>
 			<if test="pise_1 != null and pise_1 != ''">
 			    and pise_1 = #{pise_1}
 			</if>
 			<if test="pise_2 != null and pise_2 != ''">
 			    and pise_2 = #{pise_2}
 			</if>
-			<if test="pise_pingjunzhi != null and pise_pingjunzhi != ''">
-			    and pise_pingjunzhi = #{pise_pingjunzhi}
-			</if>	
-			<if test="shuifen_1 != null and shuifen_1 != ''">
-			    and shuifen_1 = #{shuifen_1}
-			</if>
-			<if test="shuifen_2 != null and shuifen_2 != ''">
-				and shuifen_2 = #{shuifen_2}
-			</if>
-			<if test="shuifen_pingjunzhi != null and shuifen_pingjunzhi != ''">
-				and shuifen_pingjunzhi = #{shuifen_pingjunzhi}
-			</if>	
-			<if test="dainfen_1 != null and dainfen_1 != ''">
-				and dainfen_1 = #{dainfen_1}
-			</if>
-			<if test="dainfen_2 != null and dainfen_2 != ''">
-				and dainfen_2 = #{dainfen_2}
-			</if>
-			<if test="dainfen_pingjunzhi != null and dainfen_pingjunzhi != ''">
-				and dainfen_pingjunzhi = #{dainfen_pingjunzhi}
-			</if>				
-			<if test="zhifang_1 != null and zhifang_1 != ''">
-				and zhifang_1 = #{zhifang_1}
-			</if>
-			<if test="zhifang_2 != null and zhifang_2 != ''">
-				and zhifang_2 = #{zhifang_2}
-			</if>
-			<if test="zhifang_pingjunzhi != null and zhifang_pingjunzhi != ''">
-				and zhifang_pingjunzhi = #{zhifang_pingjunzhi}
-			</if>	
-			<if test="danbai_1 != null and danbai_1 != ''">
-				and danbai_1 = #{danbai_1}
-			</if>
-			<if test="danbai_2 != null and danbai_2 != ''">
-				and danbai_2 = #{danbai_2}
-			</if>
-			<if test="danbai_pingjunzhi != null and danbai_pingjunzhi != ''">
-				and danbai_pingjunzhi = #{danbai_pingjunzhi}
-			</if>	
-			<if test="shimianjin_1 != null and shimianjin_1 != ''">
-				and shimianjin_1 = #{shimianjin_1}
-			</if>
-			<if test="shimianjin_2 != null and shimianjin_2 != ''">
-				and shimianjin_2 = #{shimianjin_2}
-			</if>
-			<if test="shimianjin_pingjunzhi != null and shimianjin_pingjunzhi != ''">
-				and shimianjin_pingjunzhi = #{shimianjin_pingjunzhi}
-			</if>	
-			<if test="chenjiangzhi_1 != null and chenjiangzhi_1 != ''">
-				and chenjiangzhi_1 = #{chenjiangzhi_1}
-			</if>
-			<if test="chenjiangzhi_2 != null and chenjiangzhi_2 != ''">
-				and chenjiangzhi_2 = #{chenjiangzhi_2}
-			</if>
-			<if test="chenjiangzhi_pingjunzhi != null and chenjiangzhi_pingjunzhi != ''">
-				and chenjiangzhi_pingjunzhi = #{chenjiangzhi_pingjunzhi}
-			</if>	
-			<if test="lashenchangdu_1 != null and lashenchangdu_1 != ''">
-				and lashenchangdu_1 = #{lashenchangdu_1}
-			</if>
-			<if test="lashenchangdu_2 != null and lashenchangdu_2 != ''">
-				and lashenchangdu_2 = #{lashenchangdu_2}
-			</if>
-			<if test="lashenchangdu_pingjunzhi != null and lashenchangdu_pingjunzhi != ''">
-				and lashenchangdu_pingjunzhi = #{lashenchangdu_pingjunzhi}
-			</if>	
-			<if test="wendingshijian_1 != null and wendingshijian_1 != ''">
-				and wendingshijian_1 = #{wendingshijian_1}
-			</if>	
-			<if test="wendingshijian_2 != null and wendingshijian_2 != ''">
-				and wendingshijian_2 = #{wendingshijian_2}
-			</if>	
-			<if test="wendingshijian_pingjunzhi != null and wendingshijian_pingjunzhi != ''">
-				and wendingshijian_pingjunzhi = #{wendingshijian_pingjunzhi}
-			</if>	
-			<if test="xishuilv_1 != null and xishuilv_1 != ''">
-				and xishuilv_1 = #{xishuilv_1}
-			</if>	
-			<if test="xishuilv_2 != null and xishuilv_2 != ''">
-				and xishuilv_2 = #{xishuilv_2}
-			</if>	
-			<if test="xishuilv_pingjunzhi != null and xishuilv_pingjunzhi != ''">
-				and	xishuilv_pingjunzhi = #{xishuilv_pingjunzhi}
-			</if>	
-			<if test="xingchengshijian_1 != null and xingchengshijian_1 != ''">
-				and xingchengshijian_1 = #{xingchengshijian_1}
-			</if>	
-			<if test="xingchengshijian_2 != null and xingchengshijian_2 != ''">
-				and xingchengshijian_2 = #{xingchengshijian_2}
-			</if>	
-			<if test="xingchengshijian_pingjunzhi != null and xingchengshijian_pingjunzhi != ''">
-				and xingchengshijian_pingjunzhi = #{xingchengshijian_pingjunzhi}
+			<if test="pingjunzhi != null and pingjunzhi != ''">
+				and pingjunzhi = #{pingjunzhi}
 			</if>	
 			<if test="beizhu != null and beizhu != ''">
 				and beizhu = #{beizhu}

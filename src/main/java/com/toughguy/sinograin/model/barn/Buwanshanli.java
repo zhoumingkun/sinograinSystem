@@ -12,10 +12,13 @@ public class Buwanshanli extends AbstractModel{
 	private static final long serialVersionUID = 3083587919773638128L;
 	
 	private int smallSampleId;   			          				  //小样ID
-	private String table_version;			      				  //表格版本号
+//	private String table_version;			      				  //表格版本号
 	private Date riqi;          			       				  //日期
 	private String shiwen;   				       				  //室温
 	private String xiangduishidu;   		      			   	  //相对湿度
+	private String didian;   				                      //地点
+	private String sampleNum;   			                      //检测编号
+	private String sort;   				                          //样品名称
 	private String jiancefangfa;                   				  //检测方法
 	private String yiqishebei_mingcheng_1;         				  //仪器设备名称1
 	private String yiqishebei_mingcheng_2;        				  //仪器设备名称2
@@ -70,16 +73,6 @@ public class Buwanshanli extends AbstractModel{
 
 	public void setSmallSampleId(int smallSampleId) {
 		this.smallSampleId = smallSampleId;
-	}
-
-
-	public String getTable_version() {
-		return table_version;
-	}
-
-
-	public void setTable_version(String table_version) {
-		this.table_version = table_version;
 	}
 
 	public String getShiwen() {
@@ -511,8 +504,34 @@ public class Buwanshanli extends AbstractModel{
 	public void setRiqi(Date riqi) {
 		this.riqi = riqi;
 	}
+	
+	public String getDidian() {
+		return didian;
+	}
+
+	public void setDidian(String didian) {
+		this.didian = didian;
+	}
 
 
+	public String getSampleNum() {
+		return sampleNum;
+	}
+
+
+	public void setSampleNum(String sampleNum) {
+		this.sampleNum = sampleNum;
+	}
+
+
+	public String getSort() {
+		return sort;
+	}
+
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
 
 
 	@Override

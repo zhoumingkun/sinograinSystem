@@ -3,7 +3,7 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Buwanshanli">
 
 	<insert id="save" parameterType="Buwanshanli" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_zazhi_buwanshanli_cedingjilu (id, smallSampleId,table_version,riqi,shiwen,xiangduishidu,jiancefangfa,yiqishebei_mingcheng_1,
+		insert into barn_zazhi_buwanshanli_cedingjilu (id, smallSampleId,riqi,shiwen,xiangduishidu,didian,sampleNum,sort,jiancefangfa,yiqishebei_mingcheng_1,
 		yiqishebei_mingcheng_2,yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,
 		dayangzhiliang_1,dayangzhiliang_2,dayangzazhizhiliang_1,dayangzazhizhiliang_2,
 		dayangzazhihanliang_1,dayangzazhihanliang_2,dayangzazhihanliang_pingjunzhi,
@@ -12,7 +12,7 @@
 		kuangwuzhizhiliang_1,kuangwuzhizhiliang_2,kuangwuzhihanliang_1,kuangwuzhihanliang_2,kuangwuzhihanliang_pingjunzhi,zazhizongliang_1,buwanshanlizhiliang_1,buwanshanlizhiliang_2,
 	    buwanshanlihanliang_1,buwanshanlihanliang_2,buwanshanlihanliang_pingjunzhi_1,buwanshanlihanliang_pingjunzhi_2,
 	    shengmeilizhiliang_1,shengmeilizhiliang_2,shengmeilihanliang_1,shengmeilihanliang_2,shengmeilihanliang_pingjunzhi,beizhu,fenyangjiance,buwanshanli_zazhi_jiance,jiaohe,createTime,updateTime) 
-		values ( #{id}, #{smallSampleId},#{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},
+		values ( #{id}, #{smallSampleId},#{riqi},#{shiwen},#{xiangduishidu},#{didian},#{sampleNum},#{sort},#{jiancefangfa},#{yiqishebei_mingcheng_1},
 		#{yiqishebei_mingcheng_2},#{yiqishebei_mingcheng_3},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{yiqishebei_bianhao_3},
 		#{dayangzhiliang_1},#{dayangzhiliang_2},#{dayangzazhizhiliang_1},#{dayangzazhizhiliang_2},
 		#{dayangzazhihanliang_1},#{dayangzazhihanliang_2},#{dayangzazhihanliang_pingjunzhi},
@@ -66,10 +66,12 @@
 		update barn_zazhi_buwanshanli_cedingjilu
 		<set>
 			<if test="smallSampleId != null and smallSampleId != ''">smallSampleId = #{smallSampleId},</if>
-			<if test="table_version != null and table_version != ''">table_version = #{table_version},</if>
 			<if test="riqi != null">riqi = #{riqi},</if>
 			<if test="shiwen != null and shiwen != ''">shiwen = #{shiwen},</if>
 			<if test="xiangduishidu != null and xiangduishidu != ''">xiangduishidu = #{xiangduishidu},</if>
+			<if test="didian != null and didian != ''">didian = #{didian},</if>
+			<if test="sampleNum != null and sampleNum != ''">sampleNum = #{sampleNum},</if>
+			<if test="sort != null and sort != ''">sort = #{sort},</if>
             <if test="jiancefangfa != null and jiancefangfa != ''">jiancefangfa = #{jiancefangfa},</if>
 			<if test="yiqishebei_mingcheng_1 != null and yiqishebei_mingcheng_1 != ''">yiqishebei_mingcheng_1 = #{yiqishebei_mingcheng_1},</if>
 			<if test="yiqishebei_mingcheng_2 != null and yiqishebei_mingcheng_2 != ''">yiqishebei_mingcheng_2 = #{yiqishebei_mingcheng_2},</if>
@@ -135,6 +137,15 @@
 			</if>
 			<if test="xiangduishidu != null and xiangduishidu != ''">
 				and xiangduishidu = #{xiangduishidu}
+			</if>
+			<if test="didian != null and didian != ''">
+				and didian = #{didian}
+			</if>
+			<if test="sampleNum != null and sampleNum != ''">
+				and sampleNum = #{sampleNum}
+			</if>
+			<if test="sort != null and sort != ''">
+				and sort = #{sort}
 			</if>
             <if test="jiancefangfa != null and jiancefangfa != ''">
             	and jiancefangfa = #{jiancefangfa}
