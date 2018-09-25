@@ -38,11 +38,22 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某个测定记录 -->
+	<!-- 查询某个不完善粒 -->
 	<select id="find" parameterType="int" resultType="Buwanshanli">
 		select * from barn_zazhi_buwanshanli_cedingjilu where id = #{id}
 	</select>
-	
+	<!-- 根据小样id查询不完善粒 -->
+	<select id="findBySmallSampleId" parameterType="int" resultType="Buwanshanli">
+		select * from barn_zazhi_buwanshanli_cedingjilu bzbc left join barn_small_sample bss on bzbc.smallSampleId = bss.id 
+		where bss.id = #{smallSampleId} 
+	</select>
+	<!-- 查询未审批的全部测定记录  -->
+	<select id="findByCheckOrderApprovalStatus" resultType="Buwanshanli" parameterType="String">
+		SELECT bzbc.* FROM barn_zazhi_buwanshanli_cedingjilu bzbc 
+		LEFT JOIN barn_small_sample bss ON bzbc.smallSampleId = bss.id 
+		LEFT JOIN barn_sample bs ON bss.sampleId = bs.id 
+		where bss.checkOrderApprovalStatus = -1 and bs.sort = #{sort}
+	</select>
 	<!-- 查询全部测定记录  -->
 	<select id="findAll" resultType="Buwanshanli" parameterType="Map">
 		select * from barn_zazhi_buwanshanli_cedingjilu

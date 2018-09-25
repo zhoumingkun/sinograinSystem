@@ -7,12 +7,12 @@
 		values (#{smallSampleId}, #{table_version},#{riqi},#{shiwen},#{xiangduishidu},#{jiancefangfa},#{yiqishebei_mingcheng_1},#{yiqishebei_mingcheng_2},#{yiqishebei_bianhao_1},#{yiqishebei_bianhao_2},#{outudushu_1},#{outudushu_2},#{outudushu_pingjunzhi},#{huangqumeidusu_1},#{huangqumeidusu_2},#{huangqumeidusu_pingjunzhi},#{yumichimeixitong_1},#{yumichimeixitong_2},#{yumichimeixitong_pingjunzhi},#{zhequmeidusu_1},#{zhequmeidusu_2},#{zhequmeidusu_pingjunzhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
-	<!-- 删除某个交接单 -->
+	<!-- 删除某个检验单 -->
 	<delete id="delete" parameterType="int" >
 		delete from barn_zhenjundusu_jiancejilu where id = #{id}
 	</delete>
 	
-	<!-- 删除交接单集 -->
+	<!-- 删除检验单集 -->
 	<delete id="deleteByIDs" parameterType="List">
 		delete from barn_zhenjundusu_jiancejilu where id in
 		<foreach collection="list" item="id" open="(" separator="," close=")">
@@ -20,18 +20,28 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某个交接单  -->
+	<!-- 查询某个检验单  -->
 	<select id="find" parameterType="int" resultType="Zhenjundusu">
 		select * from barn_zhenjundusu_jiancejilu where id = #{id}
 	</select>
-	
-	<!-- 查询全部交接单  -->
+	<!-- 查询某个检验单  -->
+	<select id="findBySmallSampleId" parameterType="int" resultType="Zhenjundusu">
+		select * from barn_zhenjundusu_jiancejilu bzj left join barn_small_sample bss on bzj.smallSampleId = bss.id where bss.id = #{smallSampleId}
+	</select>
+	<!-- 查询未审批的全部测定记录  -->
+	<select id="findByCheckOrderApprovalStatus" resultType="Zhenjundusu" parameterType="String">
+		SELECT bzj.* FROM barn_zhenjundusu_jiancejilu bzj
+		LEFT JOIN barn_small_sample bss ON bzj.smallSampleId = bss.id 
+		LEFT JOIN barn_sample bs ON bss.sampleId = bs.id 
+		where bss.checkOrderApprovalStatus = -1 and bs.sort = #{sort}
+	</select>
+	<!-- 查询全部检验单  -->
 	<select id="findAll" resultType="Zhenjundusu" parameterType="Map">
 		select * from barn_zhenjundusu_jiancejilu
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 分页查询交接单  -->
+	<!-- 分页查询检验单  -->
 	<select id="findPaginated" resultType="Zhenjundusu" parameterType="Map">
 		select * from barn_zhenjundusu_jiancejilu 
 		<include refid="paramsSQL"/>
@@ -43,7 +53,7 @@
 		<include refid="paramsSQL"/>
 	</select>
 	
-	<!-- 修改某条交接单  -->
+	<!-- 修改某条检验单  -->
 	<update id="update" parameterType="Zhenjundusu">
 		update barn_zhenjundusu_jiancejilu
 		<set>

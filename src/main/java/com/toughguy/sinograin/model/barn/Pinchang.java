@@ -16,6 +16,7 @@ public class Pinchang extends AbstractModel{
 	private Date riqi;				    //日期
 	private String table_version;		//表格版本
 	private String pinchangpingfenzhi;  //品尝评分值
+	private int smallSampleId;         //小样id
 	
 	public String getContent() {
 		return content;
@@ -43,6 +44,12 @@ public class Pinchang extends AbstractModel{
 	}
 	
 	
+	public int getSmallSampleId() {
+		return smallSampleId;
+	}
+	public void setSmallSampleId(int smallSampleId) {
+		this.smallSampleId = smallSampleId;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);

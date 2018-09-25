@@ -28,9 +28,22 @@
 		</foreach>
 	</delete>
 	
-	<!-- 查询某个测定记录 -->
+	<!-- 查询某个水分 -->
 	<select id="find" parameterType="int" resultType="Shuifen">
 		select * from barn_shuifen_cedingjilu where id = #{id}
+	</select>
+	<!-- 根据小样id查询某个水分 -->
+	<select id="findBySmallSampleId" parameterType="int" resultType="Shuifen">
+		select * from barn_shuifen_cedingjilu bsc left join barn_small_sample bss on bsc.smallSampleId = bss.id
+		where bss.id = #{smallSampleId}
+	</select>
+	
+	<!-- 查询未审批的全部测定记录  -->
+	<select id="findByCheckOrderApprovalStatus" resultType="Shuifen" parameterType="String">
+		SELECT bsc.* FROM barn_shuifen_cedingjilu bsc
+		LEFT JOIN barn_small_sample bss ON bsc.smallSampleId = bss.id 
+		LEFT JOIN barn_sample bs ON bss.sampleId = bs.id 
+		where bss.checkOrderApprovalStatus = -1 and bs.sort = #{sort}
 	</select>
 	
 	<!-- 查询全部测定记录  -->

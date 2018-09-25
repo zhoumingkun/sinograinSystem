@@ -24,7 +24,17 @@
 	<select id="find" parameterType="int" resultType="Zhifangsuanzhi">
 		select * from barn_zhifangsuanzhi_cedingjilu where id = #{id}
 	</select>
-	
+	<!-- 查询某个检测单  -->
+	<select id="findBySmallSampleId" parameterType="int" resultType="Zhifangsuanzhi">
+		select * from barn_zhifangsuanzhi_cedingjilu bzc left join barn_small_sample bss on bzc.smallSampleId = bss.id where bss.id = #{smallSampleId}
+	</select>
+	<!-- 查询未审批的全部测定记录  -->
+	<select id="findByCheckOrderApprovalStatus" resultType="Zhifangsuanzhi" parameterType="String">
+		SELECT bzc.* FROM barn_zhifangsuanzhi_cedingjilu bzc
+		LEFT JOIN barn_small_sample bss ON bzc.smallSampleId = bss.id 
+		LEFT JOIN barn_sample bs ON bss.sampleId = bs.id 
+		where bss.checkOrderApprovalStatus = -1 and bs.sort = #{sort}
+	</select>
 	<!-- 查询全部检测单  -->
 	<select id="findAll" resultType="Zhifangsuanzhi" parameterType="Map">
 		SELECT bzc.*,bs.sampleNum,bs.sort FROM barn_zhifangsuanzhi_cedingjilu bzc LEFT JOIN barn_small_sample bss ON bss.id = bzc.smallSampleId LEFT JOIN barn_sample bs ON bs.id = bss.sampleId
