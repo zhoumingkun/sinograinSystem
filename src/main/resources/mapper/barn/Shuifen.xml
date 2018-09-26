@@ -7,12 +7,12 @@
 		s_yiqishebei_mingcheng_2,s_yiqishebei_bianhao_1,s_yiqishebei_bianhao_2,qimin_bianhao_1,qimin_bianhao_2,hongqianqiminzhiliang_1,
 		hongqianqiminzhiliang_2,hongqianqiminzhiliang_3,hongqianqiminzhiliang_4,shiyangzhiliang_1,shiyangzhiliang_2,hengzhongqiminjishiyang_hengzhonghouzhiliang_1,
 		hengzhongqiminjishiyang_hengzhonghouzhiliang_2,hengzhongqiminjishiyang_hengzhonghouzhiliang_3,hengzhongqiminjishiyang_hengzhonghouzhiliang_4,
-		shuifenhanliang_1,shuifenhanliang_2,pingjunzhi,pingxingcha_xiangduicha,pingxingcha_xiangduicha_zhi,beizhu,jiance,jiaohe,createTime,updateTime) 
+		shuifenhanliang_1,shuifenhanliang_2,pingjunzhi_1,pingjunzhi_2,pingxingcha_xiangduicha,pingxingcha_xiangduicha_zhi,beizhu,jiance,jiaohe,createTime,updateTime) 
 		values ( #{id},#{smallSampleId},#{s_table_version},#{s_riqi},#{s_shiwen},#{s_xiangduishidu},#{s_jiancefangfa},#{s_yiqishebei_mingcheng_1},
 		#{s_yiqishebei_mingcheng_2},#{s_yiqishebei_bianhao_1},#{s_yiqishebei_bianhao_2},#{qimin_bianhao_1},#{qimin_bianhao_2},#{hongqianqiminzhiliang_1},
 		#{hongqianqiminzhiliang_2},#{hongqianqiminzhiliang_3},#{hongqianqiminzhiliang_4},#{shiyangzhiliang_1},#{shiyangzhiliang_2},#{hengzhongqiminjishiyang_hengzhonghouzhiliang_1},
 		#{hengzhongqiminjishiyang_hengzhonghouzhiliang_2},#{hengzhongqiminjishiyang_hengzhonghouzhiliang_3},#{hengzhongqiminjishiyang_hengzhonghouzhiliang_4},
-		#{shuifenhanliang_1},#{shuifenhanliang_2},#{pingjunzhi},#{pingxingcha_xiangduicha},#{pingxingcha_xiangduicha_zhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
+		#{shuifenhanliang_1},#{shuifenhanliang_2},#{pingjunzhi_1},#{pingjunzhi_2},#{pingxingcha_xiangduicha},#{pingxingcha_xiangduicha_zhi},#{beizhu},#{jiance},#{jiaohe},#{createTime},#{updateTime})
 	</insert>
 	
 	<!-- 删除某个测定记录 -->
@@ -92,7 +92,8 @@
 			<if test="hengzhongqiminjishiyang_hengzhonghouzhiliang_4 != null and hengzhongqiminjishiyang_hengzhonghouzhiliang_4 != ''">hengzhongqiminjishiyang_hengzhonghouzhiliang_4 = #{hengzhongqiminjishiyang_hengzhonghouzhiliang_4},</if>			
 			<if test="shuifenhanliang_1 != null and shuifenhanliang_1 != ''">shuifenhanliang_1 = #{shuifenhanliang_1},</if>
 			<if test="shuifenhanliang_2 != null and shuifenhanliang_2 != ''">shuifenhanliang_2 = #{shuifenhanliang_2},</if>			
-			<if test="pingjunzhi != null and pingjunzhi != ''">pingjunzhi = #{pingjunzhi},</if>	
+			<if test="pingjunzhi_1 != null and pingjunzhi_1 != ''">pingjunzhi_1 = #{pingjunzhi_1},</if>	
+			<if test="pingjunzhi_2 != null and pingjunzhi_2 != ''">pingjunzhi_2 = #{pingjunzhi_2},</if>	
 			<if test="pingxingcha_xiangduicha != null and pingxingcha_xiangduicha != ''">pingxingcha_xiangduicha = #{pingxingcha_xiangduicha},</if>
 			<if test="pingxingcha_xiangduicha_zhi != null and pingxingcha_xiangduicha_zhi != ''">pingxingcha_xiangduicha_zhi = #{pingxingcha_xiangduicha_zhi},</if>
 			<if test="beizhu != null and beizhu != ''">beizhu = #{beizhu},</if>	
@@ -179,9 +180,12 @@
 			<if test="shuifenhanliang_2 != null and shuifenhanliang_2 != ''">
 				and shuifenhanliang_2 = #{shuifenhanliang_2}
 			</if>			
-			<if test="pingjunzhi != null and pingjunzhi != ''">
-				and pingjunzhi = #{pingjunzhi}
+			<if test="pingjunzhi_1 != null and pingjunzhi_1 != ''">
+				and pingjunzhi_1 = #{pingjunzhi_1}
 			</if>	
+			<if test="pingjunzhi_2 != null and pingjunzhi_2 != ''">
+				and pingjunzhi_2 = #{pingjunzhi_2}
+			</if>
 			<if test="pingxingcha_xiangduicha != null and pingxingcha_xiangduicha != ''">
 				and pingxingcha_xiangduicha = #{pingxingcha_xiangduicha}
 			</if>

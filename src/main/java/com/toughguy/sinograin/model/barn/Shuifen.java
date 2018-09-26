@@ -37,7 +37,8 @@ public class Shuifen extends AbstractModel {
 	private String hengzhongqiminjishiyang_hengzhonghouzhiliang_4; // 恒重器皿及试样（ ）℃（）恒重后质量W2（g）4
 	private String shuifenhanliang_1; // 水分含量（%）1
 	private String shuifenhanliang_2; // 水分含量（%）2
-	private String pingjunzhi; // 平均值（%）
+	private String pingjunzhi_1; // 平均值1（%）
+	private String pingjunzhi_2; // 平均值2（%）
 //	private String pingxingcha; // 平行差
 //	private String xiangduicha; // 相对差（%）
 	private String pingxingcha_xiangduicha;         //平行差或相对差
@@ -245,13 +246,7 @@ public class Shuifen extends AbstractModel {
 		this.shuifenhanliang_2 = shuifenhanliang_2;
 	}
 
-	public String getPingjunzhi() {
-		return pingjunzhi;
-	}
-
-	public void setPingjunzhi(String pingjunzhi) {
-		this.pingjunzhi = pingjunzhi;
-	}
+	
 
 //	public String getPingxingcha() {
 //		return pingxingcha;
@@ -269,6 +264,22 @@ public class Shuifen extends AbstractModel {
 //		this.xiangduicha = xiangduicha;
 //	}
 	
+
+	public String getPingjunzhi_1() {
+		return pingjunzhi_1;
+	}
+
+	public void setPingjunzhi_1(String pingjunzhi_1) {
+		this.pingjunzhi_1 = pingjunzhi_1;
+	}
+
+	public String getPingjunzhi_2() {
+		return pingjunzhi_2;
+	}
+
+	public void setPingjunzhi_2(String pingjunzhi_2) {
+		this.pingjunzhi_2 = pingjunzhi_2;
+	}
 
 	public String getBeizhu() {
 		return beizhu;
