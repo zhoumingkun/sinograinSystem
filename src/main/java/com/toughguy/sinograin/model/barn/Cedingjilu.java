@@ -69,6 +69,12 @@ public class Cedingjilu extends AbstractModel{
 	private String xingchengshijian_1;         //形成时间1
 	private String xingchengshijian_2;         //形成时间2
 	private String xingchengshijian_pingjunzhi;//形成时间平均值
+	
+	private String pingjunzhi;                 //平均值
+	private String jiareshiyan_1;              //加热实验1
+	private String jiareshiyan_2;              //加热实验2
+	private String jiagongjingdu_1;            //加工精度1
+	private String jiagongjingdu_2;            //加工精度2
 	private String beizhu;              	   //备注
 	private String jiance;             		   //检测
 	private String jiaohe;             	   	   //校核
@@ -429,6 +435,36 @@ public class Cedingjilu extends AbstractModel{
 		this.jiaohe = jiaohe;
 	}
 	
+	public String getPingjunzhi() {
+		return pingjunzhi;
+	}
+	public void setPingjunzhi(String pingjunzhi) {
+		this.pingjunzhi = pingjunzhi;
+	}
+	public String getJiareshiyan_1() {
+		return jiareshiyan_1;
+	}
+	public void setJiareshiyan_1(String jiareshiyan_1) {
+		this.jiareshiyan_1 = jiareshiyan_1;
+	}
+	public String getJiareshiyan_2() {
+		return jiareshiyan_2;
+	}
+	public void setJiareshiyan_2(String jiareshiyan_2) {
+		this.jiareshiyan_2 = jiareshiyan_2;
+	}
+	public String getJiagongjingdu_1() {
+		return jiagongjingdu_1;
+	}
+	public void setJiagongjingdu_1(String jiagongjingdu_1) {
+		this.jiagongjingdu_1 = jiagongjingdu_1;
+	}
+	public String getJiagongjingdu_2() {
+		return jiagongjingdu_2;
+	}
+	public void setJiagongjingdu_2(String jiagongjingdu_2) {
+		this.jiagongjingdu_2 = jiagongjingdu_2;
+	}
 	@Override
 	public String toString(){
 		return JsonUtil.objectToJson(this);
