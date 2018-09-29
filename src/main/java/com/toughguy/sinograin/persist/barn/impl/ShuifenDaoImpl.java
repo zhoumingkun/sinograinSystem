@@ -21,7 +21,7 @@ public class ShuifenDaoImpl extends GenericDaoImpl<Shuifen, Integer> implements 
 	@Override
 	public List<Shuifen> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
 	}
 
 }

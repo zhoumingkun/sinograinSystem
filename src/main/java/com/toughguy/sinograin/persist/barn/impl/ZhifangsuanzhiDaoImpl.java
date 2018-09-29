@@ -20,6 +20,6 @@ public class ZhifangsuanzhiDaoImpl extends GenericDaoImpl<Zhifangsuanzhi, Intege
 	@Override
 	public List<Zhifangsuanzhi> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus",sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus",sort);
 	}
 }

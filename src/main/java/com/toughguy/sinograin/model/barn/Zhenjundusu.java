@@ -39,9 +39,6 @@ public class Zhenjundusu extends AbstractModel{
 	private String jiaohe;                       //校核
 	
 
-
-	
-
 	public int getSmallSampleId() {
 		return smallSampleId;
 	}

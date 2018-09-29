@@ -21,7 +21,7 @@ public class BuwanshanliDaoImpl extends GenericDaoImpl<Buwanshanli, Integer> imp
 	@Override
 	public List<Buwanshanli> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
 	}
 
 }

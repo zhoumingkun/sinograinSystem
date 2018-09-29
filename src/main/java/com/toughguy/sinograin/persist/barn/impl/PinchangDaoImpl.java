@@ -20,6 +20,6 @@ public class PinchangDaoImpl extends GenericDaoImpl<Pinchang, Integer> implement
 	@Override
 	public List<Pinchang> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus",sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus",sort);
 	}
 }

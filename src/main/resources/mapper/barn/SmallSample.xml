@@ -22,7 +22,7 @@
 	
 	<!-- 查询某个小样 -->
 	<select id="find" parameterType="int" resultType="SmallSample">
-		select * from barn_small_sample where id = #{id}
+		select bss.*,bs.sort from barn_small_sample bss left join barn_sample bs on bss.sampleId = bs.id where bss.id = #{id}
 	</select>
 	
 	<!-- 根据小样编号查询小样  -->
@@ -70,6 +70,8 @@
 			<if test="smallSamplePic != null and smallSamplePic != ''">smallSamplePic = #{smallSamplePic},</if>
 			<if test="state != null and state != ''">state = #{state},</if>
 			<if test="smallSampleWord != null and smallSampleWord != ''">smallSampleWord = #{smallSampleWord},</if>
+			<if test="inspector != null and inspector != ''">inspector = #{inspector},</if>
+			<if test="checkOrderApprovalStatus != null and checkOrderApprovalStatus != ''">checkOrderApprovalStatus = #{checkOrderApprovalStatus},</if>
 		</set>
 		where id = #{id}
 	</update>

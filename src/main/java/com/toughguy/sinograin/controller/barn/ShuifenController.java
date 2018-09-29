@@ -45,6 +45,7 @@ public class ShuifenController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("smallSampleId", id);
 		List<Shuifen> sfs = shuifenService.findAll(map);
+		System.out.println(sfs.size());
 		for(Shuifen sf:sfs) {
 			return sf;
 		}

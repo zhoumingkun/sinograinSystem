@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.dto.SummaryCheckDTO;
 import com.toughguy.sinograin.model.barn.Buwanshanli;
 import com.toughguy.sinograin.model.barn.Cedingjilu;
@@ -220,16 +222,13 @@ public class SummaryCheckController {
 	@ResponseBody
 	@RequestMapping(value = "/findCheckAndSample")
 	public String findCheckSample(String checkName,String sort) {
-		String str = "";
+		String str = "[";
 		if(checkName.equals("测定记录")) {
 			List<Cedingjilu> cs = cedingjiluService.findByCheckOrderApprovalStatus(sort);
 			if(cs != null) {
 				for(Cedingjilu c:cs) {
 					SmallSample smallSample = smallSampleService.find(c.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
 				}
 			}
 		} else if(checkName.equals("杂质、不完善粒测定记录")) {
@@ -237,10 +236,11 @@ public class SummaryCheckController {
 			if(bs != null) {
 				for(Buwanshanli b:bs) {
 					SmallSample smallSample = smallSampleService.find(b.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		} else if(checkName.equals("水分测定记录")) {
@@ -248,10 +248,11 @@ public class SummaryCheckController {
 			if(ss != null) {
 				for(Shuifen s:ss) {
 					SmallSample smallSample = smallSampleService.find(s.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		} else if(checkName.equals("真菌毒素检测记录")) {
@@ -259,10 +260,11 @@ public class SummaryCheckController {
 			if(zs != null) {
 				for(Zhenjundusu z:zs) {
 					SmallSample smallSample = smallSampleService.find(z.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		} else if(checkName.equals("面筋吸水量测定记录")) {
@@ -270,10 +272,11 @@ public class SummaryCheckController {
 			if(ms != null) {
 				for(Mianjinxishuiliang m:ms) {
 					SmallSample smallSample = smallSampleService.find(m.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		} else if(checkName.equals("馒头品尝评分记录表")) {
@@ -281,10 +284,11 @@ public class SummaryCheckController {
 			if(ms != null) {
 				for(Mantoupinchang m:ms) {
 					SmallSample smallSample = smallSampleService.find(m.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		} else if(checkName.equals("脂肪酸值测定记录")) {
@@ -292,10 +296,11 @@ public class SummaryCheckController {
 			if(zfs != null) {
 				for(Zhifangsuanzhi zf:zfs) {
 					SmallSample smallSample = smallSampleService.find(zf.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		} else if(checkName.equals("玉米品尝评分记录表")) {
@@ -303,14 +308,14 @@ public class SummaryCheckController {
 			if(ys != null) {
 				for(Yumipinchang y:ys) {
 					SmallSample smallSample = smallSampleService.find(y.getSmallSampleId());
-					JSONObject jo = JSONObject.fromObject(smallSample);
-					if(!jo.isEmpty()) {
-						str += jo.toString();
-					}
+					str += smallSample.toString() + ",";
+//					JSONObject jo = JSONObject.fromObject(smallSample);
+//					if(!jo.isEmpty()) {
+//						str += jo.toString();
+//					}
 				}
 			}
 		}
-		return str;
+		return str.substring(0, str.length()-1) + "]";
 	}
-	
 }

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.toughguy.sinograin.model.barn.Buwanshanli;
 import com.toughguy.sinograin.model.barn.Cedingjilu;
+import com.toughguy.sinograin.model.barn.Mantoupinchang;
 import com.toughguy.sinograin.model.barn.Mianjinxishuiliang;
 import com.toughguy.sinograin.model.barn.Pinchang;
 import com.toughguy.sinograin.model.barn.Sample;
@@ -24,8 +25,10 @@ import com.toughguy.sinograin.model.barn.Yumipinchang;
 import com.toughguy.sinograin.model.barn.Zhenjundusu;
 import com.toughguy.sinograin.model.barn.Zhifangsuanzhi;
 import com.toughguy.sinograin.pagination.PagerModel;
+import com.toughguy.sinograin.service.barn.impl.MantoupinchangServiceImpl;
 import com.toughguy.sinograin.service.barn.prototype.IBuwanshanliService;
 import com.toughguy.sinograin.service.barn.prototype.ICedingjiluService;
+import com.toughguy.sinograin.service.barn.prototype.IMantoupinchangService;
 import com.toughguy.sinograin.service.barn.prototype.IMianjinxishuiliangService;
 import com.toughguy.sinograin.service.barn.prototype.IPinchangService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
@@ -70,7 +73,7 @@ public class SmallSampleController {
 	@Autowired
 	private IMianjinxishuiliangService mianjinxishuiliangService;
 	@Autowired
-	private IPinchangService pinchangService;
+	private IMantoupinchangService mantoupinchangService;
 	@Autowired
 	private IYumipinchangService yumipinchangService;
 	@Autowired
@@ -197,79 +200,85 @@ public class SmallSampleController {
 	@ResponseBody
 	@RequestMapping(value = "/findBySmallSampleNum")
 	public String findBySmallSampleNum(String smallSampleNum) {
-		SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
-		int checkItems = Integer.parseInt(smallSampleNum.substring(smallSampleNum.length()-1));
-		System.out.println(checkItems);
-		String[] checkPoint = ss.getCheckPoint().split(",");
-		String checks = "";
-		JSONObject ssJson = JSONObject.fromObject(ss);
-		checks += ssJson;
-		if(checkItems == 1 || checkItems == 2) {
-			Cedingjilu cedingjilu = new Cedingjilu();
-			Buwanshanli buwanshanli = new Buwanshanli();
-			for(String c:checkPoint) {
-				if(c.equals("1")) {
-					cedingjilu = cedingjiluService.findBySmallSampleId(ss.getId());
-				} else if(c.equals("3") || c.equals("4") || c.equals("5") || c.equals("6")) {
-					buwanshanli = buwanshanliService.findBySmallSampleId(ss.getId());
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			int checkItems = Integer.parseInt(smallSampleNum.substring(smallSampleNum.length()-1));
+			System.out.println(checkItems);
+			String[] checkPoint = ss.getCheckPoint().split(",");
+			String checks = "";
+			JSONObject ssJson = JSONObject.fromObject(ss);
+			checks += ssJson;
+			if(checkItems == 1 || checkItems == 2) {
+				Cedingjilu cedingjilu = new Cedingjilu();
+				Buwanshanli buwanshanli = new Buwanshanli();
+				for(String c:checkPoint) {
+					if(c.equals("1")) {
+						cedingjilu = cedingjiluService.findBySmallSampleId(ss.getId());
+					} else if(c.equals("3") || c.equals("4") || c.equals("5") || c.equals("6")) {
+						buwanshanli = buwanshanliService.findBySmallSampleId(ss.getId());
+					}
+				}
+				JSONObject cedingjiluJson = JSONObject.fromObject(cedingjilu);
+				if(!cedingjiluJson.isEmpty()) {
+					checks += cedingjiluJson.toString();
+				}
+				JSONObject buwanshanliJson = JSONObject.fromObject(buwanshanli);
+				if(!buwanshanliJson.isEmpty()) {
+				checks += buwanshanliJson.toString();
+				}
+			} else if(checkItems == 3) {
+				System.out.println("sssssss");
+				Shuifen shuifen = shuifenService.findBySmallSampleId(ss.getId());
+				JSONObject shuifenJson = JSONObject.fromObject(shuifen);
+				if(!shuifenJson.isEmpty()) {
+					checks += shuifenJson.toString();
+				}
+			} else if(checkItems == 4) {
+				Cedingjilu cedingjilu = cedingjiluService.findBySmallSampleId(ss.getId());
+				JSONObject cedingjiluJson = JSONObject.fromObject(cedingjilu);
+				if(!cedingjiluJson.isEmpty()) {
+					checks += cedingjiluJson.toString();
+				}
+			} else if(checkItems == 5) {
+				Mianjinxishuiliang mianjinxishuiliang = mianjinxishuiliangService.findBySmallSampleId(ss.getId());
+				JSONObject mianjinxishuiliangJson = JSONObject.fromObject(mianjinxishuiliang);
+				if(!mianjinxishuiliangJson.isEmpty()) {
+					checks += mianjinxishuiliangJson.toString();
+				}
+			} else if(checkItems == 6) {
+				Sample s = sampleService.find(ss.getSampleId());
+				if(s.getSort().equals("小麦")) {
+					Mantoupinchang pinchang = mantoupinchangService.findBySmallSampleId(ss.getId());
+					JSONObject pinchangJson = JSONObject.fromObject(pinchang);
+					if(!pinchangJson.isEmpty()) {
+						checks += pinchangJson.toString();
+					}
+				} else if(s.getSort().equals("玉米")){
+					Yumipinchang yumipinchang = yumipinchangService.findBySmallSampleId(ss.getId());
+					JSONObject yumipinchangJson = JSONObject.fromObject(yumipinchang);
+					if(!yumipinchangJson.isEmpty()) {
+						checks += yumipinchangJson.toString();
+					}
+				}
+			} else if(checkItems == 7) {
+				Zhenjundusu zhenjundushu = zhenjundusuService.findBySmallSampleId(ss.getId());
+				JSONObject zhenjundushuJson = JSONObject.fromObject(zhenjundushu);
+				if(!zhenjundushuJson.isEmpty()) {
+					checks += zhenjundushuJson.toString();
+				}
+			} else if(checkItems == 8) {
+				Zhifangsuanzhi zhifangsuanzhi = zhifangsuanzhiService.findBySmallSampleId(ss.getId());
+				JSONObject zhifangsuanzhiJson = JSONObject.fromObject(zhifangsuanzhi);
+				if(!zhifangsuanzhiJson.isEmpty()) {
+					checks += zhifangsuanzhiJson.toString();
 				}
 			}
-			JSONObject cedingjiluJson = JSONObject.fromObject(cedingjilu);
-			if(!cedingjiluJson.isEmpty()) {
-				checks += cedingjiluJson.toString();
-			}
-			JSONObject buwanshanliJson = JSONObject.fromObject(buwanshanli);
-			if(!buwanshanliJson.isEmpty()) {
-			checks += buwanshanliJson.toString();
-			}
-		} else if(checkItems == 3) {
-			System.out.println("sssssss");
-			Shuifen shuifen = shuifenService.findBySmallSampleId(ss.getId());
-			JSONObject shuifenJson = JSONObject.fromObject(shuifen);
-			if(!shuifenJson.isEmpty()) {
-				checks += shuifenJson.toString();
-			}
-		} else if(checkItems == 4) {
-			Cedingjilu cedingjilu = cedingjiluService.findBySmallSampleId(ss.getId());
-			JSONObject cedingjiluJson = JSONObject.fromObject(cedingjilu);
-			if(!cedingjiluJson.isEmpty()) {
-				checks += cedingjiluJson.toString();
-			}
-		} else if(checkItems == 5) {
-			Mianjinxishuiliang mianjinxishuiliang = mianjinxishuiliangService.findBySmallSampleId(ss.getId());
-			JSONObject mianjinxishuiliangJson = JSONObject.fromObject(mianjinxishuiliang);
-			if(!mianjinxishuiliangJson.isEmpty()) {
-				checks += mianjinxishuiliangJson.toString();
-			}
-		} else if(checkItems == 6) {
-			Sample s = sampleService.find(ss.getSampleId());
-			if(s.getSort().equals("小麦")) {
-				Pinchang pinchang = pinchangService.findBySmallSampleId(ss.getId());
-				JSONObject pinchangJson = JSONObject.fromObject(pinchang);
-				if(!pinchangJson.isEmpty()) {
-					checks += pinchangJson.toString();
-				}
-			} else if(s.getSort().equals("玉米")){
-				Yumipinchang yumipinchang = yumipinchangService.findBySmallSampleId(ss.getId());
-				JSONObject yumipinchangJson = JSONObject.fromObject(yumipinchang);
-				if(!yumipinchangJson.isEmpty()) {
-					checks += yumipinchangJson.toString();
-				}
-			}
-		} else if(checkItems == 7) {
-			Zhenjundusu zhenjundushu = zhenjundusuService.findBySmallSampleId(ss.getId());
-			JSONObject zhenjundushuJson = JSONObject.fromObject(zhenjundushu);
-			if(!zhenjundushuJson.isEmpty()) {
-				checks += zhenjundushuJson.toString();
-			}
-		} else if(checkItems == 8) {
-			Zhifangsuanzhi zhifangsuanzhi = zhifangsuanzhiService.findBySmallSampleId(ss.getId());
-			JSONObject zhifangsuanzhiJson = JSONObject.fromObject(zhifangsuanzhi);
-			if(!zhifangsuanzhiJson.isEmpty()) {
-				checks += zhifangsuanzhiJson.toString();
-			}
+			return checks;
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
-		return checks;
 	}
 	/**
 	 * 提交小1表
@@ -278,20 +287,23 @@ public class SmallSampleController {
 	@RequestMapping(value = "/addCheck1")
 	public String submitcdjlAndBuwanshanli(Cedingjilu cedingjilu, Buwanshanli buwanshanli,int inspectState,String smallSampleNum,String inspector) {
 		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			cedingjilu.setSmallSampleId(ss.getId());
+			buwanshanli.setSmallSampleId(ss.getId());
 			cedingjiluService.save(cedingjilu);
 			buwanshanliService.save(buwanshanli);
 			if(inspectState == -1) {
-				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
-				ss.setInspectState(-1);
-				ss.setInspector(inspector);
-				ss.setCheckOrderApprovalStatus(-1);
-				smallSampleService.update(ss);
+				SmallSample ss1 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss1.setInspectState(-1);
+				ss1.setInspector(inspector);
+				ss1.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss1);
 			} else if(inspectState == 3) {
-				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
-				ss.setInspectState(3);
-				ss.setInspector(inspector);
-				ss.setCheckOrderApprovalStatus(-1);
-				smallSampleService.update(ss);
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
 			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -308,19 +320,20 @@ public class SmallSampleController {
 	@RequestMapping(value = "/addCheck3")
 	public String submitShuifen(Shuifen shuifen,int inspectState,String smallSampleNum,String inspector) {
 		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			shuifen.setSmallSampleId(ss.getId());
 			shuifenService.save(shuifen);
 			if(inspectState == -1) {
-				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
 				ss.setInspectState(-1);
 				ss.setInspector(inspector);
 				ss.setCheckOrderApprovalStatus(-1);
 				smallSampleService.update(ss);
 			} else if(inspectState == 3) {
-				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
-				ss.setInspectState(3);
-				ss.setInspector(inspector);
-				ss.setCheckOrderApprovalStatus(-1);
-				smallSampleService.update(ss);
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
 			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -337,19 +350,20 @@ public class SmallSampleController {
 	@RequestMapping(value = "/addCheck4")
 	public String submitMianjinxishuiliang(Mianjinxishuiliang mianjinxishuiliang,int inspectState,String smallSampleNum,String inspector) {
 		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			mianjinxishuiliang.setSmallSampleId(ss.getId());
 			mianjinxishuiliangService.save(mianjinxishuiliang);
 			if(inspectState == -1) {
-				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
 				ss.setInspectState(-1);
 				ss.setInspector(inspector);
 				ss.setCheckOrderApprovalStatus(-1);
 				smallSampleService.update(ss);
 			} else if(inspectState == 3) {
-				SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
-				ss.setInspectState(3);
-				ss.setInspector(inspector);
-				ss.setCheckOrderApprovalStatus(-1);
-				smallSampleService.update(ss);
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
 			}
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
@@ -358,6 +372,123 @@ public class SmallSampleController {
 			return "{ \"success\" : false }";
 		}
 		
+		
+	}
+	/**
+	 * 提交脂肪酸量表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addCheck8")
+	public String submitZhifangsuanzhi(Zhifangsuanzhi zhifangsuanzhi,int inspectState,String smallSampleNum,String inspector) {
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			zhifangsuanzhi.setSmallSampleId(ss.getId());
+			zhifangsuanzhiService.save(zhifangsuanzhi);
+			if(inspectState == -1) {
+				ss.setInspectState(-1);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			} else if(inspectState == 3) {
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	/**
+	 * 提交品尝评分（小麦）表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addCheck61")
+	public String submitPinchang(Mantoupinchang mantoupinchang,int inspectState,String smallSampleNum,String inspector) {
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			mantoupinchang.setSmallSampleId(ss.getId());
+			mantoupinchangService.save(mantoupinchang);
+			if(inspectState == -1) {
+				ss.setInspectState(-1);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			} else if(inspectState == 3) {
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	/**
+	 * 提交品尝评分（玉米）表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addCheck62")
+	public String submitYumiPinchang(Yumipinchang yumipinchang,int inspectState,String smallSampleNum,String inspector) {
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			yumipinchang.setSmallSampleId(ss.getId());
+			yumipinchangService.save(yumipinchang);
+			if(inspectState == -1) {
+				ss.setInspectState(-1);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			} else if(inspectState == 3) {
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	/**
+	 * 提交真菌毒素表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addCheck7")
+	public String submitZhenjundusu(Zhenjundusu zhenjundusu,int inspectState,String smallSampleNum,String inspector) {
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			zhenjundusu.setSmallSampleId(ss.getId());
+			zhenjundusuService.save(zhenjundusu);
+			if(inspectState == -1) {
+				ss.setInspectState(-1);
+				ss.setInspector(inspector);
+				ss.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss);
+			} else if(inspectState == 3) {
+				SmallSample ss2 = smallSampleService.findBySmallSampleNum(smallSampleNum);
+				ss2.setInspectState(3);
+				ss2.setInspector(inspector);
+				ss2.setCheckOrderApprovalStatus(-1);
+				smallSampleService.update(ss2);
+			}
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
 	}
 }
 

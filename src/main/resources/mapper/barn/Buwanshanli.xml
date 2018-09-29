@@ -3,7 +3,7 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Buwanshanli">
 
 	<insert id="save" parameterType="Buwanshanli" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_zazhi_buwanshanli_cedingjilu (id, smallSampleId,b_b_table_version,b_b_riqi,b_b_shiwen,b_b_xiangduishidu,b_b_jiancefangfa,b_b_yiqishebei_mingcheng_1,
+		insert into barn_zazhi_buwanshanli_cedingjilu (smallSampleId,b_table_version,b_riqi,b_shiwen,b_xiangduishidu,b_jiancefangfa,b_yiqishebei_mingcheng_1,
 		b_yiqishebei_mingcheng_2,b_yiqishebei_mingcheng_3,b_yiqishebei_bianhao_1,b_yiqishebei_bianhao_2,b_yiqishebei_bianhao_3,
 		dayangzhiliang_1,dayangzhiliang_2,dayangzazhizhiliang_1,dayangzazhizhiliang_2,
 		dayangzazhihanliang_1,dayangzazhihanliang_2,dayangzazhihanliang_pingjunzhi,
@@ -12,7 +12,7 @@
 		kuangwuzhizhiliang_1,kuangwuzhizhiliang_2,kuangwuzhihanliang_1,kuangwuzhihanliang_2,kuangwuzhihanliang_pingjunzhi,zazhizongliang_1,buwanshanlizhiliang_1,buwanshanlizhiliang_2,
 	    buwanshanlihanliang_1,buwanshanlihanliang_2,buwanshanlihanliang_pingjunzhi_1,buwanshanlihanliang_pingjunzhi_2,
 	    shengmeilizhiliang_1,shengmeilizhiliang_2,shengmeilihanliang_1,shengmeilihanliang_2,shengmeilihanliang_pingjunzhi,beizhu,fenyangjiance,buwanshanli_zazhi_jiance,jiaohe,createTime,updateTime) 
-		values ( #{id}, #{smallSampleId},#{b_table_version},#{b_riqi},#{b_shiwen},#{b_xiangduishidu},#{b_jiancefangfa},#{b_yiqishebei_mingcheng_1},
+		values (#{smallSampleId},#{b_table_version},#{b_riqi},#{b_shiwen},#{b_xiangduishidu},#{b_jiancefangfa},#{b_yiqishebei_mingcheng_1},
 		#{b_yiqishebei_mingcheng_2},#{b_yiqishebei_mingcheng_3},#{b_yiqishebei_bianhao_1},#{b_yiqishebei_bianhao_2},#{b_yiqishebei_bianhao_3},
 		#{dayangzhiliang_1},#{dayangzhiliang_2},#{dayangzazhizhiliang_1},#{dayangzazhizhiliang_2},
 		#{dayangzazhihanliang_1},#{dayangzazhihanliang_2},#{dayangzazhihanliang_pingjunzhi},

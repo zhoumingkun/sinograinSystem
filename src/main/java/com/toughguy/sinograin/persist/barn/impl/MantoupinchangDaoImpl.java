@@ -20,7 +20,7 @@ public class MantoupinchangDaoImpl extends GenericDaoImpl<Mantoupinchang, Intege
 	@Override
 	public List<Mantoupinchang> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
 	}
 
 }

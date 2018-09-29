@@ -21,7 +21,7 @@ public class YumipinchangDaoImpl extends GenericDaoImpl<Yumipinchang, Integer> i
 	@Override
 	public List<Yumipinchang> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus",sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus",sort);
 	}
 
 }

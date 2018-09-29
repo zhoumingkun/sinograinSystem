@@ -3,11 +3,11 @@
 <mapper namespace="com.toughguy.sinograin.model.barn.Cedingjilu">
 
 	<insert id="save" parameterType="Cedingjilu" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_check_cedingjilu (id,smallSampleId,c_riqi,c_table_version,c_shiwen,c_xiangduishidu,c_jiancefangfa,c_yiqishebei_mingcheng_1,
-		c_yiqishebei_mingcheng_2,c_yiqishebei_mingcheng_3,yiqishebei_bianhao_1,yiqishebei_bianhao_2,yiqishebei_bianhao_3,
+		insert into barn_check_cedingjilu (smallSampleId,c_riqi,c_table_version,c_shiwen,c_xiangduishidu,c_jiancefangfa,c_yiqishebei_mingcheng_1,
+		c_yiqishebei_mingcheng_2,c_yiqishebei_mingcheng_3,c_yiqishebei_bianhao_1,c_yiqishebei_bianhao_2,c_yiqishebei_bianhao_3,
 		rongzhong_1,rongzhong_2,yingduzhishu_1,yingduzhishu_2,sezeqiwei_1,sezeqiwei_2,jiareshiyan_1,jiareshiyan_2,jiagongjingdu_1,jiagongjingdu_2,pise_1,pise_2,pingjunzhi,
 		beizhu,jiance,jiaohe,createTime,updateTime) 
-		values ( #{id},#{smallSampleId},#{c_riqi},#{c_table_version},#{c_shiwen},#{c_xiangduishidu},#{c_jiancefangfa},#{c_yiqishebei_mingcheng_1},
+		values (#{smallSampleId},#{c_riqi},#{c_table_version},#{c_shiwen},#{c_xiangduishidu},#{c_jiancefangfa},#{c_yiqishebei_mingcheng_1},
 		#{c_yiqishebei_mingcheng_2},#{c_yiqishebei_mingcheng_3},#{c_yiqishebei_bianhao_1},#{c_yiqishebei_bianhao_2},#{c_yiqishebei_bianhao_3},
 		#{rongzhong_1},#{rongzhong_2},#{yingduzhishu_1},#{yingduzhishu_2},#{sezeqiwei_1},#{sezeqiwei_2},#{jiareshiyan_1},#{jiareshiyan_2},#{jiagongjingdu_1},#{jiagongjingdu_2},
 		#{pise_1},#{pise_2},#{pingjunzhi},

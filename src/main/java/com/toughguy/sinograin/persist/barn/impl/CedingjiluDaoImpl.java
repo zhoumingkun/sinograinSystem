@@ -21,7 +21,7 @@ public class CedingjiluDaoImpl extends GenericDaoImpl<Cedingjilu, Integer> imple
 	@Override
 	public List<Cedingjilu> findByCheckOrderApprovalStatus(String sort) {
 		// TODO Auto-generated method stub
-		return sqlSessionTemplate.selectOne(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
+		return sqlSessionTemplate.selectList(typeNameSpace + ".findByCheckOrderApprovalStatus", sort);
 	}
 
 }
