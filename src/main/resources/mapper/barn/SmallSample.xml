@@ -72,6 +72,8 @@
 			<if test="smallSampleWord != null and smallSampleWord != ''">smallSampleWord = #{smallSampleWord},</if>
 			<if test="inspector != null and inspector != ''">inspector = #{inspector},</if>
 			<if test="checkOrderApprovalStatus != null and checkOrderApprovalStatus != ''">checkOrderApprovalStatus = #{checkOrderApprovalStatus},</if>
+			<if test="checkMember != null and checkMember != ''">checkMember = #{checkMember},</if>
+			<if test="approveRemark != null and approveRemark != ''">approveRemark = #{approveRemark},</if>
 		</set>
 		where id = #{id}
 	</update>

@@ -18,6 +18,7 @@ import com.toughguy.sinograin.model.barn.Cedingjilu;
 import com.toughguy.sinograin.model.barn.Mantoupinchang;
 import com.toughguy.sinograin.model.barn.Mianjinxishuiliang;
 import com.toughguy.sinograin.model.barn.Pinchang;
+import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.Shuifen;
 import com.toughguy.sinograin.model.barn.SmallSample;
 import com.toughguy.sinograin.model.barn.Yumipinchang;
@@ -30,6 +31,7 @@ import com.toughguy.sinograin.service.barn.prototype.ICedingjiluService;
 import com.toughguy.sinograin.service.barn.prototype.IMantoupinchangService;
 import com.toughguy.sinograin.service.barn.prototype.IMianjinxishuiliangService;
 import com.toughguy.sinograin.service.barn.prototype.IPinchangService;
+import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.barn.prototype.IShuifenService;
 import com.toughguy.sinograin.service.barn.prototype.ISmallSampleService;
 import com.toughguy.sinograin.service.barn.prototype.IYumipinchangService;
@@ -60,6 +62,8 @@ public class SummaryCheckController {
 	private IMantoupinchangService mantoupinchangService;
 	@Autowired
 	private ISmallSampleService smallSampleService;
+	@Autowired
+	private ISampleService sampleService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/findCheckSum")
@@ -77,6 +81,38 @@ public class SummaryCheckController {
 			return yumiSummaryCheckDTOs();
 		} else {
 			return null;
+		}
+	}
+	@ResponseBody
+	@RequestMapping(value = "/agree")
+	public String agree(String smallSampleNum,String checkMember) {
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			ss.setCheckOrderApprovalStatus(1);
+			ss.setCheckMember(checkMember);
+			smallSampleService.update(ss);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/disagree")
+	public String disagree(String smallSampleNum,String checkMember,String approveRemark) {
+		try {
+			SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
+			ss.setCheckOrderApprovalStatus(2);
+			ss.setCheckMember(checkMember);
+			ss.setApproveRemark(approveRemark);
+			smallSampleService.update(ss);
+			return "{ \"success\" : true }";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "{ \"success\" : false }";
 		}
 	}
 	
