@@ -94,16 +94,12 @@ public class ExportWordCedingjilu {
      @RequestMapping(value="exportCedingjilu")
 //     @RequiresPermissions("exportCedingjilu:exportCedingjilu")
      public void exportCedingjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//    	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//    	 	Map<String, Object> params = replace(s.getId());
     	 	
     	 	Map<String, Object> params = new HashMap<String, Object>();  
-//       	    
     	 	SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
     	 	Cedingjilu cedingjilu = cedingjiluService.findBySmallSampleId(ss.getId());
        	 
        	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//            params.put("${newDate}", sdf.format(new Date()));
        	    params.put("${c_table_version}", cedingjilu.getC_table_version());
             params.put("${c_riqi}", sdf.format(cedingjilu.getC_riqi()));
             params.put("${c_shiwen}",cedingjilu.getC_shiwen());
@@ -149,8 +145,6 @@ public class ExportWordCedingjilu {
      		}
             params.put("${rongzhong_1}", cedingjilu.getRongzhong_1());
             params.put("${rongzhong_2}", cedingjilu.getRongzhong_2());
-//            params.put("${yingduzhishu_1}", cedingjilu.getYingduzhishu_1());
-//            params.put("${yingduzhishu_2}", cedingjilu.getYingduzhishu_2());
             if(cedingjilu.getYingduzhishu_1() != null){
               	 params.put("${yingduzhishu_1}", cedingjilu.getYingduzhishu_1());
                }else if(cedingjilu.getYingduzhishu_1()==null){
@@ -178,13 +172,10 @@ public class ExportWordCedingjilu {
      	 	Buwanshanli buwanshanli = buwanshanliService.findBySmallSampleId(ss1.getId());
        	 
     	    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-//         params.put("${newDate}", sdf.format(new Date()));
     	 params.put("${b_table_version}", buwanshanli.getB_table_version());
          params.put("${b_riqi}", sdf1.format(buwanshanli.getB_riqi()));
          params.put("${b_shiwen}",buwanshanli.getB_shiwen());
          params.put("${b_xiangduishidu}",buwanshanli.getB_xiangduishidu());  
-//         params.put("${sampleNum}", buwanshanli.getSampleNum());  
-//         params.put("${sort}",  buwanshanli.getSort()); 
          params.put("${sampleNum}",sampleNum);  
          params.put("${sort}",sort);
          
@@ -237,10 +228,6 @@ public class ExportWordCedingjilu {
          params.put("${xiaoyangzazhihanliang_1}", buwanshanli.getXiaoyangzazhihanliang_1());
          params.put("${xiaoyangzazhihanliang_2}", buwanshanli.getXiaoyangzazhihanliang_2());
          params.put("${xiaoyangzazhihanliang_pingjunzhi}", buwanshanli.getXiaoyangzazhihanliang_pingjunzhi());
-//         params.put("${kuangwuzhizhiliang_1}", buwanshanli.getKuangwuzhizhiliang_1());
-//         params.put("${kuangwuzhizhiliang_2}", buwanshanli.getKuangwuzhizhiliang_2());
-//         params.put("${kuangwuzhihanliang_1}", buwanshanli.getKuangwuzhihanliang_1());
-//         params.put("${kuangwuzhihanliang_2}", buwanshanli.getKuangwuzhihanliang_2());
          if(buwanshanli.getKuangwuzhizhiliang_1() != null){
         	 params.put("${kuangwuzhizhiliang_1}", buwanshanli.getKuangwuzhizhiliang_1());
          }else if(buwanshanli.getKuangwuzhizhiliang_1()==null){
@@ -267,7 +254,6 @@ public class ExportWordCedingjilu {
   			 params.put("${kuangwuzhihanliang_pingjunzhi}", " "); 
   		}
          
-//         params.put("${kuangwuzhihanliang_pingjunzhi}", buwanshanli.getKuangwuzhihanliang_pingjunzhi());
          params.put("${zazhizongliang_1}", buwanshanli.getZazhizongliang_1());
          params.put("${buwanshanlizhiliang_1}", buwanshanli.getBuwanshanlizhiliang_1());
          params.put("${buwanshanlizhiliang_2}", buwanshanli.getBuwanshanlizhiliang_2());
@@ -275,11 +261,6 @@ public class ExportWordCedingjilu {
          params.put("${buwanshanlihanliang_2}", buwanshanli.getBuwanshanlihanliang_2());
          params.put("${buwanshanlihanliang_pingjunzhi_1}", buwanshanli.getBuwanshanlihanliang_pingjunzhi_1());
          params.put("${buwanshanlihanliang_pingjunzhi_2}", buwanshanli.getBuwanshanlihanliang_pingjunzhi_2());
-//         params.put("${shengmeilizhiliang_1}", buwanshanli.getShengmeilizhiliang_1());
-//         params.put("${shengmeilizhiliang_2}", buwanshanli.getShengmeilizhiliang_2());
-//         params.put("${shengmeilihanliang_1}", buwanshanli.getShengmeilihanliang_1());
-//         params.put("${shengmeilihanliang_2}", buwanshanli.getShengmeilihanliang_2());
-//         params.put("${shengmeilihanliang_pingjunzhi}", buwanshanli.getShengmeilihanliang_pingjunzhi());
          if(buwanshanli.getShengmeilizhiliang_1() != null){
         	 params.put("${shengmeilizhiliang_1}", buwanshanli.getShengmeilizhiliang_1());
          }else if(buwanshanli.getShengmeilizhiliang_1()==null){
@@ -315,7 +296,6 @@ public class ExportWordCedingjilu {
             String fileNameInResource = "upload/base/测定记录及杂质不完善粒.docx";
             InputStream is;  
             is = new FileInputStream(fileNameInResource); 
-//            is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
             
             doc = new XWPFDocument(is);  
             
@@ -344,22 +324,16 @@ public class ExportWordCedingjilu {
       @RequestMapping(value="exportBWSLCedingjilu")
 //      @RequiresPermissions("exportCedingjilu:exportCedingjilu")
       public void exportBWSLCedingjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//     	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//     	 	Map<String, Object> params = replace(s.getId());
      	 	
      	 	Map<String, Object> params = new HashMap<String, Object>();  
-//        	    Buwanshanli buwanshanli = buwanshanliService.find(id);
      	 	SmallSample ss1 = smallSampleService.findBySmallSampleNum(smallSampleNum);
      	 	Buwanshanli buwanshanli = buwanshanliService.findBySmallSampleId(ss1.getId());
        	 
     	    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-//         params.put("${newDate}", sdf.format(new Date()));
     	 params.put("${b_table_version}", buwanshanli.getB_table_version());
          params.put("${riqi}", sdf1.format(buwanshanli.getB_riqi()));
          params.put("${shiwen}",buwanshanli.getB_shiwen());
          params.put("${xiangduishidu}",buwanshanli.getB_xiangduishidu());  
-//         params.put("${sampleNum}", buwanshanli.getSampleNum());  
-//         params.put("${sort}",  buwanshanli.getSort()); 
          params.put("${sampleNum}",sampleNum);  
          params.put("${sort}",sort);
          
@@ -412,10 +386,6 @@ public class ExportWordCedingjilu {
          params.put("${xiaoyangzazhihanliang_1}", buwanshanli.getXiaoyangzazhihanliang_1());
          params.put("${xiaoyangzazhihanliang_2}", buwanshanli.getXiaoyangzazhihanliang_2());
          params.put("${xiaoyangzazhihanliang_pingjunzhi}", buwanshanli.getXiaoyangzazhihanliang_pingjunzhi());
-//         params.put("${kuangwuzhizhiliang_1}", buwanshanli.getKuangwuzhizhiliang_1());
-//         params.put("${kuangwuzhizhiliang_2}", buwanshanli.getKuangwuzhizhiliang_2());
-//         params.put("${kuangwuzhihanliang_1}", buwanshanli.getKuangwuzhihanliang_1());
-//         params.put("${kuangwuzhihanliang_2}", buwanshanli.getKuangwuzhihanliang_2());
          if(buwanshanli.getKuangwuzhizhiliang_1() != null){
         	 params.put("${kuangwuzhizhiliang_1}", buwanshanli.getKuangwuzhizhiliang_1());
          }else if(buwanshanli.getKuangwuzhizhiliang_1()==null){
@@ -442,7 +412,6 @@ public class ExportWordCedingjilu {
   			 params.put("${kuangwuzhihanliang_pingjunzhi}", " "); 
   		}
          
-//         params.put("${kuangwuzhihanliang_pingjunzhi}", buwanshanli.getKuangwuzhihanliang_pingjunzhi());
          params.put("${zazhizongliang_1}", buwanshanli.getZazhizongliang_1());
          params.put("${buwanshanlizhiliang_1}", buwanshanli.getBuwanshanlizhiliang_1());
          params.put("${buwanshanlizhiliang_2}", buwanshanli.getBuwanshanlizhiliang_2());
@@ -450,11 +419,6 @@ public class ExportWordCedingjilu {
          params.put("${buwanshanlihanliang_2}", buwanshanli.getBuwanshanlihanliang_2());
          params.put("${buwanshanlihanliang_pingjunzhi_1}", buwanshanli.getBuwanshanlihanliang_pingjunzhi_1());
          params.put("${buwanshanlihanliang_pingjunzhi_2}", buwanshanli.getBuwanshanlihanliang_pingjunzhi_2());
-//         params.put("${shengmeilizhiliang_1}", buwanshanli.getShengmeilizhiliang_1());
-//         params.put("${shengmeilizhiliang_2}", buwanshanli.getShengmeilizhiliang_2());
-//         params.put("${shengmeilihanliang_1}", buwanshanli.getShengmeilihanliang_1());
-//         params.put("${shengmeilihanliang_2}", buwanshanli.getShengmeilihanliang_2());
-//         params.put("${shengmeilihanliang_pingjunzhi}", buwanshanli.getShengmeilihanliang_pingjunzhi());
          if(buwanshanli.getShengmeilizhiliang_1() != null){
         	 params.put("${shengmeilizhiliang_1}", buwanshanli.getShengmeilizhiliang_1());
          }else if(buwanshanli.getShengmeilizhiliang_1()==null){
@@ -517,15 +481,12 @@ public class ExportWordCedingjilu {
        @RequestMapping(value="exportSFCedingjilu")
 //       @RequiresPermissions("exportCedingjilu:exportCedingjilu")
        public void exportSFCedingjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//      	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//      	 	Map<String, Object> params = replace(s.getId());
       	 	
       	 	Map<String, Object> params = new HashMap<String, Object>();
       	 	SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
          	Shuifen shuifen = shuifenService.findBySmallSampleId(ss.getId());
          	
          	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//              params.put("${newDate}", sdf.format(new Date()));
               params.put("${s_table_version}", shuifen.getS_table_version());
               params.put("${s_riqi}", sdf.format(shuifen.getS_riqi()));
               params.put("${s_shiwen}",shuifen.getS_shiwen());
@@ -618,15 +579,11 @@ public class ExportWordCedingjilu {
         @RequestMapping(value="exportMJXSLCedingjilu")
 //        @RequiresPermissions("exportCedingjilu:exportCedingjilu")
         public void exportMJXSLCedingjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//       	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//       	 	Map<String, Object> params = replace(s.getId());
        	 	
        	 	Map<String, Object> params = new HashMap<String, Object>();  
-//          	    Mianjinxishuiliang mianjinxishuiliang = mianjinxishuiliangService.find(id);
           	  SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
           	Mianjinxishuiliang mianjinxishuiliang = mianjinxishuiliangService.findBySmallSampleId(ss.getId());
           	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//               params.put("${newDate}", sdf.format(new Date()));
           	   params.put("${m_table_version}", mianjinxishuiliang.getM_table_version());
                params.put("${m_riqi}", sdf.format(mianjinxishuiliang.getM_riqi()));
                params.put("${m_shiwen}",mianjinxishuiliang.getM_shiwen());
@@ -714,16 +671,12 @@ public class ExportWordCedingjilu {
          @RequestMapping(value="exportZFSZCedingjilu")
 //         @RequiresPermissions("exportCedingjilu:exportCedingjilu")
          public void exportZFSZCedingjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//        	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//        	 	Map<String, Object> params = replace(s.getId());
         	 	
         	 	Map<String, Object> params = new HashMap<String, Object>();  
-//           	    Zhifangsuanzhi zhifangsuanzhi = zhifangsuanzhiService.find(id);
         	 	 SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
         	 	Zhifangsuanzhi zhifangsuanzhi = zhifangsuanzhiService.findBySmallSampleId(ss.getId());
            	 
            	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-//                params.put("${newDate}", sdf.format(new Date()));
            	    params.put("${zf_table_version}", zhifangsuanzhi.getZf_table_version());
                 params.put("${riqi}", sdf.format(zhifangsuanzhi.getZf_riqi()));
                 params.put("${shiwen}",zhifangsuanzhi.getZf_shiwen());
@@ -814,16 +767,12 @@ public class ExportWordCedingjilu {
           @RequestMapping(value="exportZJDSCedingjilu")
 //          @RequiresPermissions("exportCedingjilu:exportCedingjilu")
           public void exportZJDSCedingjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//         	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//         	 	Map<String, Object> params = replace(s.getId());
          	 	
          	 	Map<String, Object> params = new HashMap<String, Object>();  
-//            	    Zhenjundusu zhenjundusu = zhenjundusuService.find(id);
          	 	 SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
          	 	Zhenjundusu zhenjundusu = zhenjundusuService.findBySmallSampleId(ss.getId());
             	 
             	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                 params.put("${newDate}", sdf.format(new Date()));
             	 params.put("${zj_table_version}", zhenjundusu.getZj_table_version());
                  params.put("${riqi}", sdf.format(zhenjundusu.getZj_riqi()));
                  params.put("${shiwen}",zhenjundusu.getZj_shiwen());
@@ -908,16 +857,12 @@ public class ExportWordCedingjilu {
            @RequestMapping(value="exportMTPCjilu")
 //           @RequiresPermissions("exportCedingjilu:exportCedingjilu")
            public void exportMTPCjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//          	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//          	 	Map<String, Object> params = replace(s.getId());
           	 	
           	 	Map<String, Object> params = new HashMap<String, Object>();  
-//             	    Mantoupinchang mantoupinchang = mantoupinchangService.find(id);
           	 	SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
           	 	Mantoupinchang mantoupinchang = mantoupinchangService.findBySmallSampleId(ss.getId());
              	 
              	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                  params.put("${newDate}", sdf.format(new Date()));
              	  params.put("${table_version}", mantoupinchang.getTable_version());
                   params.put("${riqi}", sdf.format(mantoupinchang.getRiqi()));
                   params.put("${pinpingyuan}",mantoupinchang.getPinpingyuan());
@@ -964,16 +909,12 @@ public class ExportWordCedingjilu {
             @RequestMapping(value="exportYMPCjilu")
 //            @RequiresPermissions("exportCedingjilu:exportCedingjilu")
             public void exportYMPCjilu(HttpServletResponse response,String smallSampleNum,String sampleNum,String sort) throws Exception {
-//           	 	Sample s = sampleService.findBySampleNum(sampleNum);
-//           	 	Map<String, Object> params = replace(s.getId());
            	 	
            	 	Map<String, Object> params = new HashMap<String, Object>();  
-//              	    Yumipinchang yumipinchang = yumipinchangService.find(id);
            	 SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
            	Yumipinchang yumipinchang = yumipinchangService.findBySmallSampleId(ss.getId());
               	 
               	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//                   params.put("${newDate}", sdf.format(new Date()));
               	   params.put("${ym_table_version}", yumipinchang.getYm_table_version());
                    params.put("${riqi}", sdf.format(yumipinchang.getYm_riqi()));
                    params.put("${ym_pinpingyuan}",yumipinchang.getYm_pinpingyuan());
