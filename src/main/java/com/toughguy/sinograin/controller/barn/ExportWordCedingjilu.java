@@ -108,8 +108,8 @@ public class ExportWordCedingjilu {
             params.put("${c_riqi}", sdf.format(cedingjilu.getC_riqi()));
             params.put("${c_shiwen}",cedingjilu.getC_shiwen());
             params.put("${c_xiangduishidu}",cedingjilu.getC_xiangduishidu());  
-            params.put("${sampleNum}",sampleNum);  
-            params.put("${sort}",sort);
+            params.put("${c_sampleNum}",sampleNum);  
+            params.put("${c_sort}",sort);
             System.out.println(sampleNum);
             System.out.println(sort);
             if(cedingjilu.getC_jiancefangfa().equals("GB")){
@@ -321,6 +321,7 @@ public class ExportWordCedingjilu {
             
             xwpfTUtil.replaceInPara(doc, params);  
             //替换表格里面的变量  
+            System.out.println(params.size());
             xwpfTUtil.replaceInTable(doc, params);  
             OutputStream os = response.getOutputStream();  
        

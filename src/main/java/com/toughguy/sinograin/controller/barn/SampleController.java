@@ -347,6 +347,7 @@ public class SampleController {
 	@RequestMapping(value = "/data")
 //	@RequiresPermissions("sample:list")
 	public String data(String params) {
+		System.out.println(params);
 		try {
 			ObjectMapper om = new ObjectMapper();
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -1020,7 +1021,7 @@ public class SampleController {
 				sample.setSampleNo(SampleNo);
 //				String sampleNum = SamplingUtil.sampleNum(sample.getSort());  //检验编号
 //				sample.setSampleNum(sampleNum);
-				sample.setSampleState(2);   // 非正常流程 扦样状态默认为已入库
+				sample.setSampleState(1);   // 非正常流程 扦样状态默认为已扦样
 				sample.setTemporaryLibraryId(sample.getLibraryId());
 				sampleService.saveRuku(sample);
 			}

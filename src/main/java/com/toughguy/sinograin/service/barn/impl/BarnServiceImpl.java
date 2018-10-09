@@ -1,6 +1,5 @@
 package com.toughguy.sinograin.service.barn.impl;
 
-import static org.mockito.Matchers.intThat;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +26,6 @@ import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
 import com.toughguy.sinograin.util.UploadUtil;
 
-import groovy.util.logging.Log4j2.Log4j2LoggingStrategy;
 
 @Service
 public class BarnServiceImpl implements IBarnService {

@@ -11,8 +11,8 @@
 	
 	<!--移动端入库  -->
 	<insert id="saveRuku" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
-		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum,otherState,sampleNo,temporaryLibraryId) 
-		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum},#{otherState},#{sampleNo},#{temporaryLibraryId})
+		insert into barn_sample (guid, createTime,updateTime,<include refid="paramsSQLRuku1"/>sampleNum,otherState,sampleNo,temporaryLibraryId,sampleState) 
+		values (#{guid},#{createTime},#{updateTime},<include refid="paramsSQLRuku2"/>#{sampleNum},#{otherState},#{sampleNo},#{temporaryLibraryId},#{sampleState})
 	</insert>
 	<!--移动端（存入库签名，存放位置）  -->
 	<insert id="saveRukuXinxi" parameterType="Sample" keyProperty="id" useGeneratedKeys="true">
