@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import com.toughguy.sinograin.dto.XMPresentation;
 import com.toughguy.sinograin.dto.YMPresentation;
 import com.toughguy.sinograin.model.barn.Buwanshanli;
@@ -109,23 +110,24 @@ public class ExportWordCedingjilu {
             params.put("${c_xiangduishidu}",cedingjilu.getC_xiangduishidu());  
             params.put("${sampleNum}",sampleNum);  
             params.put("${sort}",sort);
-            
+            System.out.println(sampleNum);
+            System.out.println(sort);
             if(cedingjilu.getC_jiancefangfa().equals("GB")){
            	 params.put("${c_jiancefangfa}", "☑GB              □GB/T");
             }else {
      			 params.put("${c_jiancefangfa}", "□GB     ☑GB/T"); 
      		}
-            if(cedingjilu.getC_yiqishebei_mingcheng_1().equals("容重器")){
+            if(cedingjilu.getC_yiqishebei_mingcheng_1().equals("1")){
            	 params.put("${c_yiqishebei_mingcheng_1}", "☑容重器");
             }else {
      			 params.put("${c_yiqishebei_mingcheng_1}", "□容重器"); 
      		}
-            if(cedingjilu.getC_yiqishebei_mingcheng_2().equals("硬度仪")){
+            if(cedingjilu.getC_yiqishebei_mingcheng_2().equals("1")){
            	 params.put("${c_yiqishebei_mingcheng_2}", "☑硬度仪");
             }else {
      			 params.put("${c_yiqishebei_mingcheng_2}", "□硬度仪"); 
      		}
-            if(cedingjilu.getC_yiqishebei_mingcheng_3().equals("筛选器")){
+            if(cedingjilu.getC_yiqishebei_mingcheng_3().equals("1")){
            	 params.put("${c_yiqishebei_mingcheng_3}", "☑筛选器");
             }else {
      			 params.put("${c_yiqishebei_mingcheng_3}", "□筛选器"); 
@@ -133,7 +135,7 @@ public class ExportWordCedingjilu {
             if(cedingjilu.getC_yiqishebei_bianhao_1() != null){
            	 params.put("${c_yiqishebei_bianhao_1}", cedingjilu.getC_yiqishebei_bianhao_1());
             }else if(cedingjilu.getC_yiqishebei_bianhao_1()==null){
-     			 params.put("${c_yiqishebei_mingcheng_1}", " "); 
+     			 params.put("${c_yiqishebei_bianhao_1}", " "); 
      		}
             if(cedingjilu.getC_yiqishebei_bianhao_2() != null){
            	 params.put("${c_yiqishebei_bianhao_2}", cedingjilu.getC_yiqishebei_bianhao_2());
@@ -143,7 +145,7 @@ public class ExportWordCedingjilu {
             if(cedingjilu.getC_yiqishebei_bianhao_3() != null){
            	 params.put("${c_yiqishebei_bianhao_3}", cedingjilu.getC_yiqishebei_bianhao_3());
             }else if(cedingjilu.getC_yiqishebei_bianhao_3()==null){
-     			 params.put("${c_yiqishebei_mingcheng_3}", " "); 
+     			 params.put("${c_yiqishebei_bianhao_3}", " "); 
      		}
             params.put("${rongzhong_1}", cedingjilu.getRongzhong_1());
             params.put("${rongzhong_2}", cedingjilu.getRongzhong_2());
@@ -168,9 +170,9 @@ public class ExportWordCedingjilu {
             params.put("${pise_1}", cedingjilu.getPise_1());
             params.put("${pise_2}", cedingjilu.getPise_2());
             params.put("${pingjunzhi}", cedingjilu.getPingjunzhi());
-            params.put("${beizhu}", cedingjilu.getBeizhu());
+            params.put("${c_beizhu}", cedingjilu.getBeizhu());
             params.put("${jiance}", cedingjilu.getJiance()); 
-            params.put("${jiaohe}", cedingjilu.getJiaohe());
+            params.put("${c_jiaohe}", cedingjilu.getJiaohe());
             
             SmallSample ss1 = smallSampleService.findBySmallSampleNum(smallSampleNum);
      	 	Buwanshanli buwanshanli = buwanshanliService.findBySmallSampleId(ss1.getId());
@@ -178,48 +180,48 @@ public class ExportWordCedingjilu {
     	    SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 //         params.put("${newDate}", sdf.format(new Date()));
     	 params.put("${b_table_version}", buwanshanli.getB_table_version());
-         params.put("${riqi}", sdf1.format(buwanshanli.getB_riqi()));
-         params.put("${shiwen}",buwanshanli.getB_shiwen());
-         params.put("${xiangduishidu}",buwanshanli.getB_xiangduishidu());  
+         params.put("${b_riqi}", sdf1.format(buwanshanli.getB_riqi()));
+         params.put("${b_shiwen}",buwanshanli.getB_shiwen());
+         params.put("${b_xiangduishidu}",buwanshanli.getB_xiangduishidu());  
 //         params.put("${sampleNum}", buwanshanli.getSampleNum());  
 //         params.put("${sort}",  buwanshanli.getSort()); 
          params.put("${sampleNum}",sampleNum);  
          params.put("${sort}",sort);
          
          if(buwanshanli.getB_jiancefangfa().equals("GB/T5494—2008")){
-        	 params.put("${jiancefangfa}", "☑GB/T5494—2008");
+        	 params.put("${b_jiancefangfa}", "☑GB/T5494—2008");
          }else {
-  			 params.put("${jiancefangfa}", "□GB/T5494—2008"); 
+  			 params.put("${b_jiancefangfa}", "□GB/T5494—2008"); 
   		}
-         if(buwanshanli.getB_yiqishebei_mingcheng_1().equals("分析天平")){
-        	 params.put("${yiqishebei_mingcheng_1}", "☑分析天平");
+         if(buwanshanli.getB_yiqishebei_mingcheng_1().equals("1")){
+        	 params.put("${b_yiqishebei_mingcheng_1}", "☑分析天平");
          }else {
-  			 params.put("${yiqishebei_mingcheng_1}", "□分析天平"); 
+  			 params.put("${b_yiqishebei_mingcheng_1}", "□分析天平"); 
   		}
-         if(buwanshanli.getB_yiqishebei_mingcheng_2().equals("天平")){
-        	 params.put("${yiqishebei_mingcheng_2}", "☑天平");
+         if(buwanshanli.getB_yiqishebei_mingcheng_2().equals("1")){
+        	 params.put("${b_yiqishebei_mingcheng_2}", "☑天平");
          }else {
-  			 params.put("${yiqishebei_mingcheng_2}", "□天平"); 
+  			 params.put("${b_yiqishebei_mingcheng_2}", "□天平"); 
   		}
-         if(buwanshanli.getB_yiqishebei_mingcheng_3().equals("筛选器")){
-        	 params.put("${yiqishebei_mingcheng_3}", "☑筛选器");
+         if(buwanshanli.getB_yiqishebei_mingcheng_3().equals("1")){
+        	 params.put("${b_yiqishebei_mingcheng_3}", "☑筛选器");
          }else{
-  			 params.put("${yiqishebei_mingcheng_3}", "□筛选器"); 
+  			 params.put("${b_yiqishebei_mingcheng_3}", "□筛选器"); 
   		}
          if(buwanshanli.getB_yiqishebei_bianhao_1() != null){
-        	 params.put("${yiqishebei_bianhao_1}", buwanshanli.getB_yiqishebei_bianhao_1());
+        	 params.put("${b_yiqishebei_bianhao_1}", buwanshanli.getB_yiqishebei_bianhao_1());
          }else if(buwanshanli.getB_yiqishebei_bianhao_1()==null){
-  			 params.put("${yiqishebei_mingcheng_1}", " "); 
+  			 params.put("${b_yiqishebei_bianhao_1}", " "); 
   		}
          if(buwanshanli.getB_yiqishebei_bianhao_2() != null){
-        	 params.put("${yiqishebei_bianhao_2}", buwanshanli.getB_yiqishebei_bianhao_2());
+        	 params.put("${b_yiqishebei_bianhao_2}", buwanshanli.getB_yiqishebei_bianhao_2());
          }else if(buwanshanli.getB_yiqishebei_bianhao_2()==null){
-  			 params.put("${yiqishebei_bianhao_2}", " "); 
+  			 params.put("${b_yiqishebei_bianhao_2}", " "); 
   		}
          if(buwanshanli.getB_yiqishebei_bianhao_3() != null){
-        	 params.put("${yiqishebei_bianhao_3}", buwanshanli.getB_yiqishebei_bianhao_3());
+        	 params.put("${b_yiqishebei_bianhao_3}", buwanshanli.getB_yiqishebei_bianhao_3());
          }else if(buwanshanli.getB_yiqishebei_bianhao_3()==null){
-  			 params.put("${yiqishebei_mingcheng_3}", " "); 
+  			 params.put("${b_yiqishebei_bianhao_3}", " "); 
   		}
          params.put("${dayangzhiliang_1}", buwanshanli.getDayangzhiliang_1());
          params.put("${dayangzhiliang_2}", buwanshanli.getDayangzhiliang_2());
@@ -365,17 +367,17 @@ public class ExportWordCedingjilu {
          }else {
   			 params.put("${jiancefangfa}", "□GB/T5494—2008"); 
   		}
-         if(buwanshanli.getB_yiqishebei_mingcheng_1().equals("分析天平")){
+         if(buwanshanli.getB_yiqishebei_mingcheng_1().equals("1")){
         	 params.put("${yiqishebei_mingcheng_1}", "☑分析天平");
          }else {
   			 params.put("${yiqishebei_mingcheng_1}", "□分析天平"); 
   		}
-         if(buwanshanli.getB_yiqishebei_mingcheng_2().equals("天平")){
+         if(buwanshanli.getB_yiqishebei_mingcheng_2().equals("1")){
         	 params.put("${yiqishebei_mingcheng_2}", "☑天平");
          }else {
   			 params.put("${yiqishebei_mingcheng_2}", "□天平"); 
   		}
-         if(buwanshanli.getB_yiqishebei_mingcheng_3().equals("筛选器")){
+         if(buwanshanli.getB_yiqishebei_mingcheng_3().equals("1")){
         	 params.put("${yiqishebei_mingcheng_3}", "☑筛选器");
          }else{
   			 params.put("${yiqishebei_mingcheng_3}", "□筛选器"); 
@@ -520,42 +522,42 @@ public class ExportWordCedingjilu {
       	 	Map<String, Object> params = new HashMap<String, Object>();
       	 	SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
          	Shuifen shuifen = shuifenService.findBySmallSampleId(ss.getId());
-         	System.out.println(sampleNum);
-         	System.out.println(sort);
+         	
          	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //              params.put("${newDate}", sdf.format(new Date()));
               params.put("${s_table_version}", shuifen.getS_table_version());
-              params.put("${riqi}", sdf.format(shuifen.getS_riqi()));
-              params.put("${shiwen}",shuifen.getS_shiwen());
-              params.put("${xiangduishidu}",shuifen.getS_xiangduishidu()); 
+              params.put("${s_riqi}", sdf.format(shuifen.getS_riqi()));
+              params.put("${s_shiwen}",shuifen.getS_shiwen());
+              params.put("${s_xiangduishidu}",shuifen.getS_xiangduishidu()); 
               
               params.put("${sampleNum}",sampleNum);  
               params.put("${sort}",sort);
-              
+              System.out.println(sampleNum);
+           	  System.out.println(sort);
               if(shuifen.getS_jiancefangfa().equals("GB/T5497—1985")){
-             	 params.put("${jiancefangfa}", "☑GB/T5497—1985     □GB/T5528—");
-              }else {
-       			 params.put("${jiancefangfa}", "□GB/T5497—1985                ☑GB/T5528—"); 
+             	 params.put("${s_jiancefangfa}", "☑GB/T5497—1985     □GB/T5528—");
+              }else if(shuifen.getS_jiancefangfa().equals("GB/T5528—")){
+       			 params.put("${s_jiancefangfa}", "□GB/T5497—1985                ☑GB/T5528—"); 
        		}
-              if(shuifen.getS_yiqishebei_mingcheng_1().equals("分析天平")){
-             	 params.put("${yiqishebei_mingcheng_1}", "☑分析天平");
+              if(shuifen.getS_yiqishebei_mingcheng_1().equals("1")){
+             	 params.put("${s_yiqishebei_mingcheng_1}", "☑分析天平");
               }else {
-       			 params.put("${yiqishebei_mingcheng_1}", "□分析天平"); 
+       			 params.put("${s_yiqishebei_mingcheng_1}", "□分析天平"); 
        		}
-              if(shuifen.getS_yiqishebei_mingcheng_2().equals("电热恒热干燥箱")){
-             	 params.put("${yiqishebei_mingcheng_2}", "☑电热恒热干燥箱");
+              if(shuifen.getS_yiqishebei_mingcheng_2().equals("1")){
+             	 params.put("${s_yiqishebei_mingcheng_2}", "☑电热恒热干燥箱");
               }else {
-       			 params.put("${yiqishebei_mingcheng_2}", "□电热恒热干燥箱"); 
+       			 params.put("${s_yiqishebei_mingcheng_2}", "□电热恒热干燥箱"); 
        		}
               if(shuifen.getS_yiqishebei_bianhao_1() != null){
-             	 params.put("${yiqishebei_bianhao_1}", shuifen.getS_yiqishebei_bianhao_1());
+             	 params.put("${s_yiqishebei_bianhao_1}", shuifen.getS_yiqishebei_bianhao_1());
               }else if(shuifen.getS_yiqishebei_bianhao_1()==null){
-       			 params.put("${yiqishebei_mingcheng_1}", " "); 
+       			 params.put("${s_yiqishebei_bianhao_1}", " "); 
        		}
               if(shuifen.getS_yiqishebei_bianhao_2() != null){
-             	 params.put("${yiqishebei_bianhao_2}", shuifen.getS_yiqishebei_bianhao_2());
+             	 params.put("${s_yiqishebei_bianhao_2}", shuifen.getS_yiqishebei_bianhao_2());
               }else if(shuifen.getS_yiqishebei_bianhao_2()==null){
-       			 params.put("${yiqishebei_bianhao_2}", " "); 
+       			 params.put("${s_yiqishebei_bianhao_2}", " "); 
        		}
               params.put("${qimin_bianhao_1}", shuifen.getQimin_bianhao_1());
               params.put("${qimin_bianhao_2}", shuifen.getQimin_bianhao_2());
@@ -625,9 +627,9 @@ public class ExportWordCedingjilu {
           	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //               params.put("${newDate}", sdf.format(new Date()));
           	   params.put("${m_table_version}", mianjinxishuiliang.getM_table_version());
-               params.put("${riqi}", sdf.format(mianjinxishuiliang.getM_riqi()));
-               params.put("${shiwen}",mianjinxishuiliang.getM_shiwen());
-               params.put("${xiangduishidu}",mianjinxishuiliang.getM_xiangduishidu());  
+               params.put("${m_riqi}", sdf.format(mianjinxishuiliang.getM_riqi()));
+               params.put("${m_shiwen}",mianjinxishuiliang.getM_shiwen());
+               params.put("${m_xiangduishidu}",mianjinxishuiliang.getM_xiangduishidu());  
                params.put("${sampleNum}",sampleNum);  
                params.put("${sort}",sort); 
                
@@ -636,35 +638,35 @@ public class ExportWordCedingjilu {
                }else {
         			 params.put("${jiancefangfa}", "□GB/T5506.2—2008           ☑GB/T5506.4—2008"); 
         		}
-               if(mianjinxishuiliang.getM_yiqishebei_mingcheng_1().equals("分析天平")){
-              	 params.put("${yiqishebei_mingcheng_1}", "☑分析天平");
+               if(mianjinxishuiliang.getM_yiqishebei_mingcheng_1().equals("1")){
+              	 params.put("${m_yiqishebei_mingcheng_1}", "☑分析天平");
                }else{
-        			 params.put("${yiqishebei_mingcheng_1}", "□分析天平"); 
+        			 params.put("${m_yiqishebei_mingcheng_1}", "□分析天平"); 
         		}
-               if(mianjinxishuiliang.getM_yiqishebei_mingcheng_2().equals("面筋测定仪")){
-              	 params.put("${yiqishebei_mingcheng_2}", "☑面筋测定仪");
+               if(mianjinxishuiliang.getM_yiqishebei_mingcheng_2().equals("1")){
+              	 params.put("${m_yiqishebei_mingcheng_2}", "☑面筋测定仪");
                }else {
-        			 params.put("${yiqishebei_mingcheng_2}", "□面筋测定仪"); 
+        			 params.put("${m_yiqishebei_mingcheng_2}", "□面筋测定仪"); 
         		}
-               if(mianjinxishuiliang.getM_yiqishebei_mingcheng_3().equals("旋风磨")){
-                	 params.put("${yiqishebei_mingcheng_3}", "☑旋风磨");
+               if(mianjinxishuiliang.getM_yiqishebei_mingcheng_3().equals("1")){
+                	 params.put("${m_yiqishebei_mingcheng_3}", "☑旋风磨");
                  }else {
-          			 params.put("${yiqishebei_mingcheng_3}", "□旋风磨"); 
+          			 params.put("${m_yiqishebei_mingcheng_3}", "□旋风磨"); 
           		}
                if(mianjinxishuiliang.getM_yiqishebei_bianhao_1() != null){
-              	 params.put("${yiqishebei_bianhao_1}", mianjinxishuiliang.getM_yiqishebei_bianhao_1());
+              	 params.put("${m_yiqishebei_bianhao_1}", mianjinxishuiliang.getM_yiqishebei_bianhao_1());
                }else if(mianjinxishuiliang.getM_yiqishebei_bianhao_1()==null){
-        			 params.put("${yiqishebei_mingcheng_1}", " "); 
+        			 params.put("${m_yiqishebei_mingcheng_1}", " "); 
         		}
                if(mianjinxishuiliang.getM_yiqishebei_bianhao_2() != null){
-              	 params.put("${yiqishebei_bianhao_2}", mianjinxishuiliang.getM_yiqishebei_bianhao_2());
+              	 params.put("${m_yiqishebei_bianhao_2}", mianjinxishuiliang.getM_yiqishebei_bianhao_2());
                }else if(mianjinxishuiliang.getM_yiqishebei_bianhao_2()==null){
-        			 params.put("${yiqishebei_bianhao_2}", " "); 
+        			 params.put("${m_yiqishebei_bianhao_2}", " "); 
         		}
                if(mianjinxishuiliang.getM_yiqishebei_bianhao_3() != null){
-                	 params.put("${yiqishebei_bianhao_3}", mianjinxishuiliang.getM_yiqishebei_bianhao_3());
+                	 params.put("${m_yiqishebei_bianhao_3}", mianjinxishuiliang.getM_yiqishebei_bianhao_3());
                  }else if(mianjinxishuiliang.getM_yiqishebei_bianhao_3()==null){
-          			 params.put("${yiqishebei_bianhao_3}", " "); 
+          			 params.put("${m_yiqishebei_bianhao_3}", " "); 
           		}
                params.put("${shiyangzhiliang_1}", mianjinxishuiliang.getShiyangzhiliang_1());
                params.put("${shiyangzhiliang_2}", mianjinxishuiliang.getShiyangzhiliang_2());
@@ -676,7 +678,7 @@ public class ExportWordCedingjilu {
                params.put("${mianjinxishuiliang_2}", mianjinxishuiliang.getMianjinxishuiliang_2());
                params.put("${pingjunzhiganmianjinzhiliang}", mianjinxishuiliang.getPingjunzhiganmianjinzhiliang());
                params.put("${beizhu}", mianjinxishuiliang.getBeizhu());
-               params.put("${jiaohe}", mianjinxishuiliang.getJiaohe());
+               params.put("${jiance}", mianjinxishuiliang.getJiance());
                params.put("${jiaohe}", mianjinxishuiliang.getJiaohe());
                XwpfTUtil xwpfTUtil = new XwpfTUtil();  
                
@@ -728,19 +730,19 @@ public class ExportWordCedingjilu {
                 params.put("${sampleNum}",sampleNum);  
                 params.put("${sort}",sort);
                 
-                if(zhifangsuanzhi.getZf_jiancefangfa().equals("GB/T5506.2—2008")){
-               	 params.put("${jiancefangfa}", "☑GB/T5506.2—2008  □GB/T15684—  □GB/T5510—");
+                if(zhifangsuanzhi.getZf_jiancefangfa().equals("GB/T20569-2006附录A")){
+               	 params.put("${jiancefangfa}", "☑GB/T20569-2006附录A  □GB/T15684—  □GB/T5510—");
                 }else if(zhifangsuanzhi.getZf_jiancefangfa().equals("GB/T15684—")){
-         			 params.put("${jiancefangfa}", "□GB/T5506.2—2008   ☑GB/T15684—  □GB/T5510—"); 
+         			 params.put("${jiancefangfa}", "□GB/T20569-2006附录A       ☑GB/T15684—  □GB/T5510—"); 
          		}else{
-         			params.put("${jiancefangfa}", "□GB/T5506.2—2008  □GB/T15684—     ☑GB/T5510—");
+         			params.put("${jiancefangfa}", "□GB/T20569-2006附录A   □GB/T15684—     ☑GB/T5510—");
          		}
-                if(zhifangsuanzhi.getZf_yiqishebei_mingcheng_1().equals("分析天平")){
+                if(zhifangsuanzhi.getZf_yiqishebei_mingcheng_1().equals("1")){
                	 params.put("${yiqishebei_mingcheng_1}", "☑分析天平");
                 }else {
          			 params.put("${yiqishebei_mingcheng_1}", "□分析天平"); 
          		}
-                if(zhifangsuanzhi.getZf_yiqishebei_mingcheng_2().equals("滴定管")){
+                if(zhifangsuanzhi.getZf_yiqishebei_mingcheng_2().equals("1")){
                	 params.put("${yiqishebei_mingcheng_2}", "☑滴定管");
                 }else {
          			 params.put("${yiqishebei_mingcheng_2}", "□滴定管"); 
@@ -748,7 +750,7 @@ public class ExportWordCedingjilu {
                 if(zhifangsuanzhi.getZf_yiqishebei_bianhao_1() != null){
                	 params.put("${yiqishebei_bianhao_1}", zhifangsuanzhi.getZf_yiqishebei_bianhao_1());
                 }else if(zhifangsuanzhi.getZf_yiqishebei_bianhao_1()==null){
-         			 params.put("${yiqishebei_mingcheng_1}", " "); 
+         			 params.put("${yiqishebei_bianhao_1}", " "); 
          		}
                 if(zhifangsuanzhi.getZf_yiqishebei_bianhao_2() != null){
                	 params.put("${yiqishebei_bianhao_2}", zhifangsuanzhi.getZf_yiqishebei_bianhao_2());
@@ -769,9 +771,14 @@ public class ExportWordCedingjilu {
                 params.put("${zhifangsuanzhi_1}", zhifangsuanzhi.getZhifangsuanzhi_1());
                 params.put("${zhifangsuanzhi_2}", zhifangsuanzhi.getZhifangsuanzhi_2());
                 params.put("${pingjunzhi}", zhifangsuanzhi.getPingjunzhi());
+                if(zhifangsuanzhi.getPingxingcha_xiangduicha().equals("平行差")){
+                 	 params.put("${pingxingcha_xiangduicha}", "☑平行差  □相对差（%）");
+                  }else {
+           			 params.put("${pingxingcha_xiangduicha}", "□平行差  ☑相对差（%）"); 
+           		}
                 params.put("${pingxingcha_xiangduicha_zhi}", zhifangsuanzhi.getPingxingcha_xiangduicha_zhi());
                 params.put("${beizhu}", zhifangsuanzhi.getBeizhu());
-                params.put("${jiaohe}", zhifangsuanzhi.getJiaohe());
+                params.put("${jiance}", zhifangsuanzhi.getJiance());
                 params.put("${jiaohe}", zhifangsuanzhi.getJiaohe());
                 XwpfTUtil xwpfTUtil = new XwpfTUtil();  
                 
@@ -824,20 +831,20 @@ public class ExportWordCedingjilu {
                  params.put("${sort}",sort);
                  
                  if(zhenjundusu.getZj_jiancefangfa().equals("LS/T6113-2015")){
-                	 params.put("${jiancefangfa}", "☑LS/T6113-2015 □LS/T6111-2015 □LS/T6112-2015 □LS/T6114-2015");
+                	 params.put("${jiancefangfa}", "☑LS/T6113-2015   □LS/T6111-2015   □LS/T6112-2015   □LS/T6114-2015");
                 }else if(zhenjundusu.getZj_jiancefangfa().equals("LS/T6111-2015")){
-          			 params.put("${jiancefangfa}", "□LS/T6113-2015 ☑LS/T6111-2015 □LS/T6112-2015 □LS/T6114-2015"); 
+          			 params.put("${jiancefangfa}", "□LS/T6113-2015        ☑LS/T6111-2015   □LS/T6112-2015   □LS/T6114-2015"); 
           		}else if(zhenjundusu.getZj_jiancefangfa().equals("LS/T6112-2015")){
-          			params.put("${jiancefangfa}", "□LS/T6113-2015 □LS/T6111-2015 ☑LS/T6112-2015 □LS/T6114-2015");
+          			params.put("${jiancefangfa}", "□LS/T6113-2015   □LS/T6111-2015          ☑LS/T6112-2015   □LS/T6114-2015");
           		}else{
-          			params.put("${jiancefangfa}", "□LS/T6113-2015 □LS/T6111-2015 □LS/T6112-2015 ☑LS/T6114-2015");
+          			params.put("${jiancefangfa}", "□LS/T6113-2015   □LS/T6111-2015    □LS/T6112-2015       ☑LS/T6114-2015");
           		}
-                 if(zhenjundusu.getZj_yiqishebei_mingcheng_1().equals("锤式旋风磨")){
+                 if(zhenjundusu.getZj_yiqishebei_mingcheng_1().equals("1")){
                 	 params.put("${yiqishebei_mingcheng_1}", "☑锤式旋风磨");
                 }else {
           			 params.put("${yiqishebei_mingcheng_1}", "□锤式旋风磨"); 
           		}
-                 if(zhenjundusu.getZj_yiqishebei_mingcheng_2().equals("真菌毒素快速检测系统")){
+                 if(zhenjundusu.getZj_yiqishebei_mingcheng_2().equals("1")){
                 	 params.put("${yiqishebei_mingcheng_2}", "☑真菌毒素快速检测系统");
                  }else{
           			 params.put("${yiqishebei_mingcheng_2}", "□真菌毒素快速检测系统"); 
@@ -845,7 +852,7 @@ public class ExportWordCedingjilu {
                  if(zhenjundusu.getZj_yiqishebei_bianhao_1() != null){
                 	 params.put("${yiqishebei_bianhao_1}", zhenjundusu.getZj_yiqishebei_bianhao_1());
                  }else if(zhenjundusu.getZj_yiqishebei_bianhao_1()==null){
-          			 params.put("${yiqishebei_mingcheng_1}", " "); 
+          			 params.put("${yiqishebei_bianhao_1}", " "); 
           		}
                  if(zhenjundusu.getZj_yiqishebei_bianhao_2() != null){
                 	 params.put("${yiqishebei_bianhao_2}", zhenjundusu.getZj_yiqishebei_bianhao_2());
@@ -865,12 +872,12 @@ public class ExportWordCedingjilu {
                  params.put("${zhequmeidusu_2}", zhenjundusu.getZhequmeidusu_2());
                  params.put("${zhequmeidusu_pingjunzhi}", zhenjundusu.getZhequmeidusu_pingjunzhi());
                  params.put("${beizhu}", zhenjundusu.getBeizhu());
-                 params.put("${jiaohe}", zhenjundusu.getJiaohe());
+                 params.put("${jiance}", zhenjundusu.getJiance());
                  params.put("${jiaohe}", zhenjundusu.getJiaohe());
                  XwpfTUtil xwpfTUtil = new XwpfTUtil();  
                  
                  XWPFDocument doc;  
-                 String fileNameInResource = "upload/base/真菌毒素测定记录.docx";
+                 String fileNameInResource = "upload/base/毒素测定原始记录.docx";
                  InputStream is;  
                  is = new FileInputStream(fileNameInResource); 
 //                 is = getClass().getClassLoader().getResourceAsStream(fileNameInResource);      //本身就在编译路径下。。。。
@@ -883,7 +890,7 @@ public class ExportWordCedingjilu {
                  OutputStream os = response.getOutputStream();  
             
                  response.setContentType("application/vnd.ms-excel");  
-                 response.setHeader("Content-disposition","attachment;filename="+new String( "真菌毒素测定记录".getBytes("gb2312"), "ISO8859-1" )+".docx");  
+                 response.setHeader("Content-disposition","attachment;filename="+new String( "毒素测定原始记录".getBytes("gb2312"), "ISO8859-1" )+".docx");  
            
                  doc.write(os);  
            
@@ -939,7 +946,7 @@ public class ExportWordCedingjilu {
                   OutputStream os = response.getOutputStream();  
              
                   response.setContentType("application/vnd.ms-excel");  
-                  response.setHeader("Content-disposition","attachment;filename="+new String( "馒头品尝".getBytes("gb2312"), "ISO8859-1" )+".docx");  
+                  response.setHeader("Content-disposition","attachment;filename="+new String( "馒头品尝记录".getBytes("gb2312"), "ISO8859-1" )+".docx");  
             
                   doc.write(os);  
             
@@ -967,7 +974,7 @@ public class ExportWordCedingjilu {
               	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //                   params.put("${newDate}", sdf.format(new Date()));
               	   params.put("${ym_table_version}", yumipinchang.getYm_table_version());
-                   params.put("${ym_riqi}", sdf.format(yumipinchang.getYm_riqi()));
+                   params.put("${riqi}", sdf.format(yumipinchang.getYm_riqi()));
                    params.put("${ym_pinpingyuan}",yumipinchang.getYm_pinpingyuan());
                    params.put("${sampleNum}",sampleNum);
                    
