@@ -123,9 +123,9 @@ public class ExportWordCedingjilu {
      			 params.put("${c_yiqishebei_mingcheng_1}", "□容重器"); 
      		}
             if(cedingjilu.getC_yiqishebei_mingcheng_2().equals("1")){
-           	 params.put("${c_yiqishebei_mingcheng_2}", "☑硬度仪");
+            	params.put("${c_yiqishebei_mingcheng_2}", "☑硬度仪");
             }else {
-     			 params.put("${c_yiqishebei_mingcheng_2}", "□硬度仪"); 
+            	params.put("${c_yiqishebei_mingcheng_2}", "□硬度仪");
      		}
             if(cedingjilu.getC_yiqishebei_mingcheng_3().equals("1")){
            	 params.put("${c_yiqishebei_mingcheng_3}", "☑筛选器");
@@ -171,7 +171,7 @@ public class ExportWordCedingjilu {
             params.put("${pise_2}", cedingjilu.getPise_2());
             params.put("${pingjunzhi}", cedingjilu.getPingjunzhi());
             params.put("${c_beizhu}", cedingjilu.getBeizhu());
-            params.put("${jiance}", cedingjilu.getJiance()); 
+            params.put("${c_jiance}", cedingjilu.getJiance()); 
             params.put("${c_jiaohe}", cedingjilu.getJiaohe());
             
             SmallSample ss1 = smallSampleService.findBySmallSampleNum(smallSampleNum);
@@ -196,12 +196,12 @@ public class ExportWordCedingjilu {
          if(buwanshanli.getB_yiqishebei_mingcheng_1().equals("1")){
         	 params.put("${b_yiqishebei_mingcheng_1}", "☑分析天平");
          }else {
-  			 params.put("${b_yiqishebei_mingcheng_1}", "□分析天平"); 
+        	 params.put("${b_yiqishebei_mingcheng_1}", "□分析天平"); 
   		}
          if(buwanshanli.getB_yiqishebei_mingcheng_2().equals("1")){
         	 params.put("${b_yiqishebei_mingcheng_2}", "☑天平");
          }else {
-  			 params.put("${b_yiqishebei_mingcheng_2}", "□天平"); 
+        	 params.put("${b_yiqishebei_mingcheng_2}", "□天平"); 
   		}
          if(buwanshanli.getB_yiqishebei_mingcheng_3().equals("1")){
         	 params.put("${b_yiqishebei_mingcheng_3}", "☑筛选器");
