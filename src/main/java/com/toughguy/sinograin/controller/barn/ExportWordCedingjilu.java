@@ -98,7 +98,6 @@ public class ExportWordCedingjilu {
 //    	 	Map<String, Object> params = replace(s.getId());
     	 	
     	 	Map<String, Object> params = new HashMap<String, Object>();  
-//       	    
     	 	SmallSample ss = smallSampleService.findBySmallSampleNum(smallSampleNum);
     	 	Cedingjilu cedingjilu = cedingjiluService.findBySmallSampleId(ss.getId());
        	 
