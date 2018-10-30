@@ -615,20 +615,27 @@ public class SampleController {
 				jianceshijian = t.getUpdateTime();
 			}
 			//检验员去重
-			String[] jianceren1 = (jianceren.substring(0,jianceren.length()-1)).split(",");
-			List<String> jiancerenList = new ArrayList<String>();
-			String jianceren3 = "";
-			for(int a=0;a<jianceren1.length;a++) {
-				if(!jiancerenList.contains(jianceren1[a])) {
-					jiancerenList.add(jianceren1[a]);
+			if(jianceren == null||jianceren.equals("")) {
+			}else {
+				String[] jianceren1 = (jianceren.substring(0,jianceren.length()-1)).split(",");
+				List<String> jiancerenList = new ArrayList<String>();
+				String jianceren3 = "";
+				for(int a=0;a<jianceren1.length;a++) {
+					if(!jiancerenList.contains(jianceren1[a])) {
+						jiancerenList.add(jianceren1[a]);
+					}
 				}
+				for(int b=0;b<jiancerenList.size();b++) {
+					jianceren3 = jiancerenList.get(b) + ",";
+				}
+				w.setJianceren(jianceren3.substring(0, jianceren3.length()-1));
 			}
-			for(int b=0;b<jiancerenList.size();b++) {
-				jianceren3 = jiancerenList.get(b) + ",";
-			}
-			w.setJianceren(jianceren3.substring(0, jianceren3.length()-1));
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			w.setJianceshijian(sdf.format(jianceshijian));
+			if(jianceshijian == null || "".equals(jianceshijian)) {
+				
+			} else {
+				w.setJianceshijian(sdf.format(jianceshijian));
+			}
 			ws.add(w);
 		}
 		return ws;
@@ -813,9 +820,18 @@ public class SampleController {
 				}
 				jianceshijian = t.getUpdateTime();
 			}
-			cornExaminingReport.setJianceren(jianceren.substring(0, jianceren.length()-1));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			cornExaminingReport.setJianceshijian(sdf.format(jianceshijian));
+			if(jianceren == null || "".equals(jianceren)) {
+				
+			}else {
+				cornExaminingReport.setJianceren(jianceren.substring(0, jianceren.length()-1));
+			}
+			if(jianceshijian == null || "".equals(jianceshijian)) {
+				
+			}else {
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				cornExaminingReport.setJianceshijian(sdf.format(jianceshijian));
+			}
 			cornExaminingReports.add(cornExaminingReport);
 		}
 		return cornExaminingReports;
