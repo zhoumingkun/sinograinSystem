@@ -14,7 +14,10 @@ import org.apache.poi.hssf.util.HSSFCellUtil;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class POIUtils {
 
@@ -22,8 +25,8 @@ public class POIUtils {
 	 * @return HSSFCellStyle Style
 	 * @ 表头样式     总样式
 	 */
-	public HSSFCellStyle Style(HSSFWorkbook wb) {
-		HSSFCellStyle style = wb.createCellStyle();
+	public CellStyle Style(SXSSFWorkbook wb) {
+		CellStyle style = wb.createCellStyle();
 		// 设置边框	
 //		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
 //		style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM);
@@ -47,7 +50,7 @@ public class POIUtils {
 		style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 		
 		
-		HSSFFont fon = wb.createFont();
+		Font fon = wb.createFont();
 		fon.setFontName("黑体");
 		fon.setFontHeightInPoints((short) 16);// 设置字体大小
 		fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);// 粗体显示
@@ -62,13 +65,13 @@ public class POIUtils {
 	 * @return HSSFCellStyle StyleOne
 	 * @ 样式一  样式一  黄色背景  字体14
 	 */
-	public HSSFCellStyle StyleOne(HSSFWorkbook wb) {
-		HSSFCellStyle style = Style(wb);
+	public CellStyle StyleOne(SXSSFWorkbook wb) {
+		CellStyle style = Style(wb);
 		 //设置背景颜色
 		style.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
 		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 				
-		HSSFFont fon = wb.createFont();
+		Font fon = wb.createFont();
 		fon.setFontName("黑体");
 		fon.setFontHeightInPoints((short) 14);// 设置字体大小
 		
@@ -80,9 +83,9 @@ public class POIUtils {
 	 * @return HSSFCellStyle StyleOne1
 	 * @ 样式一  黄色背景  字体12
 	 */
-	public HSSFCellStyle StyleOne1(HSSFWorkbook wb) {
-		HSSFCellStyle style = StyleOne(wb);
-		HSSFFont fon = wb.createFont();
+	public CellStyle StyleOne1(SXSSFWorkbook wb) {
+		CellStyle style = StyleOne(wb);
+		Font fon = wb.createFont();
 		fon.setFontName("黑体");
 		fon.setFontHeightInPoints((short) 12);// 设置字体大小
 		style.setWrapText(true); 
@@ -97,13 +100,13 @@ public class POIUtils {
 		 * @return HSSFCellStyle StyleTwo
 		 * @ 样式二  橘色背景  字体14
 		 */
-		public HSSFCellStyle StyleTwo(HSSFWorkbook wb) {
-			HSSFCellStyle style = Style(wb);
+		public CellStyle StyleTwo(SXSSFWorkbook wb) {
+			CellStyle style = Style(wb);
 			 //设置背景颜色
 			style.setFillForegroundColor(IndexedColors.GOLD.getIndex());
 			style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 					
-			HSSFFont fon = wb.createFont();
+			Font fon = wb.createFont();
 			fon.setFontName("黑体");
 			fon.setFontHeightInPoints((short) 14);// 设置字体大小
 			
@@ -116,9 +119,9 @@ public class POIUtils {
 		 * @return HSSFCellStyle StyleTwo1
 		 * @ 样式二  橘色背景  字体12
 		 */
-		public HSSFCellStyle StyleTwo1(HSSFWorkbook wb) {
-			HSSFCellStyle style = StyleTwo(wb);
-			HSSFFont fon = wb.createFont();
+		public CellStyle StyleTwo1(SXSSFWorkbook wb) {
+			CellStyle style = StyleTwo(wb);
+			Font fon = wb.createFont();
 			fon.setFontName("黑体");
 			fon.setFontHeightInPoints((short) 12);// 设置字体大小
 			style.setWrapText(true); 
@@ -133,13 +136,13 @@ public class POIUtils {
 		 * @return HSSFCellStyle StyleThree
 		 * @ 样式三  绿色背景  字体14
 		 */
-		public HSSFCellStyle StyleThree(HSSFWorkbook wb) {
-			HSSFCellStyle style = Style(wb);
+		public CellStyle StyleThree(SXSSFWorkbook wb) {
+			CellStyle style = Style(wb);
 			 //设置背景颜色
 			style.setFillForegroundColor(IndexedColors.LIME.getIndex());
 			style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 					
-			HSSFFont fon = wb.createFont();
+			Font fon = wb.createFont();
 			fon.setFontName("黑体");
 			fon.setFontHeightInPoints((short) 14);// 设置字体大小
 			
@@ -151,9 +154,9 @@ public class POIUtils {
 		 * @return HSSFCellStyle StyleThree1
 		 * @ 样式三  绿色背景  字体12
 		 */
-		public HSSFCellStyle StyleThree1(HSSFWorkbook wb) {
-			HSSFCellStyle style = StyleThree(wb);
-			HSSFFont fon = wb.createFont();
+		public CellStyle StyleThree1(SXSSFWorkbook wb) {
+			CellStyle style = StyleThree(wb);
+			Font fon = wb.createFont();
 			fon.setFontName("黑体");
 			fon.setFontHeightInPoints((short) 12);// 设置字体大小
 			style.setWrapText(true); 
@@ -167,13 +170,13 @@ public class POIUtils {
 		 * @return HSSFCellStyle StyleFour
 		 * @ 样式四  橘色背景  字体14
 		 */
-			public HSSFCellStyle StyleFour(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
+			public CellStyle StyleFour(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
 				 //设置背景颜色
 				style.setFillForegroundColor(IndexedColors.ROYAL_BLUE.getIndex());
 				style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 						
-				HSSFFont fon = wb.createFont();
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 14);// 设置字体大小
 				
@@ -185,9 +188,9 @@ public class POIUtils {
 			 * @return HSSFCellStyle
 			 * @ 样式四  橘色背景  字体12
 			 */
-			public HSSFCellStyle StyleFour1(HSSFWorkbook wb) {
-				HSSFCellStyle style = StyleFour(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle StyleFour1(SXSSFWorkbook wb) {
+				CellStyle style = StyleFour(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 12);// 设置字体大小
 				style.setWrapText(true); 
@@ -200,9 +203,9 @@ public class POIUtils {
 			 * @return HSSFCellStyle
 			 * @ 样式五  橘色背景  字体12
 			 */
-			public HSSFCellStyle Style1(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style1(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setWrapText(true);
@@ -213,9 +216,9 @@ public class POIUtils {
 			}
 			
 			
-			public HSSFCellStyle Style2(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style2(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setWrapText(true); 
@@ -224,22 +227,22 @@ public class POIUtils {
 				return style;
 			}
 			//工作底稿导出样式
-			public HSSFCellStyle Style3(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style3(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中 
 				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-	            HSSFDataFormat format2 = wb.createDataFormat();
+	            DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
 				return style;
 			}
-			public HSSFCellStyle Style4(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style4(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -249,13 +252,13 @@ public class POIUtils {
 				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-	            HSSFDataFormat format2 = wb.createDataFormat();
+	            DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
 				return style;
 			}
-			public HSSFCellStyle Style5(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style5(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -264,16 +267,16 @@ public class POIUtils {
 				style.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
 				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-	            HSSFDataFormat format2 = wb.createDataFormat();
+	            DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
 				return style;
 			}
 			/**
 			* 导出样品交接单样式
 			*/
-			public HSSFCellStyle Style6(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style6(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -285,9 +288,9 @@ public class POIUtils {
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
 				return style;
 			}
-			public HSSFCellStyle Style7(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style7(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -321,9 +324,9 @@ public class POIUtils {
 			 * @param wb
 			 * @return
 			 */
-			public HSSFCellStyle StyleSamplePlace(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle StyleSamplePlace(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setWrapText(true); 
@@ -339,9 +342,9 @@ public class POIUtils {
 			/**
 			* 导出样品确认单样式
 			*/
-			public HSSFCellStyle Style8(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style8(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -357,9 +360,9 @@ public class POIUtils {
 			* 导出监督检查档案样式
 			*/
 			//字体加粗+上边框加粗+下边框加粗+左边框加粗
-			public HSSFCellStyle Style9(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style9(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
 				fon.setFontHeightInPoints((short) 11);// 设置字体大小
@@ -373,9 +376,9 @@ public class POIUtils {
 				return style;
 			}
 			//上边框加粗
-			public HSSFCellStyle Style10(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style10(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -388,9 +391,9 @@ public class POIUtils {
 				return style;
 			}
 			//换行+下边框加粗
-			public HSSFCellStyle Style11(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style11(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -404,9 +407,9 @@ public class POIUtils {
 				return style;
 			}
 			//右边框加粗+下边框加粗
-			public HSSFCellStyle Style12(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style12(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -419,9 +422,9 @@ public class POIUtils {
 				return style;
 			}
 			//上边框加粗+右边框加粗
-			public HSSFCellStyle Style13(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style13(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -434,9 +437,9 @@ public class POIUtils {
 				return style;
 			}
 			//字体加粗+换行+上边框加粗+左边框加粗
-			public HSSFCellStyle Style17(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style17(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
@@ -451,9 +454,9 @@ public class POIUtils {
 				return style;
 			}
 			//字体加粗+下边框加粗+左边框加粗
-			public HSSFCellStyle Style18(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style18(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
@@ -467,9 +470,9 @@ public class POIUtils {
 				return style;
 			}
 			//字体加粗+上边框加粗+下边框加粗
-			public HSSFCellStyle Style19(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style19(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
@@ -484,9 +487,9 @@ public class POIUtils {
 				return style;
 			}
 			//换行+上下左右边框
-			public HSSFCellStyle Style20(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style20(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -500,9 +503,9 @@ public class POIUtils {
 				return style;
 			}
 			//换行+上边框加粗+下边框加粗+右边框加粗
-			public HSSFCellStyle Style21(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style21(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -516,9 +519,9 @@ public class POIUtils {
 				return style;
 			}
 			//无边框基础样式
-			public HSSFCellStyle Style22(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style22(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -527,13 +530,13 @@ public class POIUtils {
 				return style;
 			}
 			//边框加粗+等级的数字转换
-			public HSSFCellStyle Style23(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style23(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
-		        HSSFDataFormat format=wb.createDataFormat();
+		        DataFormat format=wb.createDataFormat();
 		        style.setDataFormat(format.getFormat("[DbNum1][$-804]0等"));
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中
@@ -544,9 +547,9 @@ public class POIUtils {
 				return style;
 			}
 			//长宽高保留两位小数 
-			public HSSFCellStyle Style24(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style24(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -556,14 +559,14 @@ public class POIUtils {
 				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-				HSSFDataFormat format2 = wb.createDataFormat();
+				DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
 				return style;
 			}
 			//保留一位小数 
-			public HSSFCellStyle Style25(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style25(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -573,14 +576,14 @@ public class POIUtils {
 				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 				style.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-				HSSFDataFormat format2 = wb.createDataFormat();
+				DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
 				return style;
 			}
 			//下边框加粗+保留一位
-			public HSSFCellStyle Style26(HSSFWorkbook wb) {
-				HSSFCellStyle style = wb.createCellStyle();
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style26(SXSSFWorkbook wb) {
+				CellStyle style = wb.createCellStyle();
+				Font fon = wb.createFont();
 				fon.setFontName("宋体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setFont(fon);// 选择需要用到的字体格式
@@ -590,7 +593,7 @@ public class POIUtils {
 				style.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
 				style.setBorderBottom(HSSFCellStyle.BORDER_MEDIUM); //下边框加粗
 				style.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-				HSSFDataFormat format2 = wb.createDataFormat();
+				DataFormat format2 = wb.createDataFormat();
 				style.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
 				return style;
 			}
@@ -598,54 +601,55 @@ public class POIUtils {
 			 * @return HSSFCellStyle
 			 * @ 导出总表保留小数样式
 			 */
-			public HSSFCellStyle Style14(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style14(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setWrapText(true); 
 				 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setFont(fon);// 选择需要用到的字体格式
-				HSSFDataFormat format2 = wb.createDataFormat();
+				DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
 				return style;
 			}
-			public HSSFCellStyle Style15(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style15(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setWrapText(true); 
 				 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setFont(fon);// 选择需要用到的字体格式
-				HSSFDataFormat format2 = wb.createDataFormat();
+				DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0.0"));//设置单元类型保留一位小数
 				return style;
 			}
-			public HSSFCellStyle Style16(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style16(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
 				style.setWrapText(true); 
 				 style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setFont(fon);// 选择需要用到的字体格式
-				HSSFDataFormat format2 = wb.createDataFormat();
+				DataFormat format2 = wb.createDataFormat();
 	            style.setDataFormat(format2.getFormat("0"));//设置单元类型保留整数
 				return style;
 			}
 			//总表的等级转换
-			public HSSFCellStyle Style27(HSSFWorkbook wb) {
-				HSSFCellStyle style = Style(wb);
-				HSSFFont fon = wb.createFont();
+			public CellStyle Style27(SXSSFWorkbook wb) {
+				CellStyle style = Style(wb);
+				Font fon = wb.createFont();
 				fon.setFontName("黑体");
 				fon.setFontHeightInPoints((short) 10);// 设置字体大小
-				HSSFDataFormat format=wb.createDataFormat();
+				DataFormat format=wb.createDataFormat();
 		        style.setDataFormat(format.getFormat("[DbNum1][$-804]0等"));
 				style.setWrapText(true); 
 				style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//居中
 				style.setFont(fon);// 选择需要用到的字体格式
 				return style;
 			}
+
 			
 }

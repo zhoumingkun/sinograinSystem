@@ -1,11 +1,13 @@
 package com.toughguy.sinograin.service.barn.impl;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +19,15 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -1452,165 +1462,317 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		 ((ISampleDao)dao).saveRukuXinxi(sample);
 	}
 	
+//	/*
+//	 *导出样品登记薄
+//	 */
+//	@Override
+//	public void ExportRegister(HttpServletResponse response, String storageTime) {
+//		  FileInputStream fileInput;
+//	      POIUtils utils = new POIUtils();
+//			try {
+//				fileInput = new FileInputStream("upload/base/中央事权粮油样品登记簿.xls");
+//				//poi包下的类读取excel文件  
+//				POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
+//				// 创建一个webbook，对应一个Excel文件            
+//				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
+//				//对应Excel文件中的sheet，0代表第一个             
+//				HSSFSheet sh = workbook.getSheetAt(0);  
+//				List<Sample> sampleReport = sampleDao.findBystorageTime(storageTime);
+//				SimpleDateFormat dateSample = new SimpleDateFormat("yyyy-MM-dd");
+//				CellStyle style = workbook.createCellStyle();
+//				style = utils.StyleSamplePlace(workbook);
+//				for (int i = 0; i < sampleReport.size(); i++) {
+//					//根据扦样编号查询样品
+//					HSSFRow row = sh.createRow(5+i);
+//					row.setHeight((short) 600); // 行高
+//					HSSFCell createCell = row.createCell(0);
+//					createCell.setCellStyle(style);
+//					createCell.setCellValue(sampleReport.get(i).getSampleNum()); //检验编号
+//					
+//					HSSFCell createCell1 = row.createCell(1);
+//					createCell1.setCellStyle(style);
+//					createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
+//					
+//					String sampleNum = sampleReport.get(i).getSampleNum();
+//				    Handover handover = handoverDao.findsampleNums(sampleNum);
+//				    if(handover == null || "".equals(handover)) {
+//				    	HSSFCell createCell2 = row.createCell(2);
+//			    		createCell2.setCellStyle(style);
+//			    		createCell2.setCellValue("");
+//				    } else {
+//				    	String checkeds = handover.getCheckeds();
+//				    	System.out.println(checkeds);
+//				    	String str ="";
+//			    		String[] checked = checkeds.split(",");
+//			    		for (int j = 0; j < checked.length; j++) {
+//			    			if("1".equals(checked[j])){
+//			    				str += "容重,";
+//			    			}else if("2".equals(checked[j])){
+//			    				str += "水分,";
+//			    			}else if("3".equals(checked[j])){
+//			    				str += "杂质,";
+//			    			}else if("4".equals(checked[j])){
+//			    				str += "矿物质,";
+//			    			}else if("5".equals(checked[j])){
+//			    				str += "不完善粒,";
+//			    			}else if("6".equals(checked[j])){
+//			    				str += "生霉粒,";
+//			    			}else if("7".equals(checked[j])){
+//			    				str += "色泽气味(质量指标),";
+//			    			}else if("8".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+//			    				str += "硬度指数,";
+//			    			}else if("9".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+//			    				str += "面筋吸水量,";
+//			    			}else if("10".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
+//			    				str += "脂肪酸值,";
+//			    			}else if("11".equals(checked[j])){
+//			    				str += "品尝评分值,";
+//			    			}else if("12".equals(checked[j])){
+//			    				str += "色泽气味(储存品质指标),";
+//			    			}else if("13".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
+//			    				str += "真菌毒素(黄曲霉毒素B1),";
+//			    			}else if("14".equals(checked[j])){
+//			    				str += "真菌毒素(脱氧雪腐镰刀菌烯醇),";
+//			    			}else if("15".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
+//			    				str += "真菌毒素(玉米赤霉烯酮),";
+//			    			}else if("16".equals(checked[j])){
+//			    				str += "重金属(铅),";
+//			    			}else if("17".equals(checked[j])){
+//			    				str += "重金属(镉),";
+//			    			}else if("18".equals(checked[j])){
+//			    				str += "重金属(汞),";
+//			    			}else if("19".equals(checked[j])){
+//			    				str += "重金属(砷),";
+//			    			}
+//			    			
+//			    		}
+//			    		
+//			    		String substring = str.substring(0,str.length()-1);
+//			    		if(sampleReport.get(i).getSort().equals("小麦")) {
+//			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,色泽气味(质量指标),硬度指数,面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+//			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标),硬度指数", "质量指标全项目");
+//			    			substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+//			    			substring = substring.replace("真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+//			    		} else {
+//			    			substring = substring.replace("容重,水分,杂质,不完善粒,生霉粒,色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+//			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标)", "质量指标全项目");
+//			    			substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+//			    			substring = substring.replace("真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+//			    		}
+//			    		
+//			    		
+//			    		HSSFCell createCell2 = row.createCell(2);
+//			    		createCell2.setCellStyle(style);
+//			    		createCell2.setCellValue(substring);//检验项目
+//			    		
+//			    	}
+//					
+//					HSSFCell createCell3 = row.createCell(3);
+//					createCell3.setCellStyle(style);
+//					createCell3.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
+//					
+//					HSSFCell createCell4 = row.createCell(4);
+//					createCell4.setCellStyle(style);
+//					if(sampleReport.get(i).getSampleTime() == null ){
+//					 createCell4.setCellValue(""); //扦样时间
+//					}else{
+//					 createCell4.setCellValue(dateSample.format(sampleReport.get(i).getSampleTime())); //扦样时间
+//					}
+//					
+//					HSSFCell createCell5 = row.createCell(5);
+//					createCell5.setCellStyle(style);
+//					createCell5.setCellValue(""); 					//工作人员
+//					
+//					HSSFCell createCell6 = row.createCell(6);
+//					createCell6.setCellStyle(style);
+//					createCell6.setCellValue(""); 					//工作时间
+//					
+//					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sampleReport.get(i).getPlaceId());
+//					if(w == null ){
+//						HSSFCell createCell7 = row.createCell(7);
+//						createCell7.setCellStyle(style);
+//						createCell7.setCellValue(""); 	//存放位置
+//					}else{
+//						String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
+//						HSSFCell createCell7 = row.createCell(7);
+//						createCell7.setCellStyle(style);
+//						createCell7.setCellValue(placeName); 	//存放位置
+//					}
+//					
+//					HSSFCell createCell8 = row.createCell(8);
+//					createCell8.setCellStyle(style);
+//					createCell8.setCellValue(sampleReport.get(i).getRemark()); 	//备注
+//				}
+//				String title = "中央事权粮油样品登记薄";
+//				OutputStream output = response.getOutputStream();
+//				response.reset();
+//				response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+//				response.setContentType("application/vnd.ms-excel;charset=utf-8");
+//				workbook.write(output);
+//				output.flush();  
+//		        //将Excel写出        
+////		        workbook.write(output);  
+//		        //关闭流  
+//		        fileInput.close();  
+//		        output.close();  
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}  
+//		
+//	}
 	/*
 	 *导出样品登记薄
 	 */
 	@Override
 	public void ExportRegister(HttpServletResponse response, String storageTime) {
-		  FileInputStream fileInput;
-	      POIUtils utils = new POIUtils();
-			try {
-				fileInput = new FileInputStream("upload/base/中央事权粮油样品登记簿.xls");
-				//poi包下的类读取excel文件  
-				POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-				// 创建一个webbook，对应一个Excel文件            
-				HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-				//对应Excel文件中的sheet，0代表第一个             
-				HSSFSheet sh = workbook.getSheetAt(0);  
-//				String[] sampleNo = storageTime.split(",");
-				List<Sample> sampleReport = sampleDao.findBystorageTime(storageTime);
-				SimpleDateFormat dateSample = new SimpleDateFormat("yyyy-MM-dd");
-				CellStyle style = workbook.createCellStyle();
-				style = utils.StyleSamplePlace(workbook);
-				for (int i = 0; i < sampleReport.size(); i++) {
-					//根据扦样编号查询样品
-//					Sample sample = ((ISampleDao)dao).findBySampleNo(sampleNo[i]);
-					HSSFRow row = sh.createRow(5+i);
-					row.setHeight((short) 600); // 行高
-					HSSFCell createCell = row.createCell(0);
-					createCell.setCellStyle(style);
-					createCell.setCellValue(sampleReport.get(i).getSampleNum()); //检验编号
-					
-					HSSFCell createCell1 = row.createCell(1);
-					createCell1.setCellStyle(style);
-					createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
-					
-					String sampleNum = sampleReport.get(i).getSampleNum();
-				    Handover handover = handoverDao.findsampleNums(sampleNum);
-				    if(handover == null || "".equals(handover)) {
-				    	HSSFCell createCell2 = row.createCell(2);
-			    		createCell2.setCellStyle(style);
-			    		createCell2.setCellValue("");
-				    } else {
-				    	String checkeds = handover.getCheckeds();
-				    	System.out.println(checkeds);
-				    	String str ="";
-			    		String[] checked = checkeds.split(",");
-			    		for (int j = 0; j < checked.length; j++) {
-			    			if("1".equals(checked[j])){
-			    				str += "容重,";
-			    			}else if("2".equals(checked[j])){
-			    				str += "水分,";
-			    			}else if("3".equals(checked[j])){
-			    				str += "杂质,";
-			    			}else if("4".equals(checked[j])){
-			    				str += "矿物质,";
-			    			}else if("5".equals(checked[j])){
-			    				str += "不完善粒,";
-			    			}else if("6".equals(checked[j])){
-			    				str += "生霉粒,";
-			    			}else if("7".equals(checked[j])){
-			    				str += "色泽气味(质量指标),";
-			    			}else if("8".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
-			    				str += "硬度指数,";
-			    			}else if("9".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
-			    				str += "面筋吸水量,";
-			    			}else if("10".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
-			    				str += "脂肪酸值,";
-			    			}else if("11".equals(checked[j])){
-			    				str += "品尝评分值,";
-			    			}else if("12".equals(checked[j])){
-			    				str += "色泽气味(储存品质指标),";
-			    			}else if("13".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
-			    				str += "真菌毒素(黄曲霉毒素B1),";
-			    			}else if("14".equals(checked[j])){
-			    				str += "真菌毒素(脱氧雪腐镰刀菌烯醇),";
-			    			}else if("15".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
-			    				str += "真菌毒素(玉米赤霉烯酮),";
-			    			}else if("16".equals(checked[j])){
-			    				str += "重金属(铅),";
-			    			}else if("17".equals(checked[j])){
-			    				str += "重金属(镉),";
-			    			}else if("18".equals(checked[j])){
-			    				str += "重金属(汞),";
-			    			}else if("19".equals(checked[j])){
-			    				str += "重金属(砷),";
-			    			}
-			    			
-			    		}
-			    		
-			    		String substring = str.substring(0,str.length()-1);
-			    		if(sampleReport.get(i).getSort().equals("小麦")) {
-			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,色泽气味(质量指标),硬度指数,面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
-			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标),硬度指数", "质量指标全项目");
-			    			substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
-			    			substring = substring.replace("真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
-			    		} else {
-			    			substring = substring.replace("容重,水分,杂质,不完善粒,生霉粒,色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
-			    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标)", "质量指标全项目");
-			    			substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
-			    			substring = substring.replace("真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
-			    		}
-			    		
-			    		
-			    		HSSFCell createCell2 = row.createCell(2);
-			    		createCell2.setCellStyle(style);
-			    		createCell2.setCellValue(substring);//检验项目
-			    		
-			    	}
-					
-					HSSFCell createCell3 = row.createCell(3);
-					createCell3.setCellStyle(style);
-					createCell3.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
-					
-					HSSFCell createCell4 = row.createCell(4);
-					createCell4.setCellStyle(style);
-					if(sampleReport.get(i).getSampleTime() == null ){
-					 createCell4.setCellValue(""); //扦样时间
-					}else{
-					 createCell4.setCellValue(dateSample.format(sampleReport.get(i).getSampleTime())); //扦样时间
-					}
-					
-					HSSFCell createCell5 = row.createCell(5);
-					createCell5.setCellStyle(style);
-					createCell5.setCellValue(""); 					//工作人员
-					
-					HSSFCell createCell6 = row.createCell(6);
-					createCell6.setCellStyle(style);
-					createCell6.setCellValue(""); 					//工作时间
-					
-					WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sampleReport.get(i).getPlaceId());
-					if(w == null ){
-						HSSFCell createCell7 = row.createCell(7);
-						createCell7.setCellStyle(style);
-						createCell7.setCellValue(""); 	//存放位置
-					}else{
-						String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
-						HSSFCell createCell7 = row.createCell(7);
-						createCell7.setCellStyle(style);
-						createCell7.setCellValue(placeName); 	//存放位置
-					}
-					
-					HSSFCell createCell8 = row.createCell(8);
-					createCell8.setCellStyle(style);
-					createCell8.setCellValue(sampleReport.get(i).getRemark()); 	//备注
+		//输入模板文件
+		try {
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/中央事权粮油样品登记簿.xlsx"));
+			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			POIUtils utils = new POIUtils();
+			//对应Excel文件中的sheet，0代表第一个             
+			Sheet sh = workbook.getSheetAt(0);  
+			List<Sample> sampleReport = sampleDao.findBystorageTime(storageTime);
+			System.out.println(sampleReport.size());
+			SimpleDateFormat dateSample = new SimpleDateFormat("yyyy-MM-dd");
+			CellStyle style = workbook.createCellStyle();
+			style = utils.StyleSamplePlace(workbook);
+			for (int i = 0; i < sampleReport.size(); i++) {
+				Row row = sh.createRow(5+i);
+				row.setHeight((short) 600); // 行高
+				
+				Cell createCell = row.createCell(0);
+				createCell.setCellStyle(style);
+				createCell.setCellValue(sampleReport.get(i).getSampleNum()); //检验编号
+				
+				Cell createCell1 = row.createCell(1);
+				createCell1.setCellStyle(style);
+				createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
+				
+				String sampleNum = sampleReport.get(i).getSampleNum();
+			    Handover handover = handoverDao.findsampleNums(sampleNum);
+			    if(handover == null || "".equals(handover)) {
+			    	Cell createCell2 = row.createCell(2);
+		    		createCell2.setCellStyle(style);
+		    		createCell2.setCellValue("");
+			    } else {
+			    	String checkeds = handover.getCheckeds();
+			    	System.out.println(checkeds);
+			    	String str ="";
+		    		String[] checked = checkeds.split(",");
+		    		for (int j = 0; j < checked.length; j++) {
+		    			if("1".equals(checked[j])){
+		    				str += "容重,";
+		    			}else if("2".equals(checked[j])){
+		    				str += "水分,";
+		    			}else if("3".equals(checked[j])){
+		    				str += "杂质,";
+		    			}else if("4".equals(checked[j])){
+		    				str += "矿物质,";
+		    			}else if("5".equals(checked[j])){
+		    				str += "不完善粒,";
+		    			}else if("6".equals(checked[j])){
+		    				str += "生霉粒,";
+		    			}else if("7".equals(checked[j])){
+		    				str += "色泽气味(质量指标),";
+		    			}else if("8".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+		    				str += "硬度指数,";
+		    			}else if("9".equals(checked[j])  && sampleReport.get(i).getSort().equals("小麦")){
+		    				str += "面筋吸水量,";
+		    			}else if("10".equals(checked[j])  && sampleReport.get(i).getSort().equals("玉米")){
+		    				str += "脂肪酸值,";
+		    			}else if("11".equals(checked[j])){
+		    				str += "品尝评分值,";
+		    			}else if("12".equals(checked[j])){
+		    				str += "色泽气味(储存品质指标),";
+		    			}else if("13".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
+		    				str += "真菌毒素(黄曲霉毒素B1),";
+		    			}else if("14".equals(checked[j])){
+		    				str += "真菌毒素(脱氧雪腐镰刀菌烯醇),";
+		    			}else if("15".equals(checked[j]) && (!sampleReport.get(i).getSort().equals("小麦"))){
+		    				str += "真菌毒素(玉米赤霉烯酮),";
+		    			}else if("16".equals(checked[j])){
+		    				str += "重金属(铅),";
+		    			}else if("17".equals(checked[j])){
+		    				str += "重金属(镉),";
+		    			}else if("18".equals(checked[j])){
+		    				str += "重金属(汞),";
+		    			}else if("19".equals(checked[j])){
+		    				str += "重金属(砷),";
+		    			}
+		    			
+		    		}
+		    		
+		    		String substring = str.substring(0,str.length()-1);
+		    		if(sampleReport.get(i).getSort().equals("小麦")) {
+		    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,色泽气味(质量指标),硬度指数,面筋吸水量,品尝评分值,色泽气味(储存品质指标),真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+		    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标),硬度指数", "质量指标全项目");
+		    			substring = substring.replace("面筋吸水量,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+		    			substring = substring.replace("真菌毒素(脱氧雪腐镰刀菌烯醇),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+		    		} else {
+		    			substring = substring.replace("容重,水分,杂质,不完善粒,生霉粒,色泽气味(质量指标),脂肪酸值,品尝评分值,色泽气味(储存品质指标),真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "全指标项目");
+		    			substring = substring.replace("容重,水分,杂质,矿物质,不完善粒,生霉粒,色泽气味(质量指标)", "质量指标全项目");
+		    			substring = substring.replace("脂肪酸值,品尝评分值,色泽气味(储存品质指标)", "储存品质指标全项目");
+		    			substring = substring.replace("真菌毒素(黄曲霉毒素B1),真菌毒素(脱氧雪腐镰刀菌烯醇),真菌毒素(玉米赤霉烯酮),重金属(铅),重金属(镉),重金属(汞),重金属(砷)", "食品卫生指标全项目");
+		    		}
+		    		
+		    		
+		    		Cell createCell2 = row.createCell(2);
+		    		createCell2.setCellStyle(style);
+		    		createCell2.setCellValue(substring);//检验项目
+		    		
+		    	}
+				
+				Cell createCell3 = row.createCell(3);
+				createCell3.setCellStyle(style);
+				createCell3.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
+				
+				Cell createCell4 = row.createCell(4);
+				createCell4.setCellStyle(style);
+				if(sampleReport.get(i).getSampleTime() == null ){
+				 createCell4.setCellValue(""); //扦样时间
+				}else{
+				 createCell4.setCellValue(dateSample.format(sampleReport.get(i).getSampleTime())); //扦样时间
 				}
-				String title = "中央事权粮油样品登记薄";
-				OutputStream output = response.getOutputStream();
-				response.reset();
-				response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
-				response.setContentType("application/vnd.ms-excel;charset=utf-8");
-				workbook.write(output);
-				output.flush();  
-		        //将Excel写出        
-		        workbook.write(output);  
-		        //关闭流  
-		        fileInput.close();  
-		        output.close();  
-			} catch (Exception e) {
-				e.printStackTrace();
-			}  
-		
+				
+				Cell createCell5 = row.createCell(5);
+				createCell5.setCellStyle(style);
+				createCell5.setCellValue(""); 					//工作人员
+				
+				Cell createCell6 = row.createCell(6);
+				createCell6.setCellStyle(style);
+				createCell6.setCellValue(""); 					//工作时间
+				
+				WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sampleReport.get(i).getPlaceId());
+				if(w == null ){
+					Cell createCell7 = row.createCell(7);
+					createCell7.setCellStyle(style);
+					createCell7.setCellValue(""); 	//存放位置
+				}else{
+					String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
+					Cell createCell7 = row.createCell(7);
+					createCell7.setCellStyle(style);
+					createCell7.setCellValue(placeName); 	//存放位置
+				}
+				
+				Cell createCell8 = row.createCell(8);
+				createCell8.setCellStyle(style);
+				createCell8.setCellValue(sampleReport.get(i).getRemark()); 	//备注
+			}
+			String title = "中央事权粮油样品登记薄";
+			OutputStream out = response.getOutputStream();
+			response.reset();
+			response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+			response.setContentType("application/vnd.ms-excel;charset=utf-8");
+	        workbook.write(out);
+	        out.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
