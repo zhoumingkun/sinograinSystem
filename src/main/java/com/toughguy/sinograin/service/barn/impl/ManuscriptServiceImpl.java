@@ -1,6 +1,8 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +16,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,16 +47,13 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 String putWay = null;			//入仓方式
 		 String isMatch = null;			//账实是否相符
 		 
-	        POIUtils utils = new POIUtils();
 			try {
-	        //传入的文件  
-	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿模板（长方体）.xls");  
-	        //poi包下的类读取excel文件  
-	        POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-	        // 创建一个webbook，对应一个Excel文件            
-	        HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-	        //对应Excel文件中的sheet，0代表第一个             
-	        HSSFSheet sh = workbook.getSheetAt(0);  
+	      //输入模板文件
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/工作底稿模板（长方体）.xls"));
+			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			POIUtils utils = new POIUtils();
+			//对应Excel文件中的sheet，0代表第一个             
+			Sheet sh = workbook.getSheetAt(0);  
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -96,19 +100,19 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        
-	        HSSFCell cell3 =sh.getRow(8).getCell(2);
+	        Cell cell3 =sh.getRow(8).getCell(2);
 	        cell3.setCellStyle(utils.Style3(workbook));
 	        cell3.setCellValue(manuscript.getStorageWater());		//水分（入库）
 	        
-	        HSSFCell cell4 =sh.getRow(8).getCell(7);
+	        Cell cell4 =sh.getRow(8).getCell(7);
 	        cell4.setCellStyle(utils.Style3(workbook));
 	        cell4.setCellValue(manuscript.getRealWater());  		//水分 （实际）
 	        
-	        HSSFCell cell5 =sh.getRow(9).getCell(2);
+	        Cell cell5 =sh.getRow(9).getCell(2);
 	        cell5.setCellStyle(utils.Style3(workbook));
 	        cell5.setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
 	        
-	        HSSFCell cell6 =sh.getRow(9).getCell(7);
+	        Cell cell6 =sh.getRow(9).getCell(7);
 	        cell6.setCellStyle(utils.Style3(workbook));
 	        cell6.setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
 	        
@@ -118,15 +122,15 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 //            HSSFDataFormat format2 = workbook.createDataFormat();
 //            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
             
-            HSSFCell cell7 =sh.getRow(19).getCell(4);
+            Cell cell7 =sh.getRow(19).getCell(4);
             cell7.setCellStyle(utils.Style4(workbook));
             cell7.setCellValue(manuscript.getLength());  		//长度
             
-            HSSFCell cell8 =sh.getRow(19).getCell(6);
+            Cell cell8 =sh.getRow(19).getCell(6);
             cell8.setCellStyle(utils.Style4(workbook));
             cell8.setCellValue(manuscript.getWide());  			//宽度
             
-            HSSFCell cell9 =sh.getRow(19).getCell(8);
+            Cell cell9 =sh.getRow(19).getCell(8);
             cell9.setCellStyle(utils.Style5(workbook));
             cell9.setCellValue(manuscript.getHigh());  			//高度
             
@@ -140,11 +144,11 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(7).setCellValue(manuscript.getResult());			//不符原因
 	        sh.getRow(27).getCell(2).setCellValue(manuscript.getRemark());			//备注
 	        
-	        HSSFCell cell10 =sh.getRow(11).getCell(2);
+	        Cell cell10 =sh.getRow(11).getCell(2);
 	        cell10.setCellStyle(utils.Style3(workbook));
 	        cell10.setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
 	        
-	        HSSFCell cell100 =sh.getRow(13).getCell(2);
+	        Cell cell100 =sh.getRow(13).getCell(2);
 	        cell100.setCellStyle(utils.Style3(workbook));
 	        cell100.setCellValue(manuscript.getRealVolume());		//真实体积（粮堆实际体积）
 	        
@@ -157,7 +161,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(2).setCellValue(manuscript.getCheckNum());		//检查计算数
 	        sh.getRow(22).getCell(7).setCellValue(manuscript.getDifference());		//差数
 	        
-	        HSSFCell cell11 =sh.getRow(23).getCell(7);
+	        Cell cell11 =sh.getRow(23).getCell(7);
 	        cell11.setCellStyle(utils.Style3(workbook));
 	        cell11.setCellValue(manuscript.getSlip());			//差率
 	        
@@ -169,17 +173,15 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
     		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xls");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
-    		output.flush();  
-	        //将Excel写出        
-	        workbook.write(output);  
-	        //关闭流  
-	        fileInput.close();  
-	        output.close();  
-	} catch (Exception e) {
-		e.printStackTrace();
-	}  
-
-}
+    		output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 导出工作底稿（圆柱体）
 	 * */
@@ -190,16 +192,13 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 String putWay = null;			//入仓方式
 		 String isMatch = null;			//账实是否相符
 		 
-	        POIUtils utils = new POIUtils();
 			try {
-	        //传入的文件  
-	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿模板（圆柱体）.xls");  
-	        //poi包下的类读取excel文件  
-	        POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-	        // 创建一个webbook，对应一个Excel文件            
-	        HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-	        //对应Excel文件中的sheet，0代表第一个             
-	        HSSFSheet sh = workbook.getSheetAt(0);  
+	      //输入模板文件
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/工作底稿模板（圆柱体）.xlsx"));
+			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			POIUtils utils = new POIUtils();
+			//对应Excel文件中的sheet，0代表第一个             
+			Sheet sh = workbook.getSheetAt(0);   
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -246,19 +245,19 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        
-	        HSSFCell cell3 =sh.getRow(8).getCell(2);
+	        Cell cell3 =sh.getRow(8).getCell(2);
 	        cell3.setCellStyle(utils.Style3(workbook));
 	        cell3.setCellValue(manuscript.getStorageWater());		//水分（入库）
 	        
-	        HSSFCell cell4 =sh.getRow(8).getCell(7);
+	        Cell cell4 =sh.getRow(8).getCell(7);
 	        cell4.setCellStyle(utils.Style3(workbook));
 	        cell4.setCellValue(manuscript.getRealWater());  		//水分 （实际）
 	        
-	        HSSFCell cell5 =sh.getRow(9).getCell(2);
+	        Cell cell5 =sh.getRow(9).getCell(2);
 	        cell5.setCellStyle(utils.Style3(workbook));
 	        cell5.setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
 	        
-	        HSSFCell cell6 =sh.getRow(9).getCell(7);
+	        Cell cell6 =sh.getRow(9).getCell(7);
 	        cell6.setCellStyle(utils.Style3(workbook));
 	        cell6.setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
 	        
@@ -269,16 +268,16 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 //            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
             
 	        Region region = new Region(19, (short) 4, 19, (short) 5);
-	        HSSFCell cell7 =sh.getRow(19).getCell(4);
+	        Cell cell7 =sh.getRow(19).getCell(4);
 			utils.setRegionStyle(sh, region, utils.Style4(workbook));
-			sh.addMergedRegion(region);
+			sh.addMergedRegion(new CellRangeAddress(19, (short) 4, 19, (short) 5));
 			cell7.setCellValue(manuscript.getDiameter());       //直径
 			
             
 			Region region1 = new Region(19, (short) 7, 19, (short) 8);
-	        HSSFCell cell8 =sh.getRow(19).getCell(7);
+	        Cell cell8 =sh.getRow(19).getCell(7);
 			utils.setRegionStyle(sh, region1, utils.Style4(workbook));
-			sh.addMergedRegion(region1);
+			sh.addMergedRegion(new CellRangeAddress(19, (short) 7, 19, (short) 8));
 			cell8.setCellValue(manuscript.getHigh());           //高
 			
             
@@ -292,7 +291,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(7).setCellValue(manuscript.getResult());			//不符原因
 	        sh.getRow(27).getCell(2).setCellValue(manuscript.getRemark());			//备注
 	        
-	        HSSFCell cell10 =sh.getRow(11).getCell(2);
+	        Cell cell10 =sh.getRow(11).getCell(2);
 	        cell10.setCellStyle(utils.Style3(workbook));
 	        cell10.setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
 	        
@@ -306,7 +305,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(2).setCellValue(manuscript.getCheckNum());		//检查计算数
 	        sh.getRow(22).getCell(7).setCellValue(manuscript.getDifference());		//差数
 	        
-	        HSSFCell cell11 =sh.getRow(23).getCell(7);
+	        Cell cell11 =sh.getRow(23).getCell(7);
 	        cell11.setCellStyle(utils.Style3(workbook));
 	        cell11.setCellValue(manuscript.getSlip());			//差率
 	        
@@ -315,20 +314,18 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xlsx");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
-    		output.flush();  
-	        //将Excel写出        
-	        workbook.write(output);  
-	        //关闭流  
-	        fileInput.close();  
-	        output.close();  
-	} catch (Exception e) {
-		e.printStackTrace();
-	}  
-
-}
+    		output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 导出工作底稿（长方截锥体）
 	 * */
@@ -339,16 +336,13 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 String putWay = null;			//入仓方式
 		 String isMatch = null;			//账实是否相符
 		 
-	        POIUtils utils = new POIUtils();
 			try {
-	        //传入的文件  
-	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿模板（长方截锥体）.xls");  
-	        //poi包下的类读取excel文件  
-	        POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-	        // 创建一个webbook，对应一个Excel文件            
-	        HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-	        //对应Excel文件中的sheet，0代表第一个             
-	        HSSFSheet sh = workbook.getSheetAt(0);  
+	      //输入模板文件
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/工作底稿模板（长方截锥体）.xlsx"));
+			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			POIUtils utils = new POIUtils();
+			//对应Excel文件中的sheet，0代表第一个             
+			Sheet sh = workbook.getSheetAt(0);   
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -395,19 +389,19 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        
-	        HSSFCell cell3 =sh.getRow(8).getCell(2);
+	        Cell cell3 =sh.getRow(8).getCell(2);
 	        cell3.setCellStyle(utils.Style3(workbook));
 	        cell3.setCellValue(manuscript.getStorageWater());		//水分（入库）
 	        
-	        HSSFCell cell4 =sh.getRow(8).getCell(7);
+	        Cell cell4 =sh.getRow(8).getCell(7);
 	        cell4.setCellStyle(utils.Style3(workbook));
 	        cell4.setCellValue(manuscript.getRealWater());  		//水分 （实际）
 	        
-	        HSSFCell cell5 =sh.getRow(9).getCell(2);
+	        Cell cell5 =sh.getRow(9).getCell(2);
 	        cell5.setCellStyle(utils.Style3(workbook));
 	        cell5.setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
 	        
-	        HSSFCell cell6 =sh.getRow(9).getCell(7);
+	        Cell cell6 =sh.getRow(9).getCell(7);
 	        cell6.setCellStyle(utils.Style3(workbook));
 	        cell6.setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
 	        
@@ -417,15 +411,15 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 //            HSSFDataFormat format2 = workbook.createDataFormat();
 //            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
             
-            HSSFCell cell7 =sh.getRow(19).getCell(4);
+            Cell cell7 =sh.getRow(19).getCell(4);
             cell7.setCellStyle(utils.Style4(workbook));
             cell7.setCellValue(manuscript.getTopS());  		//上底面积
             
-            HSSFCell cell8 =sh.getRow(19).getCell(6);
+            Cell cell8 =sh.getRow(19).getCell(6);
             cell8.setCellStyle(utils.Style4(workbook));
             cell8.setCellValue(manuscript.getBottomS());  			//下底面积
             
-            HSSFCell cell9 =sh.getRow(19).getCell(8);
+            Cell cell9 =sh.getRow(19).getCell(8);
             cell9.setCellStyle(utils.Style5(workbook));
             cell9.setCellValue(manuscript.getHigh());  			//高度
             
@@ -439,7 +433,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(7).setCellValue(manuscript.getResult());			//不符原因
 	        sh.getRow(27).getCell(2).setCellValue(manuscript.getRemark());			//备注
 	        
-	        HSSFCell cell10 =sh.getRow(11).getCell(2);
+	        Cell cell10 =sh.getRow(11).getCell(2);
 	        cell10.setCellStyle(utils.Style3(workbook));
 	        cell10.setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
 	        
@@ -453,7 +447,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(2).setCellValue(manuscript.getCheckNum());		//检查计算数
 	        sh.getRow(22).getCell(7).setCellValue(manuscript.getDifference());		//差数
 	        
-	        HSSFCell cell11 =sh.getRow(23).getCell(7);
+	        Cell cell11 =sh.getRow(23).getCell(7);
 	        cell11.setCellStyle(utils.Style3(workbook));
 	        cell11.setCellValue(manuscript.getSlip());			//差率
 	        
@@ -462,20 +456,18 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xlsx");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
-    		output.flush();  
-	        //将Excel写出        
-	        workbook.write(output);  
-	        //关闭流  
-	        fileInput.close();  
-	        output.close();  
-	} catch (Exception e) {
-		e.printStackTrace();
-	}  
-
-}
+    		output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 导出工作底稿（其他）
 	 * */
@@ -486,16 +478,13 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 String putWay = null;			//入仓方式
 		 String isMatch = null;			//账实是否相符
 		 
-	        POIUtils utils = new POIUtils();
 			try {
-	        //传入的文件  
-	        FileInputStream fileInput = new FileInputStream("upload/base/工作底稿模板（其他）.xls");  
-	        //poi包下的类读取excel文件  
-	        POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-	        // 创建一个webbook，对应一个Excel文件            
-	        HSSFWorkbook workbook = new HSSFWorkbook(ts);  
-	        //对应Excel文件中的sheet，0代表第一个             
-	        HSSFSheet sh = workbook.getSheetAt(0);  
+	      //输入模板文件
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/upload/base/工作底稿模板（其他）.xlsx"));
+			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			POIUtils utils = new POIUtils();
+			//对应Excel文件中的sheet，0代表第一个             
+			Sheet sh = workbook.getSheetAt(0);    
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -542,19 +531,19 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        
 	        sh.getRow(7).getCell(7).setCellValue(manuscript.getRealCapacity());  	//容重 （实际）
 	        
-	        HSSFCell cell3 =sh.getRow(8).getCell(2);
+	        Cell cell3 =sh.getRow(8).getCell(2);
 	        cell3.setCellStyle(utils.Style3(workbook));
 	        cell3.setCellValue(manuscript.getStorageWater());		//水分（入库）
 	        
-	        HSSFCell cell4 =sh.getRow(8).getCell(7);
+	        Cell cell4 =sh.getRow(8).getCell(7);
 	        cell4.setCellStyle(utils.Style3(workbook));
 	        cell4.setCellValue(manuscript.getRealWater());  		//水分 （实际）
 	        
-	        HSSFCell cell5 =sh.getRow(9).getCell(2);
+	        Cell cell5 =sh.getRow(9).getCell(2);
 	        cell5.setCellStyle(utils.Style3(workbook));
 	        cell5.setCellValue(manuscript.getStorageImpurity()); 	//杂质（入库）
 	        
-	        HSSFCell cell6 =sh.getRow(9).getCell(7);
+	        Cell cell6 =sh.getRow(9).getCell(7);
 	        cell6.setCellStyle(utils.Style3(workbook));
 	        cell6.setCellValue(manuscript.getRealImpurity());  	//杂质 （实际）
 	        
@@ -564,23 +553,23 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 //            HSSFDataFormat format2 = workbook.createDataFormat();
 //            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
             
-            HSSFCell cell7 =sh.getRow(19).getCell(4);
+            Cell cell7 =sh.getRow(19).getCell(4);
             cell7.setCellStyle(utils.Style4(workbook));
             cell7.setCellValue(manuscript.getLength());  		     //长度1
             
-            HSSFCell cell8 =sh.getRow(19).getCell(6);
+            Cell cell8 =sh.getRow(19).getCell(6);
             cell8.setCellStyle(utils.Style4(workbook));
             cell8.setCellValue(manuscript.getLength_2());  		     //长度2
             
-            HSSFCell cell9 =sh.getRow(19).getCell(8);
+            Cell cell9 =sh.getRow(19).getCell(8);
             cell9.setCellStyle(utils.Style5(workbook));
             cell9.setCellValue(manuscript.getWide());  			     //宽度
             
-            HSSFCell hSSFCell =sh.getRow(20).getCell(4);
+            Cell hSSFCell =sh.getRow(20).getCell(4);
             hSSFCell.setCellStyle(utils.Style4(workbook));
             hSSFCell.setCellValue(manuscript.getHigh());  	        //高度1
             
-            HSSFCell hSSFCell1 =sh.getRow(20).getCell(6);
+            Cell hSSFCell1 =sh.getRow(20).getCell(6);
             hSSFCell1.setCellStyle(utils.Style4(workbook));
             hSSFCell1.setCellValue(manuscript.getHigh_2());  		//高度2
             
@@ -594,7 +583,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(7).setCellValue(manuscript.getResult());			//不符原因
 	        sh.getRow(27).getCell(2).setCellValue(manuscript.getRemark());			//备注
 	        
-	        HSSFCell cell10 =sh.getRow(11).getCell(2);
+	        Cell cell10 =sh.getRow(11).getCell(2);
 	        cell10.setCellStyle(utils.Style3(workbook));
 	        cell10.setCellValue(manuscript.getMeasuredVolume());	//测量体积（ 粮堆测量体积）
 	        
@@ -608,7 +597,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        sh.getRow(26).getCell(2).setCellValue(manuscript.getCheckNum());		//检查计算数
 	        sh.getRow(22).getCell(7).setCellValue(manuscript.getDifference());		//差数
 	        
-	        HSSFCell cell11 =sh.getRow(23).getCell(7);
+	        Cell cell11 =sh.getRow(23).getCell(7);
 	        cell11.setCellStyle(utils.Style3(workbook));
 	        cell11.setCellValue(manuscript.getSlip());			//差率
 	        
@@ -617,19 +606,17 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xlsx");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
-    		output.flush();  
-	        //将Excel写出        
-	        workbook.write(output);  
-	        //关闭流  
-	        fileInput.close();  
-	        output.close();  
-	} catch (Exception e) {
-		e.printStackTrace();
-	}  
-
-}
+    		output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

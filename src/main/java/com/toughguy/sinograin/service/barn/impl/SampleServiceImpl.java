@@ -551,19 +551,22 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			
 			//将修改后的文件写出到D:\\excel目录下  
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
-	        OutputStream output = response.getOutputStream();
+			String title2 = "小麦验收情况汇总表";
+			OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title2.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
-    		output.flush();  
+    		output.close();  
 	        //关闭流  
-//	        fileInput.close();  
 	        output.close();  
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  
-   
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/*
@@ -1038,7 +1041,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
     		output.flush();  
@@ -1224,7 +1227,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	        //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
 	        OutputStream output = response.getOutputStream();
     		response.reset();
-    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+    		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
     		response.setContentType("application/vnd.ms-excel;charset=utf-8");
     		workbook.write(output);
     		output.flush();  
@@ -1398,7 +1401,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
         //FileOutputStream output = new FileOutputStream("D:\\辅机1.xls");
         OutputStream output = response.getOutputStream();
 		response.reset();
-		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+		response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
 		response.setContentType("application/vnd.ms-excel;charset=utf-8");
 		workbook.write(output);
 		output.flush();  
@@ -1743,7 +1746,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			String title = "中央事权粮油样品登记薄";
 			OutputStream out = response.getOutputStream();
 			response.reset();
-			response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xls");
+			response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
 			response.setContentType("application/vnd.ms-excel;charset=utf-8");
 	        workbook.write(out);
 	        out.close();

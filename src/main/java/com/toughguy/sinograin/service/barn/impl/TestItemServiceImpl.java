@@ -1,6 +1,8 @@
 package com.toughguy.sinograin.service.barn.impl;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,17 +16,20 @@ import org.apache.commons.collections.set.SynchronizedSortedSet;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.Region;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.apache.poi.ss.util.CellRangeAddress;
 import com.toughguy.sinograin.model.barn.ReturnSingle;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.TestItem;
 import com.toughguy.sinograin.pagination.PagerModel;
-import com.toughguy.sinograin.persist.barn.prototype.ILibraryDao;
 import com.toughguy.sinograin.persist.barn.prototype.ITestItemDao;
 import com.toughguy.sinograin.service.barn.prototype.IReturnSingleService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
@@ -60,35 +65,32 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
   	@Override
   	public void expotexpotTestItem(HttpServletResponse response,int sampleId){
   		// TODO Auto-generated method stub
-		FileInputStream fileInput; 
-		POIUtils utils = new POIUtils();
   		try {
-			fileInput = new FileInputStream("upload/base/样品确认单.xls");
-			//poi包下的类读取excel文件  
-			POIFSFileSystem ts = new POIFSFileSystem(fileInput);  
-			// 创建一个webbook，对应一个Excel文件            
-			HSSFWorkbook workbook = new HSSFWorkbook(ts);  
+  		//输入模板文件
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/中央事权粮油样品登记簿.xlsx"));
+			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			POIUtils utils = new POIUtils();
 			//对应Excel文件中的sheet，0代表第一个             
-			HSSFSheet sh = workbook.getSheetAt(0); 
+			Sheet sheet = workbook.getSheetAt(0);  
 			
 			//第一行数据内容
-			HSSFRow row = sh.createRow(0);
+			Row row = sheet.createRow(0);
 			Region region1 = new Region(0, (short) 0, 0, (short) 8);
-			HSSFCell createCell = row.createCell(0);
-			utils.setRegionStyle(sh, region1, utils.Style6(workbook));
-			sh.addMergedRegion(region1);
+			Cell createCell = row.createCell(0);
+			utils.setRegionStyle(sheet, region1, utils.Style6(workbook));
+			sheet.addMergedRegion(new CellRangeAddress(0, (short) 0, 0, (short) 8));
 			createCell.setCellValue("样品确认单");//名字要居中
 			
 			//第二行数据内容
-			HSSFRow row1 = sh.createRow(1);
-			HSSFCell createCell1 = row1.createCell(0);
+			Row row1 = sheet.createRow(1);
+			Cell createCell1 = row1.createCell(0);
 			createCell1.setCellStyle(utils.Style6(workbook));
 			createCell1.setCellValue("检验编号");
 			
-			HSSFCell createCel = row1.createCell(1);
+			Cell createCel = row1.createCell(1);
 			Region region2 = new Region(1, (short) 1, 1, (short) 8);//要居左
-			utils.setRegionStyle(sh, region2, utils.Style8(workbook));
-			sh.addMergedRegion(region2);
+			utils.setRegionStyle(sheet, region2, utils.Style8(workbook));
+			sheet.addMergedRegion(new CellRangeAddress(1, (short) 1, 1, (short) 8));
 			
 			//根据样品id查询全部检验项目和检验编号
 			Sample sample = sampleService.find(sampleId);
@@ -145,10 +147,10 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 			//根据样品ID查询检测结果
 			List<TestItem> result = ((ITestItemDao)dao).findResult(sampleId);
 			//循环导出excel
-			HSSFRow row3 = null;
+			Row row3 = null;
 			for(int b=0; b<ceil; b++) {
-				row3 = sh.createRow(3+b);
-				HSSFCell createCell2 = row3.createCell(0);
+				row3 = sheet.createRow(3+b);
+				Cell createCell2 = row3.createCell(0);
 				createCell2.setCellStyle(utils.Style6(workbook));
 				if((b)*3 < checkedsWord3.length){
 					createCell2.setCellValue(checkedsWord3[(b)*3]); //检验项目
@@ -197,19 +199,19 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
   						}
 						if(checkedsWord3[(b)*3].equals(testItem4)) {
 							System.out.println(result.get(i-1).getResult());
-							HSSFCell createCell3 = row3.createCell(1);
+							Cell createCell3 = row3.createCell(1);
 							createCell3.setCellStyle(utils.Style6(workbook));
 							createCell3.setCellValue(result.get(i-1).getResult());
-							HSSFCell createCell4 = row3.createCell(2);
+							Cell createCell4 = row3.createCell(2);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
 							isValue = true;
 						}else {
 							if(isValue == false) {
-								HSSFCell createCell3 = row3.createCell(1);
+								Cell createCell3 = row3.createCell(1);
 								createCell3.setCellStyle(utils.Style6(workbook));
 								createCell3.setCellValue("");
-								HSSFCell createCell4 = row3.createCell(2);
+								Cell createCell4 = row3.createCell(2);
 								createCell4.setCellStyle(utils.Style6(workbook));
 								createCell4.setCellValue("");
 							} else {
@@ -221,7 +223,7 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				}else {
 					createCell2.setCellValue("");
 				}
-				HSSFCell createCell6 = row3.createCell(3);
+				Cell createCell6 = row3.createCell(3);
 				createCell6.setCellStyle(utils.Style6(workbook));
 				if(1+(b)*3 < checkedsWord3.length){
 					createCell6.setCellValue(checkedsWord3[1+(b)*3]);  //检验项目
@@ -269,19 +271,19 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
   							testItem4 += "重金属(砷)";
   						}
 						if(checkedsWord3[1+(b)*3].equals(testItem4)) {
-							HSSFCell createCell3 = row3.createCell(4);
+							Cell createCell3 = row3.createCell(4);
 							createCell3.setCellStyle(utils.Style6(workbook));
 							createCell3.setCellValue(result.get(i-1).getResult());
-							HSSFCell createCell4 = row3.createCell(5);
+							Cell createCell4 = row3.createCell(5);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
 							isValue = true;
 						} else {
 							if(isValue == false) {
-								HSSFCell createCell3 = row3.createCell(4);
+								Cell createCell3 = row3.createCell(4);
 								createCell3.setCellStyle(utils.Style6(workbook));
 								createCell3.setCellValue("");
-								HSSFCell createCell4 = row3.createCell(5);
+								Cell createCell4 = row3.createCell(5);
 								createCell4.setCellStyle(utils.Style6(workbook));
 								createCell4.setCellValue("");
 							} else {
@@ -292,7 +294,7 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 				}else{
 					createCell6.setCellValue("");
 				}
-				HSSFCell createCell9 = row3.createCell(6);
+				Cell createCell9 = row3.createCell(6);
 				createCell9.setCellStyle(utils.Style6(workbook));
 				if(2+(b)*3 < checkedsWord3.length){
 					createCell9.setCellValue(checkedsWord3[2+(b)*3]);  //检验项目
@@ -340,19 +342,19 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
   							testItem4 += "重金属(砷)";
   						}
 						if(checkedsWord3[2+(b)*3].equals(testItem4)) {
-							HSSFCell createCell3 = row3.createCell(7);
+							Cell createCell3 = row3.createCell(7);
 							createCell3.setCellStyle(utils.Style6(workbook));
 							createCell3.setCellValue(result.get(i-1).getResult());
-							HSSFCell createCell4 = row3.createCell(8);
+							Cell createCell4 = row3.createCell(8);
 							createCell4.setCellStyle(utils.Style6(workbook));
 							createCell4.setCellValue(result.get(i-1).getPrincipal());
 							isValue = true;
 						} else {
 							if(isValue == false) {
-								HSSFCell createCell3 = row3.createCell(7);
+								Cell createCell3 = row3.createCell(7);
 								createCell3.setCellStyle(utils.Style6(workbook));
 								createCell3.setCellValue("");
-								HSSFCell createCell4 = row3.createCell(8);
+								Cell createCell4 = row3.createCell(8);
 								createCell4.setCellStyle(utils.Style6(workbook));
 								createCell4.setCellValue("");
 							} else {
@@ -369,14 +371,12 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 			response.setHeader("Content-disposition", "attachment; filename="+new Date().getTime()+".xls");
 			response.setContentType("application/vnd.ms-excel;charset=utf-8");
 			workbook.write(output);
-			output.flush();  
-			//将Excel写出        
-			workbook.write(output);  
-			//关闭流  
-			fileInput.close();  
-			output.close();  
-  		} catch (Exception e) {
-			// TODO: handle exception
+			output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
