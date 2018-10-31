@@ -13,10 +13,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFCellUtil;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.hssf.util.Region;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 public class POIUtils {
@@ -309,11 +313,11 @@ public class POIUtils {
 			* @param cs
 			*/
 			@SuppressWarnings("deprecation")
-			public static void setRegionStyle(HSSFSheet sheet, Region region, HSSFCellStyle cs) {
+			public static void setRegionStyle(Sheet sheet, Region region, CellStyle cs) {
 			 for (int i = region.getRowFrom(); i <= region.getRowTo(); i++) {
-			  HSSFRow row = HSSFCellUtil.getRow(i, sheet);
+			  Row row = CellUtil.getRow(i, sheet);
 			  for (int j = region.getColumnFrom(); j <= region.getColumnTo(); j++) {
-			   HSSFCell cell = HSSFCellUtil.getCell(row, (short) j);
+			   Cell cell = CellUtil.getCell(row, (short) j);
 			   cell.setCellStyle(cs);
 			  }
 			 }

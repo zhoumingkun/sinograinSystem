@@ -1106,6 +1106,7 @@ public class SampleController {
 			sampleService.ExportRegister(response, storageTime);
 			return "{ \"success\" : true }";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "{ \"success\" : false }";
 		}
 	}
@@ -1196,6 +1197,8 @@ public class SampleController {
 				}
 			Map<String,Object > map = new  HashMap<String,Object>();
 			map.put("prefix", 60+PlibraryId+sort);
+			System.out.println(map);
+			System.out.println(60+PlibraryId+sort);
 			SampleNo no = noService.findAll(map).get(0);
 			int num = 0;
 			if(no.getNum()%1000 == 999){
