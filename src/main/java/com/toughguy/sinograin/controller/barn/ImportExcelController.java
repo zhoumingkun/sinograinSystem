@@ -523,20 +523,20 @@ public class ImportExcelController {
             	rowIndex = i;
             	Row row = sheet.getRow(i);
             	RegisterDTO ir = new RegisterDTO();
-            	ir.setId(util.getCellValue(row.getCell(0)));
-            	ir.setSampleWord(util.getCellValue(row.getCell(1)));
-            	ir.setLibraryName(util.getCellValue(row.getCell(2)));
-            	ir.setPosition(util.getCellValue(row.getCell(3)));
-            	ir.setSort(util.getCellValue(row.getCell(4)));
-            	ir.setQuality(util.getCellValue(row.getCell(5)));
-            	ir.setAmount(util.getCellValue(row.getCell(6)));
-            	ir.setOriginPlace(util.getCellValue(row.getCell(7)));
-            	ir.setGainTime(util.getCellValue(row.getCell(8)));
-            	ir.setBarnTime(util.getCellValue(row.getCell(9)));
-            	ir.setAutograph(util.getCellValue(row.getCell(10)));
-            	ir.setPeitongrenSign(util.getCellValue(row.getCell(11)));
-            	ir.setSampleTime(util.getCellValue(row.getCell(12)));
-            	ir.setRemark(util.getCellValue(row.getCell(13)));
+            	ir.setId(util.getCellValue(row.getCell(0)).trim());
+            	ir.setSampleWord(util.getCellValue(row.getCell(1)).trim());
+            	ir.setLibraryName(util.getCellValue(row.getCell(2)).trim());
+            	ir.setPosition(util.getCellValue(row.getCell(3)).trim());
+            	ir.setSort(util.getCellValue(row.getCell(4)).trim());
+            	ir.setQuality(util.getCellValue(row.getCell(5)).trim());
+            	ir.setAmount(util.getCellValue(row.getCell(6)).trim());
+            	ir.setOriginPlace(util.getCellValue(row.getCell(7)).trim());
+            	ir.setGainTime(util.getCellValue(row.getCell(8)).trim());
+            	ir.setBarnTime(util.getCellValue(row.getCell(9)).trim());
+            	ir.setAutograph(util.getCellValue(row.getCell(10)).trim());
+            	ir.setPeitongrenSign(util.getCellValue(row.getCell(11)).trim());
+            	ir.setSampleTime(util.getCellValue(row.getCell(12)).trim());
+            	ir.setRemark(util.getCellValue(row.getCell(13)).trim());
             	
             	irs.add(ir);
             }
