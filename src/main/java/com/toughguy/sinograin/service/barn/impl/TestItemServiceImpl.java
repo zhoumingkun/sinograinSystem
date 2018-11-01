@@ -75,10 +75,10 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 			
 			//第一行数据内容
 			Row row = sheet.createRow(0);
-			Region region1 = new Region(0, (short) 0, 0, (short) 8);
+			CellRangeAddress region1 = new CellRangeAddress(0, 0, (short) 0, (short) 8);
 			Cell createCell = row.createCell(0);
 			utils.setRegionStyle(sheet, region1, utils.Style6(workbook));
-			sheet.addMergedRegion(new CellRangeAddress(0, (short) 0, 0, (short) 8));
+			sheet.addMergedRegion(region1);
 			createCell.setCellValue("样品确认单");//名字要居中
 			
 			//第二行数据内容
@@ -88,9 +88,9 @@ public class TestItemServiceImpl extends GenericServiceImpl<TestItem, Integer> i
 			createCell1.setCellValue("检验编号");
 			
 			Cell createCel = row1.createCell(1);
-			Region region2 = new Region(1, (short) 1, 1, (short) 8);//要居左
+			CellRangeAddress region2 = new CellRangeAddress(1, 1, (short) 1, (short) 8);//要居左
 			utils.setRegionStyle(sheet, region2, utils.Style8(workbook));
-			sheet.addMergedRegion(new CellRangeAddress(1, (short) 1, 1, (short) 8));
+			sheet.addMergedRegion(region2);
 			
 			//根据样品id查询全部检验项目和检验编号
 			Sample sample = sampleService.find(sampleId);

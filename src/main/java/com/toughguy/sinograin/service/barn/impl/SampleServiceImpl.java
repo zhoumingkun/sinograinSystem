@@ -125,11 +125,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 //			cell.setCellValue(title);
 			 
 			Row row1 = sheet.createRow(7);
-			Region region1 = new Region(7, (short) 0, 7, (short) 6);
+			CellRangeAddress region1 = new CellRangeAddress(7, (short) 7, 0, (short) 6);
 			 
 			Cell cell1 = row1.createCell(0);
 			utils.setRegionStyle(sheet, region1, utils.Style1(workbook));
-			sheet.addMergedRegion(new CellRangeAddress(7, (short) 0, 7, (short) 6));
+			sheet.addMergedRegion(region1);
 			cell1.setCellValue("合计");
 			
 //			Cell cell2 = row1.createCell(7);
@@ -143,11 +143,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		}
 			
 			Row row2 = sheet.createRow(8);
-			Region region2 = new Region(8, (short) 1, 8, (short) 6);
+			CellRangeAddress region2 = new CellRangeAddress(8, (short) 8, 1, (short) 6);
 			
 			Cell cell3 = row2.createCell(1);
 			utils.setRegionStyle(sheet, region2, utils.Style1(workbook));
-			sheet.addMergedRegion(new CellRangeAddress(8, (short) 1, 8, (short) 6));
+			sheet.addMergedRegion(region2);
 			cell3.setCellValue("小计");
 			
 			for (int i = 8; i < 42; i++) {
@@ -218,10 +218,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						endRow = startRow + (i-oldI-1);
 						if(is == true) {
 							//合并直属库单元格
-							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
+							CellRangeAddress region3 = new CellRangeAddress(startRow,endRow , (short) 0, (short) 0);
 							Cell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style2(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(startRow, (short) 0, endRow, (short) 0));
+							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(pLibraryName);
 						} else {
@@ -234,10 +234,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					if(i != intId.length-1) {
 						if(is == true) {
 							//合并直属库单元格
-							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
+							CellRangeAddress region3 = new CellRangeAddress(startRow,  endRow, (short) 0, (short) 0);
 							Cell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(startRow, (short) 0, endRow, (short) 0));
+							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
 						} else {
@@ -247,11 +247,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						}
 						CornExaminingReport newCornExaminingReport = icornExaminingReportDao.findBasicSituation(intId[i+1]);
 						if(cornExaminingReport.getpLibraryName().equals(newCornExaminingReport.getpLibraryName())) {
-							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
+							CellRangeAddress regionXiaoJi = new CellRangeAddress(endRow+1, endRow+1, (short) 0, (short) 6);
 							Row rowXiaoJi = sheet.createRow(endRow+1);
 							Cell cellXiaoJi = rowXiaoJi.createCell(0);
 							utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(endRow+1, (short) 0, endRow+1, (short) 6));
+							sheet.addMergedRegion(regionXiaoJi);
 							cellXiaoJi.setCellValue("小计");
 							endRow = startRow + (i-oldI-1);
 							
@@ -262,11 +262,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 							}
 							
 						} else {
-							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
+							CellRangeAddress regionXiaoJi = new CellRangeAddress(endRow+1, endRow+1, (short) 0, (short) 6);
 							Row rowXiaoJi = sheet.createRow(endRow+1);
 							Cell cellXiaoJi = rowXiaoJi.createCell(0);
 							utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(endRow+1, (short) 0, endRow+1, (short) 6));
+							sheet.addMergedRegion(regionXiaoJi);
 							cellXiaoJi.setCellValue("小计");
 							endRow = startRow + (i-oldI-1);
 							startRow = endRow+2;
@@ -284,11 +284,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						if(is == true) {
 							endRow = startRow + (i-oldI-1);
 						}
-						Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
+						CellRangeAddress regionXiaoJi = new CellRangeAddress(endRow+1, endRow+1, (short) 0, (short) 6);
 						Row rowXiaoJi = sheet.createRow(endRow+1);
 						Cell cellXiaoJi = rowXiaoJi.createCell(0);
 						utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
-						sheet.addMergedRegion(new CellRangeAddress(endRow+1, (short) 0, endRow+1, (short) 6));
+						sheet.addMergedRegion(regionXiaoJi);
 						cellXiaoJi.setCellValue("小计");
 						row3 = sheet.createRow(startRow + (i-oldI)+1);
 						row3.setHeight((short) 300); // 行高
@@ -300,10 +300,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						}
 						if(is == true) {
 							//合并直属库单元格
-							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
+							CellRangeAddress region3 = new CellRangeAddress(startRow, endRow, (short) 0, (short) 0);
 							Cell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(startRow, (short) 0, endRow, (short) 0));
+							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style1(workbook));
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(cornExaminingReport.getpLibraryName());
@@ -371,10 +371,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				}else{
 					cell17.setCellValue(sdf.format(cornExaminingReport.getSampleTime()));
 				}
-				Region region4 = new Region(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 16);
+				CellRangeAddress region4 = new CellRangeAddress(row3.getRowNum(), row3.getRowNum(), (short) 13, (short) 16);
 				Cell celll = row3.createCell(13);
 				utils.setRegionStyle(sheet, region4, utils.Style1(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 16));
+				sheet.addMergedRegion(region4);
 				celll.setCellStyle(utils.Style1(workbook));
 				celll.setCellValue("");
 		//		
@@ -593,11 +593,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 //			cell.setCellValue(title);
 			 
 			Row row1 = sheet.createRow(7);
-			Region region1 = new Region(7, (short) 0, 7, (short) 6);
+			CellRangeAddress region1 = new CellRangeAddress(7,  7, (short) 0, (short) 6);
 			 
 			Cell cell1 = row1.createCell(0);
 			utils.setRegionStyle(sheet, region1, utils.Style1(workbook));
-			sheet.addMergedRegion(new CellRangeAddress(7, (short) 0, 7, (short) 6));
+			sheet.addMergedRegion(region1);
 			cell1.setCellValue("合计");
 			for (int i = 8; i < 43; i++) {
 				Cell createCell = row1.createCell(i);
@@ -610,11 +610,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 			cell2.setCellFormula("SUM(H9)");		
 			
 			Row row2 = sheet.createRow(8);
-			Region region2 = new Region(8, (short) 1, 8, (short) 6);
+			CellRangeAddress region2 = new CellRangeAddress(8, 8, (short) 1, (short) 6);
 			
 			Cell cell3 = row2.createCell(1);
 			utils.setRegionStyle(sheet, region2, utils.Style1(workbook));
-			sheet.addMergedRegion(new CellRangeAddress(8, (short) 1, 8, (short) 6));
+			sheet.addMergedRegion(region2);
 			cell3.setCellValue("小计");
 			for (int i = 8; i < 43; i++) {
 				Cell createCell = row2.createCell(i);
@@ -685,10 +685,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						endRow = startRow + (i-oldI-1);
 						if(is == true) {
 							//合并直属库单元格
-							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
+							CellRangeAddress region3 = new CellRangeAddress(startRow, endRow, (short) 0, (short) 0);
 							Cell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(startRow, (short) 0, endRow, (short) 0));
+							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(pLibraryName);
 						} else {
@@ -701,10 +701,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					if(i != intId.length-1) {
 						if(is == true) {
 							//合并直属库单元格
-							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
+							CellRangeAddress region3 = new CellRangeAddress(startRow, endRow, (short) 0, (short) 0);
 							Cell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(startRow, (short) 0, endRow, (short) 0));
+							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 						} else {
@@ -714,11 +714,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						}
 						WheatExaminingReport newWobjiect = wheatExaminingReportDao.findBasicSituation(intId[i + 1]);
 						if(Wobjiect.getpLibraryName().equals(newWobjiect.getpLibraryName())) {
-							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
+							CellRangeAddress regionXiaoJi = new CellRangeAddress(endRow+1, endRow+1, (short) 0, (short) 6);
 							Row rowXiaoJi = sheet.createRow(endRow+1);
 							Cell cellXiaoJi = rowXiaoJi.createCell(0);
 							utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(endRow+1, (short) 0, endRow+1, (short) 6));
+							sheet.addMergedRegion(regionXiaoJi);
 							cellXiaoJi.setCellValue("小计");
 							endRow = startRow + (i-oldI-1);
 							for (int j = 8; j < 43; j++) {
@@ -727,11 +727,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 								createCell.setCellValue("");
 							}
 						} else {
-							Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
+							CellRangeAddress regionXiaoJi = new CellRangeAddress(endRow+1, endRow+1, (short) 0, (short) 6);
 							Row rowXiaoJi = sheet.createRow(endRow+1);
 							Cell cellXiaoJi = rowXiaoJi.createCell(0);
 							utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(endRow+1, (short) 0, endRow+1, (short) 6));
+							sheet.addMergedRegion(regionXiaoJi);
 							cellXiaoJi.setCellValue("小计");
 							endRow = startRow + (i-oldI-1);
 							startRow = endRow+2;
@@ -748,11 +748,11 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						if(is == true) {
 							endRow = startRow + (i-oldI-1);
 						}
-						Region regionXiaoJi = new Region(endRow+1, (short) 0, endRow+1, (short) 6);
+						CellRangeAddress regionXiaoJi = new CellRangeAddress(endRow+1, endRow+1, (short) 0, (short) 6);
 						Row rowXiaoJi = sheet.createRow(endRow+1);
 						Cell cellXiaoJi = rowXiaoJi.createCell(0);
 						utils.setRegionStyle(sheet, regionXiaoJi, utils.Style1(workbook));
-						sheet.addMergedRegion(new CellRangeAddress(endRow+1, (short) 0, endRow+1, (short) 6));
+						sheet.addMergedRegion(regionXiaoJi);
 						cellXiaoJi.setCellValue("小计");
 						row3 = sheet.createRow(startRow + (i-oldI)+1);
 						row3.setHeight((short) 300); // 行高
@@ -763,10 +763,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 						}
 						if(is == true) {
 							//合并直属库单元格
-							Region region3 = new Region(startRow, (short) 0, endRow, (short) 0);
+							CellRangeAddress region3 = new CellRangeAddress(startRow, endRow, (short) 0, (short) 0);
 							Cell cellPLibraryName = row3.createCell(0);
 							utils.setRegionStyle(sheet, region3, utils.Style1(workbook));
-							sheet.addMergedRegion(new CellRangeAddress(startRow, (short) 0, endRow, (short) 0));
+							sheet.addMergedRegion(region3);
 							cellPLibraryName.setCellStyle(utils.Style2(workbook));
 							cellPLibraryName.setCellValue(Wobjiect.getpLibraryName());
 						} else {
@@ -832,10 +832,10 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 					cell14.setCellValue(sdf.format(Wobjiect.getSampleTime()));
 				}
 				
-				Region region5 = new Region(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 15);
+				CellRangeAddress region5 = new CellRangeAddress(row3.getRowNum(), row3.getRowNum(), (short) 13, (short) 15);
 				Cell createCell2 = row3.createCell(13);
 				utils.setRegionStyle(sheet, region5, utils.Style1(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(row3.getRowNum(), (short) 13, row3.getRowNum(), (short) 15));
+				sheet.addMergedRegion(region5);
 				createCell2.setCellStyle(utils.Style1(workbook));
 				createCell2.setCellValue("");
 			//
@@ -1046,7 +1046,7 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
     		workbook.write(output);
     		output.flush();  
 	        //将Excel写出        
-	        workbook.write(output);  
+//	        workbook.write(output);  
 	        //关闭流  
 //	        fileInput.close();  
 	        output.close();  

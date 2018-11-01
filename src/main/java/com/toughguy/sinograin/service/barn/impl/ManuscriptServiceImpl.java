@@ -267,17 +267,17 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 //            HSSFDataFormat format2 = workbook.createDataFormat();
 //            cellStyle2.setDataFormat(format2.getFormat("0.00"));//设置单元类型保留两位小数
             
-	        Region region = new Region(19, (short) 4, 19, (short) 5);
+	        CellRangeAddress region = new CellRangeAddress(19, 19, (short) 4, (short) 5);
 	        Cell cell7 =sh.getRow(19).getCell(4);
 			utils.setRegionStyle(sh, region, utils.Style4(workbook));
-			sh.addMergedRegion(new CellRangeAddress(19, (short) 4, 19, (short) 5));
+			sh.addMergedRegion(region);
 			cell7.setCellValue(manuscript.getDiameter());       //直径
 			
             
-			Region region1 = new Region(19, (short) 7, 19, (short) 8);
+			CellRangeAddress region1 = new CellRangeAddress(19, 19,(short) 7, (short) 8);
 	        Cell cell8 =sh.getRow(19).getCell(7);
 			utils.setRegionStyle(sh, region1, utils.Style4(workbook));
-			sh.addMergedRegion(new CellRangeAddress(19, (short) 7, 19, (short) 8));
+			sh.addMergedRegion(region1);
 			cell8.setCellValue(manuscript.getHigh());           //高
 			
             

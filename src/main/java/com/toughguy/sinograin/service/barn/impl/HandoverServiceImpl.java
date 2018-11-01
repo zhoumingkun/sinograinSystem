@@ -8,12 +8,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.Region;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -31,7 +25,6 @@ import com.toughguy.sinograin.service.barn.prototype.ISampleService;
 import com.toughguy.sinograin.service.impl.GenericServiceImpl;
 import com.toughguy.sinograin.util.POIUtils;
 
-import net.sf.ehcache.management.sampled.SampledMBeanRegistrationProvider;
 
 @Service
 public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> implements IHandoverService {
@@ -53,18 +46,18 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				//第一行数据内容
 				Row row = sheet.createRow(1);
-				Region region1 = new Region(1, (short) 0, 1, (short) 7);
+				CellRangeAddress region1 = new CellRangeAddress(1, 1 , (short) 0, (short) 7);
 				Cell createCell = row.createCell(0);
 				utils.setRegionStyle(sheet, region1, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(1, (short) 0, 1, (short) 7));
+				sheet.addMergedRegion(region1);
 //				createCell.setCellStyle(utils.Style6(workbook));
 				createCell.setCellValue(handover.getName());
 				//第二行数据内容
 				Row row2 = sheet.createRow(2);
-				Region region2 = new Region(2, (short) 0, 2, (short) 7);
+				CellRangeAddress region2 = new CellRangeAddress(2, 2, (short) 0, (short) 7);
 				Cell createCell2 = row2.createCell(0);
 				utils.setRegionStyle(sheet, region2, utils.Style7(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 0, 2, (short) 7));
+				sheet.addMergedRegion(region2);
 //				createCell2.setCellStyle(utils.Style7(workbook));
 				if(handover.getId() >10){
 					createCell2.setCellValue("编号:"+handover.getId());
@@ -80,9 +73,9 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				createCell3.setCellValue("检验项目");
 				
 				Cell create = row3.createCell(1);
-				Region region3 = new Region(3, (short) 1, 3, (short) 7);
+				CellRangeAddress region3 = new CellRangeAddress(3, 3,  (short) 1, (short) 7);
 				utils.setRegionStyle(sheet, region3, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 1, 3, (short) 7));
+				sheet.addMergedRegion(region3);
 //				create.setCellStyle(utils.Style6(workbook));
 				String[] split = handover.getCheckeds().split(",");
 				String checked ="";
@@ -195,7 +188,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 					}
 				}
 				Row rowCell = sheet.createRow(5+number);
-				Region region = new Region(5+number, (short) 5, 5+number, (short) 7);
+				CellRangeAddress region = new CellRangeAddress(5+number, 5+number, (short) 5, (short) 7);
 				
 				Cell createCell4 = rowCell.createCell(0);
 				createCell4.setCellStyle(utils.Style6(workbook));
@@ -219,13 +212,13 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				Cell createCell9 = rowCell.createCell(5);
 				utils.setRegionStyle(sheet, region, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(6+number, (short) 4, 6+number, (short) 7));
+				sheet.addMergedRegion(new CellRangeAddress(6+number, 6+number, (short) 4, (short) 7));
 //				createCell9.setCellStyle(utils.Style6(workbook));
 				createCell9.setCellValue(handover.getRemark());
 				
 				
 				Row createRow = sheet.createRow(6+number);
-				Region regio = new Region(6+number, (short) 4, 6+number, (short) 7);
+				CellRangeAddress regio = new CellRangeAddress(6+number, 6+number, (short) 4, (short) 7);
 				
 				Cell createCell10 = createRow.createCell(0);
 				createCell10.setCellStyle(utils.Style6(workbook));
@@ -274,18 +267,18 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				//第一行数据内容
 				Row row = sheet.createRow(1);
-				Region region1 = new Region(1, (short) 0, 1, (short) 11);
+				CellRangeAddress region1 = new CellRangeAddress(1, 1,(short) 0,  (short) 11);
 				Cell createCell = row.createCell(0);
 				utils.setRegionStyle(sheet, region1, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(1, (short) 0, 1, (short) 11));
+				sheet.addMergedRegion(region1);
 //				createCell.setCellStyle(utils.Style6(workbook));
 				createCell.setCellValue(handover.getName());
 				//第二行数据内容
 				Row row2 = sheet.createRow(2);
-				Region region2 = new Region(2, (short) 0, 2, (short) 11);
+				CellRangeAddress region2 = new CellRangeAddress(2, 2, (short) 0, (short) 11);
 				Cell createCell2 = row2.createCell(0);
 				utils.setRegionStyle(sheet, region2, utils.Style7(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 0, 2, (short) 11));
+				sheet.addMergedRegion(region2);
 //				createCell2.setCellStyle(utils.Style7(workbook));
 				if(handover.getId() >10){
 					createCell2.setCellValue("编号:"+handover.getId());
@@ -301,9 +294,9 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				createCell3.setCellValue("检验项目");
 				
 				Cell create = row3.createCell(1);
-				Region region3 = new Region(3, (short) 1, 3, (short) 11);
+				CellRangeAddress region3 = new CellRangeAddress(3, 3, (short) 1, (short) 11);
 				utils.setRegionStyle(sheet, region3, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 1, 3, (short) 11));
+				sheet.addMergedRegion(region3);
 //				create.setCellStyle(utils.Style6(workbook));
 				String[] split = handover.getCheckeds().split(",");
 				String checked ="";
@@ -453,7 +446,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 						
 				}
 				Row rowCell = sheet.createRow(5+number);
-				Region region = new Region(5+number, (short) 5, 5+number, (short) 11);
+				CellRangeAddress region = new CellRangeAddress(5+number, 5+number, (short) 5, (short) 11);
 				
 				Cell createCell4 = rowCell.createCell(0);
 				createCell4.setCellStyle(utils.Style6(workbook));
@@ -477,13 +470,13 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				
 				Cell createCell9 = rowCell.createCell(5);
 				utils.setRegionStyle(sheet, region, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(6+number, (short) 4, 6+number, (short) 11));
+				sheet.addMergedRegion(new CellRangeAddress(6+number, 6+number, (short) 4, (short) 11));
 //					createCell9.setCellStyle(utils.Style6(workbook));
 				createCell9.setCellValue(handover.getRemark());
 				
 				
 				Row createRow = sheet.createRow(6+number);
-				Region regio = new Region(6+number, (short) 4, 6+number, (short) 11);
+				CellRangeAddress regio = new CellRangeAddress(6+number, 6+number, (short) 4, (short) 11);
 				
 				Cell createCell10 = createRow.createCell(0);
 				createCell10.setCellStyle(utils.Style6(workbook));
@@ -504,7 +497,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 				Cell createCell14 = createRow.createCell(4);
 //					createCell14.setCellStyle(utils.Style6(workbook));
 				utils.setRegionStyle(sheet, regio, utils.Style6(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(6+number, (short) 4, 6+number, (short) 11));
+				sheet.addMergedRegion(new CellRangeAddress(6+number, 6+number, (short) 4, (short) 11));
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd ");//设置日期格式
 				String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 				createCell14.setCellValue("样品管理员："+handover.getSampleAdmin()+"                  "+"时间："+date);

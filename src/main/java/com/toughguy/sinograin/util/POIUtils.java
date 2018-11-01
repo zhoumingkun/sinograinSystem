@@ -20,6 +20,7 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellUtil;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
@@ -313,10 +314,10 @@ public class POIUtils {
 			* @param cs
 			*/
 			@SuppressWarnings("deprecation")
-			public static void setRegionStyle(Sheet sheet, Region region, CellStyle cs) {
-			 for (int i = region.getRowFrom(); i <= region.getRowTo(); i++) {
+			public void setRegionStyle(Sheet sheet, CellRangeAddress region, CellStyle cs) {
+			 for (int i = region.getFirstRow(); i <= region.getLastRow(); i++) {
 			  Row row = CellUtil.getRow(i, sheet);
-			  for (int j = region.getColumnFrom(); j <= region.getColumnTo(); j++) {
+			  for (int j = region.getFirstColumn(); j <= region.getLastColumn(); j++) {
 			   Cell cell = CellUtil.getCell(row, (short) j);
 			   cell.setCellStyle(cs);
 			  }

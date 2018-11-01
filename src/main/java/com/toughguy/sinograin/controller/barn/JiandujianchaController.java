@@ -249,13 +249,13 @@ public class JiandujianchaController{
 				row2.setHeightInPoints(37);
 				Row row3 = sheet.createRow(3);
 				row3.setHeightInPoints(37);
-				Region region = new Region(2, (short) 0, 3, (short) 0);
+				CellRangeAddress region = new CellRangeAddress(2, 3, (short) 0, (short) 0);
 				Cell createCell0 = row2.createCell(0);
 				createCell0.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 				Cell createCell00 = row3.createCell(0); 
 				createCell00.setCellValue("");
 				utils.setRegionStyle(sheet, region, utils.Style9(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 0, 3, (short) 0));
+				sheet.addMergedRegion(region);
 				createCell0.setCellValue("基本信息");
 				
 				Cell createCell1 = row2.createCell(1);
@@ -264,20 +264,20 @@ public class JiandujianchaController{
 				
 				//第三行数据内容
 //				HSSFRow row2 = sh.createRow(2);
-				Region region1 = new Region(2, (short) 2, 2, (short) 4);
+				CellRangeAddress region1 = new CellRangeAddress(2,  2, (short) 2, (short) 4);
 				Cell createCell = row2.createCell(2);
 				utils.setRegionStyle(sheet, region1, utils.Style10(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 2, 2, (short) 4));
+				sheet.addMergedRegion(region1);
 				createCell.setCellValue("中央储备粮"+r.getpLibraryName()+"直属库有限公司");
 				
 				Cell createCell2 = row2.createCell(5);
 				createCell2.setCellStyle(utils.Style10(workbook));
 				createCell2.setCellValue("仓号");
 				 
-				Region region2 = new Region(2, (short) 6, 2, (short) 7);
+				CellRangeAddress region2 = new CellRangeAddress(2, 2, (short) 6, (short) 7);
 				Cell createCell3 = row2.createCell(6);
 				utils.setRegionStyle(sheet, region2, utils.Style10(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 6, 2, (short) 7));
+				sheet.addMergedRegion(region2);
 				createCell3.setCellValue(r.getPosition());
 				
 				Cell createCell4 = row2.createCell(8);
@@ -292,10 +292,10 @@ public class JiandujianchaController{
 				createCell6.setCellStyle(utils.Style10(workbook));
 				createCell6.setCellValue("性质");
 					
-				Region region3 = new Region(2, (short) 11, 2, (short) 12);
+				CellRangeAddress region3 = new CellRangeAddress(2, 2, (short) 11, (short) 12);
 				Cell createCell7 = row2.createCell(11);
 				utils.setRegionStyle(sheet, region3, utils.Style10(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 11, 2, (short) 12));
+				sheet.addMergedRegion(region3);
 				createCell7.setCellValue(r.getQuality());
 				
                 Cell createCell8 = row2.createCell(13);
@@ -328,20 +328,20 @@ public class JiandujianchaController{
 				createCell14.setCellStyle(utils.Style11(workbook));
 				createCell14.setCellValue("存储库点");
 				 
-				Region region4 = new Region(3, (short) 2, 3, (short) 4);
+				CellRangeAddress region4 = new CellRangeAddress(3, 3, (short) 2, (short) 4);
 				Cell createCell15 = row3.createCell(2);
 				utils.setRegionStyle(sheet, region4, utils.Style11(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 2, 3, (short) 4));
+				sheet.addMergedRegion(region4);
 				createCell15.setCellValue(r.getLibraryName());
 				
 				Cell createCell16 = row3.createCell(5);
 				createCell16.setCellStyle(utils.Style11(workbook));
 				createCell16.setCellValue("品种");
 				 
-				Region region5 = new Region(3, (short) 6, 3, (short) 7);
+				CellRangeAddress region5 = new CellRangeAddress(3, 3, (short) 6, (short) 7);
 				Cell createCell17 = row3.createCell(6);
 				utils.setRegionStyle(sheet, region5, utils.Style11(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 6, 3, (short) 7));
+				sheet.addMergedRegion(region5);
 				createCell17.setCellValue(r.getSort());
            
                 Cell createCell18 = row3.createCell(8);
@@ -356,10 +356,10 @@ public class JiandujianchaController{
 				createCell20.setCellStyle(utils.Style11(workbook));
 				createCell20.setCellValue("数量");
 				
-				Region region6 = new Region(3, (short) 11, 3, (short) 12);
+				CellRangeAddress region6 = new CellRangeAddress(3, 3, (short) 11, (short) 12);
 				Cell createCell21 = row3.createCell(11);
 				utils.setRegionStyle(sheet, region6, utils.Style11(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 11, 3, (short) 12));
+				sheet.addMergedRegion(region6);
 				createCell21.setCellValue(r.getAmount());
 				
 				Cell createCell22 = row3.createCell(13);
@@ -394,13 +394,13 @@ public class JiandujianchaController{
 					Row row6 = sheet.createRow(6+i*9);
 					row6.setHeightInPoints(37); // 行高
 					
-					Region region7 = new Region(5+i*9, (short) 0, 6+i*9, (short) 0);
+					CellRangeAddress region7 = new CellRangeAddress(5+i*9, 6+i*9, (short) 0, (short) 0);
 					Cell createCell28 = row5.createCell(0);
 					createCell28.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell29 = row6.createCell(0); 
 					createCell29.setCellValue("");
 					utils.setRegionStyle(sheet, region7, utils.Style17(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 0, 6+i*9, (short) 0));
+					sheet.addMergedRegion(region7);
 					createCell28.setCellValue("检查序号事项 ");
 					
 					Row row7 = sheet.createRow(7+i*9);
@@ -414,7 +414,7 @@ public class JiandujianchaController{
 					Row row11 = sheet.createRow(11+i*9);
 					row11.setHeightInPoints(37); // 行高
 					
-					Region region8 = new Region(7+i*9, (short) 0, 11+i*9, (short) 0);
+					CellRangeAddress region8 = new CellRangeAddress(7+i*9, 11+i*9, (short) 0, (short) 0);
 					Cell createCell30 = row7.createCell(0);
 					createCell30.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell31 = row8.createCell(0); 
@@ -426,10 +426,10 @@ public class JiandujianchaController{
 					Cell createCell34 = row11.createCell(0); 
 					createCell34.setCellValue("");
 					utils.setRegionStyle(sheet, region8, utils.Style18(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(7+i*9, (short) 0, 11+i*9, (short) 0));
+					sheet.addMergedRegion(region8);
 					createCell30.setCellValue("NO."+i+1);
 					
-					Region region9 = new Region(5+i*9, (short) 1, 11+i*9, (short) 1);
+					CellRangeAddress region9 = new CellRangeAddress(5+i*9, 11+i*9, (short) 1, (short) 1);
 					Cell createCell35 = row5.createCell(1);
 					createCell35.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell36 = row6.createCell(1); 
@@ -445,7 +445,7 @@ public class JiandujianchaController{
 					Cell createCell41 = row11.createCell(1); 
 					createCell41.setCellValue("");
 					utils.setRegionStyle(sheet, region9, utils.Style19(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 1, 11+i*9, (short) 1));
+					sheet.addMergedRegion(region9);
 					createCell35.setCellValue("数量情况");
 					//
 					Cell createCell42 = row5.createCell(2);
@@ -532,50 +532,50 @@ public class JiandujianchaController{
 	                createCell62.setCellStyle(utils.Style11(workbook));
 	                createCell62.setCellValue(" ");  //
 	                //
-	                Region region11 = new Region(5+i*9, (short) 5, 5+i*9, (short) 6);
+	                CellRangeAddress region11 = new CellRangeAddress(5+i*9, 5+i*9, (short) 5, (short) 6);
 					Cell createCell63 = row5.createCell(5);
 					utils.setRegionStyle(sheet, region11, utils.Style10(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 5, 5+i*9, (short) 6));
+					sheet.addMergedRegion(region11);
 					createCell63.setCellValue(r.getRealCapacity());//容重
 					        
-					Region region12 = new Region(6+i*9, (short) 5, 6+i*9, (short) 6);
+					CellRangeAddress region12 = new CellRangeAddress(6+i*9, 6+i*9, (short) 5, (short) 6);
 					Cell createCell64 = row6.createCell(5);
 					utils.setRegionStyle(sheet, region12, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(6+i*9, (short) 5, 6+i*9, (short) 6));
+					sheet.addMergedRegion(region12);
 					createCell64.setCellValue(r.getCorrectioFactor());  //修正系数
         
-					Region region13 = new Region(7+i*9, (short) 5,7+i*9, (short) 6);
+					CellRangeAddress region13 = new CellRangeAddress(7+i*9, 7+i*9, (short) 5, (short) 6);
 					Cell createCell65 = row7.createCell(5);
 					utils.setRegionStyle(sheet, region13, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(7+i*9, (short) 5,7+i*9, (short) 6));
+					sheet.addMergedRegion(region13);
 					createCell65.setCellValue(r.getAveDensity());  //平均密度
 
-					Region region14 = new Region(8+i*9, (short) 5,8+i*9, (short) 6);
+					CellRangeAddress region14 = new CellRangeAddress(8+i*9, 8+i*9, (short) 5, (short) 6);
 					Cell createCell66 = row8.createCell(5);
 					utils.setRegionStyle(sheet, region14, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(8+i*9, (short) 5,8+i*9, (short) 6));
+					sheet.addMergedRegion(region14);
 					createCell66.setCellValue(r.getUnQuality());  //测量计算数
 
-					Region region15 = new Region(9+i*9, (short) 5,9+i*9, (short) 6);
+					CellRangeAddress region15 = new CellRangeAddress(9+i*9, 9+i*9, (short) 5, (short) 6);
 					Cell createCell67 = row9.createCell(5);
 					utils.setRegionStyle(sheet, region15, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(9+i*9, (short) 5,9+i*9, (short) 6));
+					sheet.addMergedRegion(region15);
 					createCell67.setCellValue(r.getGrainQuality());  //保管账面数
 
-					Region region16 = new Region(10+i*9, (short) 5,10+i*9, (short) 6);
+					CellRangeAddress region16 = new CellRangeAddress(10+i*9, 10+i*9, (short) 5, (short) 6);
 					Cell createCell68 = row10.createCell(5);
 					utils.setRegionStyle(sheet, region16, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(10+i*9, (short) 5,10+i*9, (short) 6));
+					sheet.addMergedRegion(region16);
 					createCell68.setCellValue(r.getSlip());  //差率
 
-					Region region17 = new Region(11+i*9, (short) 5,11+i*9, (short) 6);
+					CellRangeAddress region17 = new CellRangeAddress(11+i*9, 11+i*9, (short) 5, (short) 6);
 					Cell createCell69 = row11.createCell(5);
 					utils.setRegionStyle(sheet, region17, utils.Style11(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(11+i*9, (short) 5,11+i*9, (short) 6));
+					sheet.addMergedRegion(region17);
 					createCell69.setCellValue(" ");  //
 
 	                //
-	                Region region10 = new Region(5+i*9, (short) 7, 11+i*9, (short) 7);
+	                CellRangeAddress region10 = new CellRangeAddress(5+i*9, 11+i*9, (short) 7, (short) 7);
 					Cell createCell70 = row5.createCell(7);
 //					createCell70.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 //					HSSFCell createCell71 = row6.createCell(7); 
@@ -591,34 +591,34 @@ public class JiandujianchaController{
 //					HSSFCell createCell76 = row11.createCell(7); 
 //					createCell76.setCellValue("");
 					utils.setRegionStyle(sheet, region10, utils.Style19(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 7, 11+i*9, (short) 7));
+					sheet.addMergedRegion(region10);
 					createCell70.setCellValue("质量情况");
 					//
-					Region region18 = new Region(5+i*9, (short) 8,5+i*9, (short) 9);
+					CellRangeAddress region18 = new CellRangeAddress(5+i*9, 5+i*9, (short) 8, (short) 9);
 					Cell createCell77 = row5.createCell(8);
 					utils.setRegionStyle(sheet, region18, utils.Style10(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 8,5+i*9, (short) 9));
+					sheet.addMergedRegion(region18);
 					createCell77.setCellValue("等级");  //等级
 
-					Region region19 = new Region(6+i*9, (short) 8,6+i*9, (short) 9);
+					CellRangeAddress region19 = new CellRangeAddress(6+i*9, 6+i*9, (short) 8, (short) 9);
 					Cell createCell78 = row6.createCell(8);
 					utils.setRegionStyle(sheet, region19, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(6+i*9, (short) 8,6+i*9, (short) 9));
+					sheet.addMergedRegion(region19);
 					createCell78.setCellValue("容重");  //容重
 
-					Region region20 = new Region(7+i*9, (short) 8,7+i*9, (short) 9);
+					CellRangeAddress region20 = new CellRangeAddress(7+i*9, 7+i*9, (short) 8, (short) 9);
 					Cell createCell79 = row7.createCell(8);
 					utils.setRegionStyle(sheet, region20, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(7+i*9, (short) 8,7+i*9, (short) 9));
+					sheet.addMergedRegion(region20);
 					createCell79.setCellValue("水分");  //水分
 					
-					Region region21 = new Region(8+i*9, (short) 8,9+i*9, (short) 8);
+					CellRangeAddress region21 = new CellRangeAddress(8+i*9, 9+i*9, (short) 8, (short) 8);
 					Cell createCell80 = row8.createCell(8);
 					createCell80.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell81 = row9.createCell(8); 
 					createCell81.setCellValue("");
 					utils.setRegionStyle(sheet, region21, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(8+i*9, (short) 8,9+i*9, (short) 8));
+					sheet.addMergedRegion(region21);
 					createCell80.setCellValue("杂质");  //杂质
 					
 					Cell createCell82 = row8.createCell(9);
@@ -629,16 +629,16 @@ public class JiandujianchaController{
 	                createCell83.setCellStyle(utils.Style20(workbook));
 	                createCell83.setCellValue("其中：矿物质");  //
 	                
-	                Region region22 = new Region(10+i*9, (short) 8,10+i*9, (short) 9);
+	                CellRangeAddress region22 = new CellRangeAddress(10+i*9, 10+i*9, (short) 8, (short) 9);
 					Cell createCell84 = row10.createCell(8);
 					utils.setRegionStyle(sheet, region22, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(10+i*9, (short) 8,10+i*9, (short) 9));
+					sheet.addMergedRegion(region22);
 					createCell84.setCellValue("不完善粒");  //水分
 					
-					Region region23 = new Region(11+i*9, (short) 8,11+i*9, (short) 9);
+					CellRangeAddress region23 = new CellRangeAddress(11+i*9, 11+i*9, (short) 8, (short) 9);
 					Cell createCell85 = row11.createCell(8);
 					utils.setRegionStyle(sheet, region23, utils.Style11(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(11+i*9, (short) 8,11+i*9, (short) 9));
+					sheet.addMergedRegion(region23);
 					createCell85.setCellValue("色泽气味");  //色泽气味
 					//
 					Cell createCell86 = row5.createCell(10);
@@ -729,7 +729,7 @@ public class JiandujianchaController{
 	                createCell1003.setCellStyle(utils.Style11(workbook));
 	                createCell1003.setCellValue(" ");  //
 	                //
-	                Region region24 = new Region(5+i*9, (short) 13, 11+i*9, (short) 13);
+	                CellRangeAddress region24 = new CellRangeAddress(5+i*9, 11+i*9, (short) 13, (short) 13);
 					Cell createCell101 = row5.createCell(13);
 //					createCell101.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 //					HSSFCell createCell102 = row6.createCell(13); 
@@ -745,10 +745,10 @@ public class JiandujianchaController{
 //					HSSFCell createCell107= row11.createCell(13); 
 //					createCell107.setCellValue("");
 					utils.setRegionStyle(sheet, region24, utils.Style19(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 13, 11+i*9, (short) 13));
+					sheet.addMergedRegion(region24);
 					createCell101.setCellValue("主要存在问题");
 					
-					Region region25 = new Region(5+i*9, (short) 14,11+i*9, (short) 18);
+					CellRangeAddress region25 = new CellRangeAddress(5+i*9, 11+i*9, (short) 14, (short) 18);
 					Cell createCell108 = row11.createCell(14);
 					createCell108.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell1081 = row5.createCell(14); 
@@ -762,7 +762,7 @@ public class JiandujianchaController{
 					Cell createCell112 = row9.createCell(14); 
 					createCell112.setCellValue("");
 					utils.setRegionStyle(sheet, region25, utils.Style21(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 14,11+i*9, (short) 18));
+					sheet.addMergedRegion(region25);
 					String problem = "";
 					for(int a=1;a<=r.getProblem().length;a++) {
 						problem += "问题"+ a + ":" + r.getProblem()[a-1] + ",";
@@ -780,10 +780,10 @@ public class JiandujianchaController{
 					createCell1121.setCellStyle(utils.Style22(workbook));
 					createCell1121.setCellValue("检验员");  //检查人
 					
-					Region region26 = new Region(13+i*9, (short) 1,13+i*9, (short) 3);
+					CellRangeAddress region26 = new CellRangeAddress(13+i*9, 13+i*9, (short) 1, (short) 3);
 					Cell createCell113 = row13.createCell(1);
 					utils.setRegionStyle(sheet, region26, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 1,13+i*9, (short) 3));
+					sheet.addMergedRegion(region26);
 					createCell113.setCellValue(r.getGzdgRummager());  //检查人
 					
 					Cell createCell1131 = row13.createCell(4);
@@ -799,10 +799,10 @@ public class JiandujianchaController{
 					createCell115.setCellStyle(utils.Style22(workbook));
 					createCell115.setCellValue("检验员");  //检验员
 	                
-					Region region28 = new Region(13+i*9, (short) 8,13+i*9, (short) 10);
+					CellRangeAddress region28 = new CellRangeAddress(13+i*9, 13+i*9, (short) 8, (short) 10);
 					Cell createCell116 = row13.createCell(8);
 					utils.setRegionStyle(sheet, region28, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 8,13+i*9, (short) 10));
+					sheet.addMergedRegion(region28);
 					createCell116.setCellValue(r.getJianyanyuan().substring(0,r.getJianyanyuan().length()-1));  //检验员
 					
 					Cell createCell1161 = row13.createCell(11);
@@ -817,10 +817,10 @@ public class JiandujianchaController{
 					createCell1171.setCellStyle(utils.Style22(workbook));
 					createCell1171.setCellValue("记录人:");  //记录人
 					
-					Region region27 = new Region(13+i*9, (short) 14,13+i*9, (short) 15);
+					CellRangeAddress region27 = new CellRangeAddress(13+i*9, 13+i*9, (short) 14, (short) 15);
 					Cell createCell118 = row13.createCell(14);
 					utils.setRegionStyle(sheet, region27, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 14,13+i*9, (short) 15));
+					sheet.addMergedRegion(region27);
 					if(r.getRummager()==null){
 						createCell118.setCellValue("");
 					}else{
@@ -832,10 +832,10 @@ public class JiandujianchaController{
 					createCell120.setCellStyle(utils.Style22(workbook));
 					createCell120.setCellValue("时间:");  //记录人
 					
-					Region region29 = new Region(13+i*9, (short) 17,13+i*9, (short) 18);
+					CellRangeAddress region29 = new CellRangeAddress(13+i*9, 13+i*9, (short) 17, (short) 18);
 					Cell createCell121 = row13.createCell(17);
 					utils.setRegionStyle(sheet, region29, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 17,13+i*9, (short) 18));
+					sheet.addMergedRegion(region29);
 					createCell121.setCellValue(sdf.format(r.getJianduTime()));  //时间
 			}
 
@@ -1008,13 +1008,13 @@ public class JiandujianchaController{
 				row2.setHeightInPoints(37);
 				Row row3 = sheet.createRow(3);
 				row3.setHeightInPoints(37);
-				Region region = new Region(2, (short) 0, 3, (short) 0);
+				CellRangeAddress region = new CellRangeAddress(2, 3, (short) 0, (short) 0);
 				Cell createCell0 = row2.createCell(0);
 				createCell0.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 				Cell createCell00 = row3.createCell(0); 
 				createCell00.setCellValue("");
 				utils.setRegionStyle(sheet, region, utils.Style9(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 0, 3, (short) 0));
+				sheet.addMergedRegion(region);
 				createCell0.setCellValue("基本信息");
 				
 				Cell createCell1 = row2.createCell(1);
@@ -1023,20 +1023,20 @@ public class JiandujianchaController{
 				
 				//第三行数据内容
 //				HSSFRow row2 = sh.createRow(2);
-				Region region1 = new Region(2, (short) 2, 2, (short) 4);
+				CellRangeAddress region1 = new CellRangeAddress(2, 2, (short) 2, (short) 4);
 				Cell createCell = row2.createCell(2);
 				utils.setRegionStyle(sheet, region1, utils.Style10(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 2, 2, (short) 4));
+				sheet.addMergedRegion(region1);
 				createCell.setCellValue("中央储备粮"+r.getpLibraryName()+"直属库有限公司");
 				
 				Cell createCell2 = row2.createCell(5);
 				createCell2.setCellStyle(utils.Style10(workbook));
 				createCell2.setCellValue("仓号");
 				 
-				Region region2 = new Region(2, (short) 6, 2, (short) 7);
+				CellRangeAddress region2 = new CellRangeAddress(2, 2, (short) 6, (short) 7);
 				Cell createCell3 = row2.createCell(6);
 				utils.setRegionStyle(sheet, region2, utils.Style10(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 6, 2, (short) 7));
+				sheet.addMergedRegion(region2);
 				createCell3.setCellValue(r.getPosition());
 				
 				Cell createCell4 = row2.createCell(8);
@@ -1051,10 +1051,10 @@ public class JiandujianchaController{
 				createCell6.setCellStyle(utils.Style10(workbook));
 				createCell6.setCellValue("性质");
 					
-				Region region3 = new Region(2, (short) 11, 2, (short) 12);
+				CellRangeAddress region3 = new CellRangeAddress(2, 2, (short) 11, (short) 12);
 				Cell createCell7 = row2.createCell(11);
 				utils.setRegionStyle(sheet, region3, utils.Style10(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(2, (short) 11, 2, (short) 12));
+				sheet.addMergedRegion(region3);
 				createCell7.setCellValue(r.getQuality());
 				
                 Cell createCell8 = row2.createCell(13);
@@ -1087,20 +1087,20 @@ public class JiandujianchaController{
 				createCell14.setCellStyle(utils.Style11(workbook));
 				createCell14.setCellValue("存储库点");
 				 
-				Region region4 = new Region(3, (short) 2, 3, (short) 4);
+				CellRangeAddress region4 = new CellRangeAddress(3, 3, (short) 2, (short) 4);
 				Cell createCell15 = row3.createCell(2);
 				utils.setRegionStyle(sheet, region4, utils.Style11(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 2, 3, (short) 4));
+				sheet.addMergedRegion(region4);
 				createCell15.setCellValue(r.getLibraryName());
 				
 				Cell createCell16 = row3.createCell(5);
 				createCell16.setCellStyle(utils.Style11(workbook));
 				createCell16.setCellValue("品种");
 				 
-				Region region5 = new Region(3, (short) 6, 3, (short) 7);
+				CellRangeAddress region5 = new CellRangeAddress(3, 3, (short) 6, (short) 7);
 				Cell createCell17 = row3.createCell(6);
 				utils.setRegionStyle(sheet, region5, utils.Style11(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 6, 3, (short) 7));
+				sheet.addMergedRegion(region5);
 				createCell17.setCellValue(r.getSort());
            
                 Cell createCell18 = row3.createCell(8);
@@ -1115,10 +1115,10 @@ public class JiandujianchaController{
 				createCell20.setCellStyle(utils.Style11(workbook));
 				createCell20.setCellValue("数量");
 				
-				Region region6 = new Region(3, (short) 11, 3, (short) 12);
+				CellRangeAddress region6 = new CellRangeAddress(3, 3, (short) 11, (short) 12);
 				Cell createCell21 = row3.createCell(11);
 				utils.setRegionStyle(sheet, region6, utils.Style11(workbook));
-				sheet.addMergedRegion(new CellRangeAddress(3, (short) 11, 3, (short) 12));
+				sheet.addMergedRegion(region6);
 				createCell21.setCellValue(r.getAmount());
 				
 				Cell createCell22 = row3.createCell(13);
@@ -1156,13 +1156,13 @@ public class JiandujianchaController{
 					Row row6 = sheet.createRow(6+i*9);
 					row6.setHeightInPoints(37); // 行高
 					
-					Region region7 = new Region(5+i*9, (short) 0, 6+i*9, (short) 0);
+					CellRangeAddress region7 = new CellRangeAddress(5+i*9, 6+i*9, (short) 0, (short) 0);
 					Cell createCell28 = row5.createCell(0);
 					createCell28.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell29 = row6.createCell(0); 
 					createCell29.setCellValue("");
 					utils.setRegionStyle(sheet, region7, utils.Style17(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 0, 6+i*9, (short) 0));
+					sheet.addMergedRegion(region7);
 					createCell28.setCellValue("检查序号事项 ");
 					
 					Row row7 = sheet.createRow(7+i*9);
@@ -1176,7 +1176,7 @@ public class JiandujianchaController{
 					Row row11 = sheet.createRow(11+i*9);
 					row11.setHeightInPoints(37); // 行高
 					
-					Region region8 = new Region(7+i*9, (short) 0, 11+i*9, (short) 0);
+					CellRangeAddress region8 = new CellRangeAddress(7+i*9, 11+i*9, (short) 0, (short) 0);
 					Cell createCell30 = row7.createCell(0);
 					createCell30.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell31 = row8.createCell(0); 
@@ -1188,10 +1188,10 @@ public class JiandujianchaController{
 					Cell createCell34 = row11.createCell(0); 
 					createCell34.setCellValue("");
 					utils.setRegionStyle(sheet, region8, utils.Style18(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(7+i*9, (short) 0, 11+i*9, (short) 0));
+					sheet.addMergedRegion(region8);
 					createCell30.setCellValue("NO."+i+1);
 					
-					Region region9 = new Region(5+i*9, (short) 1, 11+i*9, (short) 1);
+					CellRangeAddress region9 = new CellRangeAddress(5+i*9, 11+i*9, (short) 1, (short) 1);
 					Cell createCell35 = row5.createCell(1);
 					createCell35.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell36 = row6.createCell(1); 
@@ -1207,7 +1207,7 @@ public class JiandujianchaController{
 					Cell createCell41 = row11.createCell(1); 
 					createCell41.setCellValue("");
 					utils.setRegionStyle(sheet, region9, utils.Style19(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 1, 11+i*9, (short) 1));
+					sheet.addMergedRegion(region9);
 					createCell35.setCellValue("数量情况");
 					//
 					Cell createCell42 = row5.createCell(2);
@@ -1294,50 +1294,50 @@ public class JiandujianchaController{
 	                createCell62.setCellStyle(utils.Style11(workbook));
 	                createCell62.setCellValue(" ");  //
 	                //
-	                Region region11 = new Region(5+i*9, (short) 5, 5+i*9, (short) 6);
+	                CellRangeAddress region11 = new CellRangeAddress(5+i*9, 5+i*9, (short) 5, (short) 6);
 					Cell createCell63 = row5.createCell(5);
 					utils.setRegionStyle(sheet, region11, utils.Style10(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 5, 5+i*9, (short) 6));
+					sheet.addMergedRegion(region11);
 					createCell63.setCellValue(r.getRealCapacity());//容重
 					        
-					Region region12 = new Region(6+i*9, (short) 5, 6+i*9, (short) 6);
+					CellRangeAddress region12 = new CellRangeAddress(6+i*9, 6+i*9, (short) 5, (short) 6);
 					Cell createCell64 = row6.createCell(5);
 					utils.setRegionStyle(sheet, region12, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(6+i*9, (short) 5, 6+i*9, (short) 6));
+					sheet.addMergedRegion(region12);
 					createCell64.setCellValue(r.getCorrectioFactor());  //修正系数
         
-					Region region13 = new Region(7+i*9, (short) 5,7+i*9, (short) 6);
+					CellRangeAddress region13 = new CellRangeAddress(7+i*9, 7+i*9, (short) 5, (short) 6);
 					Cell createCell65 = row7.createCell(5);
 					utils.setRegionStyle(sheet, region13, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(7+i*9, (short) 5,7+i*9, (short) 6));
+					sheet.addMergedRegion(region13);
 					createCell65.setCellValue(r.getAveDensity());  //平均密度
 
-					Region region14 = new Region(8+i*9, (short) 5,8+i*9, (short) 6);
+					CellRangeAddress region14 = new CellRangeAddress(8+i*9, 8+i*9, (short) 5, (short) 6);
 					Cell createCell66 = row8.createCell(5);
 					utils.setRegionStyle(sheet, region14, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(8+i*9, (short) 5,8+i*9, (short) 6));
+					sheet.addMergedRegion(region14);
 					createCell66.setCellValue(r.getUnQuality());  //测量计算数
 
-					Region region15 = new Region(9+i*9, (short) 5,9+i*9, (short) 6);
+					CellRangeAddress region15 = new CellRangeAddress(9+i*9, 9+i*9, (short) 5, (short) 6);
 					Cell createCell67 = row9.createCell(5);
 					utils.setRegionStyle(sheet, region15, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(9+i*9, (short) 5,9+i*9, (short) 6));
+					sheet.addMergedRegion(region15);
 					createCell67.setCellValue(r.getGrainQuality());  //保管账面数
 
-					Region region16 = new Region(10+i*9, (short) 5,10+i*9, (short) 6);
+					CellRangeAddress region16 = new CellRangeAddress(10+i*9, 10+i*9, (short) 5, (short) 6);
 					Cell createCell68 = row10.createCell(5);
 					utils.setRegionStyle(sheet, region16, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(10+i*9, (short) 5,10+i*9, (short) 6));
+					sheet.addMergedRegion(region16);
 					createCell68.setCellValue(r.getSlip());  //差率
 
-					Region region17 = new Region(11+i*9, (short) 5,11+i*9, (short) 6);
+					CellRangeAddress region17 = new CellRangeAddress(11+i*9, 11+i*9, (short) 5, (short) 6);
 					Cell createCell69 = row11.createCell(5);
 					utils.setRegionStyle(sheet, region17, utils.Style11(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(11+i*9, (short) 5,11+i*9, (short) 6));
+					sheet.addMergedRegion(region17);
 					createCell69.setCellValue(" ");  //
 
 	                //
-	                Region region10 = new Region(5+i*9, (short) 7, 11+i*9, (short) 7);
+	                CellRangeAddress region10 = new CellRangeAddress(5+i*9, 11+i*9, (short) 7, (short) 7);
 					Cell createCell70 = row5.createCell(7);
 //					createCell70.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 //					HSSFCell createCell71 = row6.createCell(7); 
@@ -1353,34 +1353,34 @@ public class JiandujianchaController{
 //					HSSFCell createCell76 = row11.createCell(7); 
 //					createCell76.setCellValue("");
 					utils.setRegionStyle(sheet, region10, utils.Style19(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 7, 11+i*9, (short) 7));
+					sheet.addMergedRegion(region10);
 					createCell70.setCellValue("质量情况");
 					//
-					Region region18 = new Region(5+i*9, (short) 8,5+i*9, (short) 9);
+					CellRangeAddress region18 = new CellRangeAddress(5+i*9, 5+i*9, (short) 8, (short) 9);
 					Cell createCell77 = row5.createCell(8);
 					utils.setRegionStyle(sheet, region18, utils.Style10(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 8,5+i*9, (short) 9));
+					sheet.addMergedRegion(region18);
 					createCell77.setCellValue("等级");  //等级
 
-					Region region19 = new Region(6+i*9, (short) 8,6+i*9, (short) 9);
+					CellRangeAddress region19 = new CellRangeAddress(6+i*9, 6+i*9, (short) 8, (short) 9);
 					Cell createCell78 = row6.createCell(8);
 					utils.setRegionStyle(sheet, region19, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(6+i*9, (short) 8,6+i*9, (short) 9));
+					sheet.addMergedRegion(region19);
 					createCell78.setCellValue("容重");  //容重
 
-					Region region20 = new Region(7+i*9, (short) 8,7+i*9, (short) 9);
+					CellRangeAddress region20 = new CellRangeAddress(7+i*9, 7+i*9, (short) 8, (short) 9);
 					Cell createCell79 = row7.createCell(8);
 					utils.setRegionStyle(sheet, region20, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(7+i*9, (short) 8,7+i*9, (short) 9));
+					sheet.addMergedRegion(region20);
 					createCell79.setCellValue("水分");  //水分
 					
-					Region region21 = new Region(8+i*9, (short) 8,9+i*9, (short) 8);
+					CellRangeAddress region21 = new CellRangeAddress(8+i*9, 9+i*9, (short) 8, (short) 8);
 					Cell createCell80 = row8.createCell(8);
 					createCell80.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell81 = row9.createCell(8); 
 					createCell81.setCellValue("");
 					utils.setRegionStyle(sheet, region21, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(8+i*9, (short) 8,9+i*9, (short) 8));
+					sheet.addMergedRegion(region21);
 					createCell80.setCellValue("杂质");  //杂质
 					
 					Cell createCell82 = row8.createCell(9);
@@ -1391,16 +1391,16 @@ public class JiandujianchaController{
 	                createCell83.setCellStyle(utils.Style20(workbook));
 	                createCell83.setCellValue("其中：生霉粒");  //生霉粒
 	                
-	                Region region22 = new Region(10+i*9, (short) 8,10+i*9, (short) 9);
+	                CellRangeAddress region22 = new CellRangeAddress(10+i*9, 10+i*9, (short) 8, (short) 9);
 					Cell createCell84 = row10.createCell(8);
 					utils.setRegionStyle(sheet, region22, utils.Style20(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(10+i*9, (short) 8,10+i*9, (short) 9));
+					sheet.addMergedRegion(region22);
 					createCell84.setCellValue("不完善粒");  //水分
 					
-					Region region23 = new Region(11+i*9, (short) 8,11+i*9, (short) 9);
+					CellRangeAddress region23 = new CellRangeAddress(11+i*9, 11+i*9, (short) 8, (short) 9);
 					Cell createCell85 = row11.createCell(8);
 					utils.setRegionStyle(sheet, region23, utils.Style11(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(11+i*9, (short) 8,11+i*9, (short) 9));
+					sheet.addMergedRegion(region23);
 					createCell85.setCellValue("色泽气味");  //色泽气味
 					//
 					Cell createCell86 = row5.createCell(10);
@@ -1492,7 +1492,7 @@ public class JiandujianchaController{
 	                createCell1003.setCellStyle(utils.Style11(workbook));
 	                createCell1003.setCellValue(" ");  //
 	                //
-	                Region region24 = new Region(5+i*9, (short) 13, 11+i*9, (short) 13);
+	                CellRangeAddress region24 = new CellRangeAddress(5+i*9, 11+i*9, (short) 13, (short) 13);
 					Cell createCell101 = row5.createCell(13);
 //					createCell101.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 //					HSSFCell createCell102 = row6.createCell(13); 
@@ -1508,10 +1508,10 @@ public class JiandujianchaController{
 //					HSSFCell createCell107= row11.createCell(13); 
 //					createCell107.setCellValue("");
 					utils.setRegionStyle(sheet, region24, utils.Style19(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 13, 11+i*9, (short) 13));
+					sheet.addMergedRegion(region24);
 					createCell101.setCellValue("主要存在问题");
 					
-					Region region25 = new Region(5+i*9, (short) 14,11+i*9, (short) 18);
+					CellRangeAddress region25 = new CellRangeAddress(5+i*9, 11+i*9, (short) 14, (short) 18);
 					Cell createCell108 = row11.createCell(14);
 					createCell108.setCellValue("");//定义为空字符串，横向合并单元格显示边框
 					Cell createCell1081 = row5.createCell(14); 
@@ -1525,7 +1525,7 @@ public class JiandujianchaController{
 					Cell createCell112 = row9.createCell(14); 
 					createCell112.setCellValue("");
 					utils.setRegionStyle(sheet, region25, utils.Style11(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(5+i*9, (short) 14,11+i*9, (short) 18));
+					sheet.addMergedRegion(region25);
 					String problem = "";
 					for(int a=1;a<=r.getProblem().length;a++) {
 						problem += "问题"+ a + ":" + r.getProblem()[a-1] + ",";
@@ -1544,10 +1544,10 @@ public class JiandujianchaController{
 					createCell1121.setCellStyle(utils.Style22(workbook));
 					createCell1121.setCellValue("检验员");  //检查人
 					
-					Region region26 = new Region(13+i*9, (short) 1,13+i*9, (short) 3);
+					CellRangeAddress region26 = new CellRangeAddress(13+i*9, 13+i*9, (short) 1, (short) 3);
 					Cell createCell113 = row13.createCell(1);
 					utils.setRegionStyle(sheet, region26, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 1,13+i*9, (short) 3));
+					sheet.addMergedRegion(region26);
 					createCell113.setCellValue(r.getGzdgRummager());  //检查人
 					
 					Cell createCell1131 = row13.createCell(4);
@@ -1563,10 +1563,10 @@ public class JiandujianchaController{
 					createCell115.setCellStyle(utils.Style22(workbook));
 					createCell115.setCellValue("检验员");  //检验员
 	                
-					Region region28 = new Region(13+i*9, (short) 8,13+i*9, (short) 10);
+					CellRangeAddress region28 = new CellRangeAddress(13+i*9, 13+i*9, (short) 8, (short) 10);
 					Cell createCell116 = row13.createCell(8);
 					utils.setRegionStyle(sheet, region28, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 8,13+i*9, (short) 10));
+					sheet.addMergedRegion(region28);
 					createCell116.setCellValue(r.getJianyanyuan().substring(0,r.getJianyanyuan().length()-1));  //检验员
 					
 					Cell createCell1161 = row13.createCell(11);
@@ -1581,10 +1581,10 @@ public class JiandujianchaController{
 					createCell1171.setCellStyle(utils.Style22(workbook));
 					createCell1171.setCellValue("记录人:");  //记录人
 					
-					Region region27 = new Region(13+i*9, (short) 14,13+i*9, (short) 15);
+					CellRangeAddress region27 = new CellRangeAddress(13+i*9, 13+i*9, (short) 14, (short) 15);
 					Cell createCell118 = row13.createCell(14);
 					utils.setRegionStyle(sheet, region27, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 14,13+i*9, (short) 15));
+					sheet.addMergedRegion(region27);
 					if(r.getRummager()==null){
 						createCell118.setCellValue("");
 					}else{
@@ -1596,10 +1596,10 @@ public class JiandujianchaController{
 					createCell120.setCellStyle(utils.Style22(workbook));
 					createCell120.setCellValue("时间:");  //记录人
 					
-					Region region29 = new Region(13+i*9, (short) 17,13+i*9, (short) 18);
+					CellRangeAddress region29 = new CellRangeAddress(13+i*9, 13+i*9, (short) 17, (short) 18);
 					Cell createCell121 = row13.createCell(17);
 					utils.setRegionStyle(sheet, region29, utils.Style22(workbook));
-					sheet.addMergedRegion(new CellRangeAddress(13+i*9, (short) 17,13+i*9, (short) 18));
+					sheet.addMergedRegion(region29);
 					createCell121.setCellValue(sdf.format(r.getJianduTime()));  //时间
 					
 //					
