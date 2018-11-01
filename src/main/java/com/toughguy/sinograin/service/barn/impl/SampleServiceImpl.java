@@ -1609,10 +1609,14 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 	 */
 	@Override
 	public void ExportRegister(HttpServletResponse response, String storageTime) {
+		XSSFWorkbook xssfWorkbook = null;
+		SXSSFWorkbook workbook = null;
+		Cell createCell = null;
 		try {
 			//输入模板文件
-			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/中央事权粮油样品登记簿.xlsx"));
-			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
+			xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/中央事权粮油样品登记簿.xlsx"));
+			workbook = new SXSSFWorkbook(xssfWorkbook, 100);
+			workbook.setCompressTempFiles(false);
 			POIUtils utils = new POIUtils();
 			//对应Excel文件中的sheet，0代表第一个             
 			Sheet sh = workbook.getSheetAt(0);  
@@ -1625,23 +1629,20 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 				Row row = sh.createRow(5+i);
 				row.setHeight((short) 600); // 行高
 				
-				Cell createCell = row.createCell(0);
+				createCell = row.createCell(0);
 				createCell.setCellStyle(style);
 				createCell.setCellValue(sampleReport.get(i).getSampleNum()); //检验编号
 				
-				Cell createCell1 = row.createCell(1);
-				createCell1.setCellStyle(style);
-				createCell1.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
+				createCell = row.createCell(1);
+				createCell.setCellStyle(style);
+				createCell.setCellValue(sampleReport.get(i).getSampleWord()); //扦样编号(文字)
 				
-				String sampleNum = sampleReport.get(i).getSampleNum();
-			    Handover handover = handoverDao.findsampleNums(sampleNum);
-			    if(handover == null || "".equals(handover)) {
+			    if(sampleReport.get(i).getCheckeds() == null || "".equals(sampleReport.get(i).getCheckeds())) {
 			    	Cell createCell2 = row.createCell(2);
 		    		createCell2.setCellStyle(style);
 		    		createCell2.setCellValue("");
 			    } else {
-			    	String checkeds = handover.getCheckeds();
-			    	System.out.println(checkeds);
+			    	String checkeds = sampleReport.get(i).getCheckeds();
 			    	String str ="";
 		    		String[] checked = checkeds.split(",");
 		    		for (int j = 0; j < checked.length; j++) {
@@ -1701,55 +1702,54 @@ public class SampleServiceImpl extends GenericServiceImpl<Sample, Integer> imple
 		    		}
 		    		
 		    		
-		    		Cell createCell2 = row.createCell(2);
-		    		createCell2.setCellStyle(style);
-		    		createCell2.setCellValue(substring);//检验项目
+		    		createCell = row.createCell(2);
+		    		createCell.setCellStyle(style);
+		    		createCell.setCellValue(substring);//检验项目
 		    		
 		    	}
 				
-				Cell createCell3 = row.createCell(3);
-				createCell3.setCellStyle(style);
-				createCell3.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
+			    createCell = row.createCell(3);
+			    createCell.setCellStyle(style);
+			    createCell.setCellValue(sampleReport.get(i).getAutograph()); //扦样人员
 				
-				Cell createCell4 = row.createCell(4);
-				createCell4.setCellStyle(style);
+			    createCell = row.createCell(4);
+				createCell.setCellStyle(style);
 				if(sampleReport.get(i).getSampleTime() == null ){
-				 createCell4.setCellValue(""); //扦样时间
+				 createCell.setCellValue(""); //扦样时间
 				}else{
-				 createCell4.setCellValue(dateSample.format(sampleReport.get(i).getSampleTime())); //扦样时间
+				 createCell.setCellValue(dateSample.format(sampleReport.get(i).getSampleTime())); //扦样时间
 				}
 				
-				Cell createCell5 = row.createCell(5);
-				createCell5.setCellStyle(style);
-				createCell5.setCellValue(""); 					//工作人员
+				createCell = row.createCell(5);
+				createCell.setCellStyle(style);
+				createCell.setCellValue(""); 					//工作人员
 				
-				Cell createCell6 = row.createCell(6);
-				createCell6.setCellStyle(style);
-				createCell6.setCellValue(""); 					//工作时间
+				createCell = row.createCell(6);
+				createCell.setCellStyle(style);
+				createCell.setCellValue(""); 					//工作时间
 				
-				WarehouseCounterPlace w = iWarehouseCounterPlaceService.findDepotAndCounterByPlaceId(sampleReport.get(i).getPlaceId());
-				if(w == null ){
-					Cell createCell7 = row.createCell(7);
-					createCell7.setCellStyle(style);
-					createCell7.setCellValue(""); 	//存放位置
-				}else{
-					String placeName = w.getDepot()+ "--" +w.getCounter()+ "--" +w.getPlace();
-					Cell createCell7 = row.createCell(7);
-					createCell7.setCellStyle(style);
-					createCell7.setCellValue(placeName); 	//存放位置
+				String placeName = sampleReport.get(i).getDepot()+ "--" +sampleReport.get(i).getCounter()+ "--" +sampleReport.get(i).getPlace();
+				createCell = row.createCell(7);
+				createCell.setCellStyle(style);
+				createCell.setCellValue(placeName); 	//存放位置
+				
+				createCell = row.createCell(8);
+				createCell.setCellStyle(style);
+				createCell.setCellValue(sampleReport.get(i).getRemark()); 	//备注
+				
+				if(i % 100 == 0) {
+					((SXSSFSheet) sh).flushRows();
 				}
-				
-				Cell createCell8 = row.createCell(8);
-				createCell8.setCellStyle(style);
-				createCell8.setCellValue(sampleReport.get(i).getRemark()); 	//备注
 			}
 			String title = "中央事权粮油样品登记薄";
 			OutputStream out = response.getOutputStream();
 			response.reset();
 			response.setHeader("Content-disposition", "attachment; filename="+new String( title.getBytes("gb2312"), "ISO8859-1" )+".xlsx");
 			response.setContentType("application/vnd.ms-excel;charset=utf-8");
-	        workbook.write(out);
+	        out.flush();
+			workbook.write(out);
 	        out.close();
+	        workbook.dispose();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
