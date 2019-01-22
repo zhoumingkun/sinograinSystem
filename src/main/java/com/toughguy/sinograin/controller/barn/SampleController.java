@@ -3,6 +3,7 @@ package com.toughguy.sinograin.controller.barn;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -1196,20 +1197,40 @@ public class SampleController {
 					sort = "04";
 				}
 			Map<String,Object > map = new  HashMap<String,Object>();
-			map.put("prefix", 60+PlibraryId+sort);
+			Calendar date = Calendar.getInstance();
+			String year = String.valueOf(date.get(Calendar.YEAR));
+			map.put("prefix", year+PlibraryId+sort);
 			System.out.println(map);
-			System.out.println(60+PlibraryId+sort);
-			SampleNo no = noService.findAll(map).get(0);
+			System.out.println(year+PlibraryId+sort);
+			String sampleNo = null;
 			int num = 0;
-			if(no.getNum()%1000 == 999){
-				num = no.getNum()+2;
-			}else{
-				num = no.getNum()+1;
+			if(!noService.findAll(map).isEmpty()) {
+				SampleNo no = noService.findAll(map).get(0);
+				if(no.getNum()%1000 == 999){
+					num = no.getNum()+2;
+				}else{
+					num = no.getNum()+1;
+				}
+				no.setNum(num);
+				noService.update(no);
+				sampleNo = SamplingUtil.sampleNo(l.getpLibraryId(), sort,num%1000);  //扦样编号
+				s.setSampleNo(sampleNo);
+			} else {
+				SampleNo entity = new SampleNo();
+				entity.setNum(0);
+				entity.setPrefix((String) map.get("prefix"));
+				noService.save(entity);
+				SampleNo no = noService.findAll(map).get(0);
+				if(no.getNum()%1000 == 999){
+					num = no.getNum()+2;
+				}else{
+					num = no.getNum()+1;
+				}
+				no.setNum(num);
+				noService.update(no);
+				sampleNo = SamplingUtil.sampleNo(l.getpLibraryId(), sort,num%1000);  //扦样编号
+				s.setSampleNo(sampleNo);
 			}
-			no.setNum(num);
-			noService.update(no);
-			String sampleNo = SamplingUtil.sampleNo(l.getpLibraryId(), sort,num%1000);  //扦样编号
-			s.setSampleNo(sampleNo);
 			String path = UploadUtil.getAbsolutePath("barcode");
 			File f = new File(path); // 无路径则创建
 			if (!f.exists()) {
