@@ -1185,7 +1185,7 @@ public class SampleController {
 			//扦样编号的生成
 			int libraryId = s.getLibraryId();
 			Library l = libraryService.find(libraryId);
-			String PlibraryId = String.format("%03d", l.getpLibraryId());
+			String PlibraryId = String.format("%02d", l.getpLibraryId());
 			 String sort=s.getSort();
 				if("小麦".equals(s.getSort())){
 					sort = "01";

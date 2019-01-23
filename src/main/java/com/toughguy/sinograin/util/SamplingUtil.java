@@ -25,7 +25,7 @@ public class SamplingUtil {
 		
 	public static String sampleNo(int libraryId,String sort,int ranStr)  {
 	 String lastSampleNo;
-	 String libraryName = String.format("%03d", libraryId);
+	 String libraryName = String.format("%02d", libraryId);
 	 String lib = String.format("%03d", ranStr);
 	 Calendar date = Calendar.getInstance();
 	 String year = String.valueOf(date.get(Calendar.YEAR));
