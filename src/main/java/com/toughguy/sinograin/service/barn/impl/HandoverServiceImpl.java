@@ -38,7 +38,7 @@ public class HandoverServiceImpl extends GenericServiceImpl<Handover, Integer> i
 		try {
 			if(!isStorage) {
 				//输入模板文件
-				XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("/base/交接单.xlsx"));
+				XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/交接单.xlsx"));
 				SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
 				POIUtils utils = new POIUtils();
 				//对应Excel文件中的sheet，0代表第一个             
