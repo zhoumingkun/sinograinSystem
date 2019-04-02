@@ -49,11 +49,11 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 
 			try {
 	      //输入模板文件
-			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/工作底稿模板（长方体）.xls"));
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/工作底稿模板（长方体）.xlsx"));
 			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
 			POIUtils utils = new POIUtils();
 			//对应Excel文件中的sheet，0代表第一个             
-			Sheet sh = workbook.getSheetAt(0);  
+			Sheet sh = xssfWorkbook.getSheetAt(0);  
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -198,7 +198,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
 			POIUtils utils = new POIUtils();
 			//对应Excel文件中的sheet，0代表第一个             
-			Sheet sh = workbook.getSheetAt(0);   
+			Sheet sh = xssfWorkbook.getSheetAt(0);   
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -342,7 +342,7 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
 			POIUtils utils = new POIUtils();
 			//对应Excel文件中的sheet，0代表第一个             
-			Sheet sh = workbook.getSheetAt(0);   
+			Sheet sh = xssfWorkbook.getSheetAt(0);   
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
@@ -480,11 +480,11 @@ public class ManuscriptServiceImpl extends GenericServiceImpl<Manuscript, Intege
 		 
 			try {
 	      //输入模板文件
-			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/upload/base/工作底稿模板（其他）.xlsx"));
+			XSSFWorkbook xssfWorkbook = new XSSFWorkbook(new FileInputStream("upload/base/工作底稿模板（其他）.xlsx"));
 			SXSSFWorkbook workbook = new SXSSFWorkbook(xssfWorkbook, 1000);
 			POIUtils utils = new POIUtils();
 			//对应Excel文件中的sheet，0代表第一个             
-			Sheet sh = workbook.getSheetAt(0);    
+			Sheet sh = xssfWorkbook.getSheetAt(0);    
 	        SimpleDateFormat dateFm = new SimpleDateFormat("yyyy年MM月dd日");
 	        Library lib = libraryService.find(sample.getLibraryId());
 	        sh.getRow(2).getCell(0).setCellValue("被检查企业（盖章）：中央储备粮" + lib.getpLibraryName()+"直属库有限公司");
