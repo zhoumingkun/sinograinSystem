@@ -202,7 +202,7 @@ public class HandoverController {
 	public String expotHandover(int id,HttpServletResponse response){
 		try {
 			Handover handover = handoverService.find(id);
-			handoverService.expotHandover(response,handover,false);
+			handoverService.expotHandover(response,handover);
 			return "{ \"success\" : true}";
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -220,7 +220,7 @@ public class HandoverController {
 	public String expotStorageHandover(int id,HttpServletResponse response){
 		try {
 			Handover handover = handoverService.find(id);
-			handoverService.expotHandover(response,handover,true);
+			handoverService.expotStorageHandover(response,handover);
 			return "{ \"success\" : true}";
 		} catch (Exception e) {
 			// TODO: handle exception
