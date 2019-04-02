@@ -13,7 +13,15 @@ public interface IHandoverService extends IGenericService<Handover, Integer> {
 	/**
 	 * 导出样品交接单
 	 */
-	void expotHandover(HttpServletResponse response,Handover handover,boolean isStorage);
+	void expotHandover(HttpServletResponse response,Handover handover);
+	
+	
+	/**
+	 * 导出带有位置的样品领取交接单
+	 * @param response
+	 * @param handover
+	 */
+	void expotStorageHandover(HttpServletResponse response,Handover handover);
 	
 	/**
 	 * 根据检测项目查询样品集
