@@ -49,7 +49,7 @@ public class SafetyReportServiceImpl extends GenericServiceImpl<SafetyReport, In
 //			List<SafetyReport> ss = safetyReportService.find(ids);
 			for(int j=0; j<ids.length; j++) {
 				SafetyReport safetyReport = safetyReportService.find(ids[j]);
-				Sheet sh = workbook.getSheetAt(0);  
+				Sheet sh = xssfWorkbook.getSheetAt(0);  
 				Row row = sh.createRow(j+2);
 //				row.setHeight((short) 600);
 				row.setHeightInPoints(30);
