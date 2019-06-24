@@ -1,6 +1,8 @@
 package com.toughguy.sinograin.controller.barn;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +54,13 @@ public class RegisterController {
 		return registerService.findAll();
 	}
 	
+	@ResponseBody
+	@RequestMapping("/getTime")
+	public String getTime(){
+		Date date = new Date();
+		String time=new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
+		return time;
+	}
 	
 //	//根据libraryId查库点
 //		@ResponseBody
