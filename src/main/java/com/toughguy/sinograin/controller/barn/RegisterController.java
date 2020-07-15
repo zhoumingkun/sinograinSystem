@@ -24,11 +24,13 @@ import com.toughguy.sinograin.model.barn.Register;
 import com.toughguy.sinograin.model.barn.Sample;
 import com.toughguy.sinograin.model.barn.SampleNo;
 import com.toughguy.sinograin.model.barn.Shuifen;
+import com.toughguy.sinograin.model.barn.Switch;
 import com.toughguy.sinograin.pagination.PagerModel;
 import com.toughguy.sinograin.service.barn.prototype.ILibraryService;
 import com.toughguy.sinograin.service.barn.prototype.IRegisterService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleNoService;
 import com.toughguy.sinograin.service.barn.prototype.ISampleService;
+import com.toughguy.sinograin.service.barn.prototype.ISwitchService;
 import com.toughguy.sinograin.util.BarCodeUtil;
 import com.toughguy.sinograin.util.JsonUtil;
 import com.toughguy.sinograin.util.SamplingUtil;
@@ -40,6 +42,8 @@ public class RegisterController {
 	
 	@Autowired
 	private IRegisterService registerService;
+	@Autowired
+	private ISwitchService switchService;
 	@Autowired
 	private ISampleService sampleService;
 	@Autowired
@@ -60,6 +64,15 @@ public class RegisterController {
 		Date date = new Date();
 		String time=new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date());
 		return time;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/getSwitch")
+	//@RequiresPermissions("register:all")
+	public String findSwitch(){
+		Switch switch1=switchService.findSwitch();
+		String switchState=switch1.getSwitchState();
+		return switchState;
 	}
 	
 //	//根据libraryId查库点
